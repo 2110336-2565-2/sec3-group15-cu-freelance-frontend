@@ -1,16 +1,17 @@
 import tw from "twin.macro";
 
-const Button=(props)=>{
+const Button = (props) => {
+  const { noBG } = props;
+  const onClickHandler = () => {
+    props.onClick();
+  };
+  const ButtonNoBG = tw.button`text-[#D62B70] `;
+  const ButtonBG = tw.button`text-white bg-[#D62B70] rounded-[4px]`;
+  let button;
+  if (noBG)
+    button = <ButtonNoBG onClick={onClickHandler}>{props.children}</ButtonNoBG>;
+  else button = <ButtonBG>{props.children}</ButtonBG>;
+  return button;
+};
 
-    const onClickHandler=()=>{
-        console.log('hello');
-        props.onClick();
-       
-    }
-
-    const CustomButton=tw.button`w-[${props.width}]`
-    
-    return <CustomButton onClick={onClickHandler}>{props.children}</CustomButton>
-}
-
-export default Button
+export default Button;
