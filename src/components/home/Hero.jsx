@@ -13,6 +13,7 @@ const LeftWrapper = tw.div`
 flex flex-col
 gap-8
 justify-center
+w-[60%]
 `;
 const TextWrapper = tw.div`
     text-white
