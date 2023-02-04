@@ -7,9 +7,11 @@ import InputSearch from "./InputSearch";
 
 const Navbar = (props) => {
   const { login } = props;
-  const Wrapper = tw.div` w-[90%] max-w-[1200px] mt-[5vh] h-[5vh] mx-auto 
-  z-10 fixed inset-0 
-  flex justify-between `;
+  const BigWrapper = tw.div` w-[100vw] h-[10vh] mx-auto 
+  z-10 fixed inset-0 pb-2 bg-white`;
+  const Wrapper = tw.div` w-[90%] max-w-[1200px] h-[10vh] mx-auto 
+ fixed inset-0 pb-2
+  flex justify-between items-end `;
   const LeftWrapper = tw.div`items-center w-[30%] flex justify-between font-inter min-w-[295px]`;
   const RightWrapperLogin = tw.div`w-[30%] flex justify-between font-inter min-w-[200px]`;
   const RightWrapperNotLogin = tw.div`w-[20%] flex justify-between font-inter min-w-[160px]`;
@@ -40,11 +42,14 @@ const Navbar = (props) => {
   }
 
   return (
-    <Wrapper>
-      <LeftWrapper>{Left}</LeftWrapper>
-      {login && <RightWrapperLogin>{Right}</RightWrapperLogin>}
-      {!login && <RightWrapperNotLogin>{Right}</RightWrapperNotLogin>}
-    </Wrapper>
+    <BigWrapper>
+      {" "}
+      <Wrapper>
+        <LeftWrapper>{Left}</LeftWrapper>
+        {login && <RightWrapperLogin>{Right}</RightWrapperLogin>}
+        {!login && <RightWrapperNotLogin>{Right}</RightWrapperNotLogin>}
+      </Wrapper>
+    </BigWrapper>
   );
 };
 
