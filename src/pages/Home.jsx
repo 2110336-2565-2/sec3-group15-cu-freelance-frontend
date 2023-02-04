@@ -3,9 +3,11 @@ import tw from "twin.macro";
 import Hero from "../components/Home/Hero";
 
 const HomePage = () => {
-
   return (
-      <Hero/>
+    <div tw="snap-y">
+      {" "}
+      <Hero />
+    </div>
   );
 };
 
