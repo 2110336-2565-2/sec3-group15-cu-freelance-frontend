@@ -7,7 +7,7 @@ import InputSearch from "./InputSearch";
 
 const Navbar = (props) => {
   const { login } = props;
-  const Wrapper = tw.div`fixed inset-0 flex justify-between  w-[1500px] mt-[5vh] h-[5vh] mx-auto`;
+  const Wrapper = tw.div`z-10 fixed inset-0 flex justify-between  w-[1500px] mt-[5vh] h-[5vh] mx-auto`;
   const LeftWrapper = tw.div`flex justify-between items-center w-[445px]`;
   const RightWrapperLogin = tw.div`flex justify-between w-[150px]`;
   const RightWrapperNotLogin = tw.div`flex justify-between w-[265px]`;
