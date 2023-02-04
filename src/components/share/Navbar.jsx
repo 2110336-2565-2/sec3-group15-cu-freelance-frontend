@@ -6,9 +6,8 @@ import Button from "./Button";
 
 const Navbar = (props) => {
   const { login } = props;
-
   const Wrapper = tw.div`flex justify-around w-full mt-[5%] h-[20px]`;
-  const LeftWrapper = tw.div`flex justify-between w-[400px]`;
+  const LeftWrapper = tw.div`flex justify-around w-[100px]`;
   const RightWrapper = tw.div`flex justify-between w-[200px]`;
 
   let Right;
@@ -19,11 +18,18 @@ const Navbar = (props) => {
     </>
   );
   if (login) {
-    Right = <>Hello2</>;
+    Right = (
+      <>
+        <img src="" />
+        <img src="" />
+        <img src="" />
+        <img src="" />
+      </>
+    );
   } else {
     Right = (
       <>
-        <Button noBG>Login</Button> 
+        <Button noBG>Login</Button>
         <Button>Sign Up</Button>
       </>
     );

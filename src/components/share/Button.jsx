@@ -7,7 +7,7 @@ const Button = (props) => {
     props.onClick();
   };
   const ButtonNoBG = tw.button`text-[#D62B70]  text-[20px]`;
-  const ButtonBG = tw.button`text-white bg-[#D62B70] rounded-[4px] text-[20px]`;
+  const ButtonBG = tw.button`text-white bg-[#D62B70] rounded-[4px] text-[36px]`;
 
   let Button;
   if (noBG) Button = ButtonNoBG;
