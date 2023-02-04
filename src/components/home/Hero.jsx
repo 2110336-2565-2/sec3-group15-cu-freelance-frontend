@@ -18,8 +18,12 @@ const TextWrapper = tw.div`
     flex flex-col
     gap-4
 `;
-const TextHeader1 = tw.h1`text-5xl font-semibold`;
-const TextHeader2 = tw.h1`text-6xl font-bold`;
+const TextHeader1 = tw.h1`text-5xl font-semibold
+font-inter
+`;
+const TextHeader2 = tw.h1`text-6xl font-bold
+font-caveat
+`;
 const TextBody = tw.p`w-[80%]`;
 const InputWrapper = tw.input`
     w-[80%]
