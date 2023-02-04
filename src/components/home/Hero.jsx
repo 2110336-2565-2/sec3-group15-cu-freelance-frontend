@@ -6,7 +6,7 @@ w-[90%] max-w-[1200px] mx-auto
 mt-[20vh]
 bg-[#D62B70] p-8
 rounded-2xl
-flex flex-row
+flex 
 `;
 
 const LeftWrapper = tw.div`

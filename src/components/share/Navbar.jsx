@@ -7,16 +7,18 @@ import InputSearch from "./InputSearch";
 
 const Navbar = (props) => {
   const { login } = props;
-  const Wrapper = tw.div`z-10 fixed inset-0 flex justify-between  w-[1500px] mt-[5vh] h-[5vh] mx-auto`;
-  const LeftWrapper = tw.div`flex justify-between items-center w-[445px]`;
-  const RightWrapperLogin = tw.div`flex justify-between w-[150px]`;
-  const RightWrapperNotLogin = tw.div`flex justify-between w-[265px]`;
+  const Wrapper = tw.div` w-[90%] max-w-[1200px] mt-[5vh] h-[5vh] mx-auto 
+  z-10 fixed inset-0 
+  flex justify-between `;
+  const LeftWrapper = tw.div`items-center w-[30%] flex justify-between `;
+  const RightWrapperLogin = tw.div`w-[30%] flex justify-between `;
+  const RightWrapperNotLogin = tw.div`w-[20%] flex justify-between `;
 
   let Right;
   const Left = (
     <>
-      <img src={logo} alt="logo" tw="w-[116px]"/>
-      <InputSearch/>
+      <img src={logo} alt="logo" tw="w-[25%]" />
+      <InputSearch />
     </>
   );
   if (login) {
@@ -40,8 +42,8 @@ const Navbar = (props) => {
   return (
     <Wrapper>
       <LeftWrapper>{Left}</LeftWrapper>
-      {login&&<RightWrapperLogin>{Right}</RightWrapperLogin>}
-      {!login&&<RightWrapperNotLogin>{Right}</RightWrapperNotLogin>}
+      {login && <RightWrapperLogin>{Right}</RightWrapperLogin>}
+      {!login && <RightWrapperNotLogin>{Right}</RightWrapperNotLogin>}
     </Wrapper>
   );
 };
