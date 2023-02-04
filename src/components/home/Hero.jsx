@@ -1,5 +1,5 @@
 import tw  from "twin.macro"
-import HumanImg from './human.png'
+import HumanImg from '../../assets/human.png'
 
 const Wrapper = tw.div`
 w-[90%] max-w-[1200px] mx-auto
@@ -21,10 +21,10 @@ const TextWrapper = tw.div`
     gap-4
 `;
 const TextHeader1 = tw.h1`text-5xl font-semibold
-font-inter
+font-sans
 `;
 const TextHeader2 = tw.h1`text-6xl font-bold
-font-caveat
+font-sans
 `;
 const TextBody = tw.p`w-[80%]`;
 const InputWrapper = tw.input`
@@ -41,8 +41,8 @@ const Hero = () => {
         <Wrapper>
             <LeftWrapper>
                 <TextWrapper>
-                    <TextHeader1>Find your next home with</TextHeader1>
-                    <TextHeader2>Chula</TextHeader2>
+                    <TextHeader1>ตามหาฟรีเเลนซ์</TextHeader1>
+                    <TextHeader2>จุฬาฯ</TextHeader2>
 
                     <TextBody>Search for your next home with our easy to use search tool.</TextBody>
                 </TextWrapper>
