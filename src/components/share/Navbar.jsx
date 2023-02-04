@@ -3,18 +3,19 @@ import React from "react";
 
 import logo from "../../assets/logo.svg";
 import Button from "./Button";
+import InputSearch from "./InputSearch";
 
 const Navbar = (props) => {
   const { login } = props;
   const Wrapper = tw.div`flex justify-around w-full mt-[5%] h-[20px]`;
   const LeftWrapper = tw.div`flex justify-around w-[100px]`;
-  const RightWrapper = tw.div`flex justify-between w-[200px]`;
+  const RightWrapper = tw.div`flex justify-between w-[150px]`;
 
   let Right;
   const Left = (
     <>
       <img src={logo} alt="logo" />
-      hello
+      <InputSearch/>
     </>
   );
   if (login) {
