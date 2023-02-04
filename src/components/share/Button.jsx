@@ -1,7 +1,8 @@
 import tw from "twin.macro";
 
 const Button = (props) => {
-  const { noBG } = props;
+  const { noBG,tw } = props;
+  console.log(tw);
   const onClickHandler = () => {
     props.onClick();
   };
@@ -9,8 +10,8 @@ const Button = (props) => {
   const ButtonBG = tw.button`text-white bg-[#D62B70] rounded-[4px]`;
   let button;
   if (noBG)
-    button = <ButtonNoBG onClick={onClickHandler}>{props.children}</ButtonNoBG>;
-  else button = <ButtonBG>{props.children}</ButtonBG>;
+    button = <ButtonNoBG tw={tw} onClick={onClickHandler}>{props.children}</ButtonNoBG>;
+  else button = <ButtonBG tw={tw}>{props.children}</ButtonBG>;
   return button;
 };
 

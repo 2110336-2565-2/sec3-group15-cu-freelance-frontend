@@ -6,8 +6,8 @@ const HomePage = () => {
   return (
     <div>
       Home
-      <Button noBG>Hello</Button>
-      <Button>Hello</Button>
+      <Button noBG tw={"w-[10vw]"}>Hello</Button>
+      <Button tw={"w-[10vw]"}>Hello</Button>
     </div>
   );
 };
