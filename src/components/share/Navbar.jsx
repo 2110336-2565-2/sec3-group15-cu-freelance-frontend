@@ -10,9 +10,9 @@ const Navbar = (props) => {
   const Wrapper = tw.div` w-[90%] max-w-[1200px] mt-[5vh] h-[5vh] mx-auto 
   z-10 fixed inset-0 
   flex justify-between `;
-  const LeftWrapper = tw.div`items-center w-[30%] flex justify-between font-inter`;
-  const RightWrapperLogin = tw.div`w-[30%] flex justify-between font-inter`;
-  const RightWrapperNotLogin = tw.div`w-[20%] flex justify-between font-inter`;
+  const LeftWrapper = tw.div`items-center w-[30%] flex justify-between font-inter min-w-[295px]`;
+  const RightWrapperLogin = tw.div`w-[30%] flex justify-between font-inter min-w-[200px]`;
+  const RightWrapperNotLogin = tw.div`w-[20%] flex justify-between font-inter min-w-[160px]`;
 
   let Right;
   const Left = (

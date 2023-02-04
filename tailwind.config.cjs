@@ -5,6 +5,7 @@ module.exports = {
         sans: ["Poppins", "sans-serif"],
         inter: ["Inter", "sans-serif"],
         caveat: ["Caveat", "Brush Script MT"],
+        ibm:["Noto Sans Thai", "sans-serif"],
       },
     },
     screens: {
