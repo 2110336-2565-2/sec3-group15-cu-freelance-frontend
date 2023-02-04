@@ -6,8 +6,8 @@ const Button = (props) => {
   const onClickHandler = () => {
     props.onClick();
   };
-  const ButtonNoBG = tw.button`text-[#D62B70]  text-xl text-center p-[0.3em]`;
-  const ButtonBG = tw.button`text-white bg-[#D62B70] rounded-lg text-xl p-[0.3em] font-bold`;
+  const ButtonNoBG = tw.button`text-[#D62B70]  text-xl text-center p-3`;
+  const ButtonBG = tw.button`text-white bg-[#D62B70] rounded-lg text-xl p-3 font-bold`;
 
   let Button;
   if (noBG) Button = ButtonNoBG;
