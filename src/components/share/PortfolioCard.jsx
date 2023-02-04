@@ -2,35 +2,33 @@ import tw from "twin.macro"
 import Card from "./Card";
 const styles = {
     content:() => [
-        tw`items-center py-[14px] h-[285px] w-[252px] text-center`
-        
+        tw`flex flex-col h-[313px] w-[252px] text-center`
     ],
     profileBar:()=>[
-        tw1`inline-flex`
+        tw`flex flex-row h-[41px] pl-[25px] my-[14px] items-center`
     ],
-    image:() => [
-        tw`pl-[25px]`
+    userImage:() => [
+        tw`h-[100%] mr-[4px]` 
     ],
     name:()=>[
-        tw`text-[24px] text-[#D62B70] font-bold pt-[20px]`
+        tw`text-[16px] text-[#D62B70] font-bold flex`
     ],
-    status:()=>[
-        tw`w-full relative inline-flex font-semibold text-[#D62B70]`
+    portImage:()=>[
+        tw`border-[#D62B70] box-border border-y-[5px]`
     ],
-    left:()=>[
-        tw`absolute left-0 top-0`
-    ],
-    right:()=>[
-        tw`absolute right-0 top-0`
+    description:()=>[
+        tw`flex my-[14px] ml-[25px] mr-[16px] text-left`
     ]
 }
-const PortfolioCard = ({imgSrc, name, count=0, avgTime=0})=>(
+const PortfolioCard = ({userImgSrc, portImgSrc, name, description})=>(
     <Card hasShadow={false} hasPencil={true}>
         <div css={styles.content}>
             <div css={styles.profileBar}>
-                <img css={styles.image} src={imgSrc}/>
-                <div name={name}></div>
+                <img css={styles.userImage} src={userImgSrc}/>
+                <div css={styles.name}>{name}</div>
             </div>
+            <img css={styles.portImage}src={portImgSrc}/>
+            <div css={styles.description}>{description}</div>
         </div>
     </Card>
 )
