@@ -1,11 +1,11 @@
 import Button from "../components/share/Button";
 import tw from "twin.macro";
-import HeroIndex from "../components/Home/Hero/Index";
+import Hero from "../components/Home/Hero";
 
 const HomePage = () => {
 
   return (
-    <HeroIndex>hello</HeroIndex>
+      <Hero/>
   );
 };
 
