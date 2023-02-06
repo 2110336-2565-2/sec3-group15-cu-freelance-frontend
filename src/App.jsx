@@ -5,11 +5,12 @@ import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import ProfilePage from "./pages/Profile";
 import Navbar from "./components/share/Navbar";
+import Footer from "./components/share/Footer";
 
 function App() {
   return (
     <>
-      {/* <Navbar login={false}/> */}
+      {/* <Navbar login={false} /> */}
       <Routes>
         <Route path="/home" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -17,6 +18,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
+      <Footer />
     </>
   );
 }
