@@ -9,7 +9,7 @@ import Navbar from "./components/share/Navbar";
 function App() {
   return (
     <>
-      <Navbar login={false}/>
+      {/* <Navbar login={false}/> */}
       <Routes>
         <Route path="/home" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
