@@ -13,7 +13,7 @@ const styles = {
     ]
 }
 const CategoryCard = ({imgSrc, title})=>(
-    <Card hasShadow={true}>
+    <Card hasShadow={true} type='category'>
         <div css={styles.content}>
             <img css={styles.image()} src={imgSrc}/>
             <div css={styles.title()}>{title}</div>

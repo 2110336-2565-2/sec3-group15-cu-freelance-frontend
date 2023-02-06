@@ -3,9 +3,12 @@ import tw from "twin.macro";
 import PortfolioCard from "../components/share/PortfolioCard";
 import ProfilePic from "../assets/ProfilePic.png"
 import PortfolioImg from "../assets/PortfolioImg.png"
+import CategoryCard from "../components/share/CategoryCard";
+import TrendingIcon from "../assets/CheckIcon.png"
 const HomePage = () => {
   return (
     <div>
+      {/* <CategoryCard imgSrc={TrendingIcon} title='Trending'/> */}
       <PortfolioCard userImgSrc={ProfilePic} portImgSrc={PortfolioImg} name="Username123" description="ออกแบบเว็บไซต์ Web Design งานคุณภาพราคาโดนๆ"/>
     </div>
   );

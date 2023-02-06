@@ -21,7 +21,7 @@ const styles = {
     ]
 }
 const PortfolioCard = ({userImgSrc, portImgSrc, name, description})=>(
-    <Card hasShadow={false} hasPencil={true}>
+    <Card hasShadow={false} hasPencil={true} type='portfolio'>
         <div css={styles.content}>
             <div css={styles.profileBar}>
                 <img css={styles.userImage} src={userImgSrc}/>

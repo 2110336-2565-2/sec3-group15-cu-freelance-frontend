@@ -13,7 +13,7 @@ const styles = {
     ]
 }
 const ValidateCard = ({imgSrc, text})=>(
-    <Card hasShadow={false}>
+    <Card hasShadow={false} type='validate'>
         <div css={styles.content}>
             <img css={styles.image()} src={imgSrc}/>
             <div css={styles.text()}>{text}</div>
