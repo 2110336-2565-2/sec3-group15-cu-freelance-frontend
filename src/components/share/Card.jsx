@@ -2,7 +2,7 @@ import tw from "twin.macro";
 import Pencil from "../../assets/pencil.png"
 const widthVariants = {
     category: tw`w-[30%] dt:w-[30%] dt:h-[100%]`,
-    validate: tw`w-[30%] dt:w-[30%]`,
+    validate: tw`w-[30%] dt:w-[30%] dt:h-[100%] text-[#D62B70] font-ibm`,
     profile: tw`w-[30%] dt:w-[30%]`,
     portfolio: tw`w-[30%] dt:w-[30%]`,
     comment: tw`w-[30%] dt:w-[30%] dt:h-[100%] text-[#D62B70]`
