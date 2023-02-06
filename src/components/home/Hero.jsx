@@ -2,7 +2,6 @@ import tw from "twin.macro";
 import HumanImg from "../../assets/human.png";
 import searchIcon from "../../assets/searchIcon.svg";
 
-
 const Wrapper = tw.div`
 w-[90%] max-w-[1200px] mx-auto
 h-[70vh]
@@ -40,7 +39,6 @@ const Hero = () => {
     <Wrapper>
       <LeftWrapper>
         <TextWrapper>
-          
           <TextHeader1>ตามหาฟรีเเลนซ์</TextHeader1>
           <TextHeader2>จุฬาฯ</TextHeader2>
 
@@ -48,14 +46,12 @@ const Hero = () => {
             เลือกฟรีแลนซ์จากจุฬาฯ กว่า 2,000 คน ที่จะทำให้ไอเดียของคุณเป็น
             <HighLightTextBody> จริง</HighLightTextBody>
           </TextBody>
-
         </TextWrapper>
-        
-        <InputWrapper>
-          <Input type="text"placeholder="กำลังตามหาอะไรอยู่..."/>
-          <SearchIcon src={searchIcon} alt="searchIcon"/>
-        </InputWrapper>
 
+        <InputWrapper>
+          <Input type="text" placeholder="กำลังตามหาอะไรอยู่..." />
+          <SearchIcon src={searchIcon} alt="searchIcon" />
+        </InputWrapper>
       </LeftWrapper>
 
       <RightWrapper>
@@ -66,4 +62,3 @@ const Hero = () => {
 };
 
 export default Hero;
-
