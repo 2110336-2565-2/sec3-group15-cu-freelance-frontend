@@ -4,7 +4,7 @@ import LoginForm from "../components/login/LoginForm"
 import Footer from "../components/share/Footer.jsx"
 const styles={
     container:()=>[
-        tw`flex flex-col items-center mt-[1%]`
+        tw`flex flex-col items-center mt-[1%] h-[95vh]`
     ],
     image:()=>[
         tw`mb-[1%]`
