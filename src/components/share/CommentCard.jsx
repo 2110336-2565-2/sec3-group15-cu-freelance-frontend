@@ -6,16 +6,16 @@ const styles = {
         
     ],
     comment:()=>[
-        tw`text-left w-[93.2%] h-[40.7%] mb-[8.4%] font-ibm`
+        tw`text-left w-[100%] h-[45%] font-ibm text-xl`
     ],
     commentor:()=>[
-        tw`flex flex-col items-center justify-center w-[67.4%]`
+        tw`flex flex-col items-center justify-end w-[100%] h-[55%]`
     ],
     image:() => [
-        tw`w-[67.4%]`
+        tw`w-[35%]`
     ],
     name:()=>[
-        tw`text-[20px] text-[#D62B70] font-bold`
+        tw`text-[20px] text-[#D62B70] font-bold font-ibm`
     ],
     position:()=>[
         tw`font-inter`

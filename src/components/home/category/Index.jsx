@@ -2,6 +2,7 @@ import tw from "twin.macro";
 import { dummy_category } from "../../../store/home";
 import CategoryCard from "../../share/CategoryCard";
 import Button from "../../share/Button";
+
 const CategoryIndex = () => {
   const PageWrapper = tw.div`h-[100vh] w-[90%] max-w-[1200px] mx-auto bg-white pt-[15vh]`;
   const HeaderWrapper = tw.div`pl-[2%] font-ibm font-bold text-[#D62B70] text-3xl flex justify-between`;
