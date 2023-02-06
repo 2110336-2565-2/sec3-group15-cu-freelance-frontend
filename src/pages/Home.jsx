@@ -5,7 +5,7 @@ import CommentIndex from "../components/Home/comment/Index";
 import ValidateIndex from "../components/Home/validate/Index";
 const HomePage = () => {
   return (
-    <div>
+    <div tw="flex flex-col items-center justify-center">
       <Hero />
       <CategoryIndex />
       <CommentIndex />
