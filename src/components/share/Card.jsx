@@ -1,7 +1,7 @@
 import tw from "twin.macro";
 import Pencil from "../../assets/pencil.png"
 const widthVariants = {
-    category: tw`w-[30%] dt:w-[30%]`,
+    category: tw`w-[30%] dt:w-[30%] dt:h-[100%]`,
     validate: tw`w-[30%] dt:w-[30%]`,
     profile: tw`w-[30%] dt:w-[30%]`,
     portfolio: tw`w-[30%] dt:w-[30%]`,
