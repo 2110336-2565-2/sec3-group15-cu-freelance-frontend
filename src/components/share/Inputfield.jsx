@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect } from 'react';
 
 import { validate } from '../../util/validators';
-import './Input.css';
+
 
 const inputReducer = (state, action) => {
   switch (action.type) {
@@ -71,11 +71,7 @@ const Input = props => {
     );
 
   return (
-    <div
-      className={`form-control ${!inputState.isValid &&
-        inputState.isTouched &&
-        'form-control--invalid'}`}
-    >
+    <div>
       <label htmlFor={props.id}>{props.label}</label>
       {element}
       {!inputState.isValid && inputState.isTouched && <p>{props.errorText}</p>}
