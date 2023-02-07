@@ -11,13 +11,16 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<LayoutWithNavbar/>}>
+        <Route path="/" element={<LayoutWithNavbar />}>
+          <Route path="" element={<Navigate to="home" />}/>
           <Route path="home" element={<HomePage />} />
-          <Route path="profile" element={<ProfilePage />} />
+          <Route path="profile/">
+            <Route path=":userId" element={<ProfilePage/>}/>
+          </Route>
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="*" element={<Navigate to="/home" />} />
+        <Route path="*" element={<Navigate to="home" />} />
       </Routes>
       <Footer />
     </>
