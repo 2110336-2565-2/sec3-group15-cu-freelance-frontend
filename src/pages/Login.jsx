@@ -3,7 +3,8 @@ import tw from "twin.macro"
 import LoginTypeCard from "../components/share/LoginTypeCard"
 import CustomerAvatar from "../assets/CustomerAvatar.svg"
 import FreelanceAvatar from "../assets/FreelanceAvatar.svg"
-import { useActionData, useNavigate } from "react-router-dom"
+import {useNavigate } from "react-router-dom"
+import AuthLayout from "../components/share/AuthLayout"
 const styles={
     container:()=>[
         tw`flex flex-col items-center pt-[0.5%] h-[95vh] box-border`
@@ -19,19 +20,14 @@ const styles={
     ]
 }
 const Login=()=>{
-    const navigate=useNavigate()
-    const onLoginHandler=()=>{
-        navigate('/login/customer')
-    }
     return (
-        <div css={styles.container}>
-            <img css={styles.image} src={Logo}/>
-            <div css={styles.text}>Login</div>
-            <div css={styles.typeContainer}>
-                <LoginTypeCard text="ล็อคอินเป็นผู้รับจ้าง" avatar={CustomerAvatar} type='left' onClick={onLoginHandler}/>
-                <LoginTypeCard text="ล็อคอินเป็นฟรีแลนซ์" avatar={FreelanceAvatar} type='right' onClick={onLoginHandler}/>
-            </div>
-        </div>
+        <AuthLayout
+            title="Login"
+            leftText="ล็อคอินเป็นผู้รับจ้าง"
+            rightText="ล็อคอินเป็นฟรีแลนซ์"
+            navigateLeft="/login/customer"
+            navigateRight="/login/freelance"
+        />
     )
 }
 

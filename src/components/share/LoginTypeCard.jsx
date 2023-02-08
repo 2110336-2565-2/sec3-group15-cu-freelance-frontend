@@ -2,7 +2,7 @@ import tw from "twin.macro"
 import Card from "./Card"
 const avatarVariants={
     left: tw`h-[100%] box-border absolute -bottom-[17%] right-[50%] translate-x-[50%]`,
-    right: tw`w-[85%] h-[100%] box-border absolute -bottom-[18%] right-[50%] translate-x-[50%] rotate-[356deg]`
+    right: tw`box-border absolute -bottom-[18%] right-[50%] translate-x-[50%] rotate-[356deg]`
 };
 const styles={
     container:()=>[
