@@ -1,5 +1,6 @@
 import axios from "axios";
+import { API_URL } from "../config/env";
 
 export default axios.create({
-    baseURL:"https://pbeta.cu-freelance.tech/v1/docs"
+    baseURL:API_URL
 })

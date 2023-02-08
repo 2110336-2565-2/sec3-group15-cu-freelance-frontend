@@ -11,10 +11,10 @@ import GlobalStyles from "./styles/GlobalStyles";
 import "./styles/Fonts.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <>
     <GlobalStyles />
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </React.StrictMode>
+  </>
 );

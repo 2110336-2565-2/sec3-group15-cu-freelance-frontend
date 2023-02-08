@@ -5,12 +5,13 @@ import Login from "./pages/Login";
 import LoginCustomer from './pages/LoginCustomer'
 import RegisterPage from "./pages/Register";
 import ProfilePage from "./pages/Profile";
+import Auth from "./pages/Auth";
 import Footer from "./components/share/Footer";
 import LayoutWithNavbar from "./pages/LayoutWithNavbar";
-import { API_URL } from "./env";
+
 
 function App() {
-  console.log(API_URL)
+
   return (
     <>
       <Routes>
@@ -29,6 +30,7 @@ function App() {
           <Route path="customer" element={<LoginCustomer/>} />
         </Route>
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/auth" element={<Auth/>}/>
         <Route path="*" element={<Navigate to="home" />} />
       </Routes>
       <Footer />

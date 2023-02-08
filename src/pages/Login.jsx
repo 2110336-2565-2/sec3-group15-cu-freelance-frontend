@@ -4,6 +4,7 @@ import LoginTypeCard from "../components/share/LoginTypeCard"
 import CustomerAvatar from "../assets/CustomerAvatar.svg"
 import FreelanceAvatar from "../assets/FreelanceAvatar.svg"
 import { useActionData, useNavigate } from "react-router-dom"
+import { APP_URL, SSO_URL } from "../config/env"
 const styles={
     container:()=>[
         tw`flex flex-col items-center pt-[0.5%] h-[95vh] box-border`
@@ -23,13 +24,16 @@ const Login=()=>{
     const onLoginHandler=()=>{
         navigate('/login/customer')
     }
+    const onFreelanceLoginHandler=()=>{
+        window.location.href=`${SSO_URL}/login?service=${APP_URL}/auth`
+    }
     return (
         <div css={styles.container}>
             <img css={styles.image} src={Logo}/>
             <div css={styles.text}>Login</div>
             <div css={styles.typeContainer}>
                 <LoginTypeCard text="ล็อคอินเป็นผู้รับจ้าง" avatar={CustomerAvatar} type='left' onClick={onLoginHandler}/>
-                <LoginTypeCard text="ล็อคอินเป็นฟรีแลนซ์" avatar={FreelanceAvatar} type='right' onClick={onLoginHandler}/>
+                <LoginTypeCard text="ล็อคอินเป็นฟรีแลนซ์" avatar={FreelanceAvatar} type='right' onClick={onFreelanceLoginHandler}/>
             </div>
         </div>
     )
