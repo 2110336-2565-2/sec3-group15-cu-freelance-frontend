@@ -1,7 +1,8 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./pages/Home";
-import LoginPage from "./pages/Login";
+import Login from "./pages/Login";
+import LoginCustomer from './pages/LoginCustomer'
 import RegisterPage from "./pages/Register";
 import ProfilePage from "./pages/Profile";
 import Footer from "./components/share/Footer";
@@ -21,7 +22,10 @@ function App() {
             </Route>
           </Route>
         </Route>
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login">
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/customer" element={<LoginCustomer/>} />
+        </Route>
         <Route path="/register" element={<RegisterPage />} />
         <Route path="*" element={<Navigate to="home" />} />
       </Routes>
