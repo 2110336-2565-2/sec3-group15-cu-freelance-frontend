@@ -9,12 +9,13 @@ const styles={
         tw`mb-[1%]`
     ]
 }
-const Login=()=>{
+const LoginCustomer=()=>{
     return (
         <div css={styles.container}>
             <img css={styles.image} src={Logo}/>
+            <LoginForm/>
         </div>
     )
 }
 
-export default Login;
+export default LoginCustomer;
