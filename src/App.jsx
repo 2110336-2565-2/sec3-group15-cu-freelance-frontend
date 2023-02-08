@@ -22,9 +22,9 @@ function App() {
             </Route>
           </Route>
         </Route>
-        <Route path="/login">
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/customer" element={<LoginCustomer/>} />
+        <Route path="/login/">
+          <Route path="" element={<Login />} />
+          <Route path="customer" element={<LoginCustomer/>} />
         </Route>
         <Route path="/register" element={<RegisterPage />} />
         <Route path="*" element={<Navigate to="home" />} />
