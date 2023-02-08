@@ -18,7 +18,7 @@ const Button = (props) => {
     ${tw``}
   `;
 
-  return <StyledButton>{props.children}</StyledButton>;
+  return <StyledButton onClick={onClickHandler}>{props.children}</StyledButton>;
 };
 
 export default Button;

@@ -19,10 +19,14 @@ const styles={
     ]
 }
 const Login=()=>{
+<<<<<<< HEAD
     const navigate=useNavigate()
     const onLoginHandler=()=>{
         navigate('/login/customer')
     }
+=======
+
+>>>>>>> origin
     return (
         <div css={styles.container}>
             <img css={styles.image} src={Logo}/>

@@ -4,6 +4,7 @@ import React from "react";
 import logo from "../../assets/logo.svg";
 import Button from "./Button";
 import InputSearch from "./InputSearch";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = (props) => {
   const { login } = props;
@@ -14,7 +15,10 @@ const Navbar = (props) => {
   const LeftWrapper = tw.div`items-center w-[30%] flex justify-between font-inter min-w-[295px] h-[40%]`;
   const RightWrapperLogin = tw.div`w-[30%] flex justify-between font-inter min-w-[200px]`;
   const RightWrapperNotLogin = tw.div`w-[20%] flex justify-between font-inter min-w-[205px]`;
-
+  const navigate=useNavigate()
+  const onClickLoginHandler=()=>{
+    navigate('/login')
+  }
   let Right;
   const Left = (
     <>
@@ -34,7 +38,7 @@ const Navbar = (props) => {
   } else {
     Right = (
       <>
-        <Button noBG>Login</Button>
+        <Button noBG onClick={onClickLoginHandler}>Login</Button>
         <Button>Sign Up</Button>
       </>
     );
