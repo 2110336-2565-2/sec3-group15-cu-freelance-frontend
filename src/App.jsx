@@ -7,8 +7,10 @@ import RegisterPage from "./pages/Register";
 import ProfilePage from "./pages/Profile";
 import Footer from "./components/share/Footer";
 import LayoutWithNavbar from "./pages/LayoutWithNavbar";
+import { API_URL } from "./env";
 
 function App() {
+  console.log(API_URL)
   return (
     <>
       <Routes>
