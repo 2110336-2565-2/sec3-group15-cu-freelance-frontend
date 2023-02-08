@@ -7,6 +7,7 @@ const widthVariants = {
   portfolio: tw`w-[30%] dt:w-[30%] dt:h-[30vh] text-[#D62B70] font-ibm`,
   comment: tw`w-[30%] dt:w-[30%] dt:h-[100%] text-[#D62B70]`,
   loginForm: tw`w-[45%]`,
+  loginType: tw`w-[38%] box-border h-[100%]`
 };
 const styles = {
   container: ({ hasShadow, type }) => [
