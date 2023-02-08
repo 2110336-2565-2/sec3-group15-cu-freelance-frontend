@@ -20,20 +20,6 @@ const styles={
     ]
 }
 const Login=()=>{
-    // const navigate=useNavigate()
-    // const onLoginHandler=()=>{
-    //     navigate('/login/customer')
-    // }
-    // return (
-    //     <div css={styles.container}>
-    //         <img css={styles.image} src={Logo}/>
-    //         <div css={styles.text}>Login</div>
-    //         <div css={styles.typeContainer}>
-    //             <LoginTypeCard text="ล็อคอินเป็นผู้รับจ้าง" avatar={CustomerAvatar} type='left' onClick={onLoginHandler}/>
-    //             <LoginTypeCard text="ล็อคอินเป็นฟรีแลนซ์" avatar={FreelanceAvatar} type='right' onClick={onLoginHandler}/>
-    //         </div>
-    //     </div>
-    // )
     return (
         <AuthLayout
             title="Login"
