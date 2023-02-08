@@ -21,7 +21,6 @@ const styles={
 const AuthLayout=({title, leftText, rightText, navigateLeft, navigateRight})=>{
     const navigate=useNavigate()
     const onAuthHandler=(endpoint)=>{
-        console.log(endpoint)
         navigate(endpoint)
     }
     return (
