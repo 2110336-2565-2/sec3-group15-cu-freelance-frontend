@@ -12,10 +12,13 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<LayoutWithNavbar />}>
-          <Route path="" element={<Navigate to="home" />}/>
+          <Route path="" element={<Navigate to="home" />} />
           <Route path="home" element={<HomePage />} />
           <Route path="profile/">
-            <Route path=":userId" element={<ProfilePage/>}/>
+            <Route path=":userId/" element={<ProfilePage />}>
+              <Route path="" element={<ProfilePage />} />
+              <Route path="add-portfolio" element={<ProfilePage />} />
+            </Route>
           </Route>
         </Route>
         <Route path="/login" element={<LoginPage />} />
