@@ -4,19 +4,23 @@ import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import ProfilePage from "./pages/Profile";
-import Navbar from "./components/share/Navbar";
 import Footer from "./components/share/Footer";
+import LayoutWithNavbar from "./pages/LayoutWithNavbar";
 
 function App() {
   return (
     <>
-      {/* <Navbar login={false} /> */}
       <Routes>
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/" element={<LayoutWithNavbar />}>
+          <Route path="" element={<Navigate to="home" />}/>
+          <Route path="home" element={<HomePage />} />
+          <Route path="profile/">
+            <Route path=":userId" element={<ProfilePage/>}/>
+          </Route>
+        </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="*" element={<Navigate to="/home" />} />
+        <Route path="*" element={<Navigate to="home" />} />
       </Routes>
       <Footer />
     </>

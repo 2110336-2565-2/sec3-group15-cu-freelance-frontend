@@ -3,10 +3,14 @@ import tw from "twin.macro"
 import LoginForm from "../components/login/LoginForm"
 const styles={
     container:()=>[
+<<<<<<< HEAD
         tw`flex flex-col items-center pt-[1%] h-[95vh]`
+=======
+        tw`flex flex-col items-center h-[95vh]`
+>>>>>>> origin
     ],
     image:()=>[
-        tw`mb-[1%]`
+        tw`my-[1%]`
     ]
 }
 const Login=()=>{

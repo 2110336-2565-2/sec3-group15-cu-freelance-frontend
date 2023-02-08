@@ -9,12 +9,11 @@ const Navbar = (props) => {
   const { login } = props;
   const BigWrapper = tw.div` w-[100vw] h-[10vh]
   z-10 fixed top-0 left-0 pb-2 bg-white flex justify-center`;
-  const Wrapper = tw.div` w-[90%] max-w-[1200px] h-[10vh] mx-auto 
- fixed 
-  flex justify-between items-center `;
-  const LeftWrapper = tw.div`items-center w-[30%] flex justify-between font-inter min-w-[295px]`;
+  const Wrapper = tw.div` w-[90%] max-w-[1200px] h-[10vh] mx-auto fixed 
+ flex justify-between items-center `;
+  const LeftWrapper = tw.div`items-center w-[30%] flex justify-between font-inter min-w-[295px] h-[40%]`;
   const RightWrapperLogin = tw.div`w-[30%] flex justify-between font-inter min-w-[200px]`;
-  const RightWrapperNotLogin = tw.div`w-[20%] flex justify-between font-inter min-w-[160px]`;
+  const RightWrapperNotLogin = tw.div`w-[20%] flex justify-between font-inter min-w-[205px]`;
 
   let Right;
   const Left = (
