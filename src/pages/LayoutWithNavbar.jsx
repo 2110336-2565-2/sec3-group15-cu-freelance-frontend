@@ -5,7 +5,7 @@ import Navbar from "../components/share/Navbar";
 const LayoutWithNavbar = (props) => {
   return (
     <>
-      <Navbar login={false} />
+      <Navbar login={true} />
       <Outlet />
     </>
   );

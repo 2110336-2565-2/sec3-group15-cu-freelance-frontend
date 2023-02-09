@@ -16,8 +16,8 @@ const CategoryIndex = () => {
         เลือกฟรีเเลนซ์จากหมวดหมู่เหล่านี้ <Button>ดูฟรีแลนซ์ทั้งหมด</Button>
       </HeaderWrapper>
       <CardWrapper>
-        {dummy_category.map((category) => (
-          <CategoryCard imgSrc={category.img} title={category.text} />
+        {dummy_category.map((category,idx) => (
+          <CategoryCard key={idx} imgSrc={category.img} title={category.text} />
         ))}
       </CardWrapper>
     </PageWrapper>

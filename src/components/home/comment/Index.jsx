@@ -12,8 +12,9 @@ const CommentIndex = () => {
       {" "}
       <HeaderWrapper>ความเห็นจากผู้ใช้งานจริง</HeaderWrapper>
       <CardWrapper>
-        {dummy_comment.map((comment) => (
+        {dummy_comment.map((comment,idx) => (
           <CommentCard
+          key={idx}
             imgSrc={comment.img}
             comment={comment.comment}
             name={comment.name}

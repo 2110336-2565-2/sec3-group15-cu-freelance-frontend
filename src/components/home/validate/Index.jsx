@@ -10,8 +10,8 @@ const ValidateIndex = () => {
     <PageWrapper>
       {" "}
       <CardWrapper>
-        {dummy_validate.map((validate) => (
-          <ValidateCard imgSrc={validate.img} text={validate.text} />
+        {dummy_validate.map((validate,idx) => (
+          <ValidateCard key={idx} imgSrc={validate.img} text={validate.text} />
         ))}
       </CardWrapper>
     </PageWrapper>

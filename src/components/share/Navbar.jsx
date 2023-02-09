@@ -5,6 +5,8 @@ import logo from "../../assets/logo.svg";
 import Button from "./Button";
 import InputSearch from "./InputSearch";
 import { useNavigate } from "react-router-dom";
+import { navbarButton } from "../../store/navbar-store";
+import ImageNavbar from "../navbar/ImageNavbar";
 
 const Navbar = (props) => {
   const { login } = props;
@@ -13,11 +15,14 @@ const Navbar = (props) => {
   const Wrapper = tw.div` w-[90%] max-w-[1200px] h-[10vh] mx-auto fixed 
  flex justify-between items-center `;
   const LeftWrapper = tw.div`items-center w-[30%] flex justify-between font-inter min-w-[295px] h-[40%]`;
-  const RightWrapperLogin = tw.div`w-[30%] flex justify-between font-inter min-w-[200px]`;
+  const RightWrapperLogin = tw.div`w-[30%] flex justify-between font-inter min-w-[205px]`;
   const RightWrapperNotLogin = tw.div`w-[20%] flex justify-between font-inter min-w-[205px]`;
   const navigate=useNavigate()
   const onClickLoginHandler=()=>{
     navigate('/login')
+  }
+  const onClickButtonHandler=(url)=>{
+    navigate(url)
   }
   let Right;
   const Left = (
@@ -29,10 +34,7 @@ const Navbar = (props) => {
   if (login) {
     Right = (
       <>
-        <img src="" />
-        <img src="" />
-        <img src="" />
-        <img src="" />
+        {navbarButton.map((button,idx)=>(<ImageNavbar key={idx} image={button.img} onClick={onClickButtonHandler.bind(null,button.to)}/>))}
       </>
     );
   } else {

@@ -8,7 +8,6 @@ const HomePage = () => {
   
   return (
     <div>
-      <NavBar/>
       <Hero />
       <CategoryIndex />
       <CommentIndex />
