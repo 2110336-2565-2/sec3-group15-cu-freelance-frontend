@@ -10,7 +10,7 @@ const Auth = () => {
       const response = await axios.post("/auth/verify", data, {
         headers: { "Content-Type": "application/json" },
       });
-      const data=response.data;
+      console.log(response.data);
       
     } catch (err) {
       console.log(err);

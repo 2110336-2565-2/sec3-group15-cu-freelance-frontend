@@ -11,11 +11,9 @@ import LayoutWithNavbar from "./pages/LayoutWithNavbar";
 import { AuthContext } from "./context/AuthProvider";
 
 function App() {
-  const 
-  
 
   return (
-    <AuthContext.Provider>
+    <>
       <Routes>
         <Route path="/" element={<LayoutWithNavbar />}>
           <Route path="" element={<Navigate to="home" />} />
@@ -36,7 +34,7 @@ function App() {
         <Route path="*" element={<Navigate to="home" />} />
       </Routes>
       <Footer />
-    </AuthContext.Provider>
+    </>
   );
 }
 

@@ -1,9 +1,9 @@
 import { createContext, useContext } from "react";
 
 export const AuthContext = createContext({
-  isLoggedIn: false,
-  userId: null,
-  token: null,
+  uid: null,
+  acToken: null,
+  reToken:null,
   login: () => {},
   logout: () => {},
 });
