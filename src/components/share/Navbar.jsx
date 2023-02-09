@@ -17,13 +17,13 @@ const Navbar = (props) => {
   const LeftWrapper = tw.div`items-center w-[30%] flex justify-between font-inter min-w-[295px] h-[40%]`;
   const RightWrapperLogin = tw.div`w-[30%] flex justify-between font-inter min-w-[205px]`;
   const RightWrapperNotLogin = tw.div`w-[20%] flex justify-between font-inter min-w-[205px]`;
-  const navigate=useNavigate()
-  const onClickLoginHandler=()=>{
-    navigate('/login')
-  }
-  const onClickButtonHandler=(url)=>{
-    navigate(url)
-  }
+  const navigate = useNavigate();
+  const onClickLoginHandler = () => {
+    navigate("/login");
+  };
+  const onClickButtonHandler = (url) => {
+    navigate(url);
+  };
   let Right;
   const Left = (
     <>
@@ -34,13 +34,21 @@ const Navbar = (props) => {
   if (login) {
     Right = (
       <>
-        {navbarButton.map((button,idx)=>(<ImageNavbar key={idx} image={button.img} onClick={onClickButtonHandler.bind(null,button.to)}/>))}
+        {navbarButton.map((button, idx) => (
+          <ImageNavbar
+            key={idx}
+            image={button.img}
+            onClick={onClickButtonHandler.bind(null, button.to)}
+          />
+        ))}
       </>
     );
   } else {
     Right = (
       <>
-        <Button noBG onClick={onClickLoginHandler}>Login</Button>
+        <Button noBG onClick={onClickLoginHandler}>
+          Login
+        </Button>
         <Button>Sign Up</Button>
       </>
     );

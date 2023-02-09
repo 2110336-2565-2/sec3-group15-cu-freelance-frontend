@@ -22,11 +22,6 @@ export const useAuth = () => {
       })
     );
     try {
-      await apiClient.patch(
-        "/user/",
-        JSON.stringify({ display_name: "test" }),
-        { headers: { "Content-Type": "application/json" } }
-      );
       const response = await apiClient.get("/auth/me");
       return response.data;
     } catch (err) {
@@ -55,11 +50,11 @@ export const useAuth = () => {
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("userData"));
     if (storedData && storedData.acToken) {
-      if (new Date(storedData.expiration) > new Date()) {
+      if (new Date(storedData.expiresOn) > new Date()) {
         login(
-          storedData.userId,
-          storedData.token,
-          new Date(storedData.expiration)
+          storedData.acToken,
+          storedData.reToken,
+          new Date(storedData.expiresOn)
         );
       } else {
         //ยิงไปขอ acToken ใหม่ ถ้า reToken ไม่หมดอายุ

@@ -18,7 +18,7 @@ function App() {
   return (
     <AuthContext.Provider value={{uid:userId,acToken,reToken,login,logout}}>
       <Routes>
-        <Route path="/" element={<LayoutWithNavbar />}>
+        <Route path="/" element={<LayoutWithNavbar acToken={acToken}/>}>
           <Route path="" element={<Navigate to="home" />} />
           <Route path="home" element={<HomePage />} />
           <Route path="profile/">

@@ -2,10 +2,11 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/share/Navbar";
 
-const LayoutWithNavbar = (props) => {
+const LayoutWithNavbar = ({acToken}) => {
+  
   return (
     <>
-      <Navbar login={false} />
+      <Navbar login={!!acToken} />
       <Outlet />
     </>
   );

@@ -5,7 +5,7 @@ import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../share/Validator";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/form-hook";
 import { authClient } from "../../utils/auth";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { apiClient } from "../../utils/axios";
 const styles = {
@@ -28,6 +28,7 @@ const styles = {
 const LoginForm = () => {
   const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
+  const [isLogin, setIsLogin] = useState(false);
   const [formState, inputHandler] = useForm(
     {
       username: {
@@ -45,6 +46,7 @@ const LoginForm = () => {
   const formSubmitHandler = async (event) => {
     event.preventDefault();
     try {
+      setIsLogin(true);
       let response = await authClient.post(
         "/auth/login",
         JSON.stringify({
@@ -60,7 +62,8 @@ const LoginForm = () => {
       let expiresOn = new Date();
       expiresOn.setSeconds(expiresOn.getSeconds() + expires_in);
       response = await authCtx.login(access_token, refresh_token, expiresOn);
-      console.log(response)
+      console.log(response);
+      setIsLogin(false);
       navigate("/home", { replace: true });
     } catch (err) {
       console.log(err);
@@ -92,9 +95,9 @@ const LoginForm = () => {
         <button
           css={styles.button()}
           onClick={formSubmitHandler}
-          disabled={!formState.isValid}
+          disabled={!formState.isValid || isLogin}
         >
-          Login
+          {(isLogin && "loading...") || "Login"}
         </button>
         <div css={styles.or()}>or</div>
         <button css={styles.googleButton()} disabled={true}>

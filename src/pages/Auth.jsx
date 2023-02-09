@@ -16,6 +16,7 @@ const Auth = () => {
           headers: { "Content-Type": "application/json" },
         });
         const { access_token, refresh_token, expires_in } = response.data;
+        console.log(response.data);
         let expiresOn = new Date();
         expiresOn.setSeconds(expiresOn.getSeconds() + expires_in);
         response = await authCtx.login(access_token, refresh_token, expiresOn);
@@ -29,8 +30,6 @@ const Auth = () => {
       fetch(ticket);
     }
   }, []);
-  return (
-    <div>loading...</div>
-  );
+  return <div>loading...</div>;
 };
 export default Auth;
