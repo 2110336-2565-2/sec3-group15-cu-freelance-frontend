@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-
+import { apiClient } from "../utils/axios";
 let logoutTimer;
 
 export const useAuth = () => {
@@ -8,22 +8,30 @@ export const useAuth = () => {
   const [tokenExpirationDate, setTokenExpirationDate] = useState();
   const [userId, setUserId] = useState(false);
 
-  const login = useCallback((uid, acToken, reToken, expirationDate) => {
+  const login = useCallback(async (acToken, reToken, expiresOn) => {
     setAcToken(acToken);
     setReToken(reToken);
-    setUserId(uid);
-    const tokenExpirationDate =
-      expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
+    const tokenExpirationDate = expiresOn;
     setTokenExpirationDate(tokenExpirationDate);
     localStorage.setItem(
       "userData",
       JSON.stringify({
-        uid,
         acToken,
         reToken,
-        expiration: tokenExpirationDate.toISOString(),
+        expiresOn: tokenExpirationDate.toISOString(),
       })
     );
+    try {
+      await apiClient.patch(
+        "/user/",
+        JSON.stringify({ display_name: "test" }),
+        { headers: { "Content-Type": "application/json" } }
+      );
+      const response = await apiClient.get("/auth/me");
+      return response.data;
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   const logout = useCallback(() => {
@@ -53,8 +61,7 @@ export const useAuth = () => {
           storedData.token,
           new Date(storedData.expiration)
         );
-      }
-      else{
+      } else {
         //ยิงไปขอ acToken ใหม่ ถ้า reToken ไม่หมดอายุ
       }
     }

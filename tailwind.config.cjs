@@ -10,6 +10,7 @@ module.exports = {
     },
     screens: {
       'dt': '600px',
+      'pf':'1400px'
     },
   },
 };

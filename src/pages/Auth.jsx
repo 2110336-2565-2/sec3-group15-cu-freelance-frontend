@@ -1,23 +1,36 @@
-import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
-import axios from "../api/axios";
+import { useContext, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { AuthContext } from "../context/AuthProvider";
+import { authClient } from "../utils/auth";
+
 const Auth = () => {
   const [searchParams] = useSearchParams();
   const ticket = searchParams.get("ticket");
-  const fetch = async (ticket) => {
-    const data = JSON.stringify({ ticket: ticket, university: 1 });
-    try {
-      const response = await axios.post("/auth/verify", data, {
-        headers: { "Content-Type": "application/json" },
-      });
-      console.log(response.data);
-      
-    } catch (err) {
-      console.log(err);
+  const authCtx = useContext(AuthContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const fetch = async (ticket) => {
+      const data = JSON.stringify({ ticket: ticket, university: 1 });
+      try {
+        let response = await authClient.post("/auth/verify", data, {
+          headers: { "Content-Type": "application/json" },
+        });
+        const { access_token, refresh_token, expires_in } = response.data;
+        let expiresOn = new Date();
+        expiresOn.setSeconds(expiresOn.getSeconds() + expires_in);
+        response = await authCtx.login(access_token, refresh_token, expiresOn);
+        console.log(response);
+        navigate("/home", { replace: true });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    if (ticket) {
+      fetch(ticket);
     }
-  };
-  if (ticket) {
-    fetch(ticket);
-  }
+  }, []);
+  return (
+    <div>loading...</div>
+  );
 };
 export default Auth;

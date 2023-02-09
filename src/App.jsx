@@ -9,11 +9,14 @@ import Auth from "./pages/Auth";
 import Footer from "./components/share/Footer";
 import LayoutWithNavbar from "./pages/LayoutWithNavbar";
 import { AuthContext } from "./context/AuthProvider";
+import { useAuth } from "./hooks/auth-hook";
 
 function App() {
 
+  const {acToken, reToken, login, logout, userId }=useAuth()
+  
   return (
-    <>
+    <AuthContext.Provider value={{uid:userId,acToken,reToken,login,logout}}>
       <Routes>
         <Route path="/" element={<LayoutWithNavbar />}>
           <Route path="" element={<Navigate to="home" />} />
@@ -34,7 +37,7 @@ function App() {
         <Route path="*" element={<Navigate to="home" />} />
       </Routes>
       <Footer />
-    </>
+    </AuthContext.Provider>
   );
 }
 
