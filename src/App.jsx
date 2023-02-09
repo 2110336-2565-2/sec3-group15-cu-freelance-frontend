@@ -8,12 +8,14 @@ import ProfilePage from "./pages/Profile";
 import Auth from "./pages/Auth";
 import Footer from "./components/share/Footer";
 import LayoutWithNavbar from "./pages/LayoutWithNavbar";
-
+import { AuthContext } from "./context/AuthProvider";
 
 function App() {
+  const 
+  
 
   return (
-    <>
+    <AuthContext.Provider>
       <Routes>
         <Route path="/" element={<LayoutWithNavbar />}>
           <Route path="" element={<Navigate to="home" />} />
@@ -34,7 +36,7 @@ function App() {
         <Route path="*" element={<Navigate to="home" />} />
       </Routes>
       <Footer />
-    </>
+    </AuthContext.Provider>
   );
 }
 
