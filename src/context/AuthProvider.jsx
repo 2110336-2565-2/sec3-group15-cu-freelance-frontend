@@ -1,14 +1,10 @@
 import { createContext, useContext } from "react";
 
-const AuthContext = createContext({});
+export const AuthContext = createContext({
+  isLoggedIn: false,
+  userId: null,
+  token: null,
+  login: () => {},
+  logout: () => {},
+});
 
-export const AuthProvider = (props) => {
-  const [auth, setAuth] = useState({});
-  return (
-    <AuthContext.Provider value={{ auth, setAuth }}>
-      {props.children}
-    </AuthContext.Provider>
-  );
-};
-
-export default AuthContext;
