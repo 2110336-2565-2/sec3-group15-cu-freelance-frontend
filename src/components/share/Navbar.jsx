@@ -26,10 +26,11 @@ const Navbar = (props) => {
   };
   const onClickButtonHandler = (url) => {
     if(url==="/login"){
-
+      authCtx.logout()
+      url="/home"
     }
     else if(url==="/profile"){
-      url+=`/`
+      url+=`/${authCtx.userInfo.id}`
     }
     navigate(url);
   };
