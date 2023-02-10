@@ -13,10 +13,10 @@ import { useAuth } from "./hooks/auth-hook";
 
 function App() {
 
-  const {acToken, reToken, login, logout, userId }=useAuth()
+  const {acToken, reToken, login, logout, userInfo }=useAuth()
   
   return (
-    <AuthContext.Provider value={{uid:userId,acToken,reToken,login,logout}}>
+    <AuthContext.Provider value={{userInfo,acToken,reToken,login,logout}}>
       <Routes>
         <Route path="/" element={<LayoutWithNavbar acToken={acToken}/>}>
           <Route path="" element={<Navigate to="home" />} />

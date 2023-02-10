@@ -6,7 +6,7 @@ export const useAuth = () => {
   const [acToken, setAcToken] = useState(false);
   const [reToken, setReToken] = useState(false);
   const [tokenExpirationDate, setTokenExpirationDate] = useState();
-  const [userId, setUserId] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
 
   const login = useCallback(async (acToken, reToken, expiresOn) => {
     setAcToken(acToken);
@@ -23,6 +23,8 @@ export const useAuth = () => {
     );
     try {
       const response = await apiClient.get("/auth/me");
+      setUserInfo(response.data);
+      localStorage.setItem("userInfo", JSON.stringify(response.data));
       return response.data;
     } catch (err) {
       console.log(err);
@@ -33,8 +35,9 @@ export const useAuth = () => {
     setAcToken(null);
     setReToken(null);
     setTokenExpirationDate(null);
-    setUserId(null);
+    setUserInfo(null);
     localStorage.removeItem("userData");
+    localStorage.removeItem("userInfo");
   }, []);
 
   // auto logout ยังไม่น่าใช้
@@ -62,5 +65,5 @@ export const useAuth = () => {
     }
   }, [login]);
 
-  return { acToken, reToken, login, logout, userId };
+  return { acToken, reToken, login, logout, userInfo };
 };

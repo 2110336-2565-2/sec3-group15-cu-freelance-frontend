@@ -1,5 +1,5 @@
 import tw from "twin.macro";
-import React from "react";
+import React, { useContext } from "react";
 
 import logo from "../../assets/logo.svg";
 import Button from "./Button";
@@ -7,8 +7,11 @@ import InputSearch from "./InputSearch";
 import { useNavigate } from "react-router-dom";
 import { navbarButton } from "../../store/navbar-store";
 import ImageNavbar from "../navbar/ImageNavbar";
+import { AuthContext } from "../../context/AuthProvider";
 
 const Navbar = (props) => {
+
+  const authCtx=useContext(AuthContext)
   const { login } = props;
   const BigWrapper = tw.div` w-[100vw] h-[10vh]
   z-10 fixed top-0 left-0 pb-2 bg-white flex justify-center`;
@@ -22,6 +25,12 @@ const Navbar = (props) => {
     navigate("/login");
   };
   const onClickButtonHandler = (url) => {
+    if(url==="/login"){
+
+    }
+    else if(url==="/profile"){
+      url+=`/`
+    }
     navigate(url);
   };
   let Right;
