@@ -8,7 +8,7 @@ import {Link} from "react-router-dom"
 const styles = {
     container:()=>[
         tw`flex flex-col font-inter items-center w-[50%] 
-        max-w-[460px] border-[1px] rounded-[30px] px-6 py-8`,
+        max-w-[460px] border-[1px] rounded-[30px] px-6 py-8 h-fit`,
     ],
     content: () => [
         tw`flex flex-col box-border h-full w-full items-center px-[2%] gap-5`,
@@ -23,7 +23,7 @@ const styles = {
     button: () => [
         tw`w-full bg-[#D62B70] font-bold text-[20px] text-white rounded-[10px] font-inter py-2 mt-[4%] disabled:bg-gray-600`,
     ],
-    or: () => [tw`my-[2%] text-center`],
+    or: () => [tw`my-[0%] text-center`],
     googleButton: () => [
         tw`flex flex-row justify-center items-center gap-x-[10px] w-full 
     border-[1px] border-slate-200 text-lg rounded-[10px] font-inter py-2`,
