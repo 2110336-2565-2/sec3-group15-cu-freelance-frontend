@@ -12,6 +12,7 @@ import { AuthContext } from "./context/AuthProvider";
 import { useAuth } from "./hooks/auth-hook";
 import FillDisplayNamePage from "./pages/FillDisplayName";
 import AddedPortfolioPage from "./pages/AddedPortfolio";
+import { SSO_URL } from "./config/env";
 
 function App() {
   const { acToken, reToken, login, logout, userInfo } = useAuth();

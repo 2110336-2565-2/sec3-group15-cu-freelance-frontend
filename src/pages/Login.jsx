@@ -21,7 +21,7 @@ const Login = () => {
     navigate("/login/customer");
   };
   const onFreelanceLoginHandler = () => {
-    window.location.href = `${SSO_URL}/login?service=${APP_URL}/auth`;
+    window.location.href = `${SSO_URL}/login?service=http://127.0.0.1:3315/auth`;
   };
   return (
     <AuthLayout
