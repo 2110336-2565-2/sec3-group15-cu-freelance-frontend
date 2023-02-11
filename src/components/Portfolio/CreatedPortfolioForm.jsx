@@ -2,8 +2,13 @@ import Input from "../share/Input";
 import { useForm } from "../../hooks/form-hook";
 import { VALIDATOR_REQUIRE } from "../share/Validate";
 import { DUMMY_options } from "../../store/portfolioForm";
+import ImageUpload from "../share/ImageUpload";
 import tw from "twin.macro";
 const CreatedPortfolioForm = () => {
+  const styles = {
+    submitButton: () => [tw`w-full bg-[#D62B70] text-white rounded-lg p-2`],
+  };
+
   const [formState, inputHandler] = useForm(
     {
       portfolioName: {
@@ -18,12 +23,28 @@ const CreatedPortfolioForm = () => {
         value: "",
         isValid: false,
       },
-      
+      image: {
+        value: null,
+        isValid: false,
+      },
+      isVisible: {
+        value: false,
+        isValid: false,
+      },
     },
     false
   );
+
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+    console.log(formState.inputs.image.value);
+  };
+
   return (
-    <form tw="w-[80%] mx-auto h-[90%] flex flex-col gap-y-3 my-2.5">
+    <form
+      tw="w-[80%] mx-auto h-[90%] flex flex-col gap-y-6 my-2.5"
+      onSubmit={onSubmitHandler}
+    >
       <Input
         type="text"
         id="portfolioName"
@@ -33,7 +54,7 @@ const CreatedPortfolioForm = () => {
         onInput={inputHandler}
         validator={[VALIDATOR_REQUIRE()]}
       />
-       <Input
+      <Input
         type="textarea"
         id="description"
         label="Description"
@@ -48,8 +69,23 @@ const CreatedPortfolioForm = () => {
         label="Category"
         options={DUMMY_options}
         onInput={inputHandler}
-        validator={[]}
+        errorText="Please select category"
+        validator={[VALIDATOR_REQUIRE()]}
       />
+      <ImageUpload
+        id="image"
+        onInput={inputHandler}
+        errorText="Please provide an image."
+      />
+      <div tw="flex  gap-x-2">
+        {" "}
+        <input type="checkbox" id="isVisible"  tw="border-4 border-[#D62B70]"/>
+        <label htmlFor="isVisible">is visible?</label>
+      </div>
+
+      <button type="submit" css={styles.submitButton()}>
+        Create
+      </button>
     </form>
   );
 };
