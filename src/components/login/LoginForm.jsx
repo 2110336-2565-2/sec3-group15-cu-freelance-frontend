@@ -18,7 +18,11 @@ const styles = {
   ],
   title: () => [tw`font-ibm text-3xl font-bold mt-4`],
   button: () => [
-    tw`w-full bg-[#D62B70] font-bold text-[20px] text-white rounded-[10px] font-inter py-2 mt-[1%] disabled:bg-gray-600`,
+    tw`w-full bg-[#D62B70] font-bold text-[20px] text-white rounded-[10px] font-inter py-2 mt-[1%] 
+    // disabled:bg-gray-800 disabled:text-gray-600 
+    disabled:opacity-30
+    disabled:cursor-not-allowed
+    `,
   ],
   or: () => [tw``],
   googleButton: () => [

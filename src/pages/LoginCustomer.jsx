@@ -4,7 +4,11 @@ import LoginForm from "../components/login/LoginForm"
 import LoginCustomerAvatar from "../assets/LoginCustomerAvatar.svg"
 const styles={
     container:()=>[
-        tw`flex flex-col items-center pt-[0.5%] h-[95vh] box-border max-w-[1400px] mx-auto`
+        tw`flex flex-col items-center pt-[0.5%] h-[95vh] box-border max-w-[1400px] mx-auto
+
+        `
+        
+        
     ],
     logo:()=>[
         tw`my-[1%] w-[10%] box-border`
