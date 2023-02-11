@@ -12,6 +12,12 @@ const styles = {
   textAreaInput: () => [
     tw`resize-none  box-border rounded-[10px] border-[#D62B70] border-[3px] font-light font-[20px] text-[F4B86A] p-[1%] font-inter`,
   ],
+  inputSelect: () => [
+    tw`box-border rounded-[10px] border-[#D62B70] border-[3px] font-light font-[20px] text-[#FFFFFF] bg-[#D62B70] p-[1%] font-inter`,
+  ],
+  inputOption: () => [
+    tw`box-border rounded-[10px] border-[#D62B70] border-[3px] font-light font-[20px] text-[#D62B70] bg-[#FFFFFF] p-[1%] font-inter`,
+  ],
   errorText: ({ isFirstClick, isValid }) => [
     tw`my-[1px] font-light text-red-900 text-xs`,
     (!isFirstClick || isValid) && tw`hidden`,
@@ -40,9 +46,11 @@ const Input = ({
   errorText,
   validator,
   onInput,
+  options,
+  initialValue,
 }) => {
   const [state, dispatch] = useReducer(reducer, {
-    value: "",
+    value: initialValue || "",
     isValid: false,
     isFirstClick: false,
   });
@@ -55,6 +63,7 @@ const Input = ({
   const input =
     type === "textarea" ? (
       <textarea
+        value={state.value}
         rows={10}
         css={styles.textAreaInput()}
         id={id}
@@ -70,14 +79,50 @@ const Input = ({
           dispatch({ type: "TOUCH" });
         }}
       ></textarea>
-    ) : type == "select" ? (
-      <select></select>
+    ) : type === "select" ? (
+      <select
+        css={styles.inputSelect()}
+        id={id}
+        value={state.value === "" ? "none" : state.value}
+        onChange={(e) => {
+          dispatch({
+            type: "CHANGE",
+            value: e.target.value,
+            validator: validator,
+          });
+        }}
+        onFocus={() => {
+          dispatch({ type: "TOUCH" });
+        }}
+      >
+        {options.map((option, idx) => {
+          if (option.value === "none")
+            return (
+              <option
+                key={idx}
+                value={option.value}
+                css={styles.inputOption()}
+                disabled
+                hidden
+              >
+                {option.label}
+              </option>
+            );
+          else
+            return (
+              <option key={idx} value={option.value} css={styles.inputOption()}>
+                {option.label}
+              </option>
+            );
+        })}
+      </select>
     ) : (
       <input
         css={styles.input()}
         id={id}
         type={type}
         placeholder={placeholder}
+        value={state.value}
         onChange={(e) => {
           dispatch({
             type: "CHANGE",
