@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useRef } from "react";
 import tw from "twin.macro";
 import { validate } from "./Validate.jsx";
 import { useEffect } from "react";
@@ -13,7 +13,7 @@ const styles = {
     tw`resize-none  box-border rounded-[10px] border-[#D62B70] border-[3px] font-light font-[20px] text-[F4B86A] p-[1%] font-inter`,
   ],
   inputSelect: () => [
-    tw`box-border rounded-[10px] border-[#D62B70] border-[3px] font-light font-[20px] text-[#FFFFFF] bg-[#D62B70] p-[1%] font-inter`,
+    tw` box-border rounded-[10px] border-[#D62B70] border-[3px] font-light font-[20px] text-[#FFFFFF] bg-[#D62B70] p-[1%] font-inter`,
   ],
   inputOption: () => [
     tw`box-border rounded-[10px] border-[#D62B70] border-[3px] font-light font-[20px] text-[#D62B70] bg-[#FFFFFF] p-[1%] font-inter`,
