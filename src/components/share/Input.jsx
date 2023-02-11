@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import tw from "twin.macro";
-import { validate } from "./Validator.jsx";
+import { validate } from "./Validate.jsx";
 import { useEffect } from "react"
 
 const styles = {

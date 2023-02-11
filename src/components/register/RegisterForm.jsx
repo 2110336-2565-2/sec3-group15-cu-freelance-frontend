@@ -3,7 +3,7 @@ import ProgressBar from "./ProgressBar"
 import Input from "../share/Input"
 import GoogleIcon from "../../assets/GoogleIcon.svg"
 import { useReducer } from "react"
-import { VALIDATOR_MATCH, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../share/Validator"
+import { VALIDATOR_MATCH, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../share/Validate.jsx"
 import {Link} from "react-router-dom"
 const styles = {
     container:()=>[
