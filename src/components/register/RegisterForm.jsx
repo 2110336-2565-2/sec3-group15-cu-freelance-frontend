@@ -5,13 +5,14 @@ import GoogleIcon from "../../assets/GoogleIcon.svg"
 import { useReducer } from "react"
 import { VALIDATOR_MATCH, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../share/Validate.jsx"
 import {Link} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 const styles = {
     container:()=>[
         tw`flex flex-col font-inter items-center w-[50%] 
         max-w-[460px] border-[1px] rounded-[30px] px-6 py-8 h-fit`,
     ],
     content: () => [
-        tw`flex flex-col box-border h-full w-full items-center px-[2%] gap-5`,
+        tw`flex flex-col box-border h-full w-full items-center px-[2%] gap-y-2`,
       ],
     title: () => [
         tw`text-3xl font-ibm font-bold`
@@ -23,7 +24,7 @@ const styles = {
     button: () => [
         tw`w-full bg-[#D62B70] font-bold text-[20px] text-white rounded-[10px] font-inter py-2 mt-[4%] disabled:bg-gray-600`,
     ],
-    or: () => [tw`my-[0%] text-center`],
+    or: () => [tw`my-2 text-center`],
     googleButton: () => [
         tw`flex flex-row justify-center items-center gap-x-[10px] w-full 
     border-[1px] border-slate-200 text-lg rounded-[10px] font-inter py-2`,
@@ -50,12 +51,15 @@ function reducer(state, action){
 }
 const loginForm = ()=>{
     const [state, dispatch] = useReducer(reducer, {value:1});
+    const navigate=useNavigate();
     const onChangeStateHandler = (value)=>{
         dispatch({type:'CHANGESTATE', value:value})
     };
     const continueHandler = ()=>{
-        console.log(state.value);
         dispatch({type:'CHANGESTATE', value:state.value+1});
+    }
+    const submitHandler = ()=>{
+        navigate('/success');
     }
     return (
         <div css={styles.container()}>
@@ -156,7 +160,9 @@ const loginForm = ()=>{
                     <input css={styles.box()} type="checkbox" id="privacy" name="privacy"></input>
                     <label htmlFor="privacy">I agree to <b>Terms of Service</b> and <b>Privacy Policy</b>.</label>
                 </div>
-
+                <button css={[styles.show({showState:4, nowState:state.value}), styles.button()]} onClick={submitHandler}>
+                    Sign Up
+                </button>
             </div>
         </div>
     )
