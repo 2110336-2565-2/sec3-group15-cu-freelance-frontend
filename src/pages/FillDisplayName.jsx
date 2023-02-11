@@ -3,7 +3,7 @@ import tw from "twin.macro";
 import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
-} from "../components/share/validator";
+} from "../components/share/Validate";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "../hooks/form-hook";
 import { useContext, useState } from "react";

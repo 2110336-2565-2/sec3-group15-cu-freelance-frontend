@@ -1,7 +1,7 @@
 import tw from "twin.macro";
 import Input from "../share/Input";
 import GoogleIcon from "../../assets/GoogleIcon.svg";
-import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../share/Validator";
+import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../share/Validate";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/form-hook";
 import { authClient } from "../../utils/auth";
