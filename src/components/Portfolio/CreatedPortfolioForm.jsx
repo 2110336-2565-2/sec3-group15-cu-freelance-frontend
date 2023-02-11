@@ -23,7 +23,7 @@ const CreatedPortfolioForm = () => {
     false
   );
   return (
-    <form tw="w-[80%] mx-auto h-[90%]">
+    <form tw="w-[80%] mx-auto h-[90%] flex flex-col gap-y-3 my-2.5">
       <Input
         type="text"
         id="portfolioName"
