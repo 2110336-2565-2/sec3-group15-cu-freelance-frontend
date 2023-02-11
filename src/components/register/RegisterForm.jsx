@@ -156,6 +156,7 @@ const loginForm = ()=>{
                     <input css={styles.box()} type="checkbox" id="privacy" name="privacy"></input>
                     <label htmlFor="privacy">I agree to <b>Terms of Service</b> and <b>Privacy Policy</b>.</label>
                 </div>
+
             </div>
         </div>
     )
