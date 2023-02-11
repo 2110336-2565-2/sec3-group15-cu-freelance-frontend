@@ -11,6 +11,7 @@ import LayoutWithNavbar from "./pages/LayoutWithNavbar";
 import { AuthContext } from "./context/AuthProvider";
 import { useAuth } from "./hooks/auth-hook";
 import FillDisplayNamePage from "./pages/FillDisplayName";
+import AddedPortfolioPage from "./pages/AddedPortfolio";
 
 function App() {
   const { acToken, reToken, login, logout, userInfo } = useAuth();
@@ -21,9 +22,9 @@ function App() {
           <Route path="" element={<Navigate to="home" />} />
           <Route path="home" element={<HomePage />} />
           <Route path="profile/">
-            <Route path=":userId/" element={<ProfilePage />}>
+            <Route path=":userId/">
+              <Route path="add-portfolio" element={<AddedPortfolioPage />} />
               <Route path="" element={<ProfilePage />} />
-              <Route path="add-portfolio" element={<ProfilePage />} />
             </Route>
           </Route>
         </Route>
@@ -32,7 +33,7 @@ function App() {
           <Route path="customer" element={<LoginCustomer />} />
         </Route>
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/fill-display-name" element={<FillDisplayNamePage/>} />
+        <Route path="/fill-display-name" element={<FillDisplayNamePage />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="*" element={<Navigate to="home" />} />
       </Routes>
