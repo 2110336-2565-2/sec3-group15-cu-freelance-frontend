@@ -5,12 +5,12 @@ import { useEffect } from "react"
 
 const styles = {
   container: () => [tw`box-border flex flex-col w-full font-inter`],
-  label: () => [tw`mb-[1px] font-light font-[16px] text-[#D62B70]`],
+  label: () => [tw`mb-2 font-light font-[16px]`],
   input: () => [
-    tw`box-border rounded-[10px] border-[#D62B70] border-[3px] font-light font-[20px] text-[F4B86A] p-[1%] font-inter`,
+    tw`box-border rounded-[10px] border-[1px] font-light text-base text-[F4B86A] px-4 py-1 font-inter`,
   ],
   errorText: ({ isFirstClick, isValid }) => [
-    tw`my-[1px] font-light text-red-900 text-xs`,
+    tw`my-[1px] font-light text-red-700 text-xs`,
     (!isFirstClick || isValid) && tw`hidden`,
   ],
 };

@@ -10,20 +10,25 @@ import { AuthContext } from "../../context/AuthProvider";
 import { apiClient } from "../../utils/axios";
 const styles = {
   container: () => [
-    tw`flex flex-col font-inter items-center w-[50%] max-w-[460px] h-[85%] drop-shadow border-[1px] rounded-[30px] px-[3%] py-[1%]`,
+    tw`flex flex-col font-inter items-center w-[50%] max-w-[460px] 
+    border-[1px] rounded-[30px] px-6 py-8`,
   ],
   content: () => [
-    tw`flex flex-col box-border h-full w-full  items-center px-[2%] gap-y-[20px]`,
+    tw`flex flex-col box-border h-full w-full  items-center px-[2%] gap-6`,
   ],
-  title: () => [tw`text-[48px] font-bold`],
+  title: () => [tw`text-3xl font-bold mt-4`],
   button: () => [
-    tw`w-full bg-[#D62B70] font-bold text-[20px] text-white rounded-[10px] font-inter p-[1%] mt-[1%] disabled:bg-gray-600`,
+    tw`w-full bg-[#D62B70] font-bold text-[20px] text-white rounded-[10px] font-inter py-2 mt-[1%] disabled:bg-gray-600`,
   ],
-  or: () => [tw`my-[3%]`],
+  or: () => [tw``],
   googleButton: () => [
-    tw`flex flex-row justify-center items-center gap-x-[10px] w-full border-[#D62B70] border-[3px] text-[20px] text-[#D62B70] rounded-[10px] font-inter font-bold p-[1%]`,
+    tw`flex flex-row justify-center items-center gap-x-[10px] w-full 
+    border-[1px] border-slate-200 text-lg rounded-[10px] font-inter py-2`,
   ],
-  registerLink: () => [tw`text-[16px] font-inter text-[#D62B70] p-[1%]`],
+  googleIcon: () => [tw`w-[25px] h-[25px]`],
+  register: () => [tw`flex flex-row`],
+  registerText: () => [tw`whitespace-nowrap text-[16px] font-inter text-black p-[1%]`],
+  registerLink: () => [tw`whitespace-nowrap text-[16px] font-inter text-[#D62B70] p-[1%]`],
 };
 const LoginForm = () => {
   const authCtx = useContext(AuthContext);
@@ -97,16 +102,20 @@ const LoginForm = () => {
           onClick={formSubmitHandler}
           disabled={!formState.isValid || isLogin}
         >
-          {(isLogin && "loading...") || "Login"}
+          {(isLogin && "Loading...") || "Login"}
         </button>
-        <div css={styles.or()}>or</div>
+        <div css={styles.or()}> OR </div>
         <button css={styles.googleButton()} disabled={true}>
-          <img src={GoogleIcon} />
+          <img css={styles.googleIcon()} src={GoogleIcon} />
           Login with Google
         </button>
-        <Link css={styles.registerLink()} to="/home">
-          No account yet? Register
-        </Link>
+
+        <div css={styles.register()}>
+          <p css={styles.registerText()}> Don't have an account? </p>
+          <Link  css={styles.registerLink()} to="/home">
+             Register Here
+          </Link>
+        </div>
       </div>
     </div>
   );
