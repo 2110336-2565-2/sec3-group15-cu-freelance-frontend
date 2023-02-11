@@ -3,6 +3,7 @@ import ProgressBar from "./ProgressBar";
 import Input from "../share/Input";
 import GoogleIcon from "../../assets/GoogleIcon.svg";
 import { useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   VALIDATOR_MATCH,
   VALIDATOR_MINLENGTH,
@@ -58,10 +59,13 @@ const loginForm = () => {
   };
 
   const continueHandler = () => {
-    console.log(state.value);
     dispatch({ type: "CHANGESTATE", value: state.value + 1 });
   };
 
+  const navigate=useNavigate();
+  const submitHandler = ()=>{
+    navigate('/success');
+  }
   const [formState, inputHandler] = useForm(
     {
       firstname: {
@@ -234,6 +238,9 @@ const loginForm = () => {
             I agree to <b>Terms of Service</b> and <b>Privacy Policy</b>.
           </label>
         </div>
+        <button css={styles.button()} onClick={submitHandler}>
+          Sign Up
+        </button>
       </div>
     </div>
   );
