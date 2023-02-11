@@ -24,6 +24,9 @@ const Navbar = (props) => {
   const onClickLoginHandler = () => {
     navigate("/login");
   };
+  const OnClickRegisterHandler = () => {
+    navigate("/register");
+  };
   const onClickButtonHandler = (url) => {
     if(url==="/login"){
 
@@ -58,7 +61,7 @@ const Navbar = (props) => {
         <Button noBG onClick={onClickLoginHandler}>
           Login
         </Button>
-        <Button>Sign Up</Button>
+        <Button onClick={OnClickRegisterHandler}>Sign Up</Button>
       </>
     );
   }
