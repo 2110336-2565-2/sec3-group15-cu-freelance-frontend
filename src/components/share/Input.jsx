@@ -1,13 +1,16 @@
 import React, { useReducer } from "react";
 import tw from "twin.macro";
 import { validate } from "./Validate.jsx";
-import { useEffect } from "react"
+import { useEffect } from "react";
 
 const styles = {
   container: () => [tw`box-border flex flex-col w-full font-inter`],
   label: () => [tw`mb-[1px] font-light font-[16px] text-[#D62B70]`],
   input: () => [
     tw`box-border rounded-[10px] border-[#D62B70] border-[3px] font-light font-[20px] text-[F4B86A] p-[1%] font-inter`,
+  ],
+  textAreaInput: () => [
+    tw`resize-none  box-border rounded-[10px] border-[#D62B70] border-[3px] font-light font-[20px] text-[F4B86A] p-[1%] font-inter`,
   ],
   errorText: ({ isFirstClick, isValid }) => [
     tw`my-[1px] font-light text-red-900 text-xs`,
@@ -43,17 +46,33 @@ const Input = ({
     isValid: false,
     isFirstClick: false,
   });
-  const {value,isValid} =state;
+  const { value, isValid } = state;
 
   useEffect(() => {
     onInput(id, value, isValid);
   }, [id, value, isValid, onInput]);
 
-  return (
-    <div css={styles.container()}>
-      <label css={styles.label()} htmlFor={id}>
-        {label}
-      </label>
+  const input =
+    type === "textarea" ? (
+      <textarea
+        rows={10}
+        css={styles.textAreaInput()}
+        id={id}
+        placeholder={placeholder}
+        onChange={(e) => {
+          dispatch({
+            type: "CHANGE",
+            value: e.target.value,
+            validator: validator,
+          });
+        }}
+        onFocus={() => {
+          dispatch({ type: "TOUCH" });
+        }}
+      ></textarea>
+    ) : type == "select" ? (
+      <select></select>
+    ) : (
       <input
         css={styles.input()}
         id={id}
@@ -70,6 +89,14 @@ const Input = ({
           dispatch({ type: "TOUCH" });
         }}
       ></input>
+    );
+
+  return (
+    <div css={styles.container()}>
+      <label css={styles.label()} htmlFor={id}>
+        {label}
+      </label>
+      {input}
       <div
         css={styles.errorText({
           isFirstClick: state.isFirstClick,
