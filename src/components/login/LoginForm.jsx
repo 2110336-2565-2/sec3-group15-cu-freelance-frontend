@@ -16,7 +16,7 @@ const styles = {
   content: () => [
     tw`flex flex-col box-border h-full w-full  items-center px-[2%] gap-6`,
   ],
-  title: () => [tw`text-3xl font-bold mt-4`],
+  title: () => [tw`font-ibm text-3xl font-bold mt-4`],
   button: () => [
     tw`w-full bg-[#D62B70] font-bold text-[20px] text-white rounded-[10px] font-inter py-2 mt-[1%] disabled:bg-gray-600`,
   ],
