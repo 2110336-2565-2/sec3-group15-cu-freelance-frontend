@@ -12,8 +12,11 @@ import LayoutWithNavbar from "./pages/LayoutWithNavbar";
 import { AuthContext } from "./context/AuthProvider";
 import { useAuth } from "./hooks/auth-hook";
 import FillDisplayNamePage from "./pages/FillDisplayName";
+import AddedPortfolioPage from "./pages/AddedPortfolio";
+import { SSO_URL } from "./config/env";
 
 function App() {
+  console.log(SSO_URL)
   const { acToken, reToken, login, logout, userInfo } = useAuth();
   return (
     <AuthContext.Provider value={{ userInfo, acToken, reToken, login, logout }}>
@@ -22,9 +25,9 @@ function App() {
           <Route path="" element={<Navigate to="home" />} />
           <Route path="home" element={<HomePage />} />
           <Route path="profile/">
-            <Route path=":userId/" element={<ProfilePage />}>
+            <Route path=":userId/">
+              <Route path="add-portfolio" element={<AddedPortfolioPage />} />
               <Route path="" element={<ProfilePage />} />
-              <Route path="add-portfolio" element={<ProfilePage />} />
             </Route>
           </Route>
         </Route>

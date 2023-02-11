@@ -4,14 +4,14 @@ import RegisterCustomerAvatar from "../assets/LoginCustomerAvatar.svg"
 import RegisterForm from "../components/register/RegisterForm.jsx"
 const styles = {
     container:()=> [
-        tw`flex flex-col items-center h-[95vh] box-border`
+        tw`flex flex-col items-center h-[95vh] max-w-[1400px] mx-auto`
         
     ],
     logo: () => [
-        tw`my-[1%] w-[10%] box-border`
+        tw`my-[1%] w-[10%] `
     ],
     content:()=>[
-        tw`w-full h-full flex flex-row justify-between pl-[10%] pr-[6%]`
+        tw`w-full h-full flex flex-row  justify-between pl-[10%] pr-[6%]`
     ],
 }
 const RegisterPage=()=>{

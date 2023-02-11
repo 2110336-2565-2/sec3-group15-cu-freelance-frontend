@@ -8,6 +8,7 @@ const Auth = () => {
   const ticket = searchParams.get("ticket");
   const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
+  console.log("From Auth")
   useEffect(() => {
     const fetch = async (ticket) => {
       const data = JSON.stringify({ ticket: ticket, university: 1 });
