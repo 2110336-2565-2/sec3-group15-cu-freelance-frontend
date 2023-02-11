@@ -4,6 +4,7 @@ import HomePage from "./pages/Home";
 import Login from "./pages/Login";
 import LoginCustomer from "./pages/LoginCustomer";
 import RegisterPage from "./pages/Register";
+import RegisterSuccessPage from "./pages/RegisterSuccess"
 import ProfilePage from "./pages/Profile";
 import Auth from "./pages/Auth";
 import Footer from "./components/share/Footer";
@@ -31,7 +32,8 @@ function App() {
           <Route path="" element={<Login />} />
           <Route path="customer" element={<LoginCustomer />} />
         </Route>
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/register/" element={<RegisterPage />} />
+          <Route path="success" element={<RegisterSuccessPage/>} />
         <Route path="/fill-display-name" element={<FillDisplayNamePage/>} />
         <Route path="/auth" element={<Auth />} />
         <Route path="*" element={<Navigate to="home" />} />
