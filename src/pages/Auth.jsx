@@ -21,7 +21,11 @@ const Auth = () => {
         expiresOn.setSeconds(expiresOn.getSeconds() + expires_in);
         response = await authCtx.login(access_token, refresh_token, expiresOn);
         console.log(response);
-        navigate("/home", { replace: true });
+        if (!response.display_name) {
+          navigate("/fill-display-name", { replace: true });
+        } else {
+          navigate("/home", { replace: true });
+        }
       } catch (err) {
         console.log(err);
       }
