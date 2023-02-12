@@ -25,6 +25,9 @@ const styles = {
   ],
   sepia: ()=>[
     tw`absolute w-full h-full bg-black opacity-10 rounded-[35px]`
+  ],
+  image: ()=>[
+    tw`absolute w-auto`
   ]
 };
 const Card = ({ hasShadow = false, hasPencil = false, type, children,borderDashed=false,onClick, close=false}) => {
@@ -34,7 +37,8 @@ const Card = ({ hasShadow = false, hasPencil = false, type, children,borderDashe
       {" "}
       {hasPencil&&<img src={Pencil} css={styles.pencil()}/>}
       {children}
-      {close&&<img src={CloseEyeIcon} css={styles.sepia()}/>}
+      {close&&<img src={CloseEyeIcon} css={styles.image()}/>}
+      {close&&<div css={styles.sepia()}></div>}
     </div>
   );
 };
