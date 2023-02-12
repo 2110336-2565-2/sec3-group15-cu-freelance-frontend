@@ -66,8 +66,7 @@ jobs:
     steps:
       - name: map production enviroment name
         run: |
-          if [${{ needs.build.outputs.BRANCH }} == main]
-          then
+          if [ ${{ needs.build.outputs.BRANCH }} = main ]; then
             echo "ENV=prod" >> $GITHUB_ENV
           else
             echo "ENV=${{ needs.build.outputs.BRANCH }}" >> $GITHUB_ENV
