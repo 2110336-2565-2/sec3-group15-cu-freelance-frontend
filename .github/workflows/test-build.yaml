@@ -5,7 +5,7 @@ on:
     branches:
       - dev
       - beta
-      - master
+      - main
 
 jobs:
   docker-build:

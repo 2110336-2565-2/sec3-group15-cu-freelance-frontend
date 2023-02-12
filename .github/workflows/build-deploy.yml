@@ -6,7 +6,7 @@ on:
     branches:
       - dev
       - beta
-      - master
+      - main
 
 env:
   GITOPS_REPO: 2110336-2565-2/sec3-group15-cu-freelance-gitops
