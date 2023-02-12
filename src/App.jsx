@@ -14,6 +14,7 @@ import { useAuth } from "./hooks/auth-hook";
 import FillDisplayNamePage from "./pages/FillDisplayName";
 import AddedPortfolioPage from "./pages/AddedPortfolio";
 import { SSO_URL } from "./config/env";
+import PortfolioPage from "./pages/Portfolio";
 
 function App() {
   console.log(SSO_URL)
@@ -26,6 +27,7 @@ function App() {
           <Route path="home" element={<HomePage />} />
           <Route path="profile/">
             <Route path=":userId/">
+              <Route path=":portId" element={<PortfolioPage/>}/>
               <Route path="add-portfolio" element={<AddedPortfolioPage />} />
               <Route path="" element={<ProfilePage />} />
             </Route>

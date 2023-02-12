@@ -36,6 +36,7 @@ const Navbar = (props) => {
       url+=`/${authCtx.userInfo.id}`
     }
     navigate(url);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   let Right;
   const Left = (

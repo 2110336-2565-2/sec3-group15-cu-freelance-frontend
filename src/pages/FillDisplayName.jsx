@@ -52,7 +52,7 @@ const FillDisplayNamePage = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
-      navigate("/home", { replace: true });
+      navigate("/success", { replace: true });
     } catch (err) {
       console.log(err);
     }

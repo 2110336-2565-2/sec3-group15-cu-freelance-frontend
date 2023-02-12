@@ -116,7 +116,7 @@ const LoginForm = () => {
 
         <div css={styles.register()}>
           <p css={styles.registerText()}> Don't have an account? </p>
-          <Link  css={styles.registerLink()} to="/home">
+          <Link  css={styles.registerLink()} to="/register">
              Register Here
           </Link>
         </div>
