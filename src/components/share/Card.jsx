@@ -8,7 +8,8 @@ const widthVariants = {
   comment: tw`w-[30%] dt:w-[30%] dt:h-[100%] text-[#D62B70]`,
   loginForm: tw`w-[45%]`,
   loginType: tw`w-[42%] box-border h-[100%] box-border cursor-pointer`,
-  registerSuccess: tw`w-[38%] h-fit box-border my-4`
+  registerSuccess: tw`w-[38%] h-fit box-border my-4`,
+  portfolio2: tw`w-fit h-fit p-4 self-center`
 };
 const styles = {
   container: ({ hasShadow, type,borderDashed }) => [
