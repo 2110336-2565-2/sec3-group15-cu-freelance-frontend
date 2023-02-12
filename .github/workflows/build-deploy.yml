@@ -64,6 +64,15 @@ jobs:
       - build
 
     steps:
+      - name: map production enviroment name
+        run: |
+          if [${{ needs.build.outputs.BRANCH }} == main]
+          then
+            echo "ENV=prod" >> $GITHUB_ENV
+          else
+            echo "ENV=${{ needs.build.outputs.BRANCH }}" >> $GITHUB_ENV
+          fi
+
       - uses: actions/checkout@v3
         with:
           repository: ${{ env.GITOPS_REPO }}
@@ -73,7 +82,7 @@ jobs:
         uses: imranismail/setup-kustomize@v2
 
       - name: Update image version
-        working-directory: ${{ env.GITOPS_APPLICATION_NAME }}/overlays/${{ needs.build.outputs.BRANCH }}
+        working-directory: ${{ env.GITOPS_APPLICATION_NAME }}/overlays/${{ env.ENV }}
         run: |
           kustomize edit set image ${{ needs.build.outputs.IMAGE_NAME }}=${{ needs.build.outputs.IMAGE_NAME }}:${{ needs.build.outputs.IMAGE_TAG }}
 
