@@ -41,7 +41,7 @@ const Navbar = (props) => {
   let Right;
   const Left = (
     <>
-      <img src={logo} alt="logo" tw="w-[25%]" />
+      <img src={logo} alt="logo" tw="w-[25%] cursor-pointer" onClick={onClickButtonHandler.bind(null, '/home')}/>
       <InputSearch />
     </>
   );

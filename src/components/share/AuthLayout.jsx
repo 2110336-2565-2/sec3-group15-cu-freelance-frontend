@@ -1,9 +1,9 @@
-import Logo from "../../assets/logo.svg";
 import tw from "twin.macro";
 import CustomerAvatar from "../../assets/CustomerAvatar.svg";
 import FreelanceAvatar from "../../assets/FreelanceAvatar.svg";
 import { useNavigate } from "react-router-dom";
 import AuthTypeCard from "../share/AuthTypeCard";
+import LogoButton from "./LogoButton";
 const styles = {
   container: () => [
     tw`flex flex-col items-center pt-[0.5%] h-[95vh] box-border`,
@@ -29,7 +29,7 @@ const AuthLayout = ({
   };
   return (
     <div css={styles.container}>
-      <img css={styles.image} src={Logo} />
+      <LogoButton/>
       <div css={styles.text}>{title}</div>
       <div css={styles.typeContainer}>
         <AuthTypeCard

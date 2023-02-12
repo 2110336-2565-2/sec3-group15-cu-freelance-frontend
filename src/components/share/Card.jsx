@@ -28,7 +28,7 @@ const styles = {
   ]
 };
 const Card = ({ hasShadow = false, hasPencil = false, type, children,borderDashed=false,onClick, close=false}) => {
-  console.log(close);
+  
   return (
     <div css={styles.container({ hasShadow, type,borderDashed})} onClick={onClick?onClick:()=>{}}>
       {" "}
