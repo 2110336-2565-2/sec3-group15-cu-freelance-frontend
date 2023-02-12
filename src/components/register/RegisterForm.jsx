@@ -49,6 +49,9 @@ const styles = {
   loginLink: () => [
     tw`whitespace-nowrap text-[16px] font-inter text-[#D62B70] p-[1%]`,
   ],
+  buttonContainer: () => [
+    tw`w-full flex flex-row gap-x-2`
+  ]
 };
 
 function reducer(state, action) {
@@ -73,6 +76,10 @@ const loginForm = () => {
     dispatch({ type: "CHANGESTATE", value: state.value + 1 });
     setProgress(state.value + 1);
   };
+  const backHandler = () => {
+    dispatch({type: "CHANGESTATE", value: state.value - 1});
+    setProgress(state.value - 1);
+  }
 
   const checkboxChangeHandler = (event) => {
     setCheck((prev) => !prev);
@@ -275,14 +282,24 @@ const loginForm = () => {
             onInput={inputHandler3}
           />
         </div>
-        <div css={styles.show({ showState: 3, nowState: state.value })}>
-          <button
-            css={styles.button()}
-            onClick={continueHandler}
-            disabled={disableButton}
-          >
-            Continue
-          </button>
+        <div css={styles.buttonContainer()}>
+        <div css={styles.show({ showState: 6, nowState: state.value })}>
+            <button
+              css={styles.button()}
+              onClick={backHandler}
+            >
+              Back
+            </button>
+          </div>
+          <div css={styles.show({ showState: 3, nowState: state.value })}>
+            <button
+              css={styles.button()}
+              onClick={continueHandler}
+              disabled={disableButton}
+            >
+              Continue
+            </button>
+          </div>
         </div>
         <div
           css={[
