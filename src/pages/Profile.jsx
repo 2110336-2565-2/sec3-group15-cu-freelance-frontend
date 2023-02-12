@@ -50,7 +50,7 @@ const DUMMY_port = [
     img: PortfolioImg,
     name: "Username123",
     description: "ออกแบบเว็บไซต์ Web Design งานคุณภาพราคาโดนๆๆๆๆ",
-    isClose: true
+    isClose: true,
   },
 ];
 
@@ -64,17 +64,17 @@ const ProfilePage = () => {
   const onAddPortHandler = () => {
     navigate(`/profile/${params.userId}/add-portfolio`);
   };
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await authClient.get("/portfolio/");
-  //       console.log(response.data);
-  //     } catch (err) {
-  //       console.log(err)
-  //     }
-  //   };
-  //   fetchData()
-  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await authClient.get("/portfolio/?limit=10&page=1");
+        console.log(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <BG>
       <ProfileCard imgSrc={userImg} name={name} />
