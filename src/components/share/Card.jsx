@@ -18,9 +18,8 @@ const styles = {
     tw`items-center`,
     widthVariants[type],
   ],
-  pencil: ({ hasPencil }) => [
-    tw`w-auto absolute top-0 right-0 translate-y-[-50%] translate-x-[30%]`,
-    !hasPencil && tw`hidden`,
+  pencil: () => [
+    tw`w-auto absolute top-0 right-0 translate-y-[-50%] translate-x-[30%] z-10  hover:ring-2`,
   ],
 };
 const Card = ({ hasShadow = false, hasPencil = false, type, children,borderDashed=false,onClick }) => {
@@ -28,7 +27,7 @@ const Card = ({ hasShadow = false, hasPencil = false, type, children,borderDashe
   return (
     <div css={styles.container({ hasShadow, type,borderDashed })} onClick={onClick?onClick:()=>{}}>
       {" "}
-      <img src={Pencil} css={styles.pencil({ hasPencil })}></img>
+      {hasPencil&&<img src={Pencil} css={styles.pencil()}/>}
       {children}
     </div>
   );

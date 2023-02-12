@@ -1,7 +1,12 @@
 import tw, { styled } from "twin.macro";
 
 const Button = (props) => {
-  const { noBG, width } = props;
+  const { noBG, width, disable } = props;
+  let isDisable = false;
+
+  if (disable) {
+    isDisable = disable;
+  }
 
   const onClickHandler = () => {
     props.onClick();
@@ -15,10 +20,16 @@ const Button = (props) => {
 
   const StyledButton = styled(Button)`
     width: ${width || "auto"};
-    ${tw``}
+    ${tw`disabled:cursor-not-allowed 
+    disabled:opacity-30
+    disabled:cursor-not-allowed`}
   `;
 
-  return <StyledButton onClick={onClickHandler}>{props.children}</StyledButton>;
+  return (
+    <StyledButton onClick={onClickHandler} disabled={isDisable}>
+      {props.children}
+    </StyledButton>
+  );
 };
 
 export default Button;

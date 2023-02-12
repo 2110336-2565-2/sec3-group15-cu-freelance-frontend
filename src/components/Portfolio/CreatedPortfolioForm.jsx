@@ -1,14 +1,20 @@
+import { useState } from "react";
 import Input from "../share/Input";
 import { useForm } from "../../hooks/form-hook";
 import { VALIDATOR_REQUIRE } from "../share/Validate";
 import { DUMMY_options } from "../../store/portfolioForm";
+import { apiClient } from "../../utils/axios";
 import ImageUpload from "../share/ImageUpload";
 import tw from "twin.macro";
 const CreatedPortfolioForm = () => {
   const styles = {
-    submitButton: () => [tw`w-full bg-[#D62B70] text-white rounded-lg p-2`],
+    submitButton: () => [
+      tw`w-full bg-[#D62B70] text-white rounded-lg p-2
+    disabled:opacity-30
+    disabled:cursor-not-allowed`,
+    ],
   };
-
+  const [isVisible, setIsVisible] = useState(false);
   const [formState, inputHandler] = useForm(
     {
       portfolioName: {
@@ -27,22 +33,28 @@ const CreatedPortfolioForm = () => {
         value: null,
         isValid: false,
       },
-      isVisible: {
-        value: false,
-        isValid: false,
-      },
     },
     false
   );
 
-  const onSubmitHandler = (event) => {
+  const onSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(formState.inputs.image.value);
+    console.log(formState.inputs);
+    const { portfolioName, description, category, image } = formState.inputs;
+    // try {
+    //   let data = new FormData();
+    //   data.append("portfolioName", portfolioName.value);
+    //   data.append("description", description.value);
+    //   data.append("category", category.value);
+    //   data.append("image", image.value);
+    //   data.append("isVisible", isVisible);
+    //   const response = await apiClient.post("some-url", data);
+    //   console.log(response.data)
+    // } catch (err) {}
   };
-
   return (
     <form
-      tw="w-[80%] mx-auto h-[90%] flex flex-col gap-y-6 my-2.5"
+      tw="w-[80%] mx-auto flex flex-col gap-y-6 my-2.5"
       onSubmit={onSubmitHandler}
     >
       <Input
@@ -79,11 +91,23 @@ const CreatedPortfolioForm = () => {
       />
       <div tw="flex  gap-x-2">
         {" "}
-        <input type="checkbox" id="isVisible"  tw="border-4 border-[#D62B70]"/>
+        <input
+          type="checkbox"
+          id="isVisible"
+          tw="border-4 border-[#D62B70]"
+          checked={isVisible}
+          onChange={() => {
+            setIsVisible((prev) => !prev);
+          }}
+        />
         <label htmlFor="isVisible">is visible?</label>
       </div>
 
-      <button type="submit" css={styles.submitButton()}>
+      <button
+        type="submit"
+        css={styles.submitButton()}
+        disabled={!formState.isValid}
+      >
         Create
       </button>
     </form>
