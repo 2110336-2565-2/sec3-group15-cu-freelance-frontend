@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Input from "../share/Input";
 import { useForm } from "../../hooks/form-hook";
 import { VALIDATOR_REQUIRE } from "../share/Validate";
@@ -6,6 +6,7 @@ import { DUMMY_options } from "../../store/portfolioForm";
 import { apiClient } from "../../utils/axios";
 import ImageUpload from "../share/ImageUpload";
 import tw from "twin.macro";
+import { AuthContext } from "../../context/AuthProvider";
 const CreatedPortfolioForm = () => {
   const styles = {
     submitButton: () => [
@@ -14,6 +15,7 @@ const CreatedPortfolioForm = () => {
     disabled:cursor-not-allowed`,
     ],
   };
+  const authCtx = useContext(AuthContext);
   const [isVisible, setIsVisible] = useState(false);
   const [formState, inputHandler] = useForm(
     {
@@ -41,16 +43,23 @@ const CreatedPortfolioForm = () => {
     event.preventDefault();
     console.log(formState.inputs);
     const { portfolioName, description, category, image } = formState.inputs;
-    // try {
-    //   let data = new FormData();
-    //   data.append("portfolioName", portfolioName.value);
-    //   data.append("description", description.value);
-    //   data.append("category", category.value);
-    //   data.append("image", image.value);
-    //   data.append("isVisible", isVisible);
-    //   const response = await apiClient.post("some-url", data);
-    //   console.log(response.data)
-    // } catch (err) {}
+    try {
+      let data = JSON.stringify({
+        category:category.value,
+        description_th: description.value,
+        description_en: description.value,
+        is_public: isVisible,
+        name_th: portfolioName.value,
+        name_en: portfolioName.value,
+        userID: authCtx.userInfo.id,
+      });
+      const response = await apiClient.post("/portfolio/", data, {
+        headers: { "Content-Type": "application/json" },
+      });
+      console.log(response.data);
+    } catch (err) {
+      console.log(err)
+    }
   };
   return (
     <form
