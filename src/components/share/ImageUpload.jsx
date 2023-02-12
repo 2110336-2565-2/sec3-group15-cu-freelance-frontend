@@ -60,7 +60,7 @@ const ImageUpload = (props) => {
       />
       <div>
         <div>{previewUrl && <img src={previewUrl} alt="Preview" />}</div>
-        <button onClick={pickImageHandler} css={styles.button()}>
+        <button type="button" onClick={pickImageHandler} css={styles.button()}>
           <span>
             <img src={CameraIcon} />
           </span>

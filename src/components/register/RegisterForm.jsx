@@ -87,42 +87,42 @@ const loginForm = () => {
 
   const navigate = useNavigate();
   const submitHandler = async () => {
-    // try {
-    //   setLoading(true);
-    //   let data = JSON.stringify({
-    //     firstname: formState1.inputs.firstname.value,
-    //     lastname: formState1.inputs.lastname.value,
-    //     phonenumber: formState1.inputs.phonenumber.value,
-    //     username: formState2.inputs.username.value,
-    //     password: formState2.inputs.password.value,
-    //     displayname: formState3.inputs.displayname.value,
-    //     email: formState3.inputs.email.value,
-    //   });
-    //   let response = await authClient.post("/auth/register", data, {
-    //     headers: { "Content-Type": "application/json" },
-    //   });
-    //   console.log(response.data);
+    try {
+      setLoading(true);
+      let data = JSON.stringify({
+        firstname: formState1.inputs.firstname.value,
+        lastname: formState1.inputs.lastname.value,
+        phone: formState1.inputs.phonenumber.value,
+        username: formState2.inputs.username.value,
+        password: formState2.inputs.password.value,
+        display_name: formState3.inputs.displayname.value,
+        email: formState3.inputs.email.value,
+      });
+      let response = await authClient.post("/auth/register", data, {
+        headers: { "Content-Type": "application/json" },
+      });
+      console.log(response.data);
 
-    //   response = await authClient.post(
-    //     "/auth/login",
-    //     JSON.stringify({
-    //       username: formState2.inputs.username.value,
-    //       password: formState2.inputs.password.value,
-    //     }),
-    //     {
-    //       headers: { "Content-Type": "application/json" },
-    //     }
-    //   );
-    //   const { access_token, refresh_token, expires_in } = response.data;
+      response = await authClient.post(
+        "/auth/login",
+        JSON.stringify({
+          username: formState2.inputs.username.value,
+          password: formState2.inputs.password.value,
+        }),
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      const { access_token, refresh_token, expires_in } = response.data;
 
-    //   let expiresOn = new Date();
-    //   expiresOn.setSeconds(expiresOn.getSeconds() + expires_in);
-    //   response = await authCtx.login(access_token, refresh_token, expiresOn);
-    //   setLoading(false);
-    //   navigate("/success");
-    // } catch (err) {
-    //   console.log(err);
-    // }
+      let expiresOn = new Date();
+      expiresOn.setSeconds(expiresOn.getSeconds() + expires_in);
+      response = await authCtx.login(access_token, refresh_token, expiresOn);
+      setLoading(false);
+      navigate("/success");
+    } catch (err) {
+      console.log(err);
+    }
     navigate("/success");
   };
   const [formState1, inputHandler1] = useForm(

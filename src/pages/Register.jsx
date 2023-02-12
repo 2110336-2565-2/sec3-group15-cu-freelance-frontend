@@ -1,7 +1,7 @@
 import tw from "twin.macro"
-import Logo from "../assets/logo.svg"
 import RegisterCustomerAvatar from "../assets/LoginCustomerAvatar.svg"
 import RegisterForm from "../components/register/RegisterForm.jsx"
+import LogoButton from "../components/share/LogoButton"
 const styles = {
     container:()=> [
         tw`flex flex-col items-center min-h-[95vh] max-w-[1400px] mx-auto`  
@@ -19,7 +19,7 @@ const styles = {
 const RegisterPage=()=>{
     return (
         <div css={styles.container()}>
-            <img css={styles.logo()} src={Logo}/>
+            <LogoButton/>
             <div css={styles.content()}>
                 <img css={styles.avatar()} src={RegisterCustomerAvatar}/>
                 <RegisterForm/>
