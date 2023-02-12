@@ -12,13 +12,16 @@ const styles = {
     content:()=>[
         tw`w-full h-full flex flex-row  justify-between pl-[10%] pr-[6%]`
     ],
+    avatar:()=>[
+        tw`object-contain self-center`
+    ]
 }
 const RegisterPage=()=>{
     return (
         <div css={styles.container()}>
             <img css={styles.logo()} src={Logo}/>
             <div css={styles.content()}>
-                <img css={styles.avatar} src={RegisterCustomerAvatar}/>
+                <img css={styles.avatar()} src={RegisterCustomerAvatar}/>
                 <RegisterForm/>
             </div>
         </div>

@@ -20,7 +20,7 @@ const styles = {
         max-w-[460px] border-[1px] rounded-[30px] px-6 py-4 h-fit`,
   ],
   content: () => [
-    tw`flex flex-col box-border h-full w-full items-center px-[2%] gap-5`,
+    tw`flex flex-col box-border max-h-[95vh] w-full items-center px-[2%] gap-2`,
   ],
   title: () => [tw`text-3xl font-ibm font-bold`],
   show: ({ showState, nowState }) => [
@@ -237,7 +237,7 @@ const loginForm = () => {
             id="password"
             label="Password"
             placeholder="Enter password"
-            errorText="Your password should not be at least 6 characters"
+            errorText="Your password should be at least 8 characters"
             validator={[VALIDATOR_MINLENGTH(8)]}
             onInput={inputHandler2}
           />
