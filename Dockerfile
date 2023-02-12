@@ -1,17 +1,13 @@
 # install dependencies
-FROM node:18.12.1 AS build
+FROM node:19.6-alpine AS build
 
 WORKDIR /app
 
-# copy package and lock file for install the dependencies
-COPY ./package.json ./package.json
-COPY ./package-lock.json ./package-lock.json
-
-# install only production dependencies
-RUN npm install --frozen-lockfile
-
 # copy source code to build
 COPY . .
+
+# install dependencies
+RUN npm install --frozen-lockfile
 
 # build the project
 RUN npm run build
