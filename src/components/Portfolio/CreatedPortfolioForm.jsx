@@ -7,6 +7,7 @@ import { apiClient } from "../../utils/axios";
 import ImageUpload from "../share/ImageUpload";
 import tw from "twin.macro";
 import { AuthContext } from "../../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 const CreatedPortfolioForm = () => {
   const styles = {
     submitButton: () => [
@@ -15,8 +16,10 @@ const CreatedPortfolioForm = () => {
     disabled:cursor-not-allowed`,
     ],
   };
+  const navigate=useNavigate()
   const authCtx = useContext(AuthContext);
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoading,setIsLoading]=useState(false)
   const [formState, inputHandler] = useForm(
     {
       portfolioName: {
@@ -44,6 +47,7 @@ const CreatedPortfolioForm = () => {
     console.log(formState.inputs);
     const { portfolioName, description, category, image } = formState.inputs;
     try {
+      setIsLoading(true)
       let data = JSON.stringify({
         category:category.value,
         description_th: description.value,
@@ -57,9 +61,12 @@ const CreatedPortfolioForm = () => {
         headers: { "Content-Type": "application/json" },
       });
       console.log(response.data);
+      navigate(`/profile/${authCtx.userInfo.id}`,{replace:true})
+      
     } catch (err) {
       console.log(err)
     }
+    setIsLoading(false)
   };
   return (
     <form
@@ -115,9 +122,9 @@ const CreatedPortfolioForm = () => {
       <button
         type="submit"
         css={styles.submitButton()}
-        disabled={!formState.isValid}
+        disabled={!formState.isValid|isLoading}
       >
-        Create
+        {(isLoading&&"Loading...")||"Create"}
       </button>
     </form>
   );
