@@ -88,7 +88,7 @@ const loginForm = () => {
         phone: formState1.inputs.phonenumber.value,
         username: formState2.inputs.username.value,
         password: formState2.inputs.password.value,
-        displayname: formState3.inputs.displayname.value,
+        display_name: formState3.inputs.displayname.value,
         email: formState3.inputs.email.value,
       });
       let response = await authClient.post("/auth/register", data, {
