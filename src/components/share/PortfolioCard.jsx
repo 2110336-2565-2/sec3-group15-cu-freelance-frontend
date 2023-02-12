@@ -2,7 +2,7 @@ import tw from "twin.macro"
 import Card from "./Card";
 const styles = {
     content:() => [
-        tw`flex flex-col h-[95%] w-[100%] text-center items-center justify-center`
+        tw`flex flex-col h-[95%] w-[100%] text-center items-center justify-center`,
     ],
     profileBar:()=>[
         tw`flex flex-row h-[20%] items-center w-[90%]`
@@ -18,10 +18,13 @@ const styles = {
     ],
     description:()=>[
         tw`text-left w-[80%]`
+    ],
+    close:()=>[
+        tw`bg-black absolute`
     ]
 }
-const PortfolioCard = ({userImgSrc, portImgSrc, name, description})=>(
-    <Card hasShadow={false} hasPencil={true} type='portfolio'>
+const PortfolioCard = ({userImgSrc, portImgSrc, name, description, isClose=false})=>(
+    <Card hasShadow={false} hasPencil={true} type='portfolio' close={isClose}>
         <div css={styles.content}>
             <div css={styles.profileBar}>
                 <img css={styles.userImage} src={userImgSrc}/>

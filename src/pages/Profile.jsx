@@ -47,7 +47,8 @@ const DUMMY_port = [
     userImg: profile1,
     img: PortfolioImg,
     name: "Username123",
-    description: "ออกแบบเว็บไซต์ Web Design งานคุณภาพราคาโดนๆ",
+    description: "ออกแบบเว็บไซต์ Web Design งานคุณภาพราคาโดนๆๆๆๆ",
+    isClose: true
   },
 ];
 
@@ -79,6 +80,7 @@ const ProfilePage = () => {
                   portImgSrc={portfolio.img}
                   name={portfolio.name}
                   description={portfolio.description}
+                  isClose={portfolio.isClose}
                 />
               );
           })}
