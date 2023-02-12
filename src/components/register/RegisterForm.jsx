@@ -17,7 +17,7 @@ import { AuthContext } from "../../context/AuthProvider";
 const styles = {
   container: () => [
     tw`flex flex-col font-inter items-center w-[50%] 
-        max-w-[460px] border-[1px] rounded-[30px] px-6 py-8 h-fit`,
+        max-w-[460px] border-[1px] rounded-[30px] px-6 py-4 h-fit`,
   ],
   content: () => [
     tw`flex flex-col box-border h-full w-full items-center px-[2%] gap-5`,

@@ -3,7 +3,7 @@ import Logo from "../assets/logo.svg"
 import RegisterSuccessCard from "../components/share/RegiterSuccessCard"
 const styles = {
     container:()=>[
-        tw`flex flex-col min-h-[95vh]`
+        tw`flex flex-col min-h-[95vh] items-end px-16 w-full`
     ],
     logo:()=>[
         tw`my-[1%] w-[10%] box-border self-center`

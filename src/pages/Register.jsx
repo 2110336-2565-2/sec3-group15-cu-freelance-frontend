@@ -4,8 +4,7 @@ import RegisterCustomerAvatar from "../assets/LoginCustomerAvatar.svg"
 import RegisterForm from "../components/register/RegisterForm.jsx"
 const styles = {
     container:()=> [
-        tw`flex flex-col items-center h-[95vh] max-w-[1400px] mx-auto`
-        
+        tw`flex flex-col items-center min-h-[95vh] max-w-[1400px] mx-auto`  
     ],
     logo: () => [
         tw`my-[1%] w-[10%] `

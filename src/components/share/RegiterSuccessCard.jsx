@@ -4,7 +4,7 @@ import CheckIcon from "../../assets/CheckIcon.png"
 import { useNavigate } from "react-router-dom";
 const styles = {
     content:()=>[
-        tw`flex flex-col h-fit text-center items-center gap-y-8 py-2 px-4`
+        tw`flex flex-col h-fit text-center items-center gap-y-8 py-2 px-4 box-border w-full`
     ],
     image:()=>[
         tw`w-[40%]`
