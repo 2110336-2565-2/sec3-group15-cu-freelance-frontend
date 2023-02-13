@@ -17,7 +17,7 @@ import { SSO_URL } from "./config/env";
 import PortfolioPage from "./pages/Portfolio";
 
 function App() {
-  console.log(SSO_URL)
+  
   const { acToken, reToken, login, logout, userInfo } = useAuth();
   return (
     <AuthContext.Provider value={{ userInfo, acToken, reToken, login, logout }}>

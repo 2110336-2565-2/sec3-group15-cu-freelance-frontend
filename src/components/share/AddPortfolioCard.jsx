@@ -10,7 +10,7 @@ const styles = {
 ]
 };
 const AddPortfolioCard = ({ onClick }) => {
-  console.log(onClick);
+
   return (
     <Card borderDashed={true} type="portfolio" onClick={onClick}>
       <div css={styles.content}>
