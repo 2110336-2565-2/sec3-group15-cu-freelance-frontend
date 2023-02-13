@@ -84,7 +84,7 @@ const ProfilePage = () => {
                   userImgSrc={profile1}
                   portImgSrc={PortfolioImg}
                   name={"User"}
-                  description={portfolio.name_th}
+                  description={portfolio.name}
                   isClose={!portfolio.is_public}
                   onClick={onClickDetailCard.bind(null,portfolio.id)}
                   onPencilClick={onClickEditCard.bind(null,portfolio.id)}

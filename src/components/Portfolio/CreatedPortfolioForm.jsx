@@ -54,12 +54,10 @@ const CreatedPortfolioForm = () => {
       setIsLoading(true)
       let data = JSON.stringify({
         category:category.value,
-        description_th: description.value,
-        description_en: description.value,
+        description: description.value,
         price:parseInt(price.value),
         is_public: isVisible,
-        name_th: portfolioName.value,
-        name_en: portfolioName.value,
+        name: portfolioName.value,
         userID: authCtx.userInfo.id,
       });
       const response = await apiClient.post("/portfolio/", data, {

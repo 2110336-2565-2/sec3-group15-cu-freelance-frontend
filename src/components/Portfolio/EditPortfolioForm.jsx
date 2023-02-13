@@ -76,12 +76,10 @@ const EditPortfolioForm = () => {
       setIsLoading(true);
       let data = JSON.stringify({
         category: category.value,
-        description_th: description.value,
-        description_en: description.value,
+        description: description.value,
         price: parseInt(price.value),
         is_public: isVisible,
-        name_th: portfolioName.value,
-        name_en: portfolioName.value,
+        name: portfolioName.value,
         userID: authCtx.userInfo.id,
       });
       const response = await apiClient.patch(`/portfolio/${id}`, data, {
@@ -104,7 +102,7 @@ const EditPortfolioForm = () => {
         setFormData(
           {
             portfolioName: {
-              value: response.data.portfolio.name_en,
+              value: response.data.portfolio.name,
               isValid: true,
             },
             price: {
@@ -112,7 +110,7 @@ const EditPortfolioForm = () => {
               isValid: true,
             },
             description: {
-              value: response.data.portfolio.description_en,
+              value: response.data.portfolio.description,
               isValid: true,
             },
             category: {
@@ -173,7 +171,11 @@ const EditPortfolioForm = () => {
               <Button cancel disable={isLoading} onClick={onCancelHandler}>
                 Cancel
               </Button>
-              <Button deleted disable={isLoading} onClick={onClickDeleteHandler}>
+              <Button
+                deleted
+                disable={isLoading}
+                onClick={onClickDeleteHandler}
+              >
                 Delete
               </Button>
             </>
@@ -230,7 +232,7 @@ const EditPortfolioForm = () => {
             errorText="Your portfolio name should not be blank"
             onInput={inputHandler}
             validator={[VALIDATOR_REQUIRE()]}
-            initialValue={portfolio.name_en}
+            initialValue={portfolio.name}
             initialValid={true}
           />
           <Input
@@ -241,7 +243,7 @@ const EditPortfolioForm = () => {
             errorText="Description should not be blank"
             onInput={inputHandler}
             validator={[VALIDATOR_REQUIRE()]}
-            initialValue={portfolio.description_en}
+            initialValue={portfolio.description}
             initialValid={true}
           />
           <Input

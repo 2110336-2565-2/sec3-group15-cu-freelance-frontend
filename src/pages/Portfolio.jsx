@@ -36,12 +36,12 @@ const PortfolioPage = () => {
       <>
         {" "}
         <Path>
-          {`ประเภทงานทั้งหมด > ${portfolio.category} >  ${portfolio.name_en}`}
+          {`ประเภทงานทั้งหมด > ${portfolio.category} >  ${portfolio.name}`}
         </Path>
         <Image src={PortfolioExample}></Image>
-        <Title>{portfolio.name_en}</Title>
+        <Title>{portfolio.name}</Title>
         <Description>
-          {portfolio.description_en}
+          {portfolio.description}
         </Description>
         <ProfileCard
           userImage={UserImage}
