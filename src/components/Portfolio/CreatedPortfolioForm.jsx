@@ -120,6 +120,8 @@ const CreatedPortfolioForm = () => {
         id="image"
         onInput={inputHandler}
         errorText="Please provide an image."
+        text="Select Photo"
+        isValid={false}
       />
       <div tw="flex  gap-x-2">
         {" "}

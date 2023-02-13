@@ -23,8 +23,8 @@ const styles = {
         tw`bg-black absolute`
     ]
 }
-const PortfolioCard = ({userImgSrc, portImgSrc, name, description, isClose=false})=>(
-    <Card hasShadow={false} hasPencil={true} type='portfolio' close={isClose}>
+const PortfolioCard = ({userImgSrc, portImgSrc, name, description, isClose=false,onClick,onPencilClick})=>(
+    <Card hasShadow={false} hasPencil={true} type='portfolio' close={isClose} onClick={onClick} onPencilClick={onPencilClick}>
         <div css={styles.content}>
             <div css={styles.profileBar}>
                 <img css={styles.userImage} src={userImgSrc}/>

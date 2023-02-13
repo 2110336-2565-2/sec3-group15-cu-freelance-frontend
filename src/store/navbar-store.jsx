@@ -9,6 +9,6 @@ export const navbarButton = [
   { img: OrderIcon, to: "/home" },
   { img: ChatIcon, to: "/home" },
   { img: NotificationIcon, to: "/home" },
-  { img: SignoutIcon, to: "/login" },
+  { img: SignoutIcon, to: "/logout" },
   { img: profile1, to: "/profile" },
 ];

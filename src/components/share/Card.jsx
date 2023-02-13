@@ -14,28 +14,28 @@ const widthVariants = {
 };
 const styles = {
   container: ({ hasShadow, type,borderDashed}) => [
-    tw`border-[5px] border-[#D62B70] rounded-[40px] flex h-[80vh] justify-center items-center`,
+    tw`border-[5px] border-[#D62B70] rounded-[40px] flex h-[80vh] justify-center items-center z-10`,
     hasShadow && tw`shadow-[15px_15px_#E165AB]`,
     borderDashed&&tw`border-dashed`,
     tw`items-center`,
     widthVariants[type],
   ],
   pencil: () => [
-    tw`w-auto absolute top-0 right-0 translate-y-[-50%] translate-x-[30%] z-10  hover:ring-2`,
+    tw`w-auto absolute top-0 right-0 translate-y-[-50%] translate-x-[30%] z-40 hover:ring-2 `,
   ],
   sepia: ()=>[
-    tw`absolute w-full h-full bg-black opacity-10 rounded-[35px]`
+    tw`absolute w-full h-full bg-black/25 rounded-[35px]`
   ],
   image: ()=>[
     tw`absolute w-auto`
   ]
 };
-const Card = ({ hasShadow = false, hasPencil = false, type, children,borderDashed=false,onClick, close=false}) => {
+const Card = ({ hasShadow = false, hasPencil = false, type, children,borderDashed=false,onClick, close=false,onPencilClick=(()=>{})}) => {
   
   return (
     <div css={styles.container({ hasShadow, type,borderDashed})} onClick={onClick?onClick:()=>{}}>
       {" "}
-      {hasPencil&&<img src={Pencil} css={styles.pencil()}/>}
+      {hasPencil&&<img src={Pencil} css={styles.pencil()} onClick={onPencilClick}/>}
       {children}
       {close&&<img src={CloseEyeIcon} css={styles.image()}/>}
       {close&&<div css={styles.sepia()}></div>}

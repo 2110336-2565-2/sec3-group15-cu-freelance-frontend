@@ -48,12 +48,13 @@ const Input = ({
   onInput,
   options,
   initialValue,
+  initialValid,
   min,
   step
 }) => {
   const [state, dispatch] = useReducer(reducer, {
     value: initialValue || "",
-    isValid: false,
+    isValid: initialValid||false,
     isFirstClick: false,
   });
   const { value, isValid } = state;

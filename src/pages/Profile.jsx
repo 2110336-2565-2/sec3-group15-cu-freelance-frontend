@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import tw from "twin.macro";
 import PortfolioImg from "../assets/PortfolioImg.png";
@@ -8,6 +7,7 @@ import AddPortfolioCard from "../components/share/AddPortfolioCard";
 import Button from "../components/share/Button";
 import PortfolioCard from "../components/share/PortfolioCard";
 import ProfileCard from "../components/share/ProfileCard";
+import { AuthContext } from "../context/AuthProvider";
 import { authClient } from "../utils/auth";
 
 const DUMMY_port = [
@@ -29,18 +29,22 @@ const ProfilePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [portfolios, setPortfolios] = useState(null);
   const navigate = useNavigate();
-
+  const authCtx = useContext(AuthContext);
+  const { display_name, user_type } = authCtx.userInfo;
   const onAddPortHandler = () => {
     navigate(`/profile/${params.userId}/add-portfolio`);
   };
 
-  const onClickEditCard = () => {
-    navigate();
+  const onClickEditCard = (id,e) => {
+    e.stopPropagation();
+    console.log('click pencil')
+    navigate(`/portfolio/${id}/edit`);
   };
 
-  const onClickDetailCard=()=>{
-    navigate()
-  }
+  const onClickDetailCard = (id) => {
+    navigate(`/portfolio/${id}`);
+  };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,21 +58,24 @@ const ProfilePage = () => {
       }
       setIsLoading(false);
     };
-    fetchData();
-  }, []);
+    if (user_type === 1) fetchData();
+  }, [user_type]);
 
   return (
     <BG>
-      <ProfileCard imgSrc={userImg} name={name} />
+      <ProfileCard imgSrc={userImg} name={display_name} />
       <div tw="w-[65%]  h-auto">
         {" "}
         <Header1>
-          {`งานของ Username123`}
-          <Button onClick={onAddPortHandler}>Add Portfolio</Button>
+          {`งานของ ${display_name}`}
+          {user_type === 1 && (
+            <Button onClick={onAddPortHandler}>Add Portfolio</Button>
+          )}
         </Header1>
         <PortfolioCardWrapper>
-          {isLoading && "Loading..."}
-          {!isLoading &&
+          {user_type === 1 && isLoading && "Loading..."}
+          {user_type === 1 &&
+            !isLoading &&
             portfolios &&
             portfolios.map((portfolio, i) => {
               return (
@@ -79,6 +86,8 @@ const ProfilePage = () => {
                   name={"User"}
                   description={portfolio.name_th}
                   isClose={!portfolio.is_public}
+                  onClick={onClickDetailCard.bind(null,portfolio.id)}
+                  onPencilClick={onClickEditCard.bind(null,portfolio.id)}
                 />
               );
             })}

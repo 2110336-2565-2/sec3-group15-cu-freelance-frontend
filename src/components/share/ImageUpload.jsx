@@ -14,7 +14,7 @@ const ImageUpload = (props) => {
 
   const [file, setFile] = useState();
   const [previewUrl, setPreviewUrl] = useState();
-  const [isValid, setIsValid] = useState(false);
+  const [isValid, setIsValid] = useState(props.isValid);
 
   const filePickerRef = useRef();
 
@@ -64,7 +64,7 @@ const ImageUpload = (props) => {
           <span>
             <img src={CameraIcon} />
           </span>
-          Select Photo
+          {props.text}
         </button>
       </div>
       {!isValid && (
