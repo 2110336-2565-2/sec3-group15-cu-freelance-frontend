@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 const CreatedPortfolioForm = () => {
   const styles = {
     submitButton: () => [
-      tw`w-full bg-[#D62B70] text-white rounded-lg p-2
+      tw`w-full bg-[#D62B70] text-white rounded-lg p-2 mb-[10px]
     disabled:opacity-30
     disabled:cursor-not-allowed`,
     ],
@@ -25,6 +25,10 @@ const CreatedPortfolioForm = () => {
       portfolioName: {
         value: "",
         isValid: false,
+      },
+      price:{
+        value:"",
+        isValid:false,
       },
       description: {
         value: "",
@@ -45,13 +49,14 @@ const CreatedPortfolioForm = () => {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     console.log(formState.inputs);
-    const { portfolioName, description, category, image } = formState.inputs;
+    const { portfolioName, description, category, image,price } = formState.inputs;
     try {
       setIsLoading(true)
       let data = JSON.stringify({
         category:category.value,
         description_th: description.value,
         description_en: description.value,
+        price:parseInt(price.value),
         is_public: isVisible,
         name_th: portfolioName.value,
         name_en: portfolioName.value,
@@ -81,6 +86,17 @@ const CreatedPortfolioForm = () => {
         errorText="Your portfolio name should not be blank"
         onInput={inputHandler}
         validator={[VALIDATOR_REQUIRE()]}
+      />
+       <Input
+        type="number"
+        id="price"
+        label="Price"
+        placeholder="Enter price"
+        errorText="Your price should not be blank"
+        onInput={inputHandler}
+        validator={[VALIDATOR_REQUIRE()]}
+        min="0"
+        step=".01"
       />
       <Input
         type="textarea"

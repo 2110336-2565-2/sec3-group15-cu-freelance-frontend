@@ -5,7 +5,7 @@ const widthVariants = {
   category: tw`w-[30%] dt:w-[30%] dt:h-[100%]`,
   validate: tw`w-[30%] dt:w-[30%] dt:h-[100%] text-[#D62B70] font-ibm`,
   profile: tw`fixed pf:left-[13vw] left-[5%] w-[18vw] dt:w-[18vw] dt:min-w-[206px] h-[40vh] font-ibm max-w-[270px]`,
-  portfolio: tw`relative w-[30%] dt:w-[30%] dt:min-w-[220px] dt:h-[33vh] dt:min-h-[300px] text-[#D62B70] font-ibm cursor-pointer`,
+  portfolio: tw`relative w-[30%] dt:w-[30%] dt:min-w-[220px] dt:h-[20vh] dt:min-h-[300px] text-[#D62B70] font-ibm cursor-pointer`,
   comment: tw`w-[30%] dt:w-[30%] dt:h-[100%] text-[#D62B70]`,
   loginForm: tw`w-[45%]`,
   loginType: tw`w-[42%] box-border h-[100%] box-border cursor-pointer`,

@@ -1,4 +1,4 @@
 const EditPortfolioPage=()=>{
-    return 
+    return <div></div>
 }
 export default EditPortfolioPage

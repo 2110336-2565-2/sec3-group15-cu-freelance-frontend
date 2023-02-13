@@ -13,8 +13,8 @@ import { AuthContext } from "./context/AuthProvider";
 import { useAuth } from "./hooks/auth-hook";
 import FillDisplayNamePage from "./pages/FillDisplayName";
 import AddedPortfolioPage from "./pages/AddedPortfolio";
-import { SSO_URL } from "./config/env";
 import PortfolioPage from "./pages/Portfolio";
+import EditPortfolioPage from "./pages/EditPortfolio";
 
 function App() {
   
@@ -27,7 +27,10 @@ function App() {
           <Route path="home" element={<HomePage />} />
           <Route path="profile/">
             <Route path=":userId/">
-              <Route path=":portId" element={<PortfolioPage/>}/>
+              <Route path=":portId/" >
+                <Route path="" element={<PortfolioPage/>}/>
+                <Route path="edit/" element={<EditPortfolioPage/>}/>
+                </Route>
               <Route path="add-portfolio" element={<AddedPortfolioPage />} />
               <Route path="" element={<ProfilePage />} />
             </Route>

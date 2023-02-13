@@ -52,6 +52,7 @@ const FillDisplayNamePage = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
+      // const userInfo=localStorage.getItem("userInfo")
       navigate("/success", { replace: true });
     } catch (err) {
       console.log(err);

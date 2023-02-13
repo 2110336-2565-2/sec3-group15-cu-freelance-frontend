@@ -48,6 +48,8 @@ const Input = ({
   onInput,
   options,
   initialValue,
+  min,
+  step
 }) => {
   const [state, dispatch] = useReducer(reducer, {
     value: initialValue || "",
@@ -133,6 +135,8 @@ const Input = ({
         onFocus={() => {
           dispatch({ type: "TOUCH" });
         }}
+        min={min}
+        step={step}
       ></input>
     );
 
