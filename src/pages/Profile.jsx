@@ -119,7 +119,7 @@ const ProfilePage = () => {
               );
             })}
         </PortfolioCardWrapper>
-        {user_type === 1 && meta && (
+        {portfolios && meta && (
           <PaginationBar
             page={page}
             ref={pageRef}
