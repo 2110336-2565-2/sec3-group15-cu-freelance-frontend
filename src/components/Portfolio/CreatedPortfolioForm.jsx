@@ -84,6 +84,7 @@ const CreatedPortfolioForm = () => {
         errorText="Your portfolio name should not be blank"
         onInput={inputHandler}
         validator={[VALIDATOR_REQUIRE()]}
+        required
       />
        <Input
         type="number"
@@ -95,6 +96,7 @@ const CreatedPortfolioForm = () => {
         validator={[VALIDATOR_REQUIRE()]}
         min="0"
         step=".01"
+        required
       />
       <Input
         type="textarea"
@@ -104,6 +106,7 @@ const CreatedPortfolioForm = () => {
         errorText="Description should not be blank"
         onInput={inputHandler}
         validator={[VALIDATOR_REQUIRE()]}
+        required
       />
       <Input
         type="select"
@@ -113,6 +116,7 @@ const CreatedPortfolioForm = () => {
         onInput={inputHandler}
         errorText="Please select category"
         validator={[VALIDATOR_REQUIRE()]}
+        required
       />
       <ImageUpload
         id="image"

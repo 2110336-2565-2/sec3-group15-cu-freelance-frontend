@@ -222,6 +222,7 @@ const EditPortfolioForm = () => {
             validator={[VALIDATOR_REQUIRE()]}
             initialValue={portfolio.category}
             initialValid={true}
+            required
           />
 
           <Input
@@ -234,6 +235,7 @@ const EditPortfolioForm = () => {
             validator={[VALIDATOR_REQUIRE()]}
             initialValue={portfolio.name}
             initialValid={true}
+            required
           />
           <Input
             type="textarea"
@@ -245,6 +247,7 @@ const EditPortfolioForm = () => {
             validator={[VALIDATOR_REQUIRE()]}
             initialValue={portfolio.description}
             initialValid={true}
+            required
           />
           <Input
             type="number"
@@ -258,6 +261,7 @@ const EditPortfolioForm = () => {
             step=".01"
             initialValue={portfolio.price}
             initialValid={true}
+            required
           />
           <button
             type="submit"

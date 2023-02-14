@@ -203,6 +203,7 @@ const loginForm = () => {
             errorText="Your first name should not be blank"
             validator={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler1}
+            required
           />
         </div>
         <div css={styles.show({ showState: 1, nowState: state.value })}>
@@ -214,6 +215,7 @@ const loginForm = () => {
             errorText="Your last name should not be blank"
             validator={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler1}
+            required
           />
         </div>
         <div css={styles.show({ showState: 1, nowState: state.value })}>
@@ -225,6 +227,7 @@ const loginForm = () => {
             errorText="Your phone should be in this format 0xx-xxx-xxx "
             validator={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler1}
+            required
           />
         </div>
         <div css={styles.show({ showState: 2, nowState: state.value })}>
@@ -236,6 +239,7 @@ const loginForm = () => {
             errorText="Your username should not be blank"
             validator={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler2}
+            required
           />
         </div>
         <div css={styles.show({ showState: 2, nowState: state.value })}>
@@ -247,6 +251,7 @@ const loginForm = () => {
             errorText="Your password should be at least 8 characters"
             validator={[VALIDATOR_MINLENGTH(8)]}
             onInput={inputHandler2}
+            required
           />
         </div>
         <div css={styles.show({ showState: 2, nowState: state.value })}>
@@ -258,6 +263,7 @@ const loginForm = () => {
             errorText="Your password did not match"
             validator={[VALIDATOR_MATCH(formState2.inputs.password.value)]}
             onInput={inputHandler2}
+            required
           />
         </div>
         <div css={styles.show({ showState: 4, nowState: state.value })}>
@@ -269,6 +275,7 @@ const loginForm = () => {
             errorText="Your display name should not be blank"
             validator={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler3}
+            required
           />
         </div>
         <div css={styles.show({ showState: 4, nowState: state.value })}>
@@ -280,6 +287,7 @@ const loginForm = () => {
             errorText="Your email should not be blank | Example: example@example.com"
             validator={[VALIDATOR_REQUIRE(), VALIDATOR_EMAIL()]}
             onInput={inputHandler3}
+            required
           />
         </div>
         <div css={styles.buttonContainer()}>

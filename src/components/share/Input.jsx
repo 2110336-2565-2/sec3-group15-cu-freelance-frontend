@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 const styles = {
   container: () => [tw`box-border flex flex-col w-full font-inter`],
-  label: () => [tw`mb-2 font-light font-[16px]`],
+  label: () => [tw`mb-2 font-light font-[16px] align-top`],
   input: () => [
     tw`focus:outline-0 focus:border-[#D62B70] box-border rounded-[10px] border-[1px] font-light text-base text-[F4B86A] px-4 py-1 font-ibm`,
   ],
@@ -50,7 +50,8 @@ const Input = ({
   initialValue,
   initialValid,
   min,
-  step
+  step,
+  required,
 }) => {
   const [state, dispatch] = useReducer(reducer, {
     value: initialValue || "",
@@ -144,7 +145,7 @@ const Input = ({
   return (
     <div css={styles.container()}>
       <label css={styles.label()} htmlFor={id}>
-        {label}
+        {label}{required&&<span tw="text-red-700 ">*</span>}
       </label>
       {input}
       <div
