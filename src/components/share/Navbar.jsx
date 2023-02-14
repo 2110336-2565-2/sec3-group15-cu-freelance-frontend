@@ -13,7 +13,7 @@ import Modal from "./Modal";
 
 const Navbar = (props) => {
   const BigWrapper = tw.div` w-[100vw] h-[10vh]
-  z-10 fixed top-0 left-0 pb-2 bg-white flex justify-center`;
+  z-30 fixed top-0 left-0 pb-2 bg-white flex justify-center`;
   const Wrapper = tw.div` w-[90%] max-w-[1200px] h-[10vh] mx-auto fixed 
  flex justify-between items-center `;
   const LeftWrapper = tw.div`items-center w-[30%] flex justify-between font-inter min-w-[295px] h-[40%]`;
