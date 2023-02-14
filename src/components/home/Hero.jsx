@@ -8,7 +8,7 @@ h-[70vh]
 mt-[15vh] 
 bg-[#D62B70] p-8
 rounded-2xl
-flex 
+flex snap-center
 `;
 
 // Left Side

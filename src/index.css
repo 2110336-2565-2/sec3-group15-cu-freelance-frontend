@@ -4,7 +4,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  scroll-snap-type: y mandatory;
 }
+
+
 
 /* 
 
@@ -24,6 +27,8 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
+
 
 h1 {
   font-size: 3.2em;

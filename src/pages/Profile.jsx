@@ -8,7 +8,7 @@ import Button from "../components/share/Button";
 import PortfolioCard from "../components/share/PortfolioCard";
 import ProfileCard from "../components/share/ProfileCard";
 import { AuthContext } from "../context/AuthProvider";
-import { authClient } from "../utils/auth";
+import { apiClient } from "../utils/axios";
 
 const DUMMY_port = [
   {
@@ -50,7 +50,7 @@ const ProfilePage = () => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await authClient.get("/portfolio/?limit=10&page=1");
+        const response = await apiClient.get("/portfolio/?limit=10&page=1");
         console.log(response.data);
         setPortfolios(response.data.items);
       } catch (err) {
@@ -83,7 +83,7 @@ const ProfilePage = () => {
                   key={i}
                   userImgSrc={profile1}
                   portImgSrc={PortfolioImg}
-                  name={"User"}
+                  name={portfolio.freelance.display_name}
                   description={portfolio.name}
                   isClose={!portfolio.is_public}
                   onClick={onClickDetailCard.bind(null,portfolio.id)}
