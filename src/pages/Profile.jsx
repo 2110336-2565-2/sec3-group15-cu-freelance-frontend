@@ -92,7 +92,7 @@ const ProfilePage = () => {
       setIsLoading(false);
     };
     fetchData();
-  }, [user_type, page]);
+  }, [user_type, page,params.userId]);
 
   return (
     <BG>
