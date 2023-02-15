@@ -55,7 +55,7 @@ const CreatedPortfolioForm = () => {
       let data = JSON.stringify({
         category:category.value,
         description: description.value,
-        price:parseInt(price.value),
+        price:parseFloat(price.value),
         is_public: isVisible,
         name: portfolioName.value,
         userID: authCtx.userInfo.id,

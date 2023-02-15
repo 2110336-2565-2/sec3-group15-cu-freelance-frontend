@@ -96,11 +96,11 @@ const ProfilePage = () => {
 
   return (
     <BG>
-      <ProfileCard imgSrc={userImg} name={display_name} />
+      <ProfileCard imgSrc={userImg} name={display_name!==""?display_name:"Name"} />
       <div tw="w-[65%]  h-auto dt:min-h-[70vh]">
         {" "}
         <Header1>
-          {`งานของ ${display_name}`}
+          {`งานของ ${display_name!==""?display_name:"Name"}`}
           {user_type === 1 && (
             <Button onClick={onAddPortHandler}>Add Portfolio</Button>
           )}

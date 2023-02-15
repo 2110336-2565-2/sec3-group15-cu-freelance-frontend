@@ -52,7 +52,9 @@ const FillDisplayNamePage = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
-      // const userInfo=localStorage.getItem("userInfo")
+      const userInfo=JSON.parse(localStorage.getItem("userInfo"))
+      userInfo.displayName=formState.inputs.displayName.value;
+      localStorage.setItem("userInfo", JSON.stringify(userInfo))
       navigate("/success", { replace: true });
     } catch (err) {
       console.log(err);
