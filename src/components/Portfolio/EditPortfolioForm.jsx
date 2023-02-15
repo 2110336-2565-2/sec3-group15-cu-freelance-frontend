@@ -97,7 +97,7 @@ const EditPortfolioForm = () => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await authClient.get(`/portfolio/${id}`);
+        const response = await apiClient.get(`/portfolio/me/${id}`);
         console.log(response.data);
         setFormData(
           {

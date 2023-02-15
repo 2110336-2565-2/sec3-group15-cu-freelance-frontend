@@ -48,7 +48,7 @@ const ProfilePage = () => {
   };
 
   const onClickDetailCard = (id) => {
-    if (authCtx.userInfo.id === userId) navigate(`/portfolio/me/${id}`);
+    if (authCtx.userInfo.id === userId) navigate(`/my-portfolio/${id}`);
     else navigate(`/portfolio/${id}`);
   };
 
@@ -79,8 +79,8 @@ const ProfilePage = () => {
         if (authCtx.userInfo.id === userId) {
           response = await apiClient.get(`/portfolio/me/?limit=6&page=${page}`);
         } else {
-          response = await apiClient.get(
-            `/portfolio/user/${userId}/?limit=6&page=${page}`
+          response = await authClient.get(
+            `/portfolio/user/${userId}?limit=6&page=${page}`
           );
         }
         console.log(response.data);
@@ -106,9 +106,8 @@ const ProfilePage = () => {
           )}
         </Header1>
         <PortfolioCardWrapper>
-          {user_type === 1 && isLoading && "Loading..."}
-          {user_type === 1 &&
-            !isLoading &&
+          {isLoading && "Loading..."}
+          {!isLoading &&
             portfolios &&
             portfolios.map((portfolio, i) => {
               return (
@@ -121,12 +120,12 @@ const ProfilePage = () => {
                   isClose={!portfolio.is_public}
                   onClick={onClickDetailCard.bind(null, portfolio.id)}
                   onPencilClick={onClickEditCard.bind(null, portfolio.id)}
-                  hasPencil={authCtx.userInfo.id===userId}
+                  hasPencil={authCtx.userInfo.id === userId}
                 />
               );
             })}
         </PortfolioCardWrapper>
-        {portfolios && meta && (
+        {portfolios && meta && meta.TotalPage!==1&&(
           <PaginationBar
             page={page}
             ref={pageRef}
