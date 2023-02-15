@@ -42,7 +42,7 @@ jobs:
           echo "::set-output name=BRANCH::${GITHUB_REF#refs/heads/}"
 
       - name: Set env files
-        if: github.ref_name == beta
+        if: github.ref_name == 'beta'
         run: |
           mv .env.beta .env.production
 
