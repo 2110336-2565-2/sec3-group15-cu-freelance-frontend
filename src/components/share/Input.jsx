@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 const styles = {
   container: () => [tw`box-border flex flex-col w-full font-inter`],
-  label: () => [tw`mb-2 font-light font-[16px]`],
+  label: () => [tw`mb-2 font-light font-[16px] align-top`],
   input: () => [
     tw`focus:outline-0 focus:border-[#D62B70] box-border rounded-[10px] border-[1px] font-light text-base text-[F4B86A] px-4 py-1 font-ibm`,
   ],
@@ -48,10 +48,14 @@ const Input = ({
   onInput,
   options,
   initialValue,
+  initialValid,
+  min,
+  step,
+  required,
 }) => {
   const [state, dispatch] = useReducer(reducer, {
     value: initialValue || "",
-    isValid: false,
+    isValid: initialValid||false,
     isFirstClick: false,
   });
   const { value, isValid } = state;
@@ -133,13 +137,15 @@ const Input = ({
         onFocus={() => {
           dispatch({ type: "TOUCH" });
         }}
+        min={min}
+        step={step}
       ></input>
     );
 
   return (
     <div css={styles.container()}>
       <label css={styles.label()} htmlFor={id}>
-        {label}
+        {label}{required&&<span tw="text-red-700 ">*</span>}
       </label>
       {input}
       <div

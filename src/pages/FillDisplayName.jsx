@@ -26,7 +26,7 @@ const FillDisplayNamePage = () => {
 
   const styles = {
     container: () => [
-      tw`flex flex-col font-inter items-center w-[50%] max-w-[460px] h-[85%] drop-shadow border-[1px] rounded-[30px] px-[3%] py-[1%]`,
+      tw`flex flex-col font-inter items-center w-[50%] max-w-[460px] h-2/5 drop-shadow border-[1px] rounded-[30px] px-[3%] py-[1%]`,
     ],
     content: () => [
       tw`flex flex-col box-border h-full w-full  items-center px-[2%] gap-y-[20px]`,
@@ -52,6 +52,9 @@ const FillDisplayNamePage = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
+      const userInfo=JSON.parse(localStorage.getItem("userInfo"))
+      userInfo.displayName=formState.inputs.displayName.value;
+      localStorage.setItem("userInfo", JSON.stringify(userInfo))
       navigate("/success", { replace: true });
     } catch (err) {
       console.log(err);
@@ -59,25 +62,27 @@ const FillDisplayNamePage = () => {
   };
 
   return (
-    <div css={styles.container()}>
-      <div css={styles.content()}>
-        <div css={styles.title()}>Login</div>
-        <Input
-          type="text"
-          id="displayName"
-          label="Display Name"
-          placeholder="Enter display name"
-          errorText="Your display name should not be blank"
-          onInput={inputHandler}
-          validator={[VALIDATOR_REQUIRE()]}
-        />
-        <button
-          css={styles.button()}
-          onClick={formSubmitHandler}
-          disabled={!formState.isValid || isLogin}
-        >
-          {(isLogin && "loading...") || "Login"}
-        </button>
+    <div tw="flex h-[95vh] items-center justify-center">
+      <div css={styles.container()}>
+        <div css={styles.content()}>
+          <div css={styles.title()}>Login</div>
+          <Input
+            type="text"
+            id="displayName"
+            label="Display Name"
+            placeholder="Enter display name"
+            errorText="Your display name should not be blank"
+            onInput={inputHandler}
+            validator={[VALIDATOR_REQUIRE()]}
+          />
+          <button
+            css={styles.button()}
+            onClick={formSubmitHandler}
+            disabled={!formState.isValid || isLogin}
+          >
+            {(isLogin && "loading...") || "Login"}
+          </button>
+        </div>
       </div>
     </div>
   );
