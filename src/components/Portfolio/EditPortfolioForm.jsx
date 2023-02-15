@@ -1,6 +1,6 @@
 import tw from "twin.macro";
 import React, { useContext, useEffect, useState } from "react";
-import PortfolioExample from "../../assets/PortFolioExample.svg";
+import PortfolioExample from "../../assets/PortfolioExample.svg";
 import DeleteProIcon from "../../assets/DeleteProIcon.svg";
 import DeleteIcon from "../../assets/DeleteIcon.svg";
 import HiddenIcon from "../../assets/HiddenIcon.svg";
