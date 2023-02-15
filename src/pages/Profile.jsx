@@ -9,6 +9,7 @@ import PaginationBar from "../components/share/PaginationBar";
 import PortfolioCard from "../components/share/PortfolioCard";
 import ProfileCard from "../components/share/ProfileCard";
 import { AuthContext } from "../context/AuthProvider";
+import { authClient } from "../utils/auth";
 import { apiClient } from "../utils/axios";
 
 const DUMMY_port = [
@@ -29,6 +30,7 @@ const ProfilePage = () => {
   const [meta, setMeta] = useState(null);
   const params = useParams();
   const { userImg, name } = DUMMY_port[0];
+  const userId = params.userId;
   const [isLoading, setIsLoading] = useState(false);
   const [portfolios, setPortfolios] = useState(null);
   const navigate = useNavigate();
@@ -42,12 +44,12 @@ const ProfilePage = () => {
 
   const onClickEditCard = (id, e) => {
     e.stopPropagation();
-    console.log("click pencil");
     navigate(`/portfolio/${id}/edit`);
   };
 
   const onClickDetailCard = (id) => {
-    navigate(`/portfolio/${id}`);
+    if (authCtx.userInfo.id === userId) navigate(`/portfolio/me/${id}`);
+    else navigate(`/portfolio/${id}`);
   };
 
   const onNextPageHandler = () => {
@@ -64,7 +66,6 @@ const ProfilePage = () => {
     const totalPage = parseInt(meta.TotalPage);
     pageRef.current.value = "";
     pageRef.current.blur();
-    // console.log('inputPage'+typeof(inputPage),meta.totalPage);
     if (inputPage > totalPage) setPage(totalPage);
     else if (inputPage < 1) setPage(1);
     else setPage(inputPage);
@@ -74,9 +75,14 @@ const ProfilePage = () => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await apiClient.get(
-          `/portfolio/me/?limit=6&page=${page}`
-        );
+        let response;
+        if (authCtx.userInfo.id === userId) {
+          response = await apiClient.get(`/portfolio/me/?limit=6&page=${page}`);
+        } else {
+          response = await apiClient.get(
+            `/portfolio/user/${userId}/?limit=6&page=${page}`
+          );
+        }
         console.log(response.data);
         setPortfolios(response.data.items);
         setMeta(response.data.meta);
@@ -85,7 +91,7 @@ const ProfilePage = () => {
       }
       setIsLoading(false);
     };
-    if (user_type === 1) fetchData();
+    fetchData();
   }, [user_type, page]);
 
   return (
@@ -115,6 +121,7 @@ const ProfilePage = () => {
                   isClose={!portfolio.is_public}
                   onClick={onClickDetailCard.bind(null, portfolio.id)}
                   onPencilClick={onClickEditCard.bind(null, portfolio.id)}
+                  hasPencil={authCtx.userInfo.id===userId}
                 />
               );
             })}

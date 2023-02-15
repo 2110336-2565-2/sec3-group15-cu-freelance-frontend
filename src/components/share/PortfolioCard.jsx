@@ -19,10 +19,11 @@ const PortfolioCard = ({
   isClose = false,
   onClick,
   onPencilClick,
+  hasPencil=true
 }) => (
   <Card
     hasShadow={false}
-    hasPencil={true}
+    hasPencil={hasPencil}
     type="portfolio"
     close={isClose}
     onClick={onClick}

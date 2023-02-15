@@ -25,6 +25,7 @@ function App() {
           <Route path="" element={<Navigate to="home" />} />
           <Route path="home" element={<HomePage />} />
           <Route path="portfolio/">
+            <Route path="me/:portId/" element={<PortfolioPage/>}/>
             <Route path=":portId/">
               <Route path="" element={<PortfolioPage />} />
               <Route path="edit/" element={<EditPortfolioPage />} />
