@@ -27,7 +27,7 @@ const styles = {
   or: () => [tw``],
   googleButton: () => [
     tw`flex flex-row justify-center items-center gap-x-[10px] w-full 
-    border-[1px] border-slate-200 text-lg rounded-[10px] font-inter py-2`,
+    border-[1px] border-slate-200 text-lg rounded-[10px] font-inter py-2 disabled:cursor-not-allowed`,
   ],
   googleIcon: () => [tw`w-[25px] h-[25px]`],
   register: () => [tw`flex flex-row`],
