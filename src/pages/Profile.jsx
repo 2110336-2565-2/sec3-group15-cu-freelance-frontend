@@ -28,11 +28,13 @@ const ProfilePage = () => {
 
   const [page, setPage] = useState(1);
   const [meta, setMeta] = useState(null);
+  const [userInfo,setUserInfo]=useState(null)
+  const [isLoading, setIsLoading] = useState(false);
+  const [portfolios, setPortfolios] = useState(null);
   const params = useParams();
   const { userImg, name } = DUMMY_port[0];
   const userId = params.userId;
-  const [isLoading, setIsLoading] = useState(false);
-  const [portfolios, setPortfolios] = useState(null);
+  
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
   const { display_name, user_type } = authCtx.userInfo;

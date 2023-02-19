@@ -52,7 +52,7 @@ const PortfolioPage = () => {
         <Description>{portfolio.description}</Description>
         <ProfileCard
           userImage={UserImage}
-          username="Username123"
+          username={portfolio.freelance.display_name}
           portCount={11}
           avgTime={5}
         />
