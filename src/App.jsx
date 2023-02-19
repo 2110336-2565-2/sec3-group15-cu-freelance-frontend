@@ -17,7 +17,7 @@ import PortfolioPage from "./pages/Portfolio";
 import EditPortfolioPage from "./pages/EditPortfolio";
 
 function App() {
-  const { acToken, reToken, login, logout, userInfo } = useAuth();
+  const { acToken, reToken, login, logout, userInfo,setUserInfo } = useAuth();
   return (
     <AuthContext.Provider value={{ userInfo, acToken, reToken, login, logout }}>
       <Routes>

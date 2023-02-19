@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import tw from "twin.macro";
 import PortfolioImg from "../assets/PortfolioImg.png";
 import profile1 from "../assets/profile1.svg";
-import AddPortfolioCard from "../components/share/AddPortfolioCard";
 import Button from "../components/share/Button";
 import PaginationBar from "../components/share/PaginationBar";
 import PortfolioCard from "../components/share/PortfolioCard";
@@ -12,15 +11,6 @@ import { AuthContext } from "../context/AuthProvider";
 import { authClient } from "../utils/auth";
 import { apiClient } from "../utils/axios";
 
-const DUMMY_port = [
-  {
-    userImg: profile1,
-    img: PortfolioImg,
-    name: "Username123",
-    description: "ออกแบบเว็บไซต์ Web Design งานคุณภาพราคาโดนๆ",
-  },
-];
-
 const ProfilePage = () => {
   const BG = tw.div`relative min-h-[92vh] h-auto w-[100%] max-w-[1400px] mx-auto pt-[15vh] flex flex-col items-end mb-[3vh]`;
   const PortfolioCardWrapper = tw.div`w-[100%] flex flex-wrap gap-x-[3%] gap-y-[2vh] my-10 min-h-[65vh]`;
@@ -28,13 +18,13 @@ const ProfilePage = () => {
 
   const [page, setPage] = useState(1);
   const [meta, setMeta] = useState(null);
-  const [userInfo,setUserInfo]=useState(null)
+  const [userInfo, setUserInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [userInfoLoading, setUserInfoLoading] = useState(false);
   const [portfolios, setPortfolios] = useState(null);
   const params = useParams();
-  const { userImg, name } = DUMMY_port[0];
   const userId = params.userId;
-  
+
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
   const { display_name, user_type } = authCtx.userInfo;
@@ -93,16 +83,40 @@ const ProfilePage = () => {
       }
       setIsLoading(false);
     };
+    const fetchData2 = async () => {
+      setUserInfoLoading(true);
+      try {
+        let response;
+        response = await authClient.get(
+          `/user/freelance/${userId}`
+        );
+        console.log(response.data);
+        setUserInfo(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+      setUserInfoLoading(false);
+    };
+
+    if (authCtx.userInfo.id !== userId) {
+      fetchData2();
+    }
     fetchData();
-  }, [user_type, page,params.userId]);
+  }, [user_type, page, params.userId]);
+
 
   return (
     <BG>
-      <ProfileCard imgSrc={userImg} name={display_name!==""?display_name:"Name"} />
+      {userInfoLoading===false&&((authCtx.userInfo.id !== userId&&userInfo)||(authCtx.userInfo.id === userId))&&<ProfileCard
+        imgSrc={profile1}
+        name={authCtx.userInfo.id !== userId ?  userInfo.display_name: display_name}
+      />}
       <div tw="w-[65%]  h-auto dt:min-h-[70vh]">
         {" "}
         <Header1>
-          {`งานของ ${display_name!==""?display_name:"Name"}`}
+          {user_type===2&&authCtx.userInfo.id===userId&&`Profile ของ ${display_name}`}
+          {user_type===1&&authCtx.userInfo.id===userId&&`งานของ ${display_name}`}
+          {authCtx.userInfo.id!==userId&&userInfo&&`งานของ ${userInfo.display_name}`}
           {user_type === 1 && (
             <Button onClick={onAddPortHandler}>Add Portfolio</Button>
           )}
@@ -127,7 +141,7 @@ const ProfilePage = () => {
               );
             })}
         </PortfolioCardWrapper>
-        {portfolios && meta && meta.TotalPage!==1&&(
+        {portfolios && meta && meta.TotalPage !== 1 && (
           <PaginationBar
             page={page}
             ref={pageRef}

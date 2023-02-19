@@ -6,5 +6,6 @@ export const AuthContext = createContext({
   reToken:null,
   login: async() => {},
   logout: () => {},
+  setUserInfo:()=>{},
 });
 
