@@ -136,7 +136,8 @@ const ProfilePage = () => {
                   duration={portfolio.duration}
                   price={portfolio.price}
                   haspencil={true}
-                  onclick={onClickEditCard.bind(null, i)}
+                  onClick={onClickDetailCard.bind(null,portfolio.id)}
+                  onClickPencil={onClickEditCard.bind(null, portfolio.id)}
                 />
               );
             })}

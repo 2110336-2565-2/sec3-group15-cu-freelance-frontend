@@ -24,7 +24,7 @@ const ProfileCard2 = ({userImage, username, portCount, avgTime})=>{
                         <div>{"เวลาตอบกลับเฉลี่ย"}</div>
                         <div>{`${avgTime} ครั้ง`}</div>
                     </Status>
-                    <Button width="90%" disable={true} onClick={()=>{console.log("test")}}>แชทกับฟรีแลนซ์</Button>
+                    <Button primary width="90%" disable={true} onClick={()=>{console.log("test")}}>แชทกับฟรีแลนซ์</Button>
                 </RightSection>
             </Container>
         </Card>

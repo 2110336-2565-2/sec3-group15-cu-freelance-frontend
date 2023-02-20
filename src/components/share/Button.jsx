@@ -27,7 +27,7 @@ const Button = (props) => {
     width: ${width || "auto"};
     ${tw`shadow-button rounded-[20px] font-ibm
     hover:shadow-buttonHover
-    disabled:cursor-not-allowed disabled:opacity-30`}
+    disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none`}
   `;
 
   return (
