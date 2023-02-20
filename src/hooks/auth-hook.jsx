@@ -65,5 +65,5 @@ export const useAuth = () => {
     }
   }, [login]);
 
-  return { acToken, reToken, login, logout, userInfo };
+  return { acToken, reToken, login, logout, userInfo,setUserInfo };
 };

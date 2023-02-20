@@ -4,31 +4,39 @@ import PortfolioExample from "../../assets/PortfolioExample.svg";
 import DeleteProIcon from "../../assets/DeleteProIcon.svg";
 import DeleteIcon from "../../assets/DeleteIcon.svg";
 import HiddenIcon from "../../assets/HiddenIcon.svg";
+import CloseEyeIcon from "../../assets/SmallCloseEyeIcon.svg";
 import ImageUpload from "../share/ImageUpload";
 import Input from "../share/Input";
 import Button from "../share/Button";
 import Modal from "../share/Modal";
 import { VALIDATOR_REQUIRE } from "../share/Validate";
 import { useForm } from "../../hooks/form-hook";
-import { DUMMY_options } from "../../store/portfolioForm";
+import {
+  DUMMY_duration_options,
+  DUMMY_options,
+} from "../../store/portfolioForm";
 import { useNavigate, useParams } from "react-router-dom";
 import { authClient } from "../../utils/auth";
 import { apiClient } from "../../utils/axios";
 import { AuthContext } from "../../context/AuthProvider";
 
+const styles = {
+  submitButton: () => [
+    tw`w-[5%] bg-[#D62B70] text-white rounded-lg p-2 mb-[10px]
+      disabled:opacity-30
+      disabled:cursor-not-allowed`,
+  ],
+  imageButtonHidden: ({ hidden }) => [
+    tw`hover:cursor-pointer`,
+    hidden && tw`hidden`,
+  ],
+};
+
 const EditPortfolioForm = () => {
-  const styles = {
-    submitButton: () => [
-      tw`w-[5%] bg-[#D62B70] text-white rounded-lg p-2 mb-[10px]
-        disabled:opacity-30
-        disabled:cursor-not-allowed`,
-    ],
-  };
+  
 
   const FirstRow = tw.div`w-full flex justify-between pb-3`;
   const ContainButton = tw.div`flex justify-between w-[10%] h-[50px]`;
-  const ImageButtonNotHidden = tw.img`hover:cursor-pointer`;
-  const ImageButtonHidden = tw.img`opacity-25 hover:cursor-pointer`;
   const ImageButtonDelete = tw.img`hover:cursor-pointer`;
   const ImageContainer = tw.img`rounded-3xl`;
 
@@ -70,7 +78,7 @@ const EditPortfolioForm = () => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    const { portfolioName, description, category, image, price } =
+    const { portfolioName, description, category, image, price, duration } =
       formState.inputs;
     try {
       setIsLoading(true);
@@ -78,6 +86,7 @@ const EditPortfolioForm = () => {
         category: category.value,
         description: description.value,
         price: parseFloat(price.value),
+        duration: parseInt(duration.value),
         is_public: isVisible,
         name: portfolioName.value,
         userID: authCtx.userInfo.id,
@@ -113,8 +122,13 @@ const EditPortfolioForm = () => {
               value: response.data.portfolio.description,
               isValid: true,
             },
+
             category: {
               value: response.data.portfolio.category,
+              isValid: true,
+            },
+            duration: {
+              value: response.data.portfolio.duration,
               isValid: true,
             },
           },
@@ -145,6 +159,10 @@ const EditPortfolioForm = () => {
         isValid: false,
       },
       category: {
+        value: "",
+        isValid: false,
+      },
+      duration: {
         value: "",
         isValid: false,
       },
@@ -188,15 +206,18 @@ const EditPortfolioForm = () => {
           <FirstRow>
             <ImageContainer src={PortfolioExample} />
             <ContainButton>
-              {!isVisible && (
-                <ImageButtonHidden src={HiddenIcon} onClick={toggleHandler} />
-              )}
-              {isVisible && (
-                <ImageButtonNotHidden
-                  src={HiddenIcon}
-                  onClick={toggleHandler}
-                />
-              )}
+              <img
+                css={styles.imageButtonHidden({hidden:isVisible})}
+                src={CloseEyeIcon}
+                onClick={toggleHandler}
+              />
+
+              <img
+                css={styles.imageButtonHidden({hidden:!isVisible})}
+                src={HiddenIcon}
+                onClick={toggleHandler}
+              />
+
               <ImageButtonDelete
                 src={DeleteProIcon}
                 onClick={onDeleteHandler}
@@ -224,7 +245,18 @@ const EditPortfolioForm = () => {
             initialValid={true}
             required
           />
-
+          <Input
+            type="select"
+            id="duration"
+            label="Duration"
+            options={DUMMY_duration_options}
+            onInput={inputHandler}
+            errorText="Please select duration"
+            validator={[VALIDATOR_REQUIRE()]}
+            initialValue={portfolio.duration}
+            initialValid={true}
+            required
+          />
           <Input
             type="text"
             id="portfolioName"

@@ -17,13 +17,12 @@ import PortfolioPage from "./pages/Portfolio";
 import EditPortfolioPage from "./pages/EditPortfolio";
 
 function App() {
-  const { acToken, reToken, login, logout, userInfo } = useAuth();
+  const { acToken, reToken, login, logout, userInfo,setUserInfo } = useAuth();
   return (
     <AuthContext.Provider value={{ userInfo, acToken, reToken, login, logout }}>
       <Routes>
         <Route path="/" element={<LayoutWithNavbar acToken={acToken} />}>
           <Route path="" element={<Navigate to="home" />} />
-          <Route path="home" element={<HomePage />} />
           <Route path="portfolio/">
             <Route path=":portId/">
               <Route path="" element={<PortfolioPage />} />
@@ -38,6 +37,7 @@ function App() {
             </Route>
           </Route>
         </Route>
+        <Route path="home" element={<HomePage />} />
         <Route path="/login/">
           <Route path="" element={<Login />} />
           <Route path="customer" element={<LoginCustomer />} />

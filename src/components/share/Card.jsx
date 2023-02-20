@@ -8,7 +8,7 @@ const widthVariants = {
   portfolio: tw`relative w-[30%] dt:w-[30%] dt:min-w-[220px] dt:max-w-[225px] dt:h-[20vh] dt:min-h-[270px] dt:max-h-[300px] text-[#D62B70] font-ibm cursor-pointer`,
   comment: tw`w-[30%] dt:w-[30%] dt:h-[100%] text-[#D62B70]`,
   loginForm: tw`w-[45%]`,
-  loginType: tw`w-[42%] box-border h-[100%]  cursor-pointer`,
+  loginType: tw`w-[42%] box-border h-[100%]  cursor-pointer border border-black text-black hover:border-[#D62B70] hover:text-[#D62B70]`,
   registerSuccess: tw`w-[38%] h-fit box-border my-4`,
   portfolio2: tw`w-fit h-fit p-4 self-center`,
 };
@@ -23,7 +23,7 @@ const styles = {
   pencil: () => [
     tw`w-auto absolute top-0 right-0 translate-y-[-50%] translate-x-[30%] z-20 hover:ring-2 `,
   ],
-  sepia: () => [tw`absolute w-full h-full bg-black/25 rounded-[35px]`],
+  sepia: () => [tw`absolute w-full h-full bg-black opacity-10 rounded-[35px]`],
   image: () => [tw`absolute w-auto`],
 };
 const Card = ({

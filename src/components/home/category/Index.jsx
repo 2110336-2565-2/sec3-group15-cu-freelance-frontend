@@ -13,7 +13,7 @@ const CategoryIndex = () => {
       {" "}
       <HeaderWrapper>
         {" "}
-        เลือกฟรีเเลนซ์จากหมวดหมู่เหล่านี้ <Button>ดูฟรีแลนซ์ทั้งหมด</Button>
+        เลือกฟรีเเลนซ์จากหมวดหมู่เหล่านี้ <Button primary>ดูงานทั้งหมด</Button>
       </HeaderWrapper>
       <CardWrapper>
         {dummy_category.map((category,idx) => (

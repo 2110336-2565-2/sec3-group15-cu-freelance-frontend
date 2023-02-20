@@ -35,7 +35,7 @@ const ProfileCard = ({imgSrc, name, count=0, avgTime=0})=>(
                 <div css={styles.left}>เวลาตอบกลับเฉลี่ย </div>
                 <div css={styles.right}>{avgTime} นาที</div>
             </div>
-            <Button width="90%" disable={true} onClick={()=>{console.log("test")}}>แชทกับฟรีแลนซ์</Button>
+            <Button primary width="90%" disable={true} onClick={()=>{console.log("test")}}>แชทกับฟรีแลนซ์</Button>
         </div>
     </Card>
 )
