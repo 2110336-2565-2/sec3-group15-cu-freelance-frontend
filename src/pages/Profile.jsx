@@ -118,7 +118,7 @@ const ProfilePage = () => {
           {user_type===1&&authCtx.userInfo.id===userId&&`งานของ ${display_name}`}
           {authCtx.userInfo.id!==userId&&userInfo&&`งานของ ${userInfo.display_name}`}
           {user_type === 1 && (
-            <Button onClick={onAddPortHandler}>Add Portfolio</Button>
+            <Button primary onClick={onAddPortHandler}>Add Portfolio</Button>
           )}
         </Header1>
         <PortfolioCardWrapper>

@@ -23,7 +23,6 @@ function App() {
       <Routes>
         <Route path="/" element={<LayoutWithNavbar acToken={acToken} />}>
           <Route path="" element={<Navigate to="home" />} />
-          <Route path="home" element={<HomePage />} />
           <Route path="portfolio/">
             <Route path=":portId/">
               <Route path="" element={<PortfolioPage />} />
@@ -38,6 +37,7 @@ function App() {
             </Route>
           </Route>
         </Route>
+        <Route path="home" element={<HomePage />} />
         <Route path="/login/">
           <Route path="" element={<Login />} />
           <Route path="customer" element={<LoginCustomer />} />

@@ -9,7 +9,7 @@ const styles={
         tw`flex flex-col relative h-[100%]`
     ],
     text:()=>[
-        tw`text-[36px] font-bold font-ibm`
+        tw`text-[36px] font-normal font-ibm`
     ],
     avatar:({type})=>[
         avatarVariants[type]

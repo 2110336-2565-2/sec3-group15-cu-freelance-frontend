@@ -5,7 +5,7 @@ import searchIcon from "../../assets/searchIcon.svg";
 const Wrapper = tw.div`
 w-[90%] max-w-[1200px] mx-auto
 h-[70vh]
-mt-[15vh] 
+mt-[5vh]
 bg-[#D62B70] p-8
 rounded-2xl
 flex snap-center

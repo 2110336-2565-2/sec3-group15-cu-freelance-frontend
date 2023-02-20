@@ -6,7 +6,7 @@ const LayoutWithNavbar = ({acToken}) => {
   
   return (
     <>
-      <Navbar login={!!acToken} />
+      <Navbar login={!!acToken} fixed search/>
       <Outlet />
     </>
   );
