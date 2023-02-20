@@ -10,7 +10,7 @@ const styles = {
   ],
   image: () => [tw`my-[1%] w-[10%] box-border`],
   text: () => [
-    tw`text-[40px] text-black font-normal font-inter mb-[2%] box-border`,
+    tw`text-[40px] text-black font-normal font-ibm mb-[2%] box-border`,
   ],
   typeContainer: () => [
     tw`flex flex-row px-[10%] w-[100vw] box-border justify-between h-[48vh]`,

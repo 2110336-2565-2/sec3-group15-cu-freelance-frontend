@@ -10,7 +10,7 @@ const styles = {
         tw`my-[1%] w-[10%] `
     ],
     content:()=>[
-        tw`w-full h-full flex flex-row  justify-between pl-[10%] pr-[6%]`
+        tw`w-full h-full flex flex-row  justify-between mt-[10vh] pl-[10%] pr-[6%]`
     ],
     avatar:()=>[
         tw`object-contain self-center`

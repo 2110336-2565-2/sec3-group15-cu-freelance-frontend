@@ -24,7 +24,7 @@ const TextBody = tw.p`text-lg font-medium font-ibm drop-shadow-md w-[49%]`;
 const HighLightTextBody = tw.span`text-3xl font-medium font-ibm drop-shadow-md`;
 
 // Left Side Input
-const InputWrapper = tw.div`
+const InputWrapper = tw.form`
     relative  w-[50%] h-[6%] rounded-md bg-white min-w-[220px]  text-[#D62B70]
 `;
 const Input = tw.input`border-none placeholder:text-[#F4B8DA] focus:outline-none bg-transparent ml-[2%] mr-[15%] w-[80%] h-[100%] text-base font-ibm`;
@@ -48,7 +48,7 @@ const Hero = () => {
           </TextBody>
         </TextWrapper>
 
-        <InputWrapper>
+        <InputWrapper onSubmit={(e)=>{e.preventDefault();console.log("hello")}}>
           <Input type="text" placeholder="กำลังตามหาอะไรอยู่..." />
           <SearchIcon src={searchIcon} alt="searchIcon" />
         </InputWrapper>
