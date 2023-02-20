@@ -4,20 +4,19 @@ import { useNavigate } from "react-router-dom";
 const LogoButton = () => {
   
   const styles = {
-    image: () => [tw`my-[1%] w-[10%] box-border cursor-pointer`],
+    logo: () => [tw`font-bold text-5xl font-sans text-black cursor-pointer`],
   };
 
   const navigate=useNavigate()
 
   return (
-    <img
-      css={styles.image}
-      src={Logo}
+    <div
+      css={styles.logo}
       onClick={() => {
         navigate('/home');
         window.scrollTo({ top: 0, behavior: "smooth" });
       }}
-    />
+    >CU FREELANCE</div>
   );
 };
 

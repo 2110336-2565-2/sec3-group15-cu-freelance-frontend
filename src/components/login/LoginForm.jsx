@@ -72,11 +72,11 @@ const LoginForm = () => {
       expiresOn.setSeconds(expiresOn.getSeconds() + expires_in);
       response = await authCtx.login(access_token, refresh_token, expiresOn);
       console.log(response);
-      setIsLogin(false);
       navigate("/home", { replace: true });
     } catch (err) {
       console.log(err);
     }
+    setIsLogin(false);
   };
 
   return (

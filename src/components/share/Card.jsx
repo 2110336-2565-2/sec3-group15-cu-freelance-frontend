@@ -8,7 +8,7 @@ const widthVariants = {
   portfolio: tw`relative w-[30%] dt:w-[30%] dt:min-w-[220px] dt:max-w-[225px] dt:h-[20vh] dt:min-h-[270px] dt:max-h-[300px] text-[#D62B70] font-ibm cursor-pointer`,
   comment: tw`w-[30%] dt:w-[30%] dt:h-[100%] text-[#D62B70]`,
   loginForm: tw`w-[45%]`,
-  loginType: tw`w-[42%] box-border h-[100%]  cursor-pointer`,
+  loginType: tw`w-[42%] box-border h-[100%]  cursor-pointer border-black text-black hover:border-[#D62B70] hover:text-[#D62B70]`,
   registerSuccess: tw`w-[38%] h-fit box-border my-4`,
   portfolio2: tw`w-fit h-fit p-4 self-center`,
 };

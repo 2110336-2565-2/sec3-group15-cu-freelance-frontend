@@ -16,9 +16,10 @@ const Navbar = (props) => {
   z-30 fixed top-0 left-0 pb-2 bg-white flex justify-center`;
   const Wrapper = tw.div` w-[90%] max-w-[1200px] h-[10vh] mx-auto fixed 
  flex justify-between items-center `;
-  const LeftWrapper = tw.div`items-center w-[30%] flex justify-between font-inter min-w-[295px] h-[40%]`;
+  const LeftWrapper = tw.div`items-center w-[50%] flex justify-between font-inter min-w-[295px] h-[40%]`;
   const RightWrapperLogin = tw.div`w-[30%] flex justify-between font-inter min-w-[205px]`;
   const RightWrapperNotLogin = tw.div`w-[20%] flex justify-between font-inter min-w-[205px]`;
+  const Logo = tw.div`font-bold text-2xl font-sans text-black cursor-pointer`;
 
   const [isShow, setIsShow] = useState(false);
   const authCtx = useContext(AuthContext);
@@ -55,12 +56,14 @@ const Navbar = (props) => {
   let Right;
   const Left = (
     <>
-      <img
-        src={logo}
-        alt="logo"
-        tw="w-[25%] cursor-pointer"
-        onClick={onClickButtonHandler.bind(null, "/home")}
-      />
+      <Logo
+        onClick={() => {
+          navigate("/home");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+      >
+        CU FREELANCE
+      </Logo>
       <InputSearch />
     </>
   );

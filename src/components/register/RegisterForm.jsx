@@ -119,12 +119,11 @@ const loginForm = () => {
       let expiresOn = new Date();
       expiresOn.setSeconds(expiresOn.getSeconds() + expires_in);
       response = await authCtx.login(access_token, refresh_token, expiresOn);
-      setLoading(false);
       navigate("/success");
     } catch (err) {
       console.log(err);
     }
-    navigate("/success");
+    setLoading(false);
   };
   const [formState1, inputHandler1] = useForm(
     {
