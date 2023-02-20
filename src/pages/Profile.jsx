@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import tw from "twin.macro";
-import PortfolioImg from "../assets/PortfolioImg.png";
+import PortfolioImg from "../assets/PortfolioImage.svg";
 import profile1 from "../assets/profile1.svg";
 import Button from "../components/share/Button";
 import PaginationBar from "../components/share/PaginationBar";
@@ -129,14 +129,14 @@ const ProfilePage = () => {
               return (
                 <PortfolioCard
                   key={i}
-                  userImgSrc={profile1}
-                  portImgSrc={PortfolioImg}
-                  name={portfolio.freelance.display_name}
-                  description={portfolio.name}
-                  isClose={!portfolio.is_public}
-                  onClick={onClickDetailCard.bind(null, portfolio.id)}
-                  onPencilClick={onClickEditCard.bind(null, portfolio.id)}
-                  hasPencil={authCtx.userInfo.id === userId}
+                  portImg={PortfolioImg}
+                  category={portfolio.category}
+                  name={portfolio.name}
+                  description={portfolio.description}
+                  duration={portfolio.duration}
+                  price={portfolio.price}
+                  haspencil={true}
+                  onclick={onClickEditCard.bind(null, i)}
                 />
               );
             })}
