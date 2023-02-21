@@ -11,10 +11,12 @@ import { AuthContext } from "../context/AuthProvider";
 import { authClient } from "../utils/auth";
 import { apiClient } from "../utils/axios";
 
+const BG = tw.div`relative min-h-[92vh] h-auto w-[100%] max-w-[1400px] mx-auto pt-[15vh] flex flex-col items-end mb-[3vh]`;
+const PortfolioCardWrapper = tw.div`w-full flex flex-wrap gap-x-[3%] gap-y-[2vh] my-10 min-h-[65vh]`;
+const Header1 = tw.div`text-4xl font-ibm font-bold text-[#D62B70] mb-[5vh] flex justify-between w-[95%] max-w-[715px]`;
+
 const ProfilePage = () => {
-  const BG = tw.div`relative min-h-[92vh] h-auto w-[100%] max-w-[1400px] mx-auto pt-[15vh] flex flex-col items-end mb-[3vh]`;
-  const PortfolioCardWrapper = tw.div`w-[100%] flex flex-wrap gap-x-[3%] gap-y-[2vh] my-10 min-h-[65vh]`;
-  const Header1 = tw.div`text-4xl font-ibm font-bold text-[#D62B70] mb-[5vh] flex justify-between w-[95%] max-w-[715px]`;
+
 
   const [page, setPage] = useState(1);
   const [meta, setMeta] = useState(null);
@@ -128,6 +130,8 @@ const ProfilePage = () => {
             portfolios.map((portfolio, i) => {
               return (
                 <PortfolioCard
+                  id={portfolio.id}
+                  userId={portfolio.freelance.id}
                   key={i}
                   portImg={PortfolioImg}
                   category={portfolio.category}
@@ -136,6 +140,7 @@ const ProfilePage = () => {
                   duration={portfolio.duration}
                   price={portfolio.price}
                   haspencil={true}
+                  isPublic={portfolio.is_public}
                   onClick={onClickDetailCard.bind(null,portfolio.id)}
                   onClickPencil={onClickEditCard.bind(null, portfolio.id)}
                 />

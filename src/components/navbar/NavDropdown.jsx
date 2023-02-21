@@ -16,7 +16,7 @@ const DownButtonWrapper = tw.img``;
 const DropdownWrapper = tw.div`absolute top-full left-0  w-full h-auto bg-white  rounded-b-[20px] shadow-dropnav`;
 const DropdownItemWrapper = tw.ul`flex flex-col`;
 
-const NavDropdown = ({setIsShow}) => {
+const NavDropdown = ({ setIsShow }) => {
   const authCtx = useContext(AuthContext);
   const [isVisible, setIsVisible] = useState(false);
   const menuRef = useRef();
