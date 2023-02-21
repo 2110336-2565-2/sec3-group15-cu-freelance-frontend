@@ -66,13 +66,6 @@ const Navbar = (props) => {
         {authCtx.userInfo.display_name && (
           <NotificationWrapper src={NotificationIcon} />
         )}
-        {/* {navbarButton.map((button, idx) => (
-          <ImageNavbar
-            key={idx}
-            image={button.img}
-            onClick={onClickButtonHandler.bind(null, button.to)}
-          />
-        ))} */}
         <NavDropdown setIsShow={setIsShow}/>
       </>
     );
