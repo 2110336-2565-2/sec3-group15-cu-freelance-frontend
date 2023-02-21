@@ -1,5 +1,5 @@
 import tw from "twin.macro";
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import { optionButton } from "../../store/option-store";
 import ItemOptionDropdown from "./ItemOptionDropdown";
 
@@ -10,26 +10,35 @@ const OptionDropdown = ({
   onClickPencil,
   onClickOpenEye,
   onClickClosedEye,
+  onClickDelete,
   isVisible,
 }) => {
-  
   return (
     <>
       <DropdownContainer>
         <ItemContainer>
           {optionButton.map((option, idx) => {
-            let onClick;
+            let onClick,
+              ch = 0;
             if (option.click === "edit") onClick = onClickPencil;
-            else if (option.click === "open") onClick = onClickOpenEye;
-            else if (option.click === "hide") onClick = onClickClosedEye;
-            else if (option.click === "delete") onClick = () => {};
+            else if (option.click === "open") {
+              ch = 1;
+              onClick = onClickOpenEye;
+            } else if (option.click === "hide") {
+              ch = 1;
+              onClick = onClickClosedEye;
+            } else if (option.click === "delete") onClick =onClickDelete;
             return (
-              <ItemOptionDropdown
-                key={idx}
-                img={option.img}
-                text={option.text}
-                onClick={onClick}
-              />
+              ((option.click === "open" && isVisible === false) ||
+                (option.click === "hide" && isVisible === true) ||
+                (option.click !== "hide" && option.click !== "open")) && (
+                <ItemOptionDropdown
+                  key={idx}
+                  img={option.img}
+                  text={option.text}
+                  onClick={onClick}
+                />
+              )
             );
           })}
         </ItemContainer>

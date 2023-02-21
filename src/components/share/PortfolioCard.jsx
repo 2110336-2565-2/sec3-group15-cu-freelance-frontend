@@ -1,9 +1,12 @@
 import tw from "twin.macro";
-import { useState,useRef,useEffect } from "react";
+import React,{ useState, useRef, useEffect } from "react";
 import durationIcon from "../../assets/DurationIcon.svg";
 import OptionIcon from "../../assets/OptionIcon.svg";
 import OptionDropdown from "../Profile/OptionDropdown";
 import { apiClient } from "../../utils/axios";
+import DeleteIcon from "../../assets/DeleteIcon.svg";
+import Button from "./Button";
+import Modal from "./Modal";
 
 const Container = tw.div`flex flex-col h-fit rounded-[20px] min-w-[250px] w-1/5 shadow-xl relative cursor-pointer`;
 const Img = tw.img``;
@@ -30,11 +33,14 @@ const PortFolioCard = ({
   onClick,
   onClickPencil,
   userId,
-  id
+  id,
 }) => {
-  const [isVisible, setIsVisible] = useState(isPublic);
+  const [isVisible, setIsVisible] = useState(isPublic || false);
   const [show, setShow] = useState(false);
-  
+  const [isDelete, setIsDelete] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [isLoading,setIsLoading]=useState(false)
+
   const menuRef = useRef();
 
   useEffect(() => {
@@ -50,73 +56,128 @@ const PortFolioCard = ({
     };
   }, []);
 
-
   const optionHandler = (e) => {
     e.stopPropagation();
     setShow((prev) => !prev);
   };
 
   const onOpenEyeHandler = async (e) => {
-    console.log('openEye')
+    console.log("openEye");
     e.stopPropagation();
     setIsVisible(true);
-    setShow(false)
+    setShow(false);
     try {
       const data = JSON.stringify({ is_public: true });
       const res = await apiClient.patch(`/portfolio/${id}`, data, {
         headers: { "Content-Type": "application/json" },
       });
-      console.log(res)
+      console.log(res);
     } catch (e) {
       console.log(e);
     }
   };
 
   const onClosedEyeHandler = async (e) => {
-    console.log('closeEye')
+    console.log("closeEye");
     e.stopPropagation();
     setIsVisible(false);
-    setShow(false)
+    setShow(false);
     try {
       const data = JSON.stringify({ is_public: false });
       const res = await apiClient.patch(`/portfolio/${id}`, data, {
         headers: { "Content-Type": "application/json" },
       });
-      console.log(res)
+      console.log(res);
     } catch (e) {
       console.log(e);
     }
   };
 
+  const onDeleteHandler = (e) => {
+    e.stopPropagation();
+    setShowModal(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const onCancelHandler = (e) => {
+    console.log("cancel")
+    setShowModal(false);
+    document.body.style.overflow = "";
+  };
+
+  const onClickDeleteHandler = async (e) => {
+
+    console.log("delete")
+    setIsDelete(true);
+    try {
+      setIsLoading(true);
+      const response = await apiClient.delete(`/portfolio/${id}`);
+      console.log(response.data);
+      document.body.style.overflow = "";
+      // navigate(`/profile/${authCtx.userInfo.id}`, { replace: true });
+    } catch (err) {
+      console.log(err);
+    }
+    setIsLoading(false);
+  };
+
   return (
-    <Container onClick={onClick ? onClick : () => {}} ref={menuRef}>
-      {!isVisible && <Backdrop />}
-      <Img src={portImg} />
-      <ContentContainer>
-        <FirstRow>
-          <Category>{category}</Category>
-          <OptionIconImg src={OptionIcon} onClick={optionHandler} />
-          {show&&<OptionDropdown
-            show={show}
-            onClickPencil={onClickPencil}
-            setShow={setShow}
-            onClickOpenEye={onOpenEyeHandler}
-            onClickClosedEye={onClosedEyeHandler}
-            isVisible={isVisible}
-            
-          />}
-        </FirstRow>
-        <Name>{name}</Name>
-        <Description>{description}</Description>
-      </ContentContainer>
-      <FooterContainer>
-        <Duration>
-          <DurationIcon src={durationIcon}></DurationIcon>
-          <div tw="font-ibm">{duration} วัน</div>
-        </Duration>
-        <Price>{price}.-</Price>
-      </FooterContainer>
-    </Container>
+    !isDelete && (
+      <>
+        {showModal&&<Modal
+          header={DeleteIcon}
+          onCancel={onCancelHandler}
+          text={
+            "Do you really want to delete this portfolio? This process cannot be undone."
+          }
+          show={showModal}
+          footer={
+            <>
+              <Button cancel disable={isLoading} onClick={onCancelHandler}>
+                Cancel
+              </Button>
+              <Button
+                deleted
+                disable={isLoading}
+                onClick={onClickDeleteHandler}
+              >
+                Delete
+              </Button>
+            </>
+          }
+        />}
+        <Container onClick={onClick ? onClick : () => {}} ref={menuRef}>
+          {!isVisible && <Backdrop />}
+          <Img src={portImg} />
+          <ContentContainer>
+            <FirstRow>
+              <Category>{category}</Category>
+              <OptionIconImg src={OptionIcon} onClick={optionHandler} />
+              {show && (
+                <OptionDropdown
+                  show={show}
+                  onClickPencil={onClickPencil}
+                  setShow={setShow}
+                  onClickOpenEye={onOpenEyeHandler}
+                  onClickClosedEye={onClosedEyeHandler}
+                  onClickDelete={onDeleteHandler}
+                  isVisible={isVisible}
+                />
+              )}
+            </FirstRow>
+            <Name>{name}</Name>
+            <Description>{description}</Description>
+          </ContentContainer>
+          <FooterContainer>
+            <Duration>
+              <DurationIcon src={durationIcon}></DurationIcon>
+              <div tw="font-ibm">{duration} วัน</div>
+            </Duration>
+            <Price>{price}.-</Price>
+          </FooterContainer>
+        </Container>
+      </>
+    )
   );
 };
 export default PortFolioCard;
