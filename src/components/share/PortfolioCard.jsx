@@ -1,5 +1,5 @@
 import tw from "twin.macro";
-import React,{ useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import durationIcon from "../../assets/DurationIcon.svg";
 import OptionIcon from "../../assets/OptionIcon.svg";
 import OptionDropdown from "../Profile/OptionDropdown";
@@ -7,6 +7,7 @@ import { apiClient } from "../../utils/axios";
 import DeleteIcon from "../../assets/DeleteIcon.svg";
 import Button from "./Button";
 import Modal from "./Modal";
+import { useNavigate } from "react-router-dom";
 
 const Container = tw.div`flex flex-col h-fit rounded-[20px] min-w-[250px] w-1/5 shadow-xl relative cursor-pointer`;
 const Img = tw.img``;
@@ -32,26 +33,29 @@ const PortFolioCard = ({
   isPublic,
   onClick,
   onClickPencil,
-  userId,
   id,
+  setPortfolios,
 }) => {
   const [isVisible, setIsVisible] = useState(isPublic || false);
   const [show, setShow] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [isLoading,setIsLoading]=useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const menuRef = useRef();
 
   useEffect(() => {
     const closeHandler = (e) => {
       if (!menuRef.current.contains(e.target)) {
+        console.log("wrong");
         setShow(false);
       }
     };
+
     document.addEventListener("mousedown", closeHandler);
 
     return () => {
+      console.log("clean");
       document.removeEventListener("mousedown", closeHandler);
     };
   }, []);
@@ -95,36 +99,35 @@ const PortFolioCard = ({
 
   const onDeleteHandler = (e) => {
     e.stopPropagation();
+    setShow(false);
     setShowModal(true);
     document.body.style.overflow = "hidden";
   };
 
-  const onCancelHandler = (e) => {
-    console.log("cancel")
+  const onCancelHandler = () => {
     setShowModal(false);
     document.body.style.overflow = "";
   };
 
-  const onClickDeleteHandler = async (e) => {
-
-    console.log("delete")
+  const onClickDeleteHandler = async () => {
     setIsDelete(true);
     try {
       setIsLoading(true);
       const response = await apiClient.delete(`/portfolio/${id}`);
       console.log(response.data);
       document.body.style.overflow = "";
-      // navigate(`/profile/${authCtx.userInfo.id}`, { replace: true });
     } catch (err) {
       console.log(err);
     }
+    setPortfolios((prevs) => prevs.filter((prev) => prev.id !== id));
     setIsLoading(false);
+    setShowModal(false);
   };
 
   return (
-    !isDelete && (
-      <>
-        {showModal&&<Modal
+    <>
+      {showModal && (
+        <Modal
           header={DeleteIcon}
           onCancel={onCancelHandler}
           text={
@@ -145,7 +148,9 @@ const PortFolioCard = ({
               </Button>
             </>
           }
-        />}
+        />
+      )}
+      {!isDelete && (
         <Container onClick={onClick ? onClick : () => {}} ref={menuRef}>
           {!isVisible && <Backdrop />}
           <Img src={portImg} />
@@ -176,8 +181,8 @@ const PortFolioCard = ({
             <Price>{price}.-</Price>
           </FooterContainer>
         </Container>
-      </>
-    )
+      )}
+    </>
   );
 };
 export default PortFolioCard;

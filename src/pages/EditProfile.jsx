@@ -3,8 +3,8 @@ import Input from "../components/share/Input"
 import { useForm } from "../hooks/form-hook"
 import { VALIDATOR_PHONE, VALIDATOR_REQUIRE } from "../components/share/Validate";
 import { apiClient } from "../utils/axios";
-const Container = tw.div`px-[30rem] py-32 min-h-[95vh]`;
-const Form = tw.form`flex flex-col shadow-[0_4px_4px_rgba(0,0,0,0.25)] px-8 py-4 rounded-[20px] gap-y-2`;
+const Container = tw.div`flex justify-center pt-[20vh] min-h-[95vh]`;
+const Form = tw.form`flex flex-col shadow-[0_4px_4px_rgba(0,0,0,0.25)] px-8 py-4 rounded-[20px] gap-y-2 w-[420px] max-h-[520px]`;
 const Title = tw.div`text-center font-bold text-3xl`;
 const SubmitButton = tw.button`bg-[#D62B70] text-center m-2 text-white font-inter font-bold rounded-[10px] p-2 text-xl`;
 const EditProfilePage = ()=> {

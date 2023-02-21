@@ -16,8 +16,6 @@ const PortfolioCardWrapper = tw.div`w-full flex flex-wrap gap-x-[3%] gap-y-[2vh]
 const Header1 = tw.div`text-4xl font-ibm font-bold text-[#D62B70] mb-[5vh] flex justify-between w-[95%] max-w-[715px]`;
 
 const ProfilePage = () => {
-
-
   const [page, setPage] = useState(1);
   const [meta, setMeta] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
@@ -89,9 +87,7 @@ const ProfilePage = () => {
       setUserInfoLoading(true);
       try {
         let response;
-        response = await authClient.get(
-          `/user/freelance/${userId}`
-        );
+        response = await authClient.get(`/user/freelance/${userId}`);
         console.log(response.data);
         setUserInfo(response.data);
       } catch (err) {
@@ -106,21 +102,36 @@ const ProfilePage = () => {
     fetchData();
   }, [user_type, page, params.userId]);
 
-
   return (
     <BG>
-      {userInfoLoading===false&&((authCtx.userInfo.id !== userId&&userInfo)||(authCtx.userInfo.id === userId))&&<ProfileCard
-        imgSrc={profile1}
-        name={authCtx.userInfo.id !== userId ?  userInfo.display_name: display_name}
-      />}
+      {userInfoLoading === false &&
+        ((authCtx.userInfo.id !== userId && userInfo) ||
+          authCtx.userInfo.id === userId) && (
+          <ProfileCard
+            imgSrc={profile1}
+            name={
+              authCtx.userInfo.id !== userId
+                ? userInfo.display_name
+                : display_name
+            }
+          />
+        )}
       <div tw="w-[65%]  h-auto dt:min-h-[70vh]">
         {" "}
         <Header1>
-          {user_type===2&&authCtx.userInfo.id===userId&&`Profile ของ ${display_name}`}
-          {user_type===1&&authCtx.userInfo.id===userId&&`งานของ ${display_name}`}
-          {authCtx.userInfo.id!==userId&&userInfo&&`งานของ ${userInfo.display_name}`}
+          {user_type === 2 &&
+            authCtx.userInfo.id === userId &&
+            `Profile ของ ${display_name}`}
+          {user_type === 1 &&
+            authCtx.userInfo.id === userId &&
+            `งานของ ${display_name}`}
+          {authCtx.userInfo.id !== userId &&
+            userInfo &&
+            `งานของ ${userInfo.display_name}`}
           {user_type === 1 && (
-            <Button primary onClick={onAddPortHandler}>Add Portfolio</Button>
+            <Button primary onClick={onAddPortHandler}>
+              Add Portfolio
+            </Button>
           )}
         </Header1>
         <PortfolioCardWrapper>
@@ -131,7 +142,7 @@ const ProfilePage = () => {
               return (
                 <PortfolioCard
                   id={portfolio.id}
-                  userId={portfolio.freelance.id}
+                  setPortfolios={setPortfolios}
                   key={i}
                   portImg={PortfolioImg}
                   category={portfolio.category}
@@ -141,7 +152,7 @@ const ProfilePage = () => {
                   price={portfolio.price}
                   haspencil={true}
                   isPublic={portfolio.is_public}
-                  onClick={onClickDetailCard.bind(null,portfolio.id)}
+                  onClick={onClickDetailCard.bind(null, portfolio.id)}
                   onClickPencil={onClickEditCard.bind(null, portfolio.id)}
                 />
               );
