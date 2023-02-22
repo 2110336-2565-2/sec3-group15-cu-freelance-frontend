@@ -9,6 +9,7 @@ import {
   VALIDATOR_MATCH,
   VALIDATOR_MAXLENGTH,
   VALIDATOR_MINLENGTH,
+  VALIDATOR_PHONE,
   VALIDATOR_REQUIRE,
 } from "../share/Validate.jsx";
 import { Link } from "react-router-dom";
@@ -223,9 +224,9 @@ const loginForm = () => {
             type="tel"
             id="phonenumber"
             label="Phone Number"
-            placeholder="0xx-xxx-xxxx"
-            errorText="Your phone should be in this format 0xx-xxx-xxxx"
-            validator={[VALIDATOR_REQUIRE(),VALIDATOR_MINLENGTH(12),VALIDATOR_MAXLENGTH(12)]}
+            placeholder="0xxxxxxxxx"
+            errorText="Your phone should be in this format 0xxxxxxxxx"
+            validator={[VALIDATOR_PHONE()]}
             onInput={inputHandler1}
             required
           />
