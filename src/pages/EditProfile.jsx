@@ -8,6 +8,7 @@ const Form = tw.form`flex flex-col shadow-[0_4px_4px_rgba(0,0,0,0.25)] px-8 py-4
 const Title = tw.div`text-center font-bold text-3xl`;
 const SubmitButton = tw.button`bg-[#D62B70] text-center m-2 text-white font-inter font-bold rounded-[10px] p-2 text-xl`;
 const EditProfilePage = ()=> {
+    
     const [formState, inputHandler] = useForm({
         Firstname: {
             value:"",

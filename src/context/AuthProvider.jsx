@@ -9,4 +9,3 @@ export const AuthContext = createContext({
   setUserInfo:()=>{},
   userInfo:{},
 });
-
