@@ -16,7 +16,7 @@ import AddedPortfolioPage from "./pages/AddedPortfolio";
 import PortfolioPage from "./pages/Portfolio";
 import EditPortfolioPage from "./pages/EditPortfolio";
 import EditProfilePage from "./pages/EditProfile";
-
+import ChangePasswordPage from "./pages/ChangePassword"
 function App() {
   const { acToken, reToken, login, logout, userInfo,setUserInfo } = useAuth();
   return (
@@ -38,6 +38,7 @@ function App() {
             </Route>
           </Route>
           <Route path="/edit-profile" element={<EditProfilePage/>}></Route>
+          <Route path="/change-password" element={<ChangePasswordPage/>}></Route>
         </Route>
         <Route path="home" element={<HomePage />} />
         <Route path="/login/">

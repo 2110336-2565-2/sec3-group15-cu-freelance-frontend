@@ -97,9 +97,9 @@ const LoginForm = () => {
           id="password"
           label="Password"
           placeholder="Enter Password"
-          errorText="Your password must be at least 6 characters"
+          errorText="Your password must be at least 8 characters"
           onInput={inputHandler}
-          validator={[VALIDATOR_MINLENGTH(6)]}
+          validator={[VALIDATOR_MINLENGTH(8)]}
         />
         <button
           css={styles.button()}
