@@ -6,6 +6,7 @@ const VALIDATOR_TYPE_MAX = 'MAX';
 const VALIDATOR_TYPE_EMAIL = 'EMAIL';
 const VALIDATOR_TYPE_FILE = 'FILE';
 const VALIDATOR_TYPE_MATCH = 'MATCH';
+const VALIDATOR_TYPE_PHONE = 'PHONE';
 
 export const VALIDATOR_REQUIRE = () => ({ type: VALIDATOR_TYPE_REQUIRE });
 export const VALIDATOR_FILE = () => ({ type: VALIDATOR_TYPE_FILE });
@@ -21,6 +22,7 @@ export const VALIDATOR_MIN = val => ({ type: VALIDATOR_TYPE_MIN, val: val });
 export const VALIDATOR_MAX = val => ({ type: VALIDATOR_TYPE_MAX, val: val });
 export const VALIDATOR_EMAIL = () => ({ type: VALIDATOR_TYPE_EMAIL });
 export const VALIDATOR_MATCH = val => ({ type: VALIDATOR_TYPE_MATCH, val: val });
+export const VALIDATOR_PHONE = () => ({type: VALIDATOR_TYPE_PHONE})
 
 export const validate = (value, validators) => {
   let isValid = true;
@@ -45,6 +47,9 @@ export const validate = (value, validators) => {
     }
     if(validator.type === VALIDATOR_TYPE_MATCH) {
       isValid = isValid && (value===validator.val);
+    }
+    if(validator.type === VALIDATOR_TYPE_PHONE) {
+      isValid = isValid && /^0\d{9}$/.test(value)
     }
   }
   return isValid;

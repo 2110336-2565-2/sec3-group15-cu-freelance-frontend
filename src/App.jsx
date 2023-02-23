@@ -15,6 +15,7 @@ import FillDisplayNamePage from "./pages/FillDisplayName";
 import AddedPortfolioPage from "./pages/AddedPortfolio";
 import PortfolioPage from "./pages/Portfolio";
 import EditPortfolioPage from "./pages/EditPortfolio";
+import EditProfilePage from "./pages/EditProfile";
 
 function App() {
   const { acToken, reToken, login, logout, userInfo,setUserInfo } = useAuth();
@@ -36,6 +37,7 @@ function App() {
               <Route path="" element={<ProfilePage />} />
             </Route>
           </Route>
+          <Route path="/edit-profile" element={<EditProfilePage/>}></Route>
         </Route>
         <Route path="home" element={<HomePage />} />
         <Route path="/login/">

@@ -15,10 +15,10 @@ import NotificationIcon from "../../assets/NotificationIcon.svg";
 const BigWrapper = styled.div(({ fixed }) => [
   tw`w-full h-[10vh]
 z-30 pb-2 bg-white flex justify-center`,
-  fixed && tw`fixed  top-0 left-0 `,
+  fixed && tw`fixed  top-0 left-0  `,
 ]);
 const Wrapper = tw.div` w-[90%] max-w-[1200px] h-[10vh] mx-auto 
-flex justify-between items-center `;
+flex justify-between items-center`;
 const SearchWrapper = tw.div`items-center w-[30%] flex justify-between font-inter min-w-[295px] h-[40%]`;
 const RightWrapperLogin = tw.div`w-[25%] flex justify-between items-center font-inter min-w-[205px]`;
 const RightWrapperNotLogin = tw.div`w-[25%] flex justify-between font-inter min-w-[290px]`;
@@ -66,13 +66,6 @@ const Navbar = (props) => {
         {authCtx.userInfo.display_name && (
           <NotificationWrapper src={NotificationIcon} />
         )}
-        {/* {navbarButton.map((button, idx) => (
-          <ImageNavbar
-            key={idx}
-            image={button.img}
-            onClick={onClickButtonHandler.bind(null, button.to)}
-          />
-        ))} */}
         <NavDropdown setIsShow={setIsShow}/>
       </>
     );

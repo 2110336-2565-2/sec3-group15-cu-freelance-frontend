@@ -1,7 +1,7 @@
 import OrderIcon from "../assets/OrderIcon.svg";
 import DashboardIcon from "../assets/DashboardIcon.svg";
 import SignoutIcon from "../assets/SignoutIcon.svg";
-import ProfileIcon from "../assets/profileIcon.svg";
+import ProfileIcon from "../assets/ProfileIcon.svg";
 
 export const navbarButton = [
   { img: ProfileIcon, to: "/profile" ,text:"โปรไฟล์ของฉัน"},
