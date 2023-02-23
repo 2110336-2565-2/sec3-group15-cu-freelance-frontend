@@ -49,7 +49,7 @@ const NavDropdown = ({ setIsShow }) => {
       onCancelHandler();
       url = "/home";
     } else if (url === "/profile") {
-      url += `/${authCtx.userInfo.id}`;
+      url += `/${authCtx.userInfo.id}?pages=1`;
     }
     navigate(url);
     window.scrollTo({ top: 0, behavior: "smooth" });

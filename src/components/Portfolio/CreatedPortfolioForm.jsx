@@ -69,7 +69,7 @@ const CreatedPortfolioForm = () => {
         headers: { "Content-Type": "application/json" },
       });
       console.log(response.data);
-      navigate(`/profile/${authCtx.userInfo.id}`,{replace:true})
+      navigate(-1,{replace:true})
       
     } catch (err) {
       console.log(err)
