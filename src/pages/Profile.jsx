@@ -17,13 +17,15 @@ const Header1 = tw.div`text-4xl font-ibm font-bold text-[#D62B70] mb-[5vh] flex 
 
 const ProfilePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  // const [page, setPage] = useState(1);
+  
 
   const [meta, setMeta] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [userInfoLoading, setUserInfoLoading] = useState(false);
   const [portfolios, setPortfolios] = useState(null);
+  console.log(portfolios);
+  
   const params = useParams();
   const userId = params.userId;
 
@@ -105,6 +107,7 @@ const ProfilePage = () => {
       fetchData2();
     }
     fetchData();
+    console.log("fetch")
   }, [user_type, page, params.userId]);
 
   return (

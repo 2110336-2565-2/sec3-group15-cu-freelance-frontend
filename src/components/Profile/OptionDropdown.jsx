@@ -3,7 +3,7 @@ import React from "react";
 import { optionButton } from "../../store/option-store";
 import ItemOptionDropdown from "./ItemOptionDropdown";
 
-const DropdownContainer = tw.div`absolute h-auto bg-white w-1/2 right-0 top-full shadow-dropnav z-40`;
+const DropdownContainer = tw.div`absolute h-auto bg-white w-1/2 right-0 top-full shadow-dropnav z-30`;
 const ItemContainer = tw.ul`font-ibm flex flex-col`;
 
 const OptionDropdown = ({

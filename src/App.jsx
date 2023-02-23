@@ -16,6 +16,7 @@ import AddedPortfolioPage from "./pages/AddedPortfolio";
 import PortfolioPage from "./pages/Portfolio";
 import EditPortfolioPage from "./pages/EditPortfolio";
 import EditProfilePage from "./pages/EditProfile";
+import SearchPage from "./pages/Search";
 
 function App() {
   const { acToken, reToken, login, logout, userInfo,setUserInfo } = useAuth();
@@ -47,6 +48,7 @@ function App() {
         <Route path="/register/" element={<RegisterPage />} />
         <Route path="success" element={<RegisterSuccessPage />} />
         <Route path="/fill-display-name" element={<FillDisplayNamePage />} />
+        <Route path="/search" element={<SearchPage/>}/>
         <Route path="/auth" element={<Auth />} />
         <Route path="*" element={<Navigate to="home" />} />
       </Routes>
