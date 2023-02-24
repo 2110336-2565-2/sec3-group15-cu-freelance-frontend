@@ -7,12 +7,16 @@ import { apiClient } from "../utils/axios";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { useEffect } from "react";
+import Toast from "../components/share/Toast";
+import successIcon from "../assets/SuccessIcon.svg"
+import { useState } from "react";
 const Container = tw.div`flex justify-center pt-[20vh] min-h-[95vh]`;
 const Form = tw.form`flex flex-col shadow-[0_4px_4px_rgba(0,0,0,0.25)] px-8 py-4 rounded-[20px] gap-y-2 w-[420px] h-fit`;
 const Title = tw.div`text-center font-bold text-3xl`;
 const SubmitButton = tw.button`bg-[#D62B70] text-center m-2 text-white font-inter font-bold rounded-[10px] p-2 text-xl`;
 const EditProfilePage = ()=> {
     const authCtx=useContext(AuthContext);
+    const [submitState, setSubmitState] = useState(0);
     const [formState, inputHandler, setFormData] = useForm({
         Firstname: {
             value:"",
@@ -41,7 +45,6 @@ const EditProfilePage = ()=> {
         const { Firstname, Lastname, PhoneNumber, Username, Displayname} =
                 formState.inputs;
         try{
-            console.log("button click!")
             let data = JSON.stringify({
                 display_name: Displayname.value,
                 firstname: Firstname.value,
@@ -51,10 +54,13 @@ const EditProfilePage = ()=> {
             const response = await apiClient.patch(`/user/`, data, {
                 headers: { "Content-Type": "application/json" },
             });
-            console.log(response.data)
+            setSubmitState(1);
+            setTimeout(() => { setSubmitState(0); }, 3000);
         }
         catch(err){
             console.log(err);
+            setSubmitState(2);
+            setTimeout(() => { setSubmitState(0); }, 3000);
         }
     }
     useEffect(()=>{
@@ -83,6 +89,8 @@ const EditProfilePage = ()=> {
     },[authCtx.userInfo.firstname])
     return (
         <>
+        {submitState==1&&<Toast type='success' title='สำเร็จ' description='ข้อมูลส่วนตัวของคุณได้ถูกเปลี่ยนแปลงแล้ว' icon={successIcon}/>}
+        {submitState==2&&<Toast type='fail' title='ผิดพลาด' description='เปลี่ยนข้อมูลส่วนตัวของคุณไม่สำเร็จ' icon={successIcon}/>}
         {authCtx.userInfo.firstname && 
         <Container>
             <Form>
