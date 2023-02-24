@@ -17,7 +17,6 @@ const Header1 = tw.div`text-4xl font-ibm font-bold text-[#D62B70] mb-[5vh] flex 
 
 const ProfilePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  
 
   const [meta, setMeta] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
@@ -25,19 +24,18 @@ const ProfilePage = () => {
   const [userInfoLoading, setUserInfoLoading] = useState(false);
   const [portfolios, setPortfolios] = useState(null);
   console.log(portfolios);
-  
+
   const params = useParams();
   const userId = params.userId;
 
   const pageRef = React.createRef();
   const page = searchParams.get("pages");
   const onNextPageHandler = () => {
-
-   setSearchParams({pages:parseInt(page)+1})
+    setSearchParams({ pages: parseInt(page) + 1 });
   };
 
   const onPrevPageHandler = () => {
-    setSearchParams({pages:parseInt(page)-1})
+    setSearchParams({ pages: parseInt(page) - 1 });
   };
 
   const onSetPageHandler = (event) => {
@@ -46,15 +44,14 @@ const ProfilePage = () => {
     const totalPage = parseInt(meta.TotalPage);
     pageRef.current.value = "";
     pageRef.current.blur();
-    if (inputPage > totalPage) setSearchParams({pages:totalPage})
-    else if (inputPage < 1) setSearchParams({pages:1})
-    else setSearchParams({pages:inputPage})
+    if (inputPage > totalPage) setSearchParams({ pages: totalPage });
+    else if (inputPage < 1) setSearchParams({ pages: 1 });
+    else setSearchParams({ pages: inputPage });
   };
 
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
   const { display_name, user_type } = authCtx.userInfo;
- 
 
   const onAddPortHandler = () => {
     navigate(`/profile/${params.userId}/add-portfolio`);
@@ -76,7 +73,7 @@ const ProfilePage = () => {
       try {
         let response;
         if (authCtx.userInfo.id === userId) {
-          response = await apiClient.get(`/portfolio/me/?limit=6&page=${page}`);
+          response = await apiClient.get(`/portfolio/me?limit=6&page=${page}`);
         } else {
           response = await authClient.get(
             `/portfolio/user/${userId}?limit=6&page=${page}`
@@ -107,7 +104,7 @@ const ProfilePage = () => {
       fetchData2();
     }
     fetchData();
-    console.log("fetch")
+    console.log("fetch");
   }, [user_type, page, params.userId]);
 
   return (
@@ -158,7 +155,7 @@ const ProfilePage = () => {
                   description={portfolio.description}
                   duration={portfolio.duration}
                   price={portfolio.price}
-                  haspencil={true}
+                  canEdit={authCtx.userInfo.id === userId}
                   isPublic={portfolio.is_public}
                   onClick={onClickDetailCard.bind(null, portfolio.id)}
                   onClickPencil={onClickEditCard.bind(null, portfolio.id)}

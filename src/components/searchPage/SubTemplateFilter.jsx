@@ -2,7 +2,7 @@ import tw, { styled } from "twin.macro";
 import React, { useState } from "react";
 import ArrowFilter from "../../assets/ArrowFilter.svg";
 
-const Container = tw.div`h-auto mb-5 w-full`;
+const Container = tw.div`h-auto mb-5 w-[90%]`;
 const Header = tw.div`mb-4 text-xl font-bold flex justify-between w-full cursor-pointer`;
 const Arrow = styled.img(({ isOpen }) => [
   tw`transition-all duration-500 ease-in-out`,
@@ -14,8 +14,9 @@ const ChoiceContainer = styled.div(({ isOpen }) => [
   !isOpen && tw`max-h-0 opacity-0`,
   isOpen && tw`max-h-[200vh] opacity-100`,
 ]);
-const TemplateFilter = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
+
+const SubTemplateFilter=(props)=>{
+    const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Container>
@@ -30,6 +31,6 @@ const TemplateFilter = (props) => {
       <ChoiceContainer isOpen={isOpen}>{props.children}</ChoiceContainer>
     </Container>
   );
-};
+}
 
-export default TemplateFilter;
+export default SubTemplateFilter

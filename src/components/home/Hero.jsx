@@ -43,7 +43,7 @@ const Hero = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    navigate(`/search?keyword=${searchResult}`);
+    navigate(`/search?pages=1&limit=6&keyword=${searchResult}`);
   };
 
   return (

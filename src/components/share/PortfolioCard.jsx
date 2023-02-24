@@ -35,10 +35,10 @@ const PortFolioCard = ({
   onClickPencil,
   id,
   setPortfolios,
+  canEdit,
 }) => {
   const [isVisible, setIsVisible] = useState(isPublic || false);
   const [show, setShow] = useState(false);
-  // const [isDelete, setIsDelete] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -157,7 +157,7 @@ const PortFolioCard = ({
         <ContentContainer>
           <FirstRow>
             <Category>{mapOptions[category]}</Category>
-            <OptionIconImg src={OptionIcon} onClick={optionHandler} />
+            {canEdit&&<OptionIconImg src={OptionIcon} onClick={optionHandler} />}
             {show && (
               <OptionDropdown
                 show={show}

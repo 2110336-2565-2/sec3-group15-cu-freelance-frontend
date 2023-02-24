@@ -65,7 +65,7 @@ const CreatedPortfolioForm = () => {
         name: portfolioName.value,
         userID: authCtx.userInfo.id,
       });
-      const response = await apiClient.post("/portfolio/", data, {
+      const response = await apiClient.post("/portfolio", data, {
         headers: { "Content-Type": "application/json" },
       });
       console.log(response.data);

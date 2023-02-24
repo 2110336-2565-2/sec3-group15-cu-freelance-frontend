@@ -48,7 +48,7 @@ const EditProfilePage = ()=> {
                 lastname: Lastname.value,
                 phone: PhoneNumber.value
               });
-            const response = await apiClient.patch(`/user/`, data, {
+            const response = await apiClient.patch(`/user`, data, {
                 headers: { "Content-Type": "application/json" },
             });
             console.log(response.data)
