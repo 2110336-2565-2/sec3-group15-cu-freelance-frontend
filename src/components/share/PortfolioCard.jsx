@@ -178,7 +178,7 @@ const PortFolioCard = ({
             <DurationIcon src={durationIcon}></DurationIcon>
             <div tw="font-ibm">{duration} วัน</div>
           </Duration>
-          <Price>{price}.-</Price>
+          <Price>{price.toLocaleString('en-US')}.-</Price>
         </FooterContainer>
       </Container>
     </>
