@@ -11,11 +11,11 @@ const PaginationBar = React.forwardRef((props, ref) => {
 
   return (
     <div tw="w-full flex justify-center">
-      <div tw="w-1/3 flex justify-between">
+      <div tw="min-w-[1/3] flex justify-between items-center gap-2">
         <TextButton onClick={props.onPrev} hide={parseInt(props.page) === 1}>
           {"< Prev"}
         </TextButton>
-        <form onSubmit={props.onSet} tw="w-[100px]">
+        <form onSubmit={props.onSet} tw="w-[100px] text-center">
           <input
             type="number"
             placeholder={props.page}
