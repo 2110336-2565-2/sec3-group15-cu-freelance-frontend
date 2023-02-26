@@ -10,17 +10,17 @@ const PaginationBar = React.forwardRef((props, ref) => {
  
 
   return (
-    <div tw="w-full flex justify-center">
+    <div tw="w-full flex justify-center mb-8">
       <div tw="min-w-[1/3] flex justify-between items-center gap-2">
         <TextButton onClick={props.onPrev} hide={parseInt(props.page) === 1}>
-          {"< Prev"}
+          {"< ก่อนหน้า"}
         </TextButton>
         <form onSubmit={props.onSet} tw="w-[100px] text-center">
           <input
             type="number"
             placeholder={props.page}
             ref={ref}
-            tw="placeholder:text-gray-500 w-[50px] bg-gray-100 border-2 border-black text-center"
+            tw="placeholder:text-gray-500 w-[50px] bg-gray-100 rounded-lg text-center"
           />
           /{props.totalPage}
         </form>
@@ -29,7 +29,7 @@ const PaginationBar = React.forwardRef((props, ref) => {
           onClick={props.onNext}
           hide={parseInt(props.page) === props.totalPage}
         >
-          {"Next >"}
+          {"ถัดไป >"}
         </TextButton>
       </div>
     </div>
