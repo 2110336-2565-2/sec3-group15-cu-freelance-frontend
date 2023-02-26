@@ -21,7 +21,7 @@ import SearchPage from "./pages/Search";
 function App() {
   const { acToken, reToken, login, logout, userInfo,setUserInfo } = useAuth();
   return (
-    <AuthContext.Provider value={{ userInfo, acToken, reToken, login, logout }}>
+    <AuthContext.Provider value={{ userInfo, acToken, reToken, login, logout ,setUserInfo}}>
       <Routes>
         <Route path="/" element={<LayoutWithNavbar acToken={acToken} />}>
           <Route path="" element={<Navigate to="home" />} />

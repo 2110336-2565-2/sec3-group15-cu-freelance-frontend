@@ -43,6 +43,7 @@ const FillDisplayNamePage = () => {
   };
 
   const formSubmitHandler = async (event) => {
+    console.log(authCtx)
     event.preventDefault();
     try {
       await apiClient.patch(
@@ -55,7 +56,7 @@ const FillDisplayNamePage = () => {
       const userInfo=JSON.parse(localStorage.getItem("userInfo"))
       userInfo.displayName=formState.inputs.displayName.value;
       localStorage.setItem("userInfo", JSON.stringify(userInfo))
-      authCtx.setUserInfo(prev=>({...prev,[display_name]:formState.inputs.displayName.value}))
+      authCtx.setUserInfo(prev=>({...prev,display_name:formState.inputs.displayName.value}))
       navigate("/success", { replace: true });
     } catch (err) {
       console.log(err);
