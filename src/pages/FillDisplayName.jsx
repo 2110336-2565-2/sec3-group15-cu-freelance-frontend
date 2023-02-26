@@ -46,7 +46,7 @@ const FillDisplayNamePage = () => {
     event.preventDefault();
     try {
       await apiClient.patch(
-        "/user/",
+        "/user",
         JSON.stringify({ display_name: formState.inputs.displayName.value }),
         {
           headers: { "Content-Type": "application/json" },
