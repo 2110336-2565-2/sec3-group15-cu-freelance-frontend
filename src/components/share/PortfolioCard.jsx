@@ -15,12 +15,12 @@ const ContentContainer = tw.div`flex flex-col pl-4 border-b-2 border-[#B7B7B7] t
 const FirstRow = tw.div`flex justify-between relative`;
 const OptionIconImg = tw.img`z-40`;
 const Category = tw.div`mt-4 mb-2 text-[#D62B70] text-sm font-ibm font-medium`;
-const Name = tw.div`font-bold text-3xl leading-[2.4em] h-[2.4em] overflow-hidden`;
+const Name = tw.div`font-semibold text-xl leading-[2.4em] h-[2.4em] overflow-hidden`;
 const Description = tw.p`my-2 leading-[1.2em] h-[3.5em] overflow-hidden text-sm mb-4 font-ibm`;
 const FooterContainer = tw.div`flex flex-row justify-between p-2 items-center`;
 const Duration = tw.div`flex flex-row items-center gap-x-2 text-[#707070]`;
 const DurationIcon = tw.img`max-w-[1rem]`;
-const Price = tw.div`text-[#151515] font-semibold`;
+const Price = tw.div`font-sans text-[#151515] `;
 const Backdrop = tw.div`absolute w-full h-full bg-black/50 z-20 rounded-[20px]`;
 
 const PortFolioCard = ({
@@ -151,7 +151,7 @@ const PortFolioCard = ({
         />
       )}
 
-      <Container onClick={onClick ? onClick : () => {}} ref={menuRef}>
+      <Container onClick={onClick ? onClick : () => {}} ref={menuRef} tw="font-ibm">
         {!isVisible && <Backdrop />}
         <Img src={portImg} />
         <ContentContainer>
