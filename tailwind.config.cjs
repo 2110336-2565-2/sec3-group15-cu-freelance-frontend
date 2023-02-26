@@ -1,4 +1,7 @@
 module.exports = {
+  content: [
+    "./index.html", "./src/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {
       fontFamily: {
@@ -21,6 +24,12 @@ module.exports = {
           'white': '#000000'
         }
       },
+      fontSize : {
+        'mobile-small': '0.75rem', // 12px
+        'mobile-body': '0.875rem', // 14px
+        'mobile-h3': '1rem',    // 16px
+        'mobile-h1': '1.25rem'    // 20px
+      }
     },
 
     screens: {
