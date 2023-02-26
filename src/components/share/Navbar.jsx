@@ -5,14 +5,12 @@ import LogoutIcon from "../../assets/LogoutIcon.svg";
 import Button from "./Button";
 import InputSearch from "./InputSearch";
 import { useNavigate } from "react-router-dom";
-import { navbarButton } from "../../store/navbar-store";
-import ImageNavbar from "../navbar/ImageNavbar";
 import { AuthContext } from "../../context/AuthProvider";
 import Modal from "./Modal";
 import NavDropdown from "../navbar/NavDropdown";
 import NotificationIcon from "../../assets/NotificationIcon.svg";
 
-const BigWrapper = styled.div(({ fixed }) => [
+const BigWrapper = styled.div(({ fixed,onSubmit}) => [
   tw`w-full h-[10vh]
 z-30 pb-2 bg-white flex justify-center`,
   fixed && tw`fixed  top-0 left-0  `,
@@ -26,6 +24,7 @@ const Logo = tw.div`font-bold text-2xl font-sans text-black cursor-pointer`;
 const NotificationWrapper = tw.img`cursor-pointer`;
 
 const Navbar = (props) => {
+
   const [isShow, setIsShow] = useState(false);
   const authCtx = useContext(AuthContext);
   const { login } = props;
@@ -42,6 +41,8 @@ const Navbar = (props) => {
     document.body.style.overflow = "";
     setIsShow(false);
   };
+
+
 
   const onClickButtonHandler = (url) => {
     if (url === "/logout") {
@@ -66,7 +67,7 @@ const Navbar = (props) => {
         {authCtx.userInfo.display_name && (
           <NotificationWrapper src={NotificationIcon} />
         )}
-        <NavDropdown setIsShow={setIsShow}/>
+        <NavDropdown setIsShow={setIsShow} />
       </>
     );
   } else {
@@ -111,9 +112,9 @@ const Navbar = (props) => {
             CU FREELANCE
           </Logo>
           {props.search && (
-            <SearchWrapper>
+            <SearchWrapper >
               {" "}
-              <InputSearch />
+              <InputSearch onSubmit={props.onSubmit} onChange={props.onChange} value={props.searchResult}/>
             </SearchWrapper>
           )}
 

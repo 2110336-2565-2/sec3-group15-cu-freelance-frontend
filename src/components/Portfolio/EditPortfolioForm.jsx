@@ -59,7 +59,7 @@ const EditPortfolioForm = () => {
       const response = await apiClient.delete(`/portfolio/${id}`);
       console.log(response.data);
       document.body.style.overflow = "";
-      navigate(`/profile/${authCtx.userInfo.id}`, { replace: true });
+      navigate(-1, { replace: true });
     } catch (err) {
       console.log(err);
     }
@@ -95,7 +95,7 @@ const EditPortfolioForm = () => {
         headers: { "Content-Type": "application/json" },
       });
       console.log(response.data);
-      navigate(`/profile/${authCtx.userInfo.id}`, { replace: true });
+      navigate(-1, { replace: true });
     } catch (err) {
       console.log(err);
     }

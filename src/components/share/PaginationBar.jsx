@@ -7,10 +7,12 @@ const PaginationBar = React.forwardRef((props, ref) => {
     tw`cursor-pointer`,
   ]);
 
+ 
+
   return (
     <div tw="w-full flex justify-center">
       <div tw="w-1/3 flex justify-between">
-        <TextButton onClick={props.onPrev} hide={props.page === 1}>
+        <TextButton onClick={props.onPrev} hide={parseInt(props.page) === 1}>
           {"< Prev"}
         </TextButton>
         <form onSubmit={props.onSet} tw="w-[100px]">
@@ -25,7 +27,7 @@ const PaginationBar = React.forwardRef((props, ref) => {
 
         <TextButton
           onClick={props.onNext}
-          hide={props.page === props.totalPage}
+          hide={parseInt(props.page) === props.totalPage}
         >
           {"Next >"}
         </TextButton>

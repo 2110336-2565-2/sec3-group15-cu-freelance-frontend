@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import tw from "twin.macro";
 import HumanImg from "../../assets/human.png";
 import searchIcon from "../../assets/searchIcon.svg";
@@ -35,6 +37,15 @@ const RightWrapper = tw.div`w-[50%] flex justify-center`;
 const ImageWrapper = tw.img`object-contain`;
 
 const Hero = () => {
+  const navigate = useNavigate();
+
+  const [searchResult, setSearchResult] = useState("");
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    navigate(`/search?pages=1&limit=6&keyword=${searchResult}`);
+  };
+
   return (
     <Wrapper>
       <LeftWrapper>
@@ -48,8 +59,15 @@ const Hero = () => {
           </TextBody>
         </TextWrapper>
 
-        <InputWrapper onSubmit={(e)=>{e.preventDefault();console.log("hello")}}>
-          <Input type="text" placeholder="กำลังตามหาอะไรอยู่..." />
+        <InputWrapper onSubmit={onSubmitHandler}>
+          <Input
+            type="text"
+            placeholder="กำลังตามหาอะไรอยู่..."
+            onChange={(e) => {
+              setSearchResult(e.target.value);
+            }}
+            value={searchResult}
+          />
           <SearchIcon src={searchIcon} alt="searchIcon" />
         </InputWrapper>
       </LeftWrapper>

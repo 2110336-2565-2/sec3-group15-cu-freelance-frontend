@@ -4,7 +4,7 @@ import CloseEyeIcon from "../../assets/CloseEyeIcon.svg";
 const widthVariants = {
   category: tw`w-[30%] dt:w-[30%] dt:h-[100%]`,
   validate: tw`w-[30%] dt:w-[30%] dt:h-[100%] text-[#D62B70] font-ibm`,
-  profile: tw`fixed pf:left-[13vw] left-[5%] w-[18vw] dt:w-[18vw] dt:min-w-[206px] dt:min-h-[350px] h-[40vh] font-ibm max-w-[270px]`,
+  profile: tw`sticky top-[12vh] w-[18vw] dt:w-[18vw] dt:min-w-[206px] dt:min-h-[350px] h-[40vh] font-ibm max-w-[270px]`,
   portfolio: tw`relative w-[30%] dt:w-[30%] dt:min-w-[220px] dt:max-w-[225px] dt:h-[20vh] dt:min-h-[270px] dt:max-h-[300px] text-[#D62B70] font-ibm cursor-pointer`,
   comment: tw`w-[30%] dt:w-[30%] dt:h-[100%] text-[#D62B70]`,
   loginForm: tw`w-[45%]`,
