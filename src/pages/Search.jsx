@@ -145,8 +145,8 @@ const SearchPage = () => {
           keyword: keyword,
           category: selectedCategory !== "0" ? selectedCategory : null,
           faculty: selectedFaculty !== "0" ? selectedFaculty : null,
-          min_price: priceMin !== "" ? priceMin : null,
-          max_price: priceMax !== "" ? priceMax : null,
+          min_price: priceMin !== "" ? priceMin : 1,
+          max_price: priceMax !== "" ? priceMax : 100000,
           duration: duration !== "" ? duration : null,
         };
         for (let param in params) {
