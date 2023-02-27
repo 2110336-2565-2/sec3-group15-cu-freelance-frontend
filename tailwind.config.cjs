@@ -1,6 +1,8 @@
 module.exports = {
   content: [
     "./index.html", "./src/**/*.{js,ts,jsx,tsx}",
+    './pages/**/*.{html,js,jsx}',
+    './components/**/*.{html,js,jsx}',
   ],
   theme: {
     extend: {
@@ -22,12 +24,21 @@ module.exports = {
           'black-primary' : '#151515',
           'black-secondary': '#707070',
           'white': '#000000'
+        },
+        'cufl-pink' : {
+          50: '#f7d5e2',
+          100: '#efaac6',
+          200: '#e680a9',
+          300: '#de558d',
+          400: '#D62B70',
+          500: '#ab225a',
+          600: '#801a43',
         }
       },
       fontSize : {
         'mobile-small': '0.75rem', // 12px
         'mobile-body': '0.875rem', // 14px
-        'mobile-h3': '1rem',    // 16px
+        'mobile-h2': '1rem',    // 16px
         'mobile-h1': '1.25rem'    // 20px
       }
     },
