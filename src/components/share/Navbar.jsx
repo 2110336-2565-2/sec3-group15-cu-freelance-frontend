@@ -12,7 +12,7 @@ import NotificationIcon from "../../assets/NotificationIcon.svg";
 
 const BigWrapper = styled.div(({ fixed,onSubmit}) => [
   tw`w-full h-[10vh]
-z-30 pb-2 bg-white flex justify-center`,
+z-30 bg-white flex justify-center`,
   fixed && tw`fixed  top-0 left-0  `,
 ]);
 const Wrapper = tw.div` w-[90%] max-w-[1200px] h-[10vh] mx-auto 
