@@ -35,17 +35,22 @@ const SearchPage = () => {
   const pageRef = React.createRef();
   const page = searchParams.get("pages");
 
-  const onResetPage = () => {
+  const onResetPage = (e) => {
+    e.preventDefault();
     searchParams.set("pages", 1);
     setSearchParams(searchParams);
+
   };
 
-  const onNextPageHandler = () => {
+  const onNextPageHandler = (e) => {
     searchParams.set("pages", parseInt(page) + 1);
     setSearchParams(searchParams);
+    e.preventDefault();
   };
 
-  const onPrevPageHandler = () => {
+  const onPrevPageHandler = (e) => {
+    e.preventDefault();
+
     searchParams.set("pages", parseInt(page) - 1);
     setSearchParams(searchParams);
   };
@@ -60,6 +65,7 @@ const SearchPage = () => {
     else if (inputPage < 1) searchParams.set("pages", 1);
     else searchParams.set("pages", inputPage);
     setSearchParams(searchParams);
+    event.preventDefault();
   };
 
   const keyword = searchParams.get("keyword");
