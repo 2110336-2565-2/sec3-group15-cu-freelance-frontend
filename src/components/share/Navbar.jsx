@@ -88,17 +88,17 @@ const Navbar = (props) => {
       <Modal
         header={LogoutIcon}
         onCancel={onCancelHandler}
-        text={"Do you wish to leave and log out?"}
+        text={"คุณแน่ใจหรือไม่ที่จะออกจากระบบ"}
         show={isShow}
         footer={
-          <>
-            <Button cancel onClick={onCancelHandler}>
-              Cancel
+          <div tw="flex flex-row gap-2">
+            <Button secondary onClick={onCancelHandler}>
+              ยกเลิก
             </Button>
             <Button primary onClick={onClickButtonHandler.bind(null, "/modal")}>
-              Logout
+              ออกจากระบบ
             </Button>
-          </>
+          </div>
         }
       />
       <BigWrapper fixed={props.fixed}>
