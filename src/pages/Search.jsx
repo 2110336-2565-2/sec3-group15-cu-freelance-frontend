@@ -19,6 +19,7 @@ const Page = tw.div`w-full`;
 const BG = tw.div`w-[90%] h-auto flex justify-between min-h-[95vh] pt-[15vh] max-w-[1200px] mx-auto`;
 const FilterContainer = tw.div`sticky top-[15vh] h-auto w-[20%]  font-ibm flex flex-col items-end`;
 const PortfolioCardContainer = tw.div`w-full flex flex-wrap gap-x-[3%] gap-y-[2vh] my-10 min-h-[65vh]`;
+const Filterbar=tw.div`flex flex-wrap text-mobile-h2 font-ibm font-medium text-freelance-gray`
 
 const SearchPage = () => {
   const authCtx = useContext(AuthContext);
@@ -43,14 +44,13 @@ const SearchPage = () => {
   };
 
   const onNextPageHandler = (e) => {
+    e.preventDefault();
     searchParams.set("pages", parseInt(page) + 1);
     setSearchParams(searchParams);
-    e.preventDefault();
   };
 
   const onPrevPageHandler = (e) => {
     e.preventDefault();
-
     searchParams.set("pages", parseInt(page) - 1);
     setSearchParams(searchParams);
   };
@@ -65,7 +65,6 @@ const SearchPage = () => {
     else if (inputPage < 1) searchParams.set("pages", 1);
     else searchParams.set("pages", inputPage);
     setSearchParams(searchParams);
-    event.preventDefault();
   };
 
   const keyword = searchParams.get("keyword");
@@ -256,6 +255,9 @@ const SearchPage = () => {
             </TemplateFilter>
           </FilterContainer>
           <div tw="w-[70%]  h-auto dt:min-h-[70vh]">
+            <Filterbar>
+              เเสดงผลลัพธ์เฉพาะ
+            </Filterbar>
             <PortfolioCardContainer>
               {isLoading && "Loading..."}
               {!isLoading &&

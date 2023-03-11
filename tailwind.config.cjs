@@ -23,7 +23,8 @@ module.exports = {
           'pink': '#D62B70',
           'black-primary' : '#151515',
           'black-secondary': '#707070',
-          'white': '#000000'
+          'white': '#000000',
+          'gray':'#CDCDCD'
         },
         'cufl-pink' : {
           50: '#f7d5e2',
