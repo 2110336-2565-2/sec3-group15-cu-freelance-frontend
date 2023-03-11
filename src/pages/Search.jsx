@@ -14,12 +14,14 @@ import FacultyFilter from "../components/searchPage/FacultyFilter";
 import PriceFilter from "../components/searchPage/PriceFilter";
 import DurationFilter from "../components/searchPage/DurationFilter";
 import PaginationBar from "../components/share/PaginationBar";
+import { mapFaculties, mapOptions } from "../store/portfolioForm";
+import FilterButton from "../components/searchPage/FilterButton";
 
 const Page = tw.div`w-full`;
 const BG = tw.div`w-[90%] h-auto flex justify-between min-h-[95vh] pt-[15vh] max-w-[1200px] mx-auto`;
 const FilterContainer = tw.div`sticky top-[15vh] h-auto w-[20%]  font-ibm flex flex-col items-end`;
 const PortfolioCardContainer = tw.div`w-full flex flex-wrap gap-x-[3%] gap-y-[2vh] my-10 min-h-[65vh]`;
-const Filterbar=tw.div`flex flex-wrap text-mobile-h2 font-ibm font-medium text-freelance-gray`
+const Filterbar = tw.div`flex flex-wrap gap-2 items-center text-mobile-h2 font-ibm font-medium text-freelance-black-secondary`;
 
 const SearchPage = () => {
   const authCtx = useContext(AuthContext);
@@ -36,11 +38,9 @@ const SearchPage = () => {
   const pageRef = React.createRef();
   const page = searchParams.get("pages");
 
-  const onResetPage = (e) => {
-    e.preventDefault();
+  const onResetPage = () => {
     searchParams.set("pages", 1);
     setSearchParams(searchParams);
-
   };
 
   const onNextPageHandler = (e) => {
@@ -107,6 +107,8 @@ const SearchPage = () => {
     30: splitDuration.includes("30"),
   });
 
+  console.log(selectedFaculty);
+
   const onChangeDurationHandler = (e) => {
     const changeValue = !showDuration[e.target.name];
     console.log(changeValue);
@@ -129,6 +131,7 @@ const SearchPage = () => {
       value = value.slice(0, value.length - 1);
     }
     setSelected("duration", value);
+    onResetPage();
   };
   const onChangePriceHandler = (e) => {
     setPriceShow((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -136,10 +139,36 @@ const SearchPage = () => {
 
   const onSubmitPriceHandler = (e) => {
     e.preventDefault();
-    setSelected("min_price", priceShow.min);
+    setSelected("min_price", priceShow.min === "0" ? "1" : priceShow.min);
     setSelected("max_price", priceShow.max);
   };
 
+  const onCancelDurationHandler = (name) => {
+    console.log(name);
+    setShowDuration((prev) => ({
+      ...prev,
+      [name]: false,
+    }));
+    let value = "";
+    for (let duration in showDuration) {
+      if (parseInt(duration) !== name && showDuration[duration] === true) {
+        value += duration + ",";
+      }
+    }
+    if (value !== "") {
+      value = value.slice(0, value.length - 1);
+    }
+    setSelected("duration", value);
+    onResetPage();
+  };
+
+  const onCancelFaculty = (name) => {
+    searchParams.set(name, "0");
+    setSearchParams(searchParams);
+    onResetPage();
+  };
+
+  console.log(duration);
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -192,6 +221,8 @@ const SearchPage = () => {
     navigate(`/portfolio/${id}`);
   };
 
+  console.log(mapOptions);
+
   return (
     <>
       <Navbar
@@ -201,6 +232,7 @@ const SearchPage = () => {
         searchResult={searchResult}
         onChange={searchResultChangeHandler}
         onSubmit={submitResultHandler}
+        placeholder="ค้นหางานที่ต้องการ..."
       />
       <Page>
         {" "}
@@ -257,6 +289,28 @@ const SearchPage = () => {
           <div tw="w-[70%]  h-auto dt:min-h-[70vh]">
             <Filterbar>
               เเสดงผลลัพธ์เฉพาะ
+              {selectedCategory !== "0" && (
+                <FilterButton
+                  text={mapOptions[parseInt(selectedCategory)]}
+                  onClick={onCancelFaculty.bind(null, "category")}
+                />
+              )}
+              {selectedFaculty !== "0" && (
+                <FilterButton
+                  text={mapFaculties[parseInt(selectedFaculty)]}
+                  onClick={onCancelFaculty.bind(null, "faculty")}
+                />
+              )}
+              {duration !== "" &&
+                duration
+                  .split(",")
+                  .map((d, idx) => (
+                    <FilterButton
+                      key={idx}
+                      text={`${d} วัน`}
+                      onClick={onCancelDurationHandler.bind(null, parseInt(d))}
+                    />
+                  ))}
             </Filterbar>
             <PortfolioCardContainer>
               {isLoading && "Loading..."}

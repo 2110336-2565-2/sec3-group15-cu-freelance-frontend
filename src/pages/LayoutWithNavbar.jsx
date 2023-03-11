@@ -25,6 +25,7 @@ const LayoutWithNavbar = (props) => {
         searchResult={searchResult}
         onChange={searchResultChangeHandler}
         onSubmit={onSubmitHandler}
+
       />
       <Outlet />
     </>

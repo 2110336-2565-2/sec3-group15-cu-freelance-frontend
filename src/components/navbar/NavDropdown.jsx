@@ -2,18 +2,19 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import tw, { styled } from "twin.macro";
 import { AuthContext } from "../../context/AuthProvider";
 import NavAvatar from "../../assets/NavAvatar.svg";
-import DownButton from "../../assets/DownButton.svg";
+import DownButton from "../../assets/ArrowFilter.svg";
 import { useNavigate } from "react-router-dom";
 import { navbarButton } from "../../store/navbar-store";
 import ImageNavbar from "./ImageNavbar";
 
 const NavWrapper = styled.div(({ visible }) => [
-  tw`relative w-[70%] h-[50px] rounded-[20px] px-2 flex shadow-navbar items-center justify-between cursor-pointer z-50`,
+  tw`relative w-[90%] h-[35px] dt:w-[70%] dt:h-[50px] rounded-[20px] px-2 flex shadow-navbar items-center justify-between cursor-pointer z-50`,
   visible && tw`rounded-b-none`,
 ]);
-const AvatarWrapper = tw.img`w-[22%]`;
+const DisplayNameWrapper = tw.div`hidden dt:inline`;
+const AvatarWrapper = tw.img`w-[50%] dt:w-[22%]`;
 const DownButtonWrapper = tw.img``;
-const DropdownWrapper = tw.div`absolute top-full left-0  w-full h-auto bg-white  rounded-b-[20px] shadow-dropnav`;
+const DropdownWrapper = tw.div`w-[150%]  absolute right-0 top-full rounded-b-[20px] h-auto bg-white   shadow-dropnav dt:left-0  dt:w-full  `;
 const DropdownItemWrapper = tw.ul`flex flex-col`;
 
 const NavDropdown = ({ setIsShow }) => {
@@ -50,6 +51,9 @@ const NavDropdown = ({ setIsShow }) => {
       url = "/home";
     } else if (url === "/profile") {
       url += `/${authCtx.userInfo.id}?pages=1`;
+    } else if (url === "/my-order") {
+      if (authCtx.userInfo.user_type === 1) url += "?q=request";
+      else url += "?q=template";
     }
     navigate(url);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -65,7 +69,9 @@ const NavDropdown = ({ setIsShow }) => {
           ref={menuRef}
         >
           <AvatarWrapper src={NavAvatar} alt="Avatar" />
-          {authCtx.userInfo.display_name}
+          <DisplayNameWrapper>
+            {authCtx.userInfo.display_name}
+          </DisplayNameWrapper>
           <DownButtonWrapper src={DownButton} />
           {isVisible && (
             <DropdownWrapper>

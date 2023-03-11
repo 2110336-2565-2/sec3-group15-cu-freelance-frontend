@@ -24,7 +24,6 @@ module.exports = {
           'black-primary' : '#151515',
           'black-secondary': '#707070',
           'white': '#000000',
-          'gray':'#CDCDCD'
         },
         'cufl-pink' : {
           50: '#f7d5e2',
@@ -45,7 +44,7 @@ module.exports = {
     },
 
     screens: {
-      dt: "600px",
+      dt: "800px",
       pf: "1400px",
     },
 

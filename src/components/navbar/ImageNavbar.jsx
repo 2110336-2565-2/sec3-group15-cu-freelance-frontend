@@ -8,7 +8,7 @@ const ImageNavbar = ({ image, onClick, text,last }) => {
   return (
     <ItemWrapper onClick={onClick} last={last}>
       <img src={image} tw="w-[20%]" />
-      <span tw="text-base">{text}</span>
+      <span tw="text-sm dt:text-base">{text}</span>
     </ItemWrapper >
   );
 };
