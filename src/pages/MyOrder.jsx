@@ -7,14 +7,17 @@ import { useSearchParams } from "react-router-dom";
 import { headerFreelance, headerCustomer } from "../store/myOrder-store";
 import InputSearch from "../components/share/InputSearch";
 import AddOrderIcon from "../assets/AddOrder.svg";
+import OrderCard from "../components/share/OrderCard";
+import "./MyOrder.css"
 
 const BG = tw.div`h-[85vh] flex flex-col items-center font-ibm`;
 const Header = tw.div`text-mobile-h1 font-bold my-4`;
 const HeaderTwoContainer = tw.div`text-mobile-h2 flex justify-center w-4/5 mx-auto`;
 const InputSearchContainer = tw.div`h-[40px] w-4/5 mx-auto my-4`;
-const SortContainer = tw.div`flex justify-between items-center w-4/5 mx-auto text-mobile-h2`;
+const SortContainer = tw.div`flex justify-between items-center w-4/5 mx-auto text-mobile-h2 mb-4`;
 const Select = tw.select`h-[30px] w-1/2 border border-[#BCBCBC] focus:outline-none rounded-lg text-mobile-body`;
 const AddOrder = tw.img``;
+const OrderContainer = tw.div`flex  w-full max-w-full overflow-auto pl-4 h-[500px]`;
 
 const HeaderTwo = styled.div(({ type, select }) => [
   tw`text-center cursor-pointer text-freelance-black-secondary`,
@@ -72,7 +75,13 @@ const MyOrderPage = () => {
         </HeaderTwoContainer>
         <InputSearchContainer>
           {" "}
-          <InputSearch placeholder="ค้นหาคำขอที่นีั่..." filter onClickFilter={()=>{console.log("GG")}}/>
+          <InputSearch
+            placeholder="ค้นหาคำขอที่นีั่..."
+            filter
+            onClickFilter={() => {
+              console.log("GG");
+            }}
+          />
         </InputSearchContainer>
         <SortContainer>
           เรียงตาม
@@ -84,6 +93,22 @@ const MyOrderPage = () => {
           </Select>
           <AddOrder src={AddOrderIcon} />
         </SortContainer>
+        <OrderContainer className="no-scrollbar">
+          <OrderCard
+            header="ออกแบบโลโก้"
+            description="ออกแบบโลโก้สำหรับธุรกิจการ จองที่พัก สีหลักคือชมพู..."
+            name="JonathanT"
+            duration="7"
+            price="2000"
+          />
+          <OrderCard
+            header="ออกแบบโลโก้"
+            description="ออกแบบโลโก้สำหรับธุรกิจการ จองที่พัก สีหลักคือชมพู..."
+            name="JonathanT"
+            day="2/10/2023"
+            price="2000"
+          />
+        </OrderContainer>
       </BG>
     </>
   );

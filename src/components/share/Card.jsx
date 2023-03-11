@@ -11,6 +11,7 @@ const widthVariants = {
   loginType: tw`w-[42%] box-border h-[100%]  cursor-pointer border border-black text-black hover:border-[#D62B70] hover:text-[#D62B70]`,
   registerSuccess: tw`w-[38%] h-fit box-border my-4`,
   portfolio2: tw`w-fit h-fit p-4 self-center`,
+  order:tw`w-fit h-fit flex flex-col`
 };
 const styles = {
   container: ({ hasShadow, type, borderDashed }) => [
