@@ -7,21 +7,21 @@ import { apiClient } from "../../utils/axios";
 import DeleteIcon from "../../assets/DeleteIcon.svg";
 import Button from "./Button";
 import Modal from "./Modal";
-import { useNavigate } from "react-router-dom";
+import { mapOptions } from "../../store/portfolioForm";
 
 const Container = tw.div`flex flex-col h-fit rounded-[20px] min-w-[250px] w-1/5 shadow-xl relative cursor-pointer`;
 const Img = tw.img``;
 const ContentContainer = tw.div`flex flex-col pl-4 border-b-2 border-[#B7B7B7] text-left w-full`;
 const FirstRow = tw.div`flex justify-between relative`;
 const OptionIconImg = tw.img`z-40`;
-const Category = tw.div`mt-4 mb-2 text-[#D62B70] text-sm font-medium`;
-const Name = tw.div`font-bold text-3xl`;
+const Category = tw.div`mt-4 mb-2 text-freelance-pink text-sm font-ibm font-medium`;
+const Name = tw.div`font-semibold text-xl leading-[2.4em] h-[2.4em] overflow-hidden`;
 const Description = tw.p`my-2 leading-[1.2em] h-[3.5em] overflow-hidden text-sm mb-4 font-ibm`;
 const FooterContainer = tw.div`flex flex-row justify-between p-2 items-center`;
 const Duration = tw.div`flex flex-row items-center gap-x-2 text-[#707070]`;
 const DurationIcon = tw.img`max-w-[1rem]`;
-const Price = tw.div`text-[#151515] font-semibold`;
-const Backdrop = tw.div`absolute w-full h-full bg-black/50 z-30 rounded-[20px]`;
+const Price = tw.div`font-sans text-freelance-black-secondary`;
+const Backdrop = tw.div`absolute w-full h-full bg-black/50 z-20 rounded-[20px]`;
 
 const PortFolioCard = ({
   portImg,
@@ -35,10 +35,10 @@ const PortFolioCard = ({
   onClickPencil,
   id,
   setPortfolios,
+  canEdit,
 }) => {
   const [isVisible, setIsVisible] = useState(isPublic || false);
   const [show, setShow] = useState(false);
-  const [isDelete, setIsDelete] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -110,7 +110,7 @@ const PortFolioCard = ({
   };
 
   const onClickDeleteHandler = async () => {
-    setIsDelete(true);
+    console.log(id);
     try {
       setIsLoading(true);
       const response = await apiClient.delete(`/portfolio/${id}`);
@@ -150,38 +150,37 @@ const PortFolioCard = ({
           }
         />
       )}
-      {!isDelete && (
-        <Container onClick={onClick ? onClick : () => {}} ref={menuRef}>
-          {!isVisible && <Backdrop />}
-          <Img src={portImg} />
-          <ContentContainer>
-            <FirstRow>
-              <Category>{category}</Category>
-              <OptionIconImg src={OptionIcon} onClick={optionHandler} />
-              {show && (
-                <OptionDropdown
-                  show={show}
-                  onClickPencil={onClickPencil}
-                  setShow={setShow}
-                  onClickOpenEye={onOpenEyeHandler}
-                  onClickClosedEye={onClosedEyeHandler}
-                  onClickDelete={onDeleteHandler}
-                  isVisible={isVisible}
-                />
-              )}
-            </FirstRow>
-            <Name>{name}</Name>
-            <Description>{description}</Description>
-          </ContentContainer>
-          <FooterContainer>
-            <Duration>
-              <DurationIcon src={durationIcon}></DurationIcon>
-              <div tw="font-ibm">{duration} วัน</div>
-            </Duration>
-            <Price>{price}.-</Price>
-          </FooterContainer>
-        </Container>
-      )}
+
+      <Container onClick={onClick ? onClick : () => {}} ref={menuRef} tw="font-ibm">
+        {!isVisible && <Backdrop />}
+        <Img src={portImg} />
+        <ContentContainer>
+          <FirstRow>
+            <Category>{mapOptions[category]}</Category>
+            {canEdit&&<OptionIconImg src={OptionIcon} onClick={optionHandler} />}
+            {show && (
+              <OptionDropdown
+                show={show}
+                onClickPencil={onClickPencil}
+                setShow={setShow}
+                onClickOpenEye={onOpenEyeHandler}
+                onClickClosedEye={onClosedEyeHandler}
+                onClickDelete={onDeleteHandler}
+                isVisible={isVisible}
+              />
+            )}
+          </FirstRow>
+          <Name>{name}</Name>
+          <Description>{description}</Description>
+        </ContentContainer>
+        <FooterContainer>
+          <Duration>
+            <DurationIcon src={durationIcon}></DurationIcon>
+            <div tw="font-ibm">{duration} วัน</div>
+          </Duration>
+          <Price>{price.toLocaleString('en-US')}.-</Price>
+        </FooterContainer>
+      </Container>
     </>
   );
 };

@@ -5,10 +5,10 @@ import Backdrop from "./Backdrop";
 
 const ModalOverlay = (props) => {
   const content = (
-    <div tw=" fixed m-auto w-[400px] min-h-[350px] py-8 top-0 bottom-0 left-0 right-0 z-[70] h-[35vh] rounded-2xl bg-white flex flex-col items-center justify-between">
+    <div tw="font-ibm text-xl fixed m-auto w-[400px] min-h-[350px] py-8 top-0 bottom-0 left-0 right-0 z-[70] h-[35vh] rounded-xl bg-white flex flex-col items-center justify-between">
       <img src={props.header} tw="w-[35%]"></img>
       <div tw="text-center w-[90%]">{props.text}</div>
-      <footer tw="flex w-[60%] justify-between">{props.footer}</footer>
+      <footer tw="flex mx-auto justify-between">{props.footer}</footer>
     </div>
   );
   return ReactDOM.createPortal(content, document.getElementById("modal-hook"));

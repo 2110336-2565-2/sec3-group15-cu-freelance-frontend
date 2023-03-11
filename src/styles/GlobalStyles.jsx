@@ -8,11 +8,20 @@ const customStyles = css({
     ...tw`antialiased`,
   },
 })
+const mobileStyles =  css({
+  '.mobile-body': {
+    ...tw`font-ibm text-mobile-body text-freelance-black-secondary`
+  },
+  '.mobile-h2' : {
+    ...tw`font-ibm text-mobile-h2 text-freelance-black-primary font-semibold`
+  }
+})
 
 const GlobalStyles = () => (
   <>
     <BaseStyles />
     <Global styles={customStyles} />
+    <Global styles={mobileStyles} />
   </>
 )
 

@@ -19,7 +19,7 @@ const styles = {
 const RegisterSuccessCard = ()=>{
     const navigate = useNavigate();
     const onClickHandler=()=>{
-        navigate('/home');
+        navigate('/search?pages=1&keyword=');
     }
     return (
         <Card type="registerSuccess">

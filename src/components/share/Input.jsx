@@ -13,10 +13,10 @@ const styles = {
     tw`focus:outline-0 resize-none  focus:border-[#D62B70] box-border rounded-[10px] border-[1px] font-light text-base text-[F4B86A] px-4 py-1 font-ibm`,
   ],
   inputSelect: () => [
-    tw`focus:outline-0 box-border rounded-[10px] border-[#D62B70] border-[3px] font-light font-[20px] text-[#FFFFFF] bg-[#D62B70] p-2 font-inter`,
+    tw`focus:outline-0 box-border rounded-[10px] border-[#D62B70] border-[3px] font-light font-[20px] text-[#FFFFFF] bg-[#D62B70] p-2 font-ibm`,
   ],
   inputOption: () => [
-    tw`box-border rounded-[10px] border-[#D62B70] border-[3px] font-light font-[20px] text-[#D62B70] bg-[#FFFFFF] p-[1%] font-inter`,
+    tw`box-border rounded-[10px] border-[#D62B70] border-[3px] font-light font-[20px] text-[#D62B70] bg-[#FFFFFF] p-[1%] font-ibm`,
   ],
   errorText: ({ isFirstClick, isValid }) => [
     tw`my-[1px] font-light text-red-700 text-xs`,
@@ -55,7 +55,7 @@ const Input = ({
 }) => {
   const [state, dispatch] = useReducer(reducer, {
     value: initialValue || "",
-    isValid: initialValid||false,
+    isValid: initialValid || false,
     isFirstClick: false,
   });
   const { value, isValid } = state;
@@ -145,7 +145,8 @@ const Input = ({
   return (
     <div css={styles.container()}>
       <label css={styles.label()} htmlFor={id}>
-        {label}{required&&<span tw="text-red-700 ">*</span>}
+        {label}
+        {required && <span tw="text-red-700 ">*</span>}
       </label>
       {input}
       <div

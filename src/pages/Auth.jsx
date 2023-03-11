@@ -25,7 +25,7 @@ const Auth = () => {
         if (!response.display_name) {
           navigate("/fill-display-name", { replace: true });
         } else {
-          navigate("/home", { replace: true });
+          navigate("/search?pages=1&keyword=", { replace: true });
         }
       } catch (err) {
         console.log(err);
