@@ -63,9 +63,9 @@ export const mapFaculties = {
 
 export const DUMMY_duration_options = [
   { value: "none", label: "Select duration" },
-  { value: 1, label: "1 Day" },
-  { value: 3, label: "3 Day" },
-  { value: 7, label: "7 Day" },
-  { value: 15, label: "15 Day" },
-  { value: 30, label: "30 Day" },
+  { value: 1, label: "1 วัน" },
+  { value: 3, label: "3 วัน" },
+  { value: 7, label: "7 วัน" },
+  { value: 15, label: "15 วัน" },
+  { value: 30, label: "30 วัน" },
 ];

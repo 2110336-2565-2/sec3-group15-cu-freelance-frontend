@@ -19,7 +19,7 @@ import EditProfilePage from "./pages/EditProfile";
 import ChangePasswordPage from "./pages/ChangePassword";
 import SearchPage from "./pages/Search";
 import MyOrderPage from "./pages/MyOrder";
-
+import CreateOrderTemplatePage from "./pages/CreateOrderTemplate";
 function App() {
   const { acToken, reToken, login, logout, userInfo, setUserInfo } = useAuth();
   return (
@@ -42,11 +42,9 @@ function App() {
               <Route path="" element={<ProfilePage />} />
             </Route>
           </Route>
-          <Route path="/edit-profile" element={<EditProfilePage />}></Route>
-          <Route
-            path="/change-password"
-            element={<ChangePasswordPage />}
-          ></Route>
+          <Route path="/edit-profile" element={<EditProfilePage/>}></Route>
+          <Route path="/change-password" element={<ChangePasswordPage/>}></Route>
+          <Route path="/create-order-template" element={<CreateOrderTemplatePage/>}></Route>
         </Route>
         <Route path="home" element={<HomePage />} />
         <Route path="/login/">

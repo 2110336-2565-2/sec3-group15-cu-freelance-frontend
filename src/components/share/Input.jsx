@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 const styles = {
   container: () => [tw`box-border flex flex-col w-full font-inter`],
-  label: () => [tw`mb-2 font-light font-[16px] align-top`],
+  label: () => [tw`mb-2 font-light font-[16px] align-top font-ibm`],
   input: () => [
     tw`focus:outline-0 focus:border-[#D62B70] box-border rounded-[10px] border-[1px] font-light text-base text-[F4B86A] px-4 py-1 font-ibm`,
   ],
@@ -13,7 +13,7 @@ const styles = {
     tw`focus:outline-0 resize-none  focus:border-[#D62B70] box-border rounded-[10px] border-[1px] font-light text-base text-[F4B86A] px-4 py-1 font-ibm`,
   ],
   inputSelect: () => [
-    tw`focus:outline-0 box-border rounded-[10px] border-[#D62B70] border-[3px] font-light font-[20px] text-[#FFFFFF] bg-[#D62B70] p-2 font-ibm`,
+    tw`focus:outline-0 box-border rounded-[10px] border-[3px] font-light font-[20px] text-freelance-black-primary p-2 font-ibm`,
   ],
   inputOption: () => [
     tw`box-border rounded-[10px] border-[#D62B70] border-[3px] font-light font-[20px] text-[#D62B70] bg-[#FFFFFF] p-[1%] font-ibm`,
@@ -52,6 +52,7 @@ const Input = ({
   min,
   step,
   required,
+  rows=10,
 }) => {
   const [state, dispatch] = useReducer(reducer, {
     value: initialValue || "",
@@ -68,7 +69,7 @@ const Input = ({
     type === "textarea" ? (
       <textarea
         value={state.value}
-        rows={10}
+        rows={rows}
         css={styles.textAreaInput()}
         id={id}
         placeholder={placeholder}
