@@ -257,9 +257,9 @@ const MyOrderPage = () => {
             <option value="2">ระยะเวลามากไปน้อย</option>
             <option value="2">ระยะเวลาน้อยไปมาก</option>
           </Select>
-          <AddOrder src={AddOrderIcon} />
+          <AddOrder src={AddOrderIcon} onClick={()=>{navigate('/create-order-template')}} />
         </SortContainer>
-        <OrderContainer className="no-scrollbar">
+        <OrderContainer>
           <OrderCard
             header="ออกแบบโลโก้"
             description="ออกแบบโลโก้สำหรับธุรกิจการ จองที่พัก สีหลักคือชมพู..."
