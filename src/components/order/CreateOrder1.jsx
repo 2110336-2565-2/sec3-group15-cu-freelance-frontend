@@ -2,7 +2,7 @@ import tw, {styled} from "twin.macro";
 import Input from "../share/Input";
 import { VALIDATOR_REQUIRE } from "../share/Validate";
 const Container = styled.div(({show})=>[
-    tw`place-self-start w-full`,
+    tw`place-self-start w-full gap-y-2 mb-2`,
     !show && tw`hidden`
 ]);
 const CreateOrder1 = ({inputHandler1, show=true})=>{
