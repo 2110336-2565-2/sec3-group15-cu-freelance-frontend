@@ -80,6 +80,24 @@ const CreateOrderTemplate = ()=>{
             headers: { "Content-Type": "application/json" },
           });
           console.log(response.data);
+          const bt1OnclickHandler = ()=>{
+            navigate('/search');
+          }
+          const bt2OnClickHandler = ()=>{
+            navigate('/home');
+          }
+          navigate('/request-complete', {
+                                        state:{
+                                            title:"การสร้างออเดอร์สำเร็จ",
+                                            desc:"ยินดีด้วย ออเดอร์ของคุณถูกสร้าง เลือกฟรีแลนซ์ที่ถูกใจแล้วกดส่งได้เลย!",
+                                            bt1Text:"เลือกฟรีแลนซ์",
+                                            bt2Text:"กลับหน้าหลัก",
+                                            bt2:"true",
+                                            path1:"/search",
+                                            path2:"/home",
+                                        }
+                                        //bt1OnclickHandler
+                                    });
     }
     const [formState1, inputHandler1] = useForm(
         {
