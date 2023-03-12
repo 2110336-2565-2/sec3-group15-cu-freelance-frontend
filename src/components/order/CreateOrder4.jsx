@@ -1,7 +1,7 @@
 import tw, {styled} from "twin.macro";
 import React, {Component} from 'react';
 const Container = styled.div(({show})=>[
-    tw`self-center w-full flex flex-col`,
+    tw`self-center w-full flex flex-col gap-y-2 mb-2`,
     !show && tw`hidden`
 ]);
 const Label = styled.div(()=>[
@@ -15,9 +15,6 @@ const CreateOrder4 = (props)=>{
     const {topic, desc, price, duration, email, phone, show} = props;
     return (
         <Container show={show}>
-
-            <Label>หัวข้องาน</Label>
-            <Content>{topic}</Content>
             {Object.keys(props).map((key, idx) => (
                 <>
                     <Label>{label[idx]}</Label>
