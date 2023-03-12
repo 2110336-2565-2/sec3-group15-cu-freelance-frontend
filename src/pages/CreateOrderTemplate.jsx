@@ -8,6 +8,8 @@ import CreateOrder1 from "../components/order/CreateOrder1";
 import CreateOrder2 from "../components/order/CreateOrder2";
 import CreateOrder3 from "../components/order/CreateOrder3";
 import CreateOrder4 from "../components/order/CreateOrder4";
+import { authClient } from "../utils/auth";
+import { apiClient } from "../utils/axios";
 import Button from "../components/share/Button";
 function reducer(state, action) {
     if (action.type == "CHANGESTATE") {
@@ -16,7 +18,7 @@ function reducer(state, action) {
       };
     }
 }
-const Container = tw.div`flex flex-col mt-[10vh] p-4 min-h-[85vh] items-center gap-y-2 w-full relative`;
+const Container = tw.div`flex flex-col mt-[10vh] p-4 min-h-[85vh] items-center gap-y-2 w-full dt:w-1/4 relative mx-auto`;
 const Title = styled.div(({show})=>[
     tw`font-ibm font-bold text-mobile-h1 text-center my-4`,
     !show&&tw`hidden`
@@ -25,10 +27,16 @@ const Step = styled.div(({})=>[
     tw`font-ibm font-bold text-mobile-h1 text-freelance-black-primary text-center`
 ])
 const StepDesc = styled.div(({})=>[
-    tw`font-ibm font-bold text-mobile-small text-freelance-black-secondary px-4 text-center`
+    tw`font-ibm font-bold text-mobile-small text-freelance-black-secondary px-4 text-center mb-4`
 ])
-const Footer = styled.div(({})=>[
+const Footer1 = styled.div(({})=>[
     tw`flex flex-row w-full gap-x-4 justify-between dt:absolute bottom-8`
+])
+const Footer2 = styled.div(({})=>[
+    tw`flex flex-col items-center gap-y-4 dt:absolute bottom-8`
+])
+const Back2Edit = styled.button(({})=>[
+    tw`text-center font-ibm decoration-solid font-medium text-mobile-small`
 ])
 const step = ["รายละเอียด", "สถานะ", "การติดต่อ", "ยืนยัน"];
 const stepDesc = ["ใส่รายละเอียดออเดอร์ของคุณ เพื่อให้ฟรีแลนซ์เข้าใจงานที่จะได้รับมอบหมาย",
@@ -42,7 +50,7 @@ const CreateOrderTemplate = ()=>{
     const [progress, setProgress] = useState(1);
     const [loading, setLoading] = useState(false);
     const authCtx = useContext(AuthContext);
-
+    
     const onChangeStateHandler = (value) => {
         dispatch({ type: "CHANGESTATE", value: value });
     };
@@ -57,6 +65,22 @@ const CreateOrderTemplate = ()=>{
         dispatch({type: "CHANGESTATE", value: state.value - 1});
         setProgress(state.value - 1);
     };
+    const submitHandler = async()=> {
+        let data = JSON.stringify({
+            customer_id: authCtx.userInfo.id,
+            description: formState1.inputs.desc.value,
+            duration: parseInt(formState2.inputs.duration.value),
+            email: formState3.inputs.email.value,
+            price: parseInt(formState2.inputs.price.value),
+            tel: formState3.inputs.phone.value,
+            title: formState1.inputs.topic.value,
+          });
+          console.log(data);
+          let response = await apiClient.post("/order/template", data, {
+            headers: { "Content-Type": "application/json" },
+          });
+          console.log(response.data);
+    }
     const [formState1, inputHandler1] = useForm(
         {
           topic: {
@@ -134,10 +158,16 @@ const CreateOrderTemplate = ()=>{
                           phone={formState3.inputs.phone.value}
                           show={state.value==4}
             />
-            <Footer>
+            {state.value!=4 ? <Footer1>
                 <Button onClick={backHandler} width="50%" secondary>ย้อนกลับ</Button>
                 <Button disable={disableButton} onClick={continueHandler} width="50%" primary>ถัดไป</Button>
-            </Footer>
+            </Footer1>
+            :
+            <Footer2>
+                <Button onClick={submitHandler} width='w-full' primary>ยืนยันการสร้าง</Button>
+                <Back2Edit onClick={backHandler}><u>กลับไปแก้ไข</u></Back2Edit>
+            </Footer2>
+            }
             
         </Container>
     )
