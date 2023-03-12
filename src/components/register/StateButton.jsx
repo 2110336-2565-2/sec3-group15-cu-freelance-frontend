@@ -7,7 +7,7 @@ const styles = {
   ],
 };
 const Step = styled.div(({active, small})=>[
-  tw`text-mobile-small font-semibold text-[#DBDBDB] font-sans`,
+  tw`font-ibm text-mobile-small dt:text-base font-semibold text-[#DBDBDB]`,
   active && tw`text-freelance-black-primary`,
   ]
 );

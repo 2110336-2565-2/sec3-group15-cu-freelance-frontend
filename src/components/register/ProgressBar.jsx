@@ -2,7 +2,9 @@ import tw from "twin.macro"
 import StateButton from "./StateButton"
 const styles = {
     container:()=>[
-        tw`flex flex-row justify-between w-full dt:w-[80%] items-center py-[2%] place-self-center`,
+        tw`flex flex-row justify-between w-full items-center py-[2%] place-self-center
+        dt:w-[80%] dt:max-w-[500px]
+        `,
     ],
 }
 const ProgressBar= ({onClick, state,formValid,progress, step=3, text1, text2, text3, text4})=>{

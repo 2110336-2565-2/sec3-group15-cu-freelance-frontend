@@ -18,19 +18,22 @@ function reducer(state, action) {
       };
     }
 }
-const Container = tw.div`flex flex-col mt-[10vh] p-4 min-h-[85vh] items-center gap-y-2 w-full dt:w-1/4 relative mx-auto`;
+const Container = tw.div`flex flex-col mt-[10vh] p-4 min-h-[85vh] items-center gap-y-2 
+w-[90%] max-w-[500px] dt:w-[90%] dt:max-w-[1000px] 
+relative mx-auto`;
 const Title = styled.div(({show})=>[
-    tw`font-ibm font-bold text-mobile-h1 text-center my-4`,
+    tw`font-ibm font-bold text-mobile-h1 dt:text-2xl text-center my-4`,
     !show&&tw`hidden`
 ])
 const Step = styled.div(({})=>[
-    tw`font-ibm font-bold text-mobile-h1 text-freelance-black-primary text-center`
+    tw`font-ibm font-bold text-mobile-h1 dt:text-2xl text-freelance-black-primary text-center`
 ])
 const StepDesc = styled.div(({})=>[
-    tw`font-ibm font-bold text-mobile-small text-freelance-black-secondary px-4 text-center mb-4`
+    tw`font-ibm font-bold text-mobile-small dt:text-base text-freelance-black-secondary px-4 text-center mb-4`
 ])
 const Footer1 = styled.div(({})=>[
-    tw`flex flex-row w-full gap-x-4 justify-between dt:absolute bottom-8`
+    tw`flex flex-row w-full gap-x-4 justify-between `
+    // tw`flex flex-row w-full gap-x-4 justify-between dt:absolute bottom-8`
 ])
 const Footer2 = styled.div(({})=>[
     tw`flex flex-col items-center gap-y-4 dt:absolute bottom-8`
