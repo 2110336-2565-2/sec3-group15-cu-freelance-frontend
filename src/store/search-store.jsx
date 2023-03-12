@@ -54,3 +54,9 @@ export const durationOptions = [
   { text: "15 วัน", value: "15" },
   { text: "30 วัน", value: "30" },
 ];
+
+export const statusOptions = [
+  { text: "ส่งงานเเล้ว", value: "1" },
+  { text: "กำลังทำงานอยู่", value: "2" },
+  { text: "ยกเลิกงานเเล้ว", value: "3" },
+];

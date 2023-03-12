@@ -7,13 +7,14 @@ const DurationFilter = (props) => {
   return (
     <Container>
       <input
+      tw="accent-freelance-pink"
         type="checkbox"
         name={props.value}
         onChange={props.onChange}
         id={props.value}
         checked={props.showDuration[props.value]}
       />
-      <label htmlFor={props.value}>{props.text}</label>
+      <label>{props.text}</label>
     </Container>
   );
 };

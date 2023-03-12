@@ -1,6 +1,6 @@
 import "twin.macro";
 import searchIcon from "../../assets/searchIcon.svg";
-import filterIcon from "../../assets/filterIcon.svg";
+import filterIcon from "../../assets/FilterIcon.svg";
 
 const InputSearch = (props) => {
    

@@ -25,7 +25,7 @@ const Button = (props) => {
 
   const StyledButton = styled(Button)`
     width: ${width || "auto"};
-    ${tw`shadow-button rounded-[20px] font-ibm
+    ${tw`shadow-button rounded-lg font-ibm
     hover:shadow-buttonHover
     disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none`}
   `;
