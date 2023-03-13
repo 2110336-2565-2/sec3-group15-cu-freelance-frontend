@@ -56,7 +56,7 @@ const MyOrderPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   //InfiniteScroll or Pagination
-  const pageParams = searchParams.get("pages");
+  const pageParams = searchParams.get("pages")||1;
   const [page, setPage] = useState(pageParams);
 
   //header-type
@@ -253,7 +253,9 @@ const MyOrderPage = () => {
         `/order${ht}?` + new URLSearchParams(params).toString()
       );
       console.log(response.data);
-      setOrders(response.data.order_templates);
+      if (selectOrder === "template") setOrders(response.data.order_templates);
+      else if (selectOrder === "request") setOrders(response.data.requests);
+      else setOrders(response.data.orders);
       setMeta(response.data.meta);
     } catch (err) {
       console.log(err);
@@ -271,12 +273,7 @@ const MyOrderPage = () => {
     duration,
   ]);
 
-  //clickCard
-  
-  const onClickCardHandler = () => {
-    console.log("hello",showOrderModal);
-    setShowOrderModal(true);
-  };
+  //clickOrderCard
 
   //FilterModal
   const [showModal, setShowModal] = useState(false);
@@ -339,16 +336,29 @@ const MyOrderPage = () => {
   );
 
   //OrderModalTemplate
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [orderModalPage, setOrderModalPage] = useState(1);
   const [showOrderModal, setShowOrderModal] = useState(false);
-  const onCloseOrderModal=()=>{
-    setShowOrderModal(false)
-  }
-
-
+  const onCloseOrderModal = () => {
+    setShowOrderModal(false);
+  };
+  const onClickCardHandler = (order) => {
+    setShowOrderModal(true);
+    setSelectedOrder(order);
+  };
 
   return (
     <>
-    <OrderModalTemplate onClose={onCloseOrderModal} show={showOrderModal}/>
+      {selectedOrder && (
+        <OrderModalTemplate
+          onClose={onCloseOrderModal}
+          show={showOrderModal}
+          orderType={selectOrder}
+          userType={userType}
+          page={orderModalPage}
+          order={selectedOrder}
+        />
+      )}
       <Navbar
         login={!!authCtx.acToken}
         search
@@ -447,7 +457,7 @@ const MyOrderPage = () => {
               status="In Progress"
               orderType={selectOrder}
               userType={userType}
-              onClick={onClickCardHandler}
+              onClick={onClickCardHandler.bind(null, {})}
             />
           )}
         </OrderContainer>
