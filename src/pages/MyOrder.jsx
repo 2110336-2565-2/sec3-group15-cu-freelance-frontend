@@ -378,6 +378,7 @@ const MyOrderPage = () => {
       <ConfirmModalTemplate
         show={showConfirmModal}
         setShowOrderModal={setShowOrderModal}
+        setShowConfirmModal={setShowConfirmModal}
         page={pageConfirmModal}
         setOrderModalPage={setOrderModalPage}
         cancel={closeConfirmModal}

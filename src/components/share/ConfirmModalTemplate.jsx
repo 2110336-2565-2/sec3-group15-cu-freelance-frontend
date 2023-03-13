@@ -19,6 +19,7 @@ const ConfirmModalTemplate = (props) => {
       props.setSuccessType("accept")
       props.setOrderModalPage(2)
       props.setShowOrderModal(true)
+      props.setShowConfirmModal(false)
       console.log(res);
     } catch (err) {
       console.log(err);
@@ -33,6 +34,7 @@ const ConfirmModalTemplate = (props) => {
       props.setOrderModalPage(2)
       props.setSuccessType("reject")
       props.setShowOrderModal(true)
+      props.setShowConfirmModal(false)
     } catch (err) {
       console.log(err);
     }
