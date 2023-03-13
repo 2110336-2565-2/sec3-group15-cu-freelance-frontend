@@ -19,7 +19,7 @@ const InputSearch = (props) => {
       <img
         src={searchIcon}
         alt="searchIcon"
-        tw="w-[5%] absolute left-3.5 top-1/2 translate-y-[-50%]"
+        tw="object-fill absolute left-0.5 top-1/2 translate-y-[-50%]"
       />
       {props.filter&&<img tw="absolute right-2 top-1/2 translate-y-[-50%]" src={filterIcon} onClick={props.onClickFilter}/>}
     </form>

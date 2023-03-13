@@ -101,6 +101,19 @@ const OrderModalTemplate = (props) => {
   else if (props.page === 1 && props.orderType === "order")
     header = "รายละเอียดออเดอร์";
 
+  if (props.page === 2) {
+    if (props.successType === "edit" || props.successType === "edit")
+      header = "เเก้ไขแบบร่าง";
+    else if (
+      props.successType === "receive" ||
+      props.successType === "accept" ||
+      props.successType === "reject"
+    )
+      header = "รายละเอียดคำขอ";
+    else if (props.successType === "send") header = "ส่งงาน";
+    else if (props.successType === "cancel") header = "รายละเอียดออเดอร์";
+  }
+
   console.log("hello2");
   return (
     <OrderModal

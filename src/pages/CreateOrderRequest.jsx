@@ -287,6 +287,7 @@ const CreateOrderRequest = () => {
                   key={idx}
                   header={order.title}
                   description={order.description}
+                  duration={order.duration}
                   customer={"customer"}
                   price={order.price}
                   freelance={null}
