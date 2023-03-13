@@ -16,10 +16,10 @@ const CreateOrder4 = (props)=>{
     return (
         <Container show={show}>
             {Object.keys(props).map((key, idx) => (
-                <>
+                <div key={idx}>
                     <Label>{label[idx]}</Label>
                     <Content>{props[key]}</Content>
-                </>
+                </div>
             ))}
         </Container>
     )

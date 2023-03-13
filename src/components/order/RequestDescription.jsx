@@ -3,13 +3,13 @@ import CheckIcon from "../../assets/CheckIconFull.svg"
 const Container = styled.div(({})=>[
     tw`flex flex-col m-auto justify-between gap-y-4`
 ])
-const Success = styled.div(({})=>[
+const IconSection = styled.div(({})=>[
     tw`flex flex-col items-center`
 ])
 const Icon = styled.img(({})=>[
     tw`w-8 h-8`
 ])
-const SuccessText = styled.div(({})=>[
+const IconDesc = styled.div(({})=>[
     tw`font-sans font-bold text-mobile-small`
 ])
 const Title = styled.div(({})=>[
@@ -18,14 +18,14 @@ const Title = styled.div(({})=>[
 const Desc = styled.div(({})=>[
     tw`font-normal font-ibm text-freelance-black-secondary text-mobile-body text-center`
 ])
-const RequestDescription = ({title, desc})=> {
+const RequestDescription = ({icon=CheckIcon, iconDesc="สำเร็จ", title, desc})=> {
     console.log(title, desc)
     return (
         <Container>
-            <Success>
-               <Icon src={CheckIcon}/>
-               <SuccessText>สำเร็จ</SuccessText> 
-            </Success>
+            <IconSection>
+               <Icon src={icon}/>
+               <IconDesc>{iconDesc}</IconDesc> 
+            </IconSection>
             <Title>{title}</Title>
             <Desc>{desc}</Desc>
         </Container>
