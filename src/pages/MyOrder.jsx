@@ -28,6 +28,7 @@ import {
   statusOptions,
   statusRequest,
 } from "../store/search-store";
+import OrderModalTemplate from "../components/share/OrderModalTemplate";
 
 const BG = tw.div`h-[85vh] relative flex flex-col items-center font-ibm`;
 const Header = tw.div`text-mobile-h1 font-bold my-4`;
@@ -252,8 +253,8 @@ const MyOrderPage = () => {
         `/order${ht}?` + new URLSearchParams(params).toString()
       );
       console.log(response.data);
-      // setOrders(response.data.pagination.items);
-      // setMeta(response.data.pagination.meta);
+      setOrders(response.data.order_templates);
+      setMeta(response.data.meta);
     } catch (err) {
       console.log(err);
     }
@@ -269,6 +270,13 @@ const MyOrderPage = () => {
     priceMax,
     duration,
   ]);
+
+  //clickCard
+  
+  const onClickCardHandler = () => {
+    console.log("hello",showOrderModal);
+    setShowOrderModal(true);
+  };
 
   //FilterModal
   const [showModal, setShowModal] = useState(false);
@@ -330,8 +338,17 @@ const MyOrderPage = () => {
     </>
   );
 
+  //OrderModalTemplate
+  const [showOrderModal, setShowOrderModal] = useState(false);
+  const onCloseOrderModal=()=>{
+    setShowOrderModal(false)
+  }
+
+
+
   return (
     <>
+    <OrderModalTemplate onClose={onCloseOrderModal} show={showOrderModal}/>
       <Navbar
         login={!!authCtx.acToken}
         search
@@ -393,12 +410,34 @@ const MyOrderPage = () => {
         </SortContainer>
         <OrderContainer>
           {isLoadingOrder && <LoadingDiv>loading...</LoadingDiv>}
-          {!isLoadingOrder && [
+          {!isLoadingOrder && (
+            // orders &&
+            // orders.map((order, idx) => (
+            //   <OrderCard
+            //     key={idx}
+            //     header={order.title}
+            //     description={order.description}
+            //     from={"hello"}
+            //     to={"hello"}
+            //     duration="7"
+            //     price="2000"
+            //     hasStatus={
+            //       selectOrder !== "template" &&
+            //       (selectOrder !== "request" || userType !== 1)
+            //     }
+            //     status="In Progress"
+            //   />))
             <OrderCard
-              key={1}
-              header="ออกแบบโลโก้"
-              description="ออกแบบโลโก้สำหรับธุรกิจการ จองที่พัก สีหลักคือชมพู..."
-              name="JonathanT"
+              key={"idx"}
+              header={"order.title"}
+              description={"order.description"}
+              customer={"customer"}
+              freelance={
+                selectOrder !== "template" &&
+                (selectOrder !== "request" || userType !== 1)
+                  ? "freelance"
+                  : null
+              }
               duration="7"
               price="2000"
               hasStatus={
@@ -406,21 +445,11 @@ const MyOrderPage = () => {
                 (selectOrder !== "request" || userType !== 1)
               }
               status="In Progress"
-            />,
-            <OrderCard
-              key={2}
-              header="ออกแบบโลโก้"
-              description="ออกแบบโลโก้สำหรับธุรกิจการ จองที่พัก สีหลักคือชมพู..."
-              name="JonathanT"
-              day="2/10/2023"
-              price="2000"
-              hasStatus={
-                selectOrder !== "template" &&
-                (selectOrder !== "request" || userType !== 1)
-              }
-              status="Accept"
-            />,
-          ]}
+              orderType={selectOrder}
+              userType={userType}
+              onClick={onClickCardHandler}
+            />
+          )}
         </OrderContainer>
       </BG>
     </>

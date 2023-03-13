@@ -26,7 +26,7 @@ const ProfilePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [userInfoLoading, setUserInfoLoading] = useState(false);
   const [portfolios, setPortfolios] = useState(null);
-  console.log(portfolios);
+  // console.log(portfolios);
 
   const params = useParams();
   const userId = params.userId;
