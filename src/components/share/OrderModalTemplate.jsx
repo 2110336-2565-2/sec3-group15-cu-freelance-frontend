@@ -10,6 +10,8 @@ const OrderModalTemplate = (props) => {
         order={props.order}
         orderType={props.orderType}
         userType={props.userType}
+        leftBtn={props.orderType==="request"?"ยอมรับ":"ส่งงาน"}
+        rightBtn={props.orderType==="request"?"ปฏิเสธ":"ยกเลิก"}
       />
     );
   }
