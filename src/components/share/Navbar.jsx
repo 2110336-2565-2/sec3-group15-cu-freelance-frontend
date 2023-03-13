@@ -54,7 +54,7 @@ const Navbar = (props) => {
       url += `/${authCtx.userInfo.id}`;
     } else if (url === "/my-order") {
       if (authCtx.userInfo.user_type === 1) url += "?q=request";
-      else url += "?q=template";
+      else url += "?q=template&pages=1";
     }
     navigate(url);
     window.scrollTo({ top: 0, behavior: "smooth" });

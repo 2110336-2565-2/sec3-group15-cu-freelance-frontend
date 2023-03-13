@@ -20,11 +20,12 @@ const OrderCard = (props) => {
     if (props.status === "In Progress") color = "orange";
     if (props.status === "Reject" || props.status === "Failed") color = "red";
     if (props.status === "Pending") color = "gray";
+    if (props.status === "Closed") color = "blue";
   }
 
-  console.log(color);
+  // console.log(color);
   return (
-    <Card hasShadow={true} type="order">
+    <Card hasShadow={true} type="order" onClick={props.onClick}>
       <Header1>
         {props.header}
         {props.hasStatus && <StatusBar color={color}>{props.status}</StatusBar>}

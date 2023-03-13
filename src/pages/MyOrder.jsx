@@ -1,10 +1,14 @@
 import tw, { styled } from "twin.macro";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/share/Navbar";
 import { useSearchParams } from "react-router-dom";
-import { headerFreelance, headerCustomer } from "../store/myOrder-store";
+import {
+  headerFreelance,
+  headerCustomer,
+  sortOptions,
+} from "../store/myOrder-store";
 import InputSearch from "../components/share/InputSearch";
 import AddOrderIcon from "../assets/AddOrder.svg";
 
@@ -17,7 +21,13 @@ import TemplateFilter from "../components/searchPage/TemplateFilter";
 import PriceFilter from "../components/searchPage/PriceFilter";
 import DurationFilter from "../components/searchPage/DurationFilter";
 
-import { durationOptions, statusOptions } from "../store/search-store";
+import { apiClient } from "../utils/axios";
+
+import {
+  durationOptions,
+  statusOptions,
+  statusRequest,
+} from "../store/search-store";
 
 const BG = tw.div`h-[85vh] relative flex flex-col items-center font-ibm`;
 const Header = tw.div`text-mobile-h1 font-bold my-4`;
@@ -27,39 +37,58 @@ const SortContainer = tw.div`flex justify-between items-center w-4/5 mx-auto tex
 const Select = tw.select`h-[30px] w-1/2 border border-[#BCBCBC] focus:outline-none rounded-lg text-mobile-body`;
 const AddOrder = tw.img``;
 const OrderContainer = tw.div`flex  w-full max-w-full overflow-auto pl-4 h-[500px]`;
+const LoadingDiv = tw.div`font-ibm`;
 
-const HeaderTwo = styled.div(({ type, select }) => [
+const HeaderTwo = styled.button(({ userType, select }) => [
   tw`text-center cursor-pointer text-freelance-black-secondary`,
-  type === 1 && tw`w-1/2`,
-  type === 2 && tw`w-1/3`,
+  userType === 1 && tw`w-1/2`,
+  userType === 2 && tw`w-1/3`,
   select &&
     tw`border-b-2  border-freelance-black-primary text-freelance-black-primary`,
 ]);
 const MyOrderPage = () => {
   const authCtx = useContext(AuthContext);
-  console.log(authCtx.userInfo.user_type);
+  const userType = authCtx.userInfo.user_type;
+  // console.log(authCtx.userInfo.user_type);
   const navigate = useNavigate();
 
-  const [searchResult, setSearchResult] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
-  const selectOrder = searchParams.get("q");
 
+  //InfiniteScroll or Pagination
+  const pageParams = searchParams.get("pages");
+  const [page, setPage] = useState(pageParams);
+
+  //header-type
+  const selectOrder = searchParams.get("q");
+  const onChangeHeaderHandler = (name) => {
+    searchParams.set("q", name);
+    setSearchParams(searchParams);
+  };
+
+  //searchOrder
+  const searchOrder = searchParams.get("keywords") || "";
+  const onSearchKeywordHandler = (e) => {
+    e.preventDefault();
+    // navigate(`/search?pages=1&keyword=${searchResult}`);
+  };
+
+  const searchKeywordChangeHandler = (e) => {
+    searchParams.set("keywords", e.target.value);
+    onResetPage();
+  };
+
+  //searchPortfolio
+  const [searchResult, setSearchResult] = useState("");
   const onSearchHandler = (e) => {
     e.preventDefault();
-    navigate(`/search?pages=1&limit=6&keyword=${searchResult}`);
+    navigate(`/search?pages=1&keyword=${searchResult}`);
   };
 
   const searchResultChangeHandler = (e) => {
     setSearchResult(e.target.value);
   };
 
-  const headerTwo =
-    authCtx.userInfo.user_type === 1 ? headerFreelance : headerCustomer;
-
-  const onChangeHeaderHandler = (name) => {
-    searchParams.set("q", name);
-    setSearchParams(searchParams);
-  };
+  const headerTwo = userType === 1 ? headerFreelance : headerCustomer;
 
   //SetParams
   const setSelected = (filter, value) => {
@@ -70,6 +99,26 @@ const MyOrderPage = () => {
   const onResetPage = () => {
     searchParams.set("pages", 1);
     setSearchParams(searchParams);
+  };
+  const resetAllParams = () => {
+    searchParams.delete("min_price");
+    searchParams.delete("max_price");
+    searchParams.delete("duration");
+    searchParams.delete("status");
+    setShowDuration({
+      1: false,
+      3: false,
+      7: false,
+      15: false,
+      30: false,
+    });
+    setShowStatus({
+      1: false,
+      2: false,
+      3: false,
+    });
+    setPriceShow({ min: "", max: "" });
+    onResetPage();
   };
   //
 
@@ -99,11 +148,11 @@ const MyOrderPage = () => {
   const duration = searchParams.get("duration") || "";
   const splitDuration = duration.split(",");
   const [showDuration, setShowDuration] = useState({
-    "1": splitDuration.includes("1"),
-    "3": splitDuration.includes("3"),
-    "7": splitDuration.includes("7"),
-    "15": splitDuration.includes("15"),
-    "30": splitDuration.includes("30"),
+    1: splitDuration.includes("1"),
+    3: splitDuration.includes("3"),
+    7: splitDuration.includes("7"),
+    15: splitDuration.includes("15"),
+    30: splitDuration.includes("30"),
   });
   const onChangeDurationHandler = (e) => {
     const changeValue = !showDuration[e.target.name];
@@ -135,13 +184,14 @@ const MyOrderPage = () => {
   const status = searchParams.get("status") || "";
   const splitStatus = status.split(",");
   const [showStatus, setShowStatus] = useState({
-    "1": splitStatus.includes("1"),
-    "2": splitStatus.includes("2"),
-    "3": splitStatus.includes("3"),
+    1: splitStatus.includes("1"),
+    2: splitStatus.includes("2"),
+    3: splitStatus.includes("3"),
+    4: splitStatus.includes("4"),
   });
   const onChangeStatusHandler = (e) => {
     const changeValue = !showStatus[e.target.name];
-    console.log(changeValue,"status");
+    console.log(changeValue, "status");
     setShowStatus((prev) => ({
       ...prev,
       [e.target.name]: !prev[e.target.name],
@@ -161,6 +211,64 @@ const MyOrderPage = () => {
     onResetPage();
   };
   //
+
+  //sort
+  const sort = searchParams.get("sort") || "1";
+  const onChangeSortHandler = (e) => {
+    searchParams.set("sort", e.target.value);
+    setSearchParams(searchParams);
+    onResetPage();
+  };
+
+  //fetch order
+  const [orders, setOrders] = useState(null);
+  const [meta, setMeta] = useState(null);
+  const [isLoadingOrder, setIsLoadingOrder] = useState(false);
+  const fetchData = async (headerType, page, priceMin, priceMax, duration) => {
+    let ht = "/" + headerType;
+    if (ht === "/order") ht = "";
+    setIsLoadingOrder(true);
+    try {
+      let params = {
+        limit: 6,
+        page: page,
+        // keyword: keyword,
+        min_price: priceMin !== "" ? priceMin : 1,
+        max_price: priceMax !== "" ? priceMax : 100000,
+        duration: duration !== "" ? duration : null,
+      };
+      for (let param in params) {
+        if (
+          params[param] === undefined ||
+          params[param] === null ||
+          params[param] === ""
+        ) {
+          delete params[param];
+        }
+      }
+
+      let response;
+      response = await apiClient.get(
+        `/order${ht}?` + new URLSearchParams(params).toString()
+      );
+      console.log(response.data);
+      // setOrders(response.data.pagination.items);
+      // setMeta(response.data.pagination.meta);
+    } catch (err) {
+      console.log(err);
+    }
+    setIsLoadingOrder(false);
+  };
+  useEffect(() => {
+    fetchData(selectOrder, page, priceMin, priceMax, duration);
+  }, [
+    selectOrder,
+    // keyword,
+    page,
+    priceMin,
+    priceMax,
+    duration,
+  ]);
 
   //FilterModal
   const [showModal, setShowModal] = useState(false);
@@ -206,6 +314,19 @@ const MyOrderPage = () => {
           ))}
         </TemplateFilter>
       )}
+      {selectOrder === "request" && userType === 2 && (
+        <TemplateFilter header="สถานะ">
+          {statusRequest.map((option, idx) => (
+            <DurationFilter
+              value={option.value}
+              text={option.text}
+              key={`${option}+${idx}`}
+              onChange={onChangeStatusHandler}
+              showDuration={showStatus}
+            />
+          ))}
+        </TemplateFilter>
+      )}
     </>
   );
 
@@ -226,16 +347,18 @@ const MyOrderPage = () => {
           textBLeft="รีเซ็ต"
           textBRight="เรียบร้อย"
           onSubmitPrice={onSubmitPriceHandler2}
-          onReset={() => {}}
+          onReset={resetAllParams}
         />
         <Header>ออเดอร์ของฉัน</Header>
         <HeaderTwoContainer>
           {headerTwo.map((header, idx) => (
             <HeaderTwo
               key={idx}
+              type="button"
               select={header.q === selectOrder}
-              type={authCtx.userInfo.user_type}
+              userType={authCtx.userInfo.user_type}
               onClick={onChangeHeaderHandler.bind(null, header.q)}
+              disabled={isLoadingOrder}
             >
               {header.text}
             </HeaderTwo>
@@ -245,39 +368,59 @@ const MyOrderPage = () => {
           {" "}
           <InputSearch
             placeholder="ค้นหาคำขอที่นี่..."
+            value={searchOrder}
+            onChange={searchKeywordChangeHandler}
+            onSubmit={onSearchKeywordHandler}
             filter
             onClickFilter={onOpenModalHandler}
           />
         </InputSearchContainer>
         <SortContainer>
           เรียงตาม
-          <Select>
-            <option value="1">ราคามากไปน้อย</option>
-            <option value="1">ราคาน้อยไปมาก</option>
-            <option value="2">ระยะเวลามากไปน้อย</option>
-            <option value="2">ระยะเวลาน้อยไปมาก</option>
+          <Select defaultValue={sort} onChange={onChangeSortHandler}>
+            {sortOptions.map((option, idx) => (
+              <option key={idx} value={option.value}>
+                {option.text}
+              </option>
+            ))}
           </Select>
-          <AddOrder src={AddOrderIcon} onClick={()=>{navigate('/create-order-template')}} />
+          <AddOrder
+            src={AddOrderIcon}
+            onClick={() => {
+              navigate("/create-order-template");
+            }}
+          />
         </SortContainer>
         <OrderContainer>
-          <OrderCard
-            header="ออกแบบโลโก้"
-            description="ออกแบบโลโก้สำหรับธุรกิจการ จองที่พัก สีหลักคือชมพู..."
-            name="JonathanT"
-            duration="7"
-            price="2000"
-            hasStatus={selectOrder !== "template"}
-            status="In Progress"
-          />
-          <OrderCard
-            header="ออกแบบโลโก้"
-            description="ออกแบบโลโก้สำหรับธุรกิจการ จองที่พัก สีหลักคือชมพู..."
-            name="JonathanT"
-            day="2/10/2023"
-            price="2000"
-            hasStatus={selectOrder !== "template"}
-            status="Accept"
-          />
+          {isLoadingOrder && <LoadingDiv>loading...</LoadingDiv>}
+          {!isLoadingOrder && [
+            <OrderCard
+              key={1}
+              header="ออกแบบโลโก้"
+              description="ออกแบบโลโก้สำหรับธุรกิจการ จองที่พัก สีหลักคือชมพู..."
+              name="JonathanT"
+              duration="7"
+              price="2000"
+              hasStatus={
+                selectOrder !== "template" &&
+                (selectOrder !== "request" || userType !== 1)
+              }
+              status="In Progress"
+            />,
+            <OrderCard
+              key={2}
+              header="ออกแบบโลโก้"
+              description="ออกแบบโลโก้สำหรับธุรกิจการ จองที่พัก สีหลักคือชมพู..."
+              name="JonathanT"
+              day="2/10/2023"
+              price="2000"
+              hasStatus={
+                selectOrder !== "template" &&
+                (selectOrder !== "request" || userType !== 1)
+              }
+              status="Accept"
+            />,
+          ]}
         </OrderContainer>
       </BG>
     </>

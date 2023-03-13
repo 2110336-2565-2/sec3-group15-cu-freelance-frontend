@@ -60,3 +60,10 @@ export const statusOptions = [
   { text: "กำลังทำงานอยู่", value: "2" },
   { text: "ยกเลิกงานเเล้ว", value: "3" },
 ];
+
+export const statusRequest = [
+  { text: "ออเดอร์ได้ถูกรับเเล้ว", value: "1" },
+  { text: "มีผู้อื่นรับออเดอร์ไปเเล้ว", value: "2" },
+  { text: "ออเดอร์ได้ถูกปฏิเสธเเล้ว", value: "3" },
+  { text: "กำลังรอผู้รับออเดอร์", value: "4" },
+];
