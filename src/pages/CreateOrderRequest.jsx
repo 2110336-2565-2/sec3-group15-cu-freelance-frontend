@@ -11,45 +11,11 @@ import CreateOrder4 from "../components/order/CreateOrder4";
 import { authClient } from "../utils/auth";
 import { apiClient } from "../utils/axios";
 import Button from "../components/share/Button";
-function reducer(state, action) {
-    if (action.type == "CHANGESTATE") {
-      return {
-        value: action.value,
-      };
-    }
-}
-const Container = tw.div`flex flex-col mt-[10vh] p-4 min-h-[85vh] items-center gap-y-2 
-w-[90%] max-w-[500px] dt:w-[90%] dt:max-w-[1000px] 
-relative mx-auto`;
-const Title = styled.div(({show})=>[
-    tw`font-ibm font-bold text-mobile-h1 dt:text-2xl text-center my-4`,
-    !show&&tw`hidden`
+const Container = styled.div(({})=>[
+    tw``
 ])
-const Step = styled.div(({})=>[
-    tw`font-ibm font-bold text-mobile-h1 dt:text-2xl text-freelance-black-primary text-center`
-])
-const StepDesc = styled.div(({})=>[
-    tw`font-ibm font-bold text-mobile-small dt:text-base text-freelance-black-secondary px-4 text-center mb-4`
-])
-const Footer1 = styled.div(({})=>[
-    tw`flex flex-row w-full gap-x-4 justify-between `
-    // tw`flex flex-row w-full gap-x-4 justify-between dt:absolute bottom-8`
-])
-const Footer2 = styled.div(({})=>[
-    tw`flex flex-col items-center gap-y-4 dt:absolute bottom-8`
-])
-const Back2Edit = styled.button(({})=>[
-    tw`text-center font-ibm decoration-solid font-medium text-mobile-small`
-])
-const step = ["รายละเอียด", "สถานะ", "การติดต่อ", "ยืนยัน"];
-const stepDesc = ["ใส่รายละเอียดออเดอร์ของคุณ เพื่อให้ฟรีแลนซ์เข้าใจงานที่จะได้รับมอบหมาย",
-                  "ใส่ราคาและระยะเวลากำหนดส่งให้ออเดอร์ของคุณ ",
-                  "ใส่ช่องทางติดต่อให้ฟรีแลนซ์ติดต่อคุณกลับไปเมื่อต้องการรายละเอียดหรือตกลงเพิ่มเติม",
-                  "ตรวจสอบความถูกต้องของออเดอร์คุณอีกครั้ง ถ้าถูกต้องก็สร้างออเดอร์ได้เลย!!"];
-const CreateOrderTemplate = ()=>{
-    
-    const [state, dispatch] = useReducer(reducer, { value: 1 });
-    const [check, setCheck] = useState(false);
+const CreateOrderRequest = ()=>{
+    const [state, dispatch] = useReducer(reducer, { value: 1 })
     const [progress, setProgress] = useState(1);
     const [loading, setLoading] = useState(false);
     const authCtx = useContext(AuthContext);
@@ -73,8 +39,11 @@ const CreateOrderTemplate = ()=>{
             customer_id: authCtx.userInfo.id,
             description: formState1.inputs.desc.value,
             duration: parseInt(formState2.inputs.duration.value),
+            freelance_id: "test",
+            order_template_id: "test",
             email: formState3.inputs.email.value,
             price: parseInt(formState2.inputs.price.value),
+            status: parseInt(0),
             tel: formState3.inputs.phone.value,
             title: formState1.inputs.topic.value,
           });
@@ -191,6 +160,10 @@ const CreateOrderTemplate = ()=>{
             }
             
         </Container>
+    return (
+        <Container>
+            
+        </Container>
     )
 }
-export default CreateOrderTemplate;
+export default CreateOrderRequest;
