@@ -5,7 +5,7 @@ const Container = styled.div(({show})=>[
     tw`place-self-start w-full gap-y-2 mb-2`,
     !show && tw`hidden`
 ]);
-const CreateOrder1 = ({inputHandler1, show=true})=>{
+const CreateOrder1 = ({inputHandler1, show=true,initialValue,initialValid=false})=>{
     console.log(show)
     return (
         <Container show={show}>
@@ -15,6 +15,8 @@ const CreateOrder1 = ({inputHandler1, show=true})=>{
             label="หัวข้องาน"
             placeholder="ใส่หัวข้องานที่นี่..."
             errorText="หัวข้องานไม่ควรเว้นว่าง"
+            initialValue={initialValue?initialValue.title:null}
+            initialValid={initialValid}
             validator={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler1}
             required/>
@@ -23,6 +25,8 @@ const CreateOrder1 = ({inputHandler1, show=true})=>{
             id="desc"
             label="รายละเอียดงาน"
             placeholder="ใส่รายละเอียดงานที่นี่..."
+            initialValue={initialValue?initialValue.description:null}
+            initialValid={initialValid}
             errorText="รายละเอียดไม่ควรเว้นว่าง"
             validator={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler1}
