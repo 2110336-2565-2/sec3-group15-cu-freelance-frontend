@@ -4,14 +4,14 @@ import tw from "twin.macro";
 import Backdrop from "./Backdrop";
 import XIcon from "../../assets/XIcon.svg";
 
-const FirstRow = tw.div`relative flex justify-center`;
+const FirstRow = tw.div`relative flex justify-center mb-2`;
 
 const ModalOverlay = (props) => {
   const content = (
-    <div tw="fixed m-auto w-screen h-screen py-2 px-2 top-0 bottom-0 left-0 right-0 bg-white z-[100]">
+    <div tw="font-ibm fixed m-auto w-screen h-screen py-2 px-2 top-0 bottom-0 left-0 right-0 bg-white z-[60]">
       <FirstRow>
         {props.header}
-        <img src={XIcon} tw="absolute right-0 top-0" onClick={props.onClose}/>
+        <img src={XIcon} tw="absolute right-0 top-0" onClick={props.onClose} />
       </FirstRow>
       {props.content}
     </div>
