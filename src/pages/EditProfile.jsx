@@ -1,4 +1,4 @@
-import tw from "twin.macro"
+import tw, {styled} from "twin.macro"
 import Input from "../components/share/Input"
 import React from "react";
 import { useForm } from "../hooks/form-hook"
@@ -10,10 +10,15 @@ import { useEffect } from "react";
 import Toast from "../components/share/Toast";
 import successIcon from "../assets/SuccessIcon.svg"
 import { useState } from "react";
+import Button from "../components/share/Button";
+import { Navigate, useNavigate } from "react-router-dom";
 const Container = tw.div`flex justify-center pt-[20vh] min-h-[95vh]`;
 const Form = tw.form`flex flex-col shadow-[0_4px_4px_rgba(0,0,0,0.25)] px-8 py-4 rounded-[20px] gap-y-2 w-[420px] h-fit`;
 const Title = tw.div`text-center font-bold text-3xl`;
-const SubmitButton = tw.button`bg-[#D62B70] text-center m-2 text-white font-inter font-bold rounded-[10px] p-2 text-xl`;
+const SubmitButton = styled.button(({red=false})=>[
+    tw`bg-[#D62B70] text-center mt-1 text-white font-inter font-bold rounded-[10px] p-2 text-xl`,
+    red && tw`bg-[#D82929]`
+])
 const EditProfilePage = ()=> {
     const authCtx=useContext(AuthContext);
     const [submitState, setSubmitState] = useState(0);
@@ -40,6 +45,10 @@ const EditProfilePage = ()=> {
         }
     },true
     )
+    const navigate = useNavigate();
+    const changePwHandler = () => {
+        navigate('/change-password');
+    }
     const formSubmitHandler = async(event)=>{
         event.preventDefault();
         const { Firstname, Lastname, PhoneNumber, Username, Displayname} =
@@ -62,6 +71,7 @@ const EditProfilePage = ()=> {
             setSubmitState(2);
             setTimeout(() => { setSubmitState(0); }, 3000);
         }
+        navigate(0);
     }
     useEffect(()=>{
         setFormData({
@@ -144,6 +154,7 @@ const EditProfilePage = ()=> {
                 initialValue={authCtx.userInfo.display_name}
                 initialValid={true}
                 ></Input>
+                <SubmitButton onClick={changePwHandler} red>Change Password</SubmitButton>
                 <SubmitButton onClick={formSubmitHandler} disabled={!formState.isValid}>
                     Save
                 </SubmitButton>

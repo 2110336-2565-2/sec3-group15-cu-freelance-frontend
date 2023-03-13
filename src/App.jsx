@@ -49,6 +49,7 @@ function App() {
           <Route path="/create-order-template" element={<CreateOrderTemplatePage/>}></Route>
           <Route path="/request-complete" element={<RequestCompletePage/>}></Route>
           <Route path="/create-order-request" element={<CreateOrderRequest/>}></Route>
+          <Route path="success" element={<RegisterSuccessPage />} />
         </Route>
         <Route path="home" element={<HomePage />} />
         <Route path="/login/">
@@ -57,7 +58,6 @@ function App() {
         </Route>
         <Route path="my-order/" element={<MyOrderPage/>}/>
         <Route path="/register/" element={<RegisterPage />} />
-        <Route path="success" element={<RegisterSuccessPage />} />
         <Route path="/fill-display-name" element={<FillDisplayNamePage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/auth" element={<Auth />} />

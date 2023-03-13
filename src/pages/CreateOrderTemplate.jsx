@@ -32,7 +32,7 @@ const StepDesc = styled.div(({})=>[
     tw`font-ibm font-bold text-mobile-small dt:text-base text-freelance-black-secondary px-4 text-center mb-4`
 ])
 const Footer1 = styled.div(({})=>[
-    tw`flex flex-row w-full gap-x-4 justify-between `
+    tw`flex flex-row w-full gap-x-4 justify-between absolute bottom-8 dt:relative dt:bottom-auto`
     // tw`flex flex-row w-full gap-x-4 justify-between dt:absolute bottom-8`
 ])
 const Footer2 = styled.div(({})=>[

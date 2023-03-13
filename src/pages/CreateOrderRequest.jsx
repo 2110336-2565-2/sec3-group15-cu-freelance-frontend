@@ -59,7 +59,7 @@ const stepDesc = ["เลือกแบบร่างที่จะส่ง�
                   "ตรวจสอบความถูกต้องของออเดอร์คุณอีกครั้ง ถ้าถูกต้องก็ส่งออเดอร์ได้เลย!!"];
 const CreateOrderRequest = ()=>{
     const [state, dispatch] = useReducer(reducer, { value: 1 })
-    const [SelectedOrder, setSelectedOrder] = useState(false);
+    const [selectedOrder, setSelectedOrder] = useState(null);
     const [progress, setProgress] = useState(1);
     const [loading, setLoading] = useState(false);
     const authCtx = useContext(AuthContext);
@@ -71,38 +71,72 @@ const CreateOrderRequest = ()=>{
     const onChangeStateHandler = (value) => {
         dispatch({ type: "CHANGESTATE", value: value });
     };
+    useEffect(()=>{
+    //console.log(selectedOrder);
+    setFormData1({
+        topic: {
+            value:selectedOrder ? selectedOrder.title: null,  
+            isValid:true,
+        },
+        desc: {
+            value:selectedOrder ? selectedOrder.description: null,
+            isValid:true,
+        },
+    },true)
+    setFormData2({
+        price: {
+            value:selectedOrder ? selectedOrder.price : null,
+            isValid:true,
+        },
+        duration: {
+            value:selectedOrder ? selectedOrder.duration : null,
+            isValid:true,
+        },
+    },true)
+    setFormData3({
+        email: {
+            value:selectedOrder ? selectedOrder.email : null,
+            isValid:true,
+        },
+        phone: {
+            value:selectedOrder ? selectedOrder.tel : null,
+            isValid:true,
+        },
+    },true)
+    },[selectedOrder])
     const onClickCardHandler = (order) => {
-        setSelectedOrder(true);
-        setFormData1({
-            topic: {
-                value:order.title,
-                isValid:true,
-            },
-            desc: {
-                value:order.description,
-                isValid:true,
-            },
-        },true)
-        setFormData2({
-            price: {
-                value:order.price,
-                isValid:true,
-            },
-            duration: {
-                value:order.duration,
-                isValid:true,
-            },
-        },true)
-        setFormData3({
-            email: {
-                value:order.email,
-                isValid:true,
-            },
-            desc: {
-                value:order.phone,
-                isValid:true,
-            },
-        },true)
+        setSelectedOrder(order);
+        // useEffect(()=>{setFormData1({
+        //     topic: {
+        //         value:order.title,
+        //         isValid:true,
+        //     },
+        //     desc: {
+        //         value:order.description,
+        //         isValid:true,
+        //     },
+        // },true)
+        // setFormData2({
+        //     price: {
+        //         value:order.price,
+        //         isValid:true,
+        //     },
+        //     duration: {
+        //         value:order.duration,
+        //         isValid:true,
+        //     },
+        // },true)
+        // setFormData3({
+        //     email: {
+        //         value:order.email,
+        //         isValid:true,
+        //     },
+        //     phone: {
+        //         value:order.tel,
+        //         isValid:true,
+        //     },
+        // },true)
+        // },[SelectedOrder])
     }
     const continueHandler = () => {
         dispatch({ type: "CHANGESTATE", value: state.value + 1 });
@@ -120,11 +154,10 @@ const CreateOrderRequest = ()=>{
             customer_id: authCtx.userInfo.id,
             description: formState1.inputs.desc.value,
             duration: parseInt(formState2.inputs.duration.value),
+            email: formState3.inputs.email.value,
             freelance_id: location.state.id,
             order_template_id: "test",
-            email: formState3.inputs.email.value,
             price: parseInt(formState2.inputs.price.value),
-            status: parseInt(0),
             tel: formState3.inputs.phone.value,
             title: formState1.inputs.topic.value,
           });
@@ -185,7 +218,7 @@ const CreateOrderRequest = ()=>{
       );
     const navigate = useNavigate();
     const disableButton =
-    ((state.value === 1) & !SelectedOrder)      |
+    ((state.value === 1) & !selectedOrder)      |
     ((state.value === 2) & !formState1.isValid) |
     ((state.value === 2) & !formState2.isValid) |
     ((state.value === 2) & !formState3.isValid);
@@ -250,52 +283,56 @@ const CreateOrderRequest = ()=>{
                 <SendTo>ถึง: {location.state.displayName}</SendTo>
             </StepContainer>
             <StepDesc>{stepDesc[state.value-1]}</StepDesc>
-            <OrderContainer>
+            {state.value==1 && <OrderContainer>
             {isLoadingOrder && <LoadingDiv>loading...</LoadingDiv>}
             {!isLoadingOrder && (
-                // orders &&
-                // orders.map((order, idx) => (
-                //   <OrderCard
-                //     key={idx}
-                //     header={order.title}
-                //     description={order.description}
-                //     from={"hello"}
-                //     to={"hello"}
-                //     duration="7"
-                //     price="2000"
-                //     hasStatus={
-                //       selectOrder !== "template" &&
-                //       (selectOrder !== "request" || userType !== 1)
-                //     }
-                //     status="In Progress"
-                //   />))
-                <OrderCard
-                key={"idx"}
-                header={"order.title"}
-                description={"order.description"}
-                customer={"customer"}
-                freelance={
-                    null
-                }
-                duration="7"
-                price="2000"
-                hasStatus={
-                    false
-                }
-                status="In Progress"
-                orderType={"template"}
-                userType={authCtx.userInfo.user_type}
-                onClick={onClickCardHandler.bind(null, "order")}
-                />
+                orders &&
+                orders.map((order, idx) => (
+                  <OrderCard
+                    key={idx}
+                    header={order.title}
+                    description={order.description}
+                    customer={"customer"}
+                    price={order.price}
+                    freelance={
+                          null
+                    }
+                    hasStatus={
+                      false
+                    }
+                    status="In Progress"
+                    orderType={"template"}
+                    userType={authCtx.userInfo.user_type}
+                    onClick={onClickCardHandler.bind(null, order)}
+                  />))
+                // <OrderCard
+                // key={"idx"}
+                // header={"order.title"}
+                // description={"order.description"}
+                // customer={"customer"}
+                // freelance={
+                //     null
+                // }
+                // duration="7"
+                // price="2000"
+                // hasStatus={
+                //     false
+                // }
+                // status="In Progress"
+                // orderType={"template"}
+                // userType={authCtx.userInfo.user_type}
+                // onClick={onClickCardHandler.bind(null, "order")}
+                // />
             )}
             </OrderContainer>
-            <CreateOrder1 inputHandler1={inputHandler1} show={state.value==2}/>
-            <CreateOrder2 inputHandler2={inputHandler2} show={state.value==2}/>
-            <CreateOrder3 inputHandler3={inputHandler3} show={state.value==2}/>
+            }
+            {/* <CreateOrder1 inputHandler1={inputHandler1} show={state.value==1}/>
+            <CreateOrder2 inputHandler2={inputHandler2} show={state.value==1}/>
+            <CreateOrder3 inputHandler3={inputHandler3} show={state.value==1}/> */}
             <EditOrder inputHandler1={inputHandler1}
                        inputHandler2={inputHandler2}
                        inputHandler3={inputHandler3}
-                       show={state.value==2}/>
+                       show={state.value==1}/>
             <CreateOrder4 topic={formState1.inputs.topic.value}
                           desc={formState1.inputs.desc.value}
                           price={formState2.inputs.price.value}

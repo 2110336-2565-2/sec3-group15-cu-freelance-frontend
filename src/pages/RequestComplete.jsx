@@ -7,11 +7,11 @@ const Container = styled.div(({})=>[
     tw`flex flex-col m-auto justify-between w-full dt:w-1/6 dt:relative min-h-[95vh] items-center pb-[5vh]`
 ])
 const Footer = styled.div(({row=false})=>[
-    tw`flex flex-col items-center dt:absolute bottom-8 gap-y-8`,
+    tw`flex flex-col items-center gap-y-4 absolute bottom-14 font-ibm`,
     row && tw`flex-row gap-x-4`
 ])
 const Back2Home = styled.button(({})=>[
-    tw`font-ibm text-freelance-black-primary text-mobile-h2`
+    tw`font-ibm text-freelance-black-primary text-mobile-small font-medium`
 ])
 
 const RequestComplete = ({icon, iconDesc, title, desc, lftOnclick, rgtOnclick, red})=> {

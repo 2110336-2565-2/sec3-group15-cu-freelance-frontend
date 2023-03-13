@@ -9,14 +9,14 @@ const widthVariants = {
   comment: tw`w-[30%] dt:w-[30%] dt:h-[100%] text-[#D62B70]`,
   loginForm: tw`w-[45%]`,
   loginType: tw`w-[42%] box-border h-[100%]  cursor-pointer border border-black text-black hover:border-[#D62B70] hover:text-[#D62B70]`,
-  registerSuccess: tw`w-[38%] h-fit box-border my-4`,
+  registerSuccess: tw`w-[38%] h-fit box-border my-4 border-0`,
   portfolio2: tw`w-fit h-fit p-4 self-center`,
   order:tw`w-fit h-fit flex flex-col`
 };
 const styles = {
   container: ({ hasShadow, type, borderDashed }) => [
     tw`font-ibm border-[2px] border-gray-300 rounded-2xl flex h-[80vh] justify-center items-center `,
-    hasShadow && tw`shadow-[15px_15px_#E165AB]`,
+    hasShadow && tw`shadow-[100px_15px_15px_#E165AB]`,
     borderDashed && tw`border-dashed`,
     tw`items-center`,
     widthVariants[type],
