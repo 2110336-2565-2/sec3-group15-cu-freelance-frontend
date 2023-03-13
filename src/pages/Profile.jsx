@@ -11,9 +11,12 @@ import { AuthContext } from "../context/AuthProvider";
 import { authClient } from "../utils/auth";
 import { apiClient } from "../utils/axios";
 
-const BG = tw.div`relative min-h-[92vh] h-auto w-[100%] max-w-[1400px] mx-auto pt-[15vh] flex justify-between mb-[3vh]`;
+const BG = tw.div`font-ibm relative min-h-[92vh] h-auto w-[100%] max-w-[1400px] mx-auto pt-[15vh] flex justify-around mb-[3vh]`;
 const PortfolioCardWrapper = tw.div`w-full flex flex-wrap gap-x-[3%] gap-y-[2vh] my-10 min-h-[65vh]`;
-const Header1 = tw.div`text-4xl font-ibm font-bold text-[#D62B70] mb-[5vh] flex justify-between w-[100%] max-w-[800px]`;
+const Header1 = tw.div`text-3xl font-ibm font-bold text-freelance-black-primary mb-[5vh] flex justify-between w-[100%] max-w-[800px]`;
+const TextEng = tw.span`font-inter`
+const TextThai = tw.span`font-ibm`
+
 
 const ProfilePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -126,7 +129,12 @@ const ProfilePage = () => {
         <Header1>
           {user_type === 2 &&
             authCtx.userInfo.id === userId &&
-            `Profile ของ ${display_name}`}
+            (
+              <div tw="block">
+               <TextEng>Profile</TextEng> <TextThai>ของ </TextThai> <TextEng> {display_name}</TextEng>
+               </div>
+            )
+          }
           {user_type === 1 &&
             authCtx.userInfo.id === userId &&
             `งานของ ${display_name}`}

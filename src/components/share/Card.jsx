@@ -15,7 +15,7 @@ const widthVariants = {
 };
 const styles = {
   container: ({ hasShadow, type, borderDashed }) => [
-    tw`border-[5px] border-[#D62B70] rounded-[40px] flex h-[80vh] justify-center items-center `,
+    tw`font-ibm border-[2px] border-gray-300 rounded-2xl flex h-[80vh] justify-center items-center `,
     hasShadow && tw`shadow-[15px_15px_#E165AB]`,
     borderDashed && tw`border-dashed`,
     tw`items-center`,
