@@ -25,22 +25,27 @@ const OrderCard = (props) => {
     if (props.status === "Closed") color = "blue";
   }
   let buttonLine = null;
+  let onClickLeft,onClickRight
   if (props.orderType && props.userType && props.userType === 1) {
     let left, right;
     if (props.orderType === "order") {
       left = "ส่งงาน";
       right = "ยกเลิก";
+      onClickLeft=props.openConfirmModal.bind(null,"send")
+      onClickRight=props.openConfirmModal.bind(null,"cancel")
     }
     if (props.orderType === "request") {
       left = "ยอมรับ";
       right = "ปฏิเสธ";
+      onClickLeft=props.openConfirmModal.bind(null,"accept")
+      onClickRight=props.openConfirmModal.bind(null,"reject")
     }
     buttonLine = (
       <Buttonline>
-        <Button width="45%" primary onClick={props.onClickLeft}>
+        <Button width="45%" primary onClick={onClickLeft}>
           {left}
         </Button>
-        <Button width="45%" secondary onClick={props.onClickRight}>
+        <Button width="45%" secondary onClick={onClickRight}>
           {right}
         </Button>
       </Buttonline>

@@ -8,7 +8,8 @@ const Button = (props) => {
     isDisable = disable;
   }
 
-  const onClickHandler = () => {
+  const onClickHandler = (e) => {
+    e.stopPropagation()
     props.onClick();
   };
 
