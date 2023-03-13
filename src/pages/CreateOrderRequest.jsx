@@ -1,7 +1,7 @@
 import tw, {styled} from "twin.macro"
 import ProgressBar from "../components/register/ProgressBar";
-import { useReducer, useState, useContext } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useReducer, useState, useContext,  useEffect } from "react";
+import { useLocation, useNavigate,useSearchParams } from "react-router-dom";
 import { useForm } from "../hooks/form-hook";
 import { AuthContext } from "../context/AuthProvider";
 import CreateOrder1 from "../components/order/CreateOrder1";
@@ -11,6 +11,9 @@ import CreateOrder4 from "../components/order/CreateOrder4";
 import { authClient } from "../utils/auth";
 import { apiClient } from "../utils/axios";
 import Button from "../components/share/Button";
+import OrderCard from "../components/share/OrderCard";
+import "./MyOrder.css";
+import EditOrder from "../components/order/EditOrder";
 function reducer(state, action) {
     if (action.type == "CHANGESTATE") {
       return {
@@ -32,13 +35,16 @@ const SendTo = styled.div(()=>[
     tw`font-ibm text-mobile-small text-freelance-black-primary font-normal`
 ])
 const Step = styled.div(({})=>[
-    tw`font-ibm font-bold text-mobile-h1 dt:text-2xl text-freelance-black-primary`
+    tw`font-ibm font-bold text-mobile-h1 dt:text-2xl text-freelance-black-primary mt-4`
 ])
 const StepDesc = styled.div(({})=>[
-    tw`font-ibm font-bold text-mobile-small dt:text-base text-freelance-black-secondary mb-4`
+    tw`font-ibm font-normal text-mobile-small dt:text-base text-freelance-black-secondary mr-4`
 ])
+const OrderContainer = tw.div`flex  w-full max-w-full overflow-auto pl-4 min-h-[40vh] dt:min-h-[30vh] items-center`;
+const LoadingDiv = tw.div`font-ibm`;
+
 const Footer1 = styled.div(({})=>[
-    tw`flex flex-row w-full gap-x-4 justify-between `
+    tw`flex flex-row w-full gap-x-4 justify-between`
     // tw`flex flex-row w-full gap-x-4 justify-between dt:absolute bottom-8`
 ])
 const Footer2 = styled.div(({})=>[
@@ -53,14 +59,51 @@ const stepDesc = ["เลือกแบบร่างที่จะส่ง�
                   "ตรวจสอบความถูกต้องของออเดอร์คุณอีกครั้ง ถ้าถูกต้องก็ส่งออเดอร์ได้เลย!!"];
 const CreateOrderRequest = ()=>{
     const [state, dispatch] = useReducer(reducer, { value: 1 })
+    const [SelectedOrder, setSelectedOrder] = useState(false);
     const [progress, setProgress] = useState(1);
     const [loading, setLoading] = useState(false);
     const authCtx = useContext(AuthContext);
     const location = useLocation();
-    console.log(location.state);
+    const [searchParams, setSearchParams] = useSearchParams();
+    //InfiniteScroll or Pagination
+    const pageParams = searchParams.get("pages") || 1;
+    const [page, setPage] = useState(pageParams);
     const onChangeStateHandler = (value) => {
         dispatch({ type: "CHANGESTATE", value: value });
     };
+    const onClickCardHandler = (order) => {
+        setSelectedOrder(true);
+        setFormData1({
+            topic: {
+                value:order.title,
+                isValid:true,
+            },
+            desc: {
+                value:order.description,
+                isValid:true,
+            },
+        },true)
+        setFormData2({
+            price: {
+                value:order.price,
+                isValid:true,
+            },
+            duration: {
+                value:order.duration,
+                isValid:true,
+            },
+        },true)
+        setFormData3({
+            email: {
+                value:order.email,
+                isValid:true,
+            },
+            desc: {
+                value:order.phone,
+                isValid:true,
+            },
+        },true)
+    }
     const continueHandler = () => {
         dispatch({ type: "CHANGESTATE", value: state.value + 1 });
         setProgress(state.value + 1);
@@ -99,7 +142,7 @@ const CreateOrderRequest = ()=>{
                                         }
                                     });
     }
-    const [formState1, inputHandler1] = useForm(
+    const [formState1, inputHandler1, setFormData1] = useForm(
         {
           topic: {
             value: "",
@@ -113,7 +156,7 @@ const CreateOrderRequest = ()=>{
         false
       );
     
-      const [formState2, inputHandler2] = useForm(
+      const [formState2, inputHandler2, setFormData2] = useForm(
         {
           price: {
             value: "",
@@ -127,7 +170,7 @@ const CreateOrderRequest = ()=>{
         false
       );
     
-      const [formState3, inputHandler3] = useForm(
+      const [formState3, inputHandler3, setFormData3] = useForm(
         {
           email: {
             value: "",
@@ -142,9 +185,51 @@ const CreateOrderRequest = ()=>{
       );
     const navigate = useNavigate();
     const disableButton =
+    ((state.value === 1) & !SelectedOrder)      |
     ((state.value === 2) & !formState1.isValid) |
     ((state.value === 2) & !formState2.isValid) |
     ((state.value === 2) & !formState3.isValid);
+    const [orders, setOrders] = useState(null);
+    const [meta, setMeta] = useState(null);
+    const [isLoadingOrder, setIsLoadingOrder] = useState(false);
+    const fetchData = async (headerType, page) => {
+        let ht = "/" + headerType;
+        if (ht === "/order") ht = "";
+        setIsLoadingOrder(true);
+        try {
+        let params = {
+            limit: 6,
+            page: page,
+            // keyword: keyword,
+        };
+        for (let param in params) {
+            if (
+            params[param] === undefined ||
+            params[param] === null ||
+            params[param] === ""
+            ) {
+            delete params[param];
+            }
+        }
+
+        let response;
+        response = await apiClient.get(
+            `/order${ht}?` + new URLSearchParams(params).toString()
+        );
+        console.log(response.data);
+        setOrders(response.data.order_templates);
+        setMeta(response.data.meta);
+        } catch (err) {
+        console.log(err);
+        }
+        setIsLoadingOrder(false);
+    };
+    useEffect(() => {
+        fetchData("template", page);
+    }, [
+        // keyword,
+        page,
+    ]);
     return (
         <Container>
             <ProgressBar
@@ -165,9 +250,52 @@ const CreateOrderRequest = ()=>{
                 <SendTo>ถึง: {location.state.displayName}</SendTo>
             </StepContainer>
             <StepDesc>{stepDesc[state.value-1]}</StepDesc>
+            <OrderContainer>
+            {isLoadingOrder && <LoadingDiv>loading...</LoadingDiv>}
+            {!isLoadingOrder && (
+                // orders &&
+                // orders.map((order, idx) => (
+                //   <OrderCard
+                //     key={idx}
+                //     header={order.title}
+                //     description={order.description}
+                //     from={"hello"}
+                //     to={"hello"}
+                //     duration="7"
+                //     price="2000"
+                //     hasStatus={
+                //       selectOrder !== "template" &&
+                //       (selectOrder !== "request" || userType !== 1)
+                //     }
+                //     status="In Progress"
+                //   />))
+                <OrderCard
+                key={"idx"}
+                header={"order.title"}
+                description={"order.description"}
+                customer={"customer"}
+                freelance={
+                    null
+                }
+                duration="7"
+                price="2000"
+                hasStatus={
+                    false
+                }
+                status="In Progress"
+                orderType={"template"}
+                userType={authCtx.userInfo.user_type}
+                onClick={onClickCardHandler.bind(null, "order")}
+                />
+            )}
+            </OrderContainer>
             <CreateOrder1 inputHandler1={inputHandler1} show={state.value==2}/>
             <CreateOrder2 inputHandler2={inputHandler2} show={state.value==2}/>
             <CreateOrder3 inputHandler3={inputHandler3} show={state.value==2}/>
+            <EditOrder inputHandler1={inputHandler1}
+                       inputHandler2={inputHandler2}
+                       inputHandler3={inputHandler3}
+                       show={state.value==2}/>
             <CreateOrder4 topic={formState1.inputs.topic.value}
                           desc={formState1.inputs.desc.value}
                           price={formState2.inputs.price.value}
