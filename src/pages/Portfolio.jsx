@@ -3,11 +3,12 @@ import PortfolioExample from "../assets/PortfolioExample.svg";
 import DurationIcon from "../assets/DurationIcon.svg";
 import ProfileCard from "../components/share/ProfileCard2";
 import UserImage from "../assets/profile1.svg";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { authClient } from "../utils/auth";
 import { apiClient } from "../utils/axios";
 import { onClickSend } from "../utils/order";
+import { AuthContext } from "../context/AuthProvider";
 
 const PortfolioPage = () => {
   const Container = tw.div`flex flex-col text-left my-[15vh] mx-auto px-20 text-[#D62B70] font-ibm gap-y-12 max-w-[1200px]`;
@@ -19,6 +20,7 @@ const PortfolioPage = () => {
   const Duration = tw.div`flex items-center font-bold text-2xl`;
   const ImageDuration = tw.img`mr-2`;
 
+  const authCtx=useContext(AuthContext)
   const params = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -75,6 +77,7 @@ const PortfolioPage = () => {
           username={portfolio.freelance.display_name}
           portCount={11}
           avgTime={5}
+          disable={authCtx.userInfo.id===portfolio.freelance.id}
         />
       </>
     );

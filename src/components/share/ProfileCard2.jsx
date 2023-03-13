@@ -1,7 +1,7 @@
 import tw from "twin.macro";
 import Card from "../share/Card";
 import Button from "./Button";
-const ProfileCard2 = ({ userImage, username, portCount, avgTime,onClick }) => {
+const ProfileCard2 = ({disable, userImage, username, portCount, avgTime,onClick }) => {
   const Container = tw.div`flex flex-row justify-between font-ibm text-[#D62B70] w-fit gap-x-8`;
   const LeftSection = tw.div`flex flex-col items-center text-center font-bold gap-2`;
   const Image = tw.img``;
@@ -24,7 +24,7 @@ const ProfileCard2 = ({ userImage, username, portCount, avgTime,onClick }) => {
             <div>{"เวลาตอบกลับเฉลี่ย"}</div>
             <div>{`${avgTime} ครั้ง`}</div>
           </Status>
-          <Button primary width="100%" onClick={onClick}>
+          <Button primary width="100%" onClick={onClick} disable={disable}>
             ส่งออเดอร์
           </Button>
         </RightSection>
