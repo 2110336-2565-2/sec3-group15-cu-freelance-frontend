@@ -4,12 +4,14 @@ import PencilIcon from "../../assets/Pencil.svg";
 import DeleteIcon from "../../assets/DeleteProIcon.svg";
 import MyOrderAvIcon from "../../assets/MyOrderAvIcon.svg";
 import Button from "../share/Button";
+import StatusBar from "../orderCard/StatusBar";
 
 const BG = tw.div`font-ibm flex flex-col gap-y-5 h-[82vh] max-h-[82vh] overflow-auto`;
 
 const TitleLine = styled.div(({ between }) => [
   tw`flex items-center font-bold border-b-2 border-b-freelance-pink p-1 w-full`,
   between && tw`justify-between`,
+  !between&&tw`gap-x-2`
 ]);
 
 const Title = tw.div`text-[24px]`;
@@ -29,38 +31,66 @@ const ButtonLine = tw.div`flex justify-between`;
 
 const OrderDetail = (props) => {
   let typeFC = props.userType === 2 ? "ฟรีเเลนซ์:" : "ผู้ว่าจ้าง:";
+  const {
+    customer_name,
+    freelance_name,
+    title,
+    price,
+    description,
+    duration,
+    due_date,
+    status,
+    email,
+    tel,
+  } = props.order;
+
+  let color;
+  if (status === "complete" || status === "accept") color = "green";
+  if (status === "in progress") color = "orange";
+  if (status === "reject" || status === "failed") color = "red";
+  if (status === "pending") color = "gray";
+  if (status === "close") color = "blue";
+  console.log(props.orderType)
   return (
     <>
       <BG>
         <TitleLine between={props.between}>
-          <Title>test</Title>
+          <Title>{title}</Title>
           {props.between && (
             <ContainIcon>
               <ImageIcon src={PencilIcon} />
               <ImageIcon src={DeleteIcon} />
             </ContainIcon>
           )}
+          {!(props.userType === 1 && props.orderType === "request") &&
+            !(props.userType === 2 && props.orderType === "template") && (
+              <StatusBar color={color}>{status}</StatusBar>
+            )}
         </TitleLine>
-        <PriceLine>{`฿ 2500`}</PriceLine>
-        <DescriptionLine>{"hellotest"}</DescriptionLine>
+        <PriceLine>{`฿ ${price}`}</PriceLine>
+        <DescriptionLine>{description}</DescriptionLine>
         <OrderInfo>
           <Li>
             {" "}
             <Time>
-              {(props.orderType === "order" && `กำหนดส่ง ${3 / 10 / 22}`) ||
-                `ระยะเวลา ${7} วัน`}
+              {(props.orderType === "order" &&
+                `กำหนดส่ง ${due_date.slice(8, 10)}/${due_date.slice(
+                  5,
+                  7
+                )}/${due_date.slice(0, 4)}`) ||
+                `ระยะเวลา ${duration} วัน`}
             </Time>
           </Li>
           <Li>
             <Line>
               <div tw="mr-2 inline">อีเมล</div>
-              <PersonalInfo>{`nart@mail.com`}</PersonalInfo>
+              <PersonalInfo>{email}</PersonalInfo>
             </Line>
           </Li>
           <Li>
             <Line>
               <div tw="mr-2 inline">เบอร์โทรศัพท์</div>
-              <PersonalInfo>{"0920297688"}</PersonalInfo>
+              <PersonalInfo>{tel}</PersonalInfo>
             </Line>
           </Li>
         </OrderInfo>
@@ -68,7 +98,9 @@ const OrderDetail = (props) => {
           <FC>
             <img src={MyOrderAvIcon} />
             <TypeFC>{typeFC}</TypeFC>
-            <NameFC>{"Testkrub"}</NameFC>
+            <NameFC>
+              {typeFC === "ฟรีเเลนซ์" ? freelance_name : customer_name}
+            </NameFC>
           </FC>
         )}
       </BG>

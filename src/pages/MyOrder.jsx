@@ -227,7 +227,14 @@ const MyOrderPage = () => {
   const [orders, setOrders] = useState(null);
   const [meta, setMeta] = useState(null);
   const [isLoadingOrder, setIsLoadingOrder] = useState(false);
-  const fetchData = async (headerType, page, priceMin, priceMax, duration) => {
+  const fetchData = async (
+    headerType,
+    page,
+    priceMin,
+    priceMax,
+    duration,
+    sort
+  ) => {
     let ht = "/" + headerType;
     if (ht === "/order") ht = "";
     setIsLoadingOrder(true);
@@ -236,6 +243,7 @@ const MyOrderPage = () => {
         limit: 6,
         page: page,
         // keyword: keyword,
+        sort: sort,
         min_price: priceMin !== "" ? priceMin : 1,
         max_price: priceMax !== "" ? priceMax : 100000,
         duration: duration !== "" ? duration : null,
@@ -254,10 +262,11 @@ const MyOrderPage = () => {
       response = await apiClient.get(
         `/order${ht}?` + new URLSearchParams(params).toString()
       );
-      console.log(response.data);
+      // console.log(response.data);
       if (selectOrder === "template") setOrders(response.data.order_templates);
       else if (selectOrder === "request") setOrders(response.data.requests);
       else setOrders(response.data.orders);
+
       setMeta(response.data.meta);
     } catch (err) {
       console.log(err);
@@ -265,7 +274,7 @@ const MyOrderPage = () => {
     setIsLoadingOrder(false);
   };
   useEffect(() => {
-    fetchData(selectOrder, page, priceMin, priceMax, duration);
+    fetchData(selectOrder, page, priceMin, priceMax, duration, sort);
   }, [
     selectOrder,
     // keyword,
@@ -273,6 +282,7 @@ const MyOrderPage = () => {
     priceMin,
     priceMax,
     duration,
+    sort,
   ]);
 
   //FilterModal
@@ -344,6 +354,7 @@ const MyOrderPage = () => {
   };
   const onClickCardHandler = (order) => {
     setShowOrderModal(true);
+    setOrderModalPage(1)
     setSelectedOrder(order);
   };
 
@@ -353,16 +364,27 @@ const MyOrderPage = () => {
   const closeConfirmModal = () => {
     setShowConfirmModal(false);
   };
-  const openConfirmModal = (pageName) => {
+  const openConfirmModal = (pageName,order) => {
+    setSelectedOrder(order)
     setPageConfirmModal(pageName);
     setShowConfirmModal(true);
   };
+
+  //SuccessType
+  const [successType, setSuccessType] = useState(null)
+  console.log(orders);
   return (
     <>
       <ConfirmModalTemplate
         show={showConfirmModal}
+        setShowOrderModal={setShowOrderModal}
         page={pageConfirmModal}
+        setOrderModalPage={setOrderModalPage}
         cancel={closeConfirmModal}
+        order={selectedOrder}
+        fetchData={fetchData.bind(null,selectOrder,page,priceMin,priceMax,duration,sort)}
+        successType={successType}
+        setSuccessType={setSuccessType}
       />
       {selectedOrder && (
         <OrderModalTemplate
@@ -437,47 +459,35 @@ const MyOrderPage = () => {
         </SortContainer>
         <OrderContainer>
           {isLoadingOrder && <LoadingDiv>loading...</LoadingDiv>}
-          {!isLoadingOrder && (
-            // orders &&
-            // orders.map((order, idx) => (
-            //   <OrderCard
-            //     key={idx}
-            //     header={order.title}
-            //     description={order.description}
-            //     from={"hello"}
-            //     to={"hello"}
-            //     duration="7"
-            //     price="2000"
-            //     hasStatus={
-            //       selectOrder !== "template" &&
-            //       (selectOrder !== "request" || userType !== 1)
-            //     }
-            //     status="In Progress"
-            //   />))
-            <OrderCard
-              key={"idx"}
-              header={"order.title"}
-              description={"order.description"}
-              customer={"customer"}
-              freelance={
-                selectOrder !== "template" &&
-                (selectOrder !== "request" || userType !== 1)
-                  ? "freelance"
-                  : null
-              }
-              duration="7"
-              price="2000"
-              hasStatus={
-                selectOrder !== "template" &&
-                (selectOrder !== "request" || userType !== 1)
-              }
-              status="In Progress"
-              orderType={selectOrder}
-              userType={userType}
-              onClick={onClickCardHandler.bind(null, {})}
-              openConfirmModal={openConfirmModal}
-            />
-          )}
+          {!isLoadingOrder &&
+            orders &&
+            orders.map((order, idx) => (
+              <OrderCard
+                key={idx}
+                header={order.title}
+                description={order.description}
+                customer={order.customer_name}
+                freelance={
+                  selectOrder !== "template" &&
+                  (selectOrder !== "request" || userType !== 1)
+                    ? order.freelance_name
+                    : null
+                }
+                due_date={order.due_date}
+                duration={order.duration}
+                price={order.price}
+                hasStatus={
+                  selectOrder !== "template" &&
+                  (selectOrder !== "request" || userType !== 1)
+                }
+                status={order.status}
+                orderType={selectOrder}
+                userType={userType}
+                onClick={onClickCardHandler.bind(null, order)}
+                order={order}
+                openConfirmModal={openConfirmModal}
+              />
+            ))}
         </OrderContainer>
       </BG>
     </>
