@@ -53,7 +53,7 @@ export const validate = (value, validators) => {
       isValid = isValid && /^0\d{9}$/.test(value)
     }
     if(validator.type === VALIDATOR_TYPE_PRICE) {
-      isValid = isValid &&  /^[^0][1-9]*$/.test(value);
+      isValid = isValid &&  /^[1-9][0-9]*$/.test(value);
     }
   }
   return isValid;
