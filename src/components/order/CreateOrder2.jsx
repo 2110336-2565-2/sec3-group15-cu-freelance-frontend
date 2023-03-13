@@ -7,7 +7,7 @@ const Container = styled.div(({show})=>[
     tw`place-self-start w-full gap-y-2 mb-2`,
     !show && tw`hidden`
 ]);
-const CreateOrder2 = ({inputHandler2, show=true})=>{
+const CreateOrder2 = ({inputHandler2, show=true,initialValue,initialValid=false})=>{
     return (
         <Container show={show}>
             <Input 
@@ -16,6 +16,8 @@ const CreateOrder2 = ({inputHandler2, show=true})=>{
             label="ราคา(บาท)"
             placeholder="ใส่ราคาที่นี่..."
             errorText="ราคาควรประกอบด้วยตัวเลข0-9และไม่ควรมีค่าน้อยกว่าเท่ากับ0"
+            initialValue={initialValue?initialValue.price:null}
+            initialValid={initialValid}
             validator={[VALIDATOR_PRICE()]}
             onInput={inputHandler2}
             required/>
@@ -24,6 +26,8 @@ const CreateOrder2 = ({inputHandler2, show=true})=>{
             id="duration"
             label="ระยะเวลา"
             errorText="กรุณาเลือก 1 รายการ"
+            initialValue={initialValue?initialValue.duration:null}
+            initialValid={initialValid}
             validator={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler2}
             required

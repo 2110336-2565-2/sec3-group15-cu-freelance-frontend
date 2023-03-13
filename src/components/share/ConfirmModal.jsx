@@ -1,39 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import tw, {styled} from "twin.macro";
+import tw, { styled } from "twin.macro";
 import Backdrop from "./Backdrop";
 import Button from "./Button";
 const ModalOverlay = (props) => {
-  const Container = styled.div(({})=>[
-    tw`flex flex-col fixed m-auto top-0 left-0 bottom-0 right-0 items-center p-2 dt:max-w-1/4 justify-between`
+  const Container = styled.div(({}) => [
+    tw`bg-white rounded-[20px] w-[90vw] h-1/3 flex flex-col fixed m-auto top-0 left-0 bottom-0 right-0 items-center p-2  justify-between z-[70]`,
   ]);
-  const Icon = styled.img(({})=>[
-    tw``
-  ]);
-  const Title = styled.div(({})=>[
-    tw`font-bold text-mobile-h1 m-2`
-  ]);
-  const Content = styled.div(({})=>[
-    tw`font-regular text-mobile-body px-4`
-  ]);
-  const ButtonSection = styled.div(({})=>[
-    tw`flex flex-row justify-between`
-  ]);
-  const content = (
-    <Container>
-        <Icon src={props.icon}/>
-        <Title>{props.title}</Title>
-        <Content>{props.content}</Content>
-        <ButtonSection>
-            <Button secondary>{props.lftText}</Button>
-            primary ? <Button >{props.rgtText}</Button> : <Button>{props.rgtText}</Button>
-        </ButtonSection>
-    </Container>
-  );
+
+  const content = <Container>{props.content}</Container>;
   return ReactDOM.createPortal(content, document.getElementById("modal-hook"));
 };
 
-const Modal = (props) => {
+const ConfirmModal = (props) => {
   return (
     <React.Fragment>
       {props.show && <Backdrop onClick={props.onCancel} />}
@@ -42,4 +21,4 @@ const Modal = (props) => {
   );
 };
 
-export default Modal;
+export default ConfirmModal;

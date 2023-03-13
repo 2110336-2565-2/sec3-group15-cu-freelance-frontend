@@ -29,6 +29,8 @@ import {
   statusRequest,
 } from "../store/search-store";
 import OrderModalTemplate from "../components/share/OrderModalTemplate";
+import ConfirmModal from "../components/share/ConfirmModal";
+import ConfirmModalTemplate from "../components/share/ConfirmModalTemplate";
 
 const BG = tw.div`h-[85vh] relative flex flex-col items-center font-ibm`;
 const Header = tw.div`text-mobile-h1 font-bold my-4`;
@@ -56,7 +58,7 @@ const MyOrderPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   //InfiniteScroll or Pagination
-  const pageParams = searchParams.get("pages")||1;
+  const pageParams = searchParams.get("pages") || 1;
   const [page, setPage] = useState(pageParams);
 
   //header-type
@@ -273,8 +275,6 @@ const MyOrderPage = () => {
     duration,
   ]);
 
-  //clickOrderCard
-
   //FilterModal
   const [showModal, setShowModal] = useState(false);
   const onCloseModalHandler = () => {
@@ -347,8 +347,23 @@ const MyOrderPage = () => {
     setSelectedOrder(order);
   };
 
+  //ConfirmModal
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [pageConfirmModal, setPageConfirmModal] = useState(null);
+  const closeConfirmModal = () => {
+    setShowConfirmModal(false);
+  };
+  const openConfirmModal = (pageName) => {
+    setPageConfirmModal(pageName);
+    setShowConfirmModal(true);
+  };
   return (
     <>
+      <ConfirmModalTemplate
+        show={showConfirmModal}
+        page={pageConfirmModal}
+        cancel={closeConfirmModal}
+      />
       {selectedOrder && (
         <OrderModalTemplate
           onClose={onCloseOrderModal}
@@ -357,6 +372,8 @@ const MyOrderPage = () => {
           userType={userType}
           page={orderModalPage}
           order={selectedOrder}
+          openConfirmModal={openConfirmModal}
+          closeConfirmModal={closeConfirmModal}
         />
       )}
       <Navbar
@@ -458,6 +475,7 @@ const MyOrderPage = () => {
               orderType={selectOrder}
               userType={userType}
               onClick={onClickCardHandler.bind(null, {})}
+              openConfirmModal={openConfirmModal}
             />
           )}
         </OrderContainer>
