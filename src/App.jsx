@@ -21,6 +21,7 @@ import SearchPage from "./pages/Search";
 import MyOrderPage from "./pages/MyOrder";
 import CreateOrderTemplatePage from "./pages/CreateOrderTemplate";
 import RequestCompletePage from "./pages/RequestComplete";
+import CreateOrderRequest from "./pages/CreateOrderRequest";
 function App() {
   const { acToken, reToken, login, logout, userInfo, setUserInfo } = useAuth();
   return (
@@ -47,6 +48,7 @@ function App() {
           <Route path="/change-password" element={<ChangePasswordPage/>}></Route>
           <Route path="/create-order-template" element={<CreateOrderTemplatePage/>}></Route>
           <Route path="/request-complete" element={<RequestCompletePage/>}></Route>
+          <Route path="/create-order-request" element={<CreateOrderRequest/>}></Route>
         </Route>
         <Route path="home" element={<HomePage />} />
         <Route path="/login/">
