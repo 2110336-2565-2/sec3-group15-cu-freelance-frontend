@@ -40,9 +40,6 @@ const StepDesc = styled.div(({}) => [
 ]);
 const OrderContainer = tw.div`flex  w-full max-w-full overflow-auto pl-4 min-h-[40vh] dt:min-h-[30vh] items-center`;
 const LoadingDiv = tw.div`font-ibm`;
-const Footer3 = tw.div`flex flex-row justify-center mt-2 gap-x-1`;
-const Intro = tw.div`font-ibm text-mobile-small text-freelance-black-primary`;
-const Create = tw.button`font-ibm text-mobile-small text-freelance-black-primary`
 
 const Footer1 = styled.div(({}) => [
   tw`flex flex-row w-full gap-x-4 justify-between`,
@@ -143,9 +140,6 @@ const CreateOrderRequest = () => {
     dispatch({ type: "CHANGESTATE", value: state.value - 1 });
     setProgress(state.value - 1);
   };
-  const createHandler = ()=> {
-    navigate('/create-order-template');
-  }
   const submitHandler = async () => {
     let data = JSON.stringify({
       customer_id: authCtx.userInfo.id,
@@ -168,7 +162,7 @@ const CreateOrderRequest = () => {
         title: "การส่งออเดอร์สำเร็จ",
         desc: "ยินดีด้วย ออเดอร์ของคุณถูกส่งให้ฟรีแลนซ์ เมื่อฟรีแลนซ์รับออเดอร์ก็เริ่มงานได้เลย!",
         bt1Text: "กลับหน้าหลัก",
-        path1: "/search",
+        path1: "/home",
       },
     });
   };
@@ -367,10 +361,6 @@ const CreateOrderRequest = () => {
           </Back2Edit>
         </Footer2>
       )}
-      {state.value==1 && <Footer3>
-        <Intro>ยังไม่มีแบบร่าง</Intro>
-        <Create onClick={createHandler}><u>สร้างเลย</u></Create>
-      </Footer3>}
     </Container>
   );
 };
