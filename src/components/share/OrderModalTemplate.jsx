@@ -10,6 +10,10 @@ const OrderModalTemplate = (props) => {
         order={props.order}
         orderType={props.orderType}
         userType={props.userType}
+        leftBtn={props.orderType==="request"?"ยอมรับ":"ส่งงาน"}
+        rightBtn={props.orderType==="request"?"ปฏิเสธ":"ยกเลิก"}
+        clickLeft={props.orderType==="request"?props.openConfirmModal.bind(null,"accept"):props.openConfirmModal.bind(null,"send")}
+        clickRight={props.orderType==="request"?props.openConfirmModal.bind(null,"reject"):props.openConfirmModal.bind(null,"cancel")}
       />
     );
   }
