@@ -160,11 +160,11 @@ const CreateOrderTemplate = ()=>{
             form2: formState2.isValid,
             form3: formState3.isValid,
             }}
-            step={4}
             text1={step[0]}
             text2={step[1]}
             text3={step[2]}
             text4={step[3]}
+            step={4}
             />
             <Step>{state.value==4 ? "ตรวจสอบออเดอร์อีกครั้ง" : step[state.value-1]}</Step>
             <StepDesc>{stepDesc[state.value-1]}</StepDesc>

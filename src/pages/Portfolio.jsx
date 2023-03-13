@@ -47,7 +47,10 @@ const PortfolioPage = () => {
 
   const onClickSendHandler = (displayName, id) => {
     console.log(displayName, id);
-    navigate();
+    navigate('/create-order-request', {state:{
+      displayName: displayName,
+      id: id    
+    }});
   };
 
   let show;
