@@ -18,9 +18,9 @@ import { mapFaculties, mapOptions } from "../store/portfolioForm";
 import FilterButton from "../components/searchPage/FilterButton";
 
 const Page = tw.div`w-full`;
-const BG = tw.div`w-[90%] h-auto flex justify-between min-h-[95vh] pt-[15vh] max-w-[1200px] mx-auto`;
-const FilterContainer = tw.div`sticky top-[15vh] h-auto w-[20%]  font-ibm flex flex-col items-end`;
-const PortfolioCardContainer = tw.div`w-full flex flex-wrap gap-x-[3%] gap-y-[2vh] my-10 min-h-[65vh]`;
+const BG = tw.div`flex-col w-[90%] h-auto flex dt:flex-row justify-between min-h-[95vh] pt-[15vh] max-w-[1200px] mx-auto`;
+const FilterContainer = tw.div`dt:sticky top-[15vh] h-auto dt:w-[20%]  font-ibm flex flex-col items-end`;
+const PortfolioCardContainer = tw.div`w-full flex justify-center flex-wrap gap-x-[3%] gap-y-[2vh] my-10 min-h-[65vh]`;
 const Filterbar = tw.div`flex flex-wrap gap-2 items-center text-mobile-h2 font-ibm font-medium text-freelance-black-secondary`;
 
 const SearchPage = () => {
@@ -286,7 +286,7 @@ const SearchPage = () => {
               ))}
             </TemplateFilter>
           </FilterContainer>
-          <div tw="w-[70%]  h-auto dt:min-h-[70vh]">
+          <div tw="w-full dt:w-[70%]  h-auto dt:min-h-[70vh] mx-auto">
             <Filterbar>
               เเสดงผลลัพธ์เฉพาะ
               {selectedCategory !== "0" && (
