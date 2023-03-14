@@ -1,4 +1,4 @@
-import tw from "twin.macro";
+import tw, { styled } from "twin.macro";
 import { useContext } from "react";
 import profile from "../../assets/MyOrderAvIcon.svg";
 import DurationIcon from "../../assets/DurationIconV2.svg";
@@ -7,7 +7,10 @@ import StatusBar from "../orderCard/StatusBar";
 import Button from "./Button";
 import { AuthContext } from "../../context/AuthProvider";
 
-const Card = tw.div`flex flex-col h-fit rounded-[20px] min-w-[80vw] w-1/5 shadow-xl relative cursor-pointer p-5 gap-y-3 mr-4`;
+const Card = styled.div(({ focus }) => [
+  tw`flex flex-col h-fit rounded-[20px] min-w-[80vw] w-1/5 shadow-xl relative cursor-pointer p-5 gap-y-3 mr-4`,
+  focus && tw`outline outline-2 outline-freelance-pink`,
+]);
 const Header1 = tw.div`flex justify-between items-center text-mobile-h1 font-bold text-freelance-black-primary`;
 const Body = tw.div`text-mobile-small font-normal text-freelance-black-secondary`;
 const UserInfo = tw.div`flex gap-x-2 items-center text-mobile-small font-normal text-freelance-black-secondary`;
@@ -34,14 +37,14 @@ const OrderCard = (props) => {
     if (props.orderType === "order") {
       left = "ส่งงาน";
       right = "ยกเลิก";
-      onClickLeft = props.openConfirmModal.bind(null, "send",props.order);
-      onClickRight = props.openConfirmModal.bind(null, "cancel",props.order);
+      onClickLeft = props.openConfirmModal.bind(null, "send", props.order);
+      onClickRight = props.openConfirmModal.bind(null, "cancel", props.order);
     }
     if (props.orderType === "request") {
       left = "ยอมรับ";
       right = "ปฏิเสธ";
-      onClickLeft = props.openConfirmModal.bind(null, "accept",props.order);
-      onClickRight = props.openConfirmModal.bind(null, "reject",props.order);
+      onClickLeft = props.openConfirmModal.bind(null, "accept", props.order);
+      onClickRight = props.openConfirmModal.bind(null, "reject", props.order);
     }
     buttonLine = (
       <Buttonline>
@@ -56,7 +59,12 @@ const OrderCard = (props) => {
   }
   // console.log(color);
   return (
-    <Card hasShadow={true} type="order" onClick={props.onClick}>
+    <Card
+      hasShadow={true}
+      type="order"
+      onClick={props.onClick}
+      focus={props.selected}
+    >
       <Header1>
         {props.header}
         {props.hasStatus && <StatusBar color={color}>{props.status}</StatusBar>}

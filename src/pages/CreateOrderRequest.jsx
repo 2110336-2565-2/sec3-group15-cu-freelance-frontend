@@ -285,6 +285,7 @@ const CreateOrderRequest = () => {
               orders.map((order, idx) => (
                 <OrderCard
                   key={idx}
+                  selected={selectedOrder&&selectedOrder.id===order.id}
                   header={order.title}
                   description={order.description}
                   duration={order.duration}

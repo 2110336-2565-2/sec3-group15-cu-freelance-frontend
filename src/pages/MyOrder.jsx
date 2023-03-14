@@ -402,6 +402,8 @@ const MyOrderPage = () => {
         orderType={selectOrder}
         userType={userType}
         page={orderModalPage}
+        setOrderModalPage={setOrderModalPage}
+        setSelectedOrder={setSelectedOrder}
         order={selectedOrder}
         openConfirmModal={openConfirmModal}
         closeConfirmModal={closeConfirmModal}

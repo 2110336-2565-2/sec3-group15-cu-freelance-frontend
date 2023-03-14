@@ -16,10 +16,10 @@ const ConfirmModalTemplate = (props) => {
     try {
       const res = await apiClient.patch(`/order/request/${id}/accept`);
       props.fetchData();
-      props.setSuccessType("accept")
-      props.setOrderModalPage(2)
-      props.setShowOrderModal(true)
-      props.setShowConfirmModal(false)
+      props.setSuccessType("accept");
+      props.setOrderModalPage(2);
+      props.setShowOrderModal(true);
+      props.setShowConfirmModal(false);
       console.log(res);
     } catch (err) {
       console.log(err);
@@ -31,14 +31,29 @@ const ConfirmModalTemplate = (props) => {
       const res = await apiClient.patch(`/order/request/${id}/reject`);
       console.log(res);
       props.fetchData();
-      props.setOrderModalPage(2)
-      props.setSuccessType("reject")
-      props.setShowOrderModal(true)
-      props.setShowConfirmModal(false)
+      props.setOrderModalPage(2);
+      props.setSuccessType("reject");
+      props.setShowOrderModal(true);
+      props.setShowConfirmModal(false);
     } catch (err) {
       console.log(err);
     }
   };
+
+  const clickDelete = async () => {
+    try {
+      const res = await apiClient.delete(`/order/template/${id}`);
+      console.log(res);
+      props.fetchData();
+      props.setOrderModalPage(2);
+      props.setSuccessType("delete");
+      props.setShowOrderModal(true);
+      props.setShowConfirmModal(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   if (page === "delete") {
     content = (
       <RequestComplete
@@ -47,7 +62,7 @@ const ConfirmModalTemplate = (props) => {
         title="ยืนยันการลบแบบร่าง"
         desc="หากคุณยืนยันการลบแบบร่างแล้ว คุณจะไม่สามารถกู้คืนแบบร่างมาได้อีก"
         lftOnclick={props.cancel}
-        rgtOnclick={props.clickDelete}
+        rgtOnclick={clickDelete}
       />
     );
   }

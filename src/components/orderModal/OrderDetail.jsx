@@ -11,7 +11,7 @@ const BG = tw.div`font-ibm flex flex-col gap-y-5 h-[82vh] max-h-[82vh] overflow-
 const TitleLine = styled.div(({ between }) => [
   tw`flex items-center font-bold border-b-2 border-b-freelance-pink p-1 w-full`,
   between && tw`justify-between`,
-  !between&&tw`gap-x-2`
+  !between && tw`gap-x-2`,
 ]);
 
 const Title = tw.div`text-[24px]`;
@@ -50,7 +50,8 @@ const OrderDetail = (props) => {
   if (status === "reject" || status === "failed") color = "red";
   if (status === "pending") color = "gray";
   if (status === "close") color = "blue";
-  console.log(props.orderType)
+  console.log(props.orderType);
+
   return (
     <>
       <BG>
@@ -58,8 +59,20 @@ const OrderDetail = (props) => {
           <Title>{title}</Title>
           {props.between && (
             <ContainIcon>
-              <ImageIcon src={PencilIcon} />
-              <ImageIcon src={DeleteIcon} />
+              <ImageIcon
+                src={PencilIcon}
+                onClick={() => {
+                  props.setOrderModalPage(3);
+                }}
+              />
+              <ImageIcon
+                src={DeleteIcon}
+                onClick={props.openConfirmModal.bind(
+                  null,
+                  "delete",
+                  props.order
+                )}
+              />
             </ContainIcon>
           )}
           {!(props.userType === 1 && props.orderType === "request") &&
