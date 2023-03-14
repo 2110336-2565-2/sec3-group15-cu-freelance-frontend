@@ -10,12 +10,16 @@ const styles = {
   ],
   image: () => [tw`my-[1%] w-[10%] box-border`],
   text: () => [
-    tw`text-[40px] text-[#D62B70] font-bold font-inter mb-[2%] box-border`,
+    tw`text-4xl text-black font-normal font-ibm mb-[2%] box-border`,
   ],
   typeContainer: () => [
     tw`flex flex-row px-[10%] w-[100vw] box-border justify-between h-[48vh]`,
   ],
+  middleWrapper: () => [
+    tw`flex flex-col items-center justify-center h-screen gap-4`
+  ],
 };
+
 const AuthLayout = ({
   title,
   leftText,
@@ -30,6 +34,8 @@ const AuthLayout = ({
   return (
     <div css={styles.container}>
       <LogoButton/>
+
+      <div css={styles.middleWrapper}>
       <div css={styles.text}>{title}</div>
       <div css={styles.typeContainer}>
         <AuthTypeCard
@@ -44,6 +50,7 @@ const AuthLayout = ({
           type="right"
           onClick={navigateRight}
         />
+      </div>
       </div>
     </div>
   );

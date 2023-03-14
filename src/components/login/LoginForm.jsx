@@ -27,7 +27,7 @@ const styles = {
   or: () => [tw``],
   googleButton: () => [
     tw`flex flex-row justify-center items-center gap-x-[10px] w-full 
-    border-[1px] border-slate-200 text-lg rounded-[10px] font-inter py-2`,
+    border-[1px] border-slate-200 text-lg rounded-[10px] font-inter py-2 disabled:cursor-not-allowed`,
   ],
   googleIcon: () => [tw`w-[25px] h-[25px]`],
   register: () => [tw`flex flex-row`],
@@ -72,11 +72,11 @@ const LoginForm = () => {
       expiresOn.setSeconds(expiresOn.getSeconds() + expires_in);
       response = await authCtx.login(access_token, refresh_token, expiresOn);
       console.log(response);
-      setIsLogin(false);
-      navigate("/home", { replace: true });
+      navigate("/search?pages=1&keyword=", { replace: true });
     } catch (err) {
       console.log(err);
     }
+    setIsLogin(false);
   };
 
   return (
@@ -97,9 +97,9 @@ const LoginForm = () => {
           id="password"
           label="Password"
           placeholder="Enter Password"
-          errorText="Your password must be at least 6 characters"
+          errorText="Your password must be at least 8 characters"
           onInput={inputHandler}
-          validator={[VALIDATOR_MINLENGTH(6)]}
+          validator={[VALIDATOR_MINLENGTH(8)]}
         />
         <button
           css={styles.button()}

@@ -43,10 +43,11 @@ const FillDisplayNamePage = () => {
   };
 
   const formSubmitHandler = async (event) => {
+    console.log(authCtx)
     event.preventDefault();
     try {
       await apiClient.patch(
-        "/user/",
+        "/user",
         JSON.stringify({ display_name: formState.inputs.displayName.value }),
         {
           headers: { "Content-Type": "application/json" },
@@ -55,6 +56,7 @@ const FillDisplayNamePage = () => {
       const userInfo=JSON.parse(localStorage.getItem("userInfo"))
       userInfo.displayName=formState.inputs.displayName.value;
       localStorage.setItem("userInfo", JSON.stringify(userInfo))
+      authCtx.setUserInfo(prev=>({...prev,display_name:formState.inputs.displayName.value}))
       navigate("/success", { replace: true });
     } catch (err) {
       console.log(err);

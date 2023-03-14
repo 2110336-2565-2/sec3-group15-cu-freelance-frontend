@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import tw from "twin.macro";
 import HumanImg from "../../assets/human.png";
 import searchIcon from "../../assets/searchIcon.svg";
@@ -5,7 +7,7 @@ import searchIcon from "../../assets/searchIcon.svg";
 const Wrapper = tw.div`
 w-[90%] max-w-[1200px] mx-auto
 h-[70vh]
-mt-[15vh] 
+mt-[5vh]
 bg-[#D62B70] p-8
 rounded-2xl
 flex snap-center
@@ -24,7 +26,7 @@ const TextBody = tw.p`text-lg font-medium font-ibm drop-shadow-md w-[49%]`;
 const HighLightTextBody = tw.span`text-3xl font-medium font-ibm drop-shadow-md`;
 
 // Left Side Input
-const InputWrapper = tw.div`
+const InputWrapper = tw.form`
     relative  w-[50%] h-[6%] rounded-md bg-white min-w-[220px]  text-[#D62B70]
 `;
 const Input = tw.input`border-none placeholder:text-[#F4B8DA] focus:outline-none bg-transparent ml-[2%] mr-[15%] w-[80%] h-[100%] text-base font-ibm`;
@@ -35,6 +37,15 @@ const RightWrapper = tw.div`w-[50%] flex justify-center`;
 const ImageWrapper = tw.img`object-contain`;
 
 const Hero = () => {
+  const navigate = useNavigate();
+
+  const [searchResult, setSearchResult] = useState("");
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    navigate(`/search?pages=1&limit=6&keyword=${searchResult}`);
+  };
+
   return (
     <Wrapper>
       <LeftWrapper>
@@ -48,8 +59,15 @@ const Hero = () => {
           </TextBody>
         </TextWrapper>
 
-        <InputWrapper>
-          <Input type="text" placeholder="กำลังตามหาอะไรอยู่..." />
+        <InputWrapper onSubmit={onSubmitHandler}>
+          <Input
+            type="text"
+            placeholder="กำลังตามหาอะไรอยู่..."
+            onChange={(e) => {
+              setSearchResult(e.target.value);
+            }}
+            value={searchResult}
+          />
           <SearchIcon src={searchIcon} alt="searchIcon" />
         </InputWrapper>
       </LeftWrapper>

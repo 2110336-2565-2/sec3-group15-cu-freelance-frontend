@@ -32,6 +32,7 @@ const ImageUpload = (props) => {
   const pickedHandler = (event) => {
     let pickedFile;
     let fileIsValid = isValid;
+    console.log(event.target.files.length)
     if (event.target.files && event.target.files.length === 1) {
       pickedFile = event.target.files[0];
       setFile(pickedFile);
@@ -57,6 +58,7 @@ const ImageUpload = (props) => {
         type="file"
         accept=".jpg,.png,.jpeg"
         onChange={pickedHandler}
+        multiple
       />
       <div>
         <div>{previewUrl && <img src={previewUrl} alt="Preview" />}</div>

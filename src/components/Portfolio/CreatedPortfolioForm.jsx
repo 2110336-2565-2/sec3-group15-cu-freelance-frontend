@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import Input from "../share/Input";
 import { useForm } from "../../hooks/form-hook";
 import { VALIDATOR_REQUIRE } from "../share/Validate";
-import { DUMMY_options } from "../../store/portfolioForm";
+import { DUMMY_options,DUMMY_duration_options } from "../../store/portfolioForm";
 import { apiClient } from "../../utils/axios";
 import ImageUpload from "../share/ImageUpload";
 import tw from "twin.macro";
@@ -38,6 +38,10 @@ const CreatedPortfolioForm = () => {
         value: "",
         isValid: false,
       },
+      duration:{
+        value:"",
+        isValid:false,
+      },
       image: {
         value: null,
         isValid: false,
@@ -49,7 +53,7 @@ const CreatedPortfolioForm = () => {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     console.log(formState.inputs);
-    const { portfolioName, description, category, image,price } = formState.inputs;
+    const { portfolioName, description, category, image,price,duration } = formState.inputs;
     try {
       setIsLoading(true)
       let data = JSON.stringify({
@@ -57,14 +61,15 @@ const CreatedPortfolioForm = () => {
         description: description.value,
         price:parseFloat(price.value),
         is_public: isVisible,
+        duration:parseInt(duration.value),
         name: portfolioName.value,
         userID: authCtx.userInfo.id,
       });
-      const response = await apiClient.post("/portfolio/", data, {
+      const response = await apiClient.post("/portfolio", data, {
         headers: { "Content-Type": "application/json" },
       });
       console.log(response.data);
-      navigate(`/profile/${authCtx.userInfo.id}`,{replace:true})
+      navigate(-1,{replace:true})
       
     } catch (err) {
       console.log(err)
@@ -115,6 +120,16 @@ const CreatedPortfolioForm = () => {
         options={DUMMY_options}
         onInput={inputHandler}
         errorText="Please select category"
+        validator={[VALIDATOR_REQUIRE()]}
+        required
+      />
+       <Input
+        type="select"
+        id="duration"
+        label="Duration"
+        options={DUMMY_duration_options}
+        onInput={inputHandler}
+        errorText="Please select Duration"
         validator={[VALIDATOR_REQUIRE()]}
         required
       />

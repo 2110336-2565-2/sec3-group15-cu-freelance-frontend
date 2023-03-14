@@ -25,7 +25,7 @@ const Login = () => {
   };
   return (
     <AuthLayout
-      title="Login"
+      title="เข้าสู่ระบบ"
       leftText="ล็อคอินเป็นผู้รับจ้าง"
       rightText="ล็อคอินเป็นฟรีแลนซ์"
       navigateLeft="/login/customer"
