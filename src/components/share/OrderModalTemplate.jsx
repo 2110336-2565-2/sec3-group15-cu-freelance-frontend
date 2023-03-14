@@ -214,7 +214,7 @@ const OrderModalTemplate = (props) => {
     let duration=formState2.inputs.duration.value
     let email=formState3.inputs.email.value
     let tel=formState3.inputs.tel.value
-    
+    // let data=JSON.stringify({title,description,pr})
     let newOrder = {...order,title,description,price,duration,email,tel};
   };
   if (props.page === 3) {
