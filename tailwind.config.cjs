@@ -39,7 +39,12 @@ module.exports = {
         'mobile-small': '0.75rem', // 12px
         'mobile-body': '0.875rem', // 14px
         'mobile-h2': '1rem',    // 16px
-        'mobile-h1': '1.25rem'    // 20px
+        'mobile-h1': '1.25rem',    // 20px
+
+        'desktop-base': '1rem', // 16px
+        'desktop-h2': '1.25rem',    // 24px
+        'desktop-h1': '1.5rem',    // 24px
+
       }
     },
 
