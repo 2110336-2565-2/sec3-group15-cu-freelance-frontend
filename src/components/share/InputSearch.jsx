@@ -7,7 +7,7 @@ const InputSearch = (props) => {
   return (
     <form
       onSubmit={props.onSubmit}
-      tw="relative border rounded-lg  w-full h-full px-[2px]"
+      tw="hidden tbl:block relative border rounded-lg  w-full h-full px-[2px]"
     >
       <input
         onChange={props.onChange}
