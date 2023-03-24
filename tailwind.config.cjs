@@ -24,6 +24,7 @@ module.exports = {
           'black-primary' : '#151515',
           'black-secondary': '#707070',
           'white': '#000000',
+          'landing-purple': '#4F044C',
         },
         'cufl-pink' : {
           50: '#f7d5e2',
