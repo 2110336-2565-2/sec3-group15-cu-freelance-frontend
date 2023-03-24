@@ -1,25 +1,25 @@
 export const headerCustomer = [
   {
-    text: "แบบร่าง",
+    text: "แบบร่างออเดอร์",
     q: "template",
   },
   {
-    text: "คำขอ",
+    text: "ออเดอร์ที่ส่งไปแล้ว",
     q: "request",
   },
   {
-    text: "ออเดอร์",
+    text: "ออเดอร์ระหว่างดำเนินการ",
     q: "order",
   },
 ];
 
 export const headerFreelance = [
   {
-    text: "คำขอ",
+    text: "ออเดอร์ที่รอดำเนินการ",
     q: "request",
   },
   {
-    text: "ออเดอร์",
+    text: "ออเดอร์ระหว่างดำเนินการ",
     q: "order",
   },
 ];
