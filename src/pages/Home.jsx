@@ -7,12 +7,14 @@ import ValidateIndex from "../components/home/validate/Index";
 import Navbar from "../components/share/Navbar";
 import { AuthContext } from "../context/AuthProvider";
 import Landing3 from "../components/home/page3/Landing3";
+import Landing1 from "../components/home/page1/Landing1";
 
 const HomePage = () => {
   const authCtx = useContext(AuthContext);
   return (
     <>
       <Navbar login={!!authCtx.acToken}/>
+      <Landing1/>
       <Hero />
       <CategoryIndex />
       <CommentIndex />
