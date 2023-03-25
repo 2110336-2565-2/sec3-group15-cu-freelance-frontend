@@ -13,7 +13,7 @@ const Container = tw.div`flex flex-col h-fit rounded-[20px] min-w-[250px] w-1/5 
 const Img = tw.img``;
 const ContentContainer = tw.div`flex flex-col pl-4 border-b-2 border-[#B7B7B7] text-left w-full`;
 const FirstRow = tw.div`flex justify-between relative`;
-const OptionIconImg = tw.img`z-40`;
+const OptionIconImg = tw.img`z-20`;
 const Category = tw.div`mt-4 mb-2 text-freelance-pink text-sm font-ibm font-medium`;
 const Name = tw.div`font-semibold text-xl leading-[2.4em] h-[2.4em] overflow-hidden`;
 const Description = tw.p`my-2 leading-[1.2em] h-[3.5em] overflow-hidden text-sm mb-4 font-ibm`;
@@ -151,13 +151,19 @@ const PortFolioCard = ({
         />
       )}
 
-      <Container onClick={onClick ? onClick : () => {}} ref={menuRef} tw="font-ibm">
+      <Container
+        onClick={onClick ? onClick : () => {}}
+        ref={menuRef}
+        tw="font-ibm"
+      >
         {!isVisible && <Backdrop />}
         <Img src={portImg} />
         <ContentContainer>
           <FirstRow>
             <Category>{mapOptions[category]}</Category>
-            {canEdit&&<OptionIconImg src={OptionIcon} onClick={optionHandler} />}
+            {canEdit && (
+              <OptionIconImg src={OptionIcon} onClick={optionHandler} />
+            )}
             {show && (
               <OptionDropdown
                 show={show}
@@ -178,7 +184,7 @@ const PortFolioCard = ({
             <DurationIcon src={durationIcon}></DurationIcon>
             <div tw="font-ibm">{duration} วัน</div>
           </Duration>
-          <Price>{price.toLocaleString('en-US')}.-</Price>
+          <Price>{price.toLocaleString("en-US")}.-</Price>
         </FooterContainer>
       </Container>
     </>

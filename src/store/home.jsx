@@ -6,9 +6,9 @@ import profile1 from "../assets/profile1.svg";
 import profile2 from "../assets/profile2.svg";
 import profile3 from "../assets/profile3.svg";
 
-import checkIcon from '../assets/CheckIcon.png';
-import shieldIcon from '../assets/ShieldIcon.png';
-import chatIcon from '../assets/ChatIcon.png';
+import checkIcon from "../assets/CheckIcon.png";
+import shieldIcon from "../assets/ShieldIcon.png";
+import chatIcon from "../assets/ChatIcon.png";
 
 export const dummy_category = [
   { img: TrendingIcon, text: "Trending" },
@@ -40,7 +40,16 @@ export const dummy_comment = [
 ];
 
 export const dummy_validate = [
-  { img: checkIcon, text: "ฟรีแลนซ์ผ่านการคัดเลือกและยืนยันตัวตนกับ CU Freelance สามารถตรวจสอบได้" },
-  { img: shieldIcon, text: "เงินของคุณจะได้รับความคุ้มครองตั้งแต่ฟรีแลนซ์เริ่มทํางานไปจนถึงได้รับงานที่พอใจ" },
-  { img: chatIcon, text: "สามารถสื่อสารกับฟรีแลนซ์ของคุณแบบเรียลไทม์ได้ตลอดเวลา" },
+  {
+    img: checkIcon,
+    text: "ฟรีแลนซ์ผ่านการคัดเลือกและยืนยันตัวตนกับ CU Freelance สามารถตรวจสอบได้",
+  },
+  {
+    img: shieldIcon,
+    text: "เงินของคุณจะได้รับความคุ้มครองตั้งแต่ฟรีแลนซ์เริ่มทํางานไปจนถึงได้รับงานที่พอใจ",
+  },
+  {
+    img: chatIcon,
+    text: "สามารถสื่อสารกับฟรีแลนซ์ของคุณแบบเรียลไทม์ได้ตลอดเวลา",
+  },
 ];
