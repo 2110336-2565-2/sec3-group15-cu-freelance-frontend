@@ -4,13 +4,15 @@ import tw from "twin.macro";
 import HumanImg from "../../assets/human.png";
 import searchIcon from "../../assets/searchIcon.svg";
 
+const BG = tw.div`w-[90%] max-w-[1200px] mx-auto
+h-[100vh] py-[15vh] snap-center`;
+
 const Wrapper = tw.div`
 w-[90%] max-w-[1200px] mx-auto
 h-[70vh]
-mt-[5vh]
 bg-[#D62B70] p-8
 rounded-2xl
-flex snap-center
+flex 
 `;
 
 // Left Side
@@ -47,35 +49,38 @@ const Hero = () => {
   };
 
   return (
-    <Wrapper>
-      <LeftWrapper>
-        <TextWrapper>
-          <TextHeader1>ตามหาฟรีเเลนซ์</TextHeader1>
-          <TextHeader2>จุฬาฯ</TextHeader2>
+    <BG>
+      {" "}
+      <Wrapper>
+        <LeftWrapper>
+          <TextWrapper>
+            <TextHeader1>ตามหาฟรีเเลนซ์</TextHeader1>
+            <TextHeader2>จุฬาฯ</TextHeader2>
 
-          <TextBody>
-            เลือกฟรีแลนซ์จากจุฬาฯ กว่า 2,000 คน ที่จะทำให้ไอเดียของคุณเป็น
-            <HighLightTextBody> จริง</HighLightTextBody>
-          </TextBody>
-        </TextWrapper>
+            <TextBody>
+              เลือกฟรีแลนซ์จากจุฬาฯ กว่า 2,000 คน ที่จะทำให้ไอเดียของคุณเป็น
+              <HighLightTextBody> จริง</HighLightTextBody>
+            </TextBody>
+          </TextWrapper>
 
-        <InputWrapper onSubmit={onSubmitHandler}>
-          <Input
-            type="text"
-            placeholder="กำลังตามหาอะไรอยู่..."
-            onChange={(e) => {
-              setSearchResult(e.target.value);
-            }}
-            value={searchResult}
-          />
-          <SearchIcon src={searchIcon} alt="searchIcon" />
-        </InputWrapper>
-      </LeftWrapper>
+          <InputWrapper onSubmit={onSubmitHandler}>
+            <Input
+              type="text"
+              placeholder="กำลังตามหาอะไรอยู่..."
+              onChange={(e) => {
+                setSearchResult(e.target.value);
+              }}
+              value={searchResult}
+            />
+            <SearchIcon src={searchIcon} alt="searchIcon" />
+          </InputWrapper>
+        </LeftWrapper>
 
-      <RightWrapper>
-        <ImageWrapper src={HumanImg} />
-      </RightWrapper>
-    </Wrapper>
+        <RightWrapper>
+          <ImageWrapper src={HumanImg} />
+        </RightWrapper>
+      </Wrapper>
+    </BG>
   );
 };
 
