@@ -31,6 +31,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LayoutWithNavbar acToken={acToken} />}>
           <Route path="" element={<Navigate to="home" />} />
+          <Route path="home" element={<HomePage />} />
           <Route path="portfolio/">
             <Route path=":portId/">
               <Route path="" element={<PortfolioPage />} />
@@ -44,19 +45,30 @@ function App() {
               <Route path="" element={<ProfilePage />} />
             </Route>
           </Route>
-          <Route path="/edit-profile" element={<EditProfilePage/>}></Route>
-          <Route path="/change-password" element={<ChangePasswordPage/>}></Route>
-          <Route path="/create-order-template" element={<CreateOrderTemplatePage/>}></Route>
-          <Route path="/request-complete" element={<RequestCompletePage/>}></Route>
-          <Route path="/create-order-request" element={<CreateOrderRequest/>}></Route>
+          <Route path="/edit-profile" element={<EditProfilePage />}></Route>
+          <Route
+            path="/change-password"
+            element={<ChangePasswordPage />}
+          ></Route>
+          <Route
+            path="/create-order-template"
+            element={<CreateOrderTemplatePage />}
+          ></Route>
+          <Route
+            path="/request-complete"
+            element={<RequestCompletePage />}
+          ></Route>
+          <Route
+            path="/create-order-request"
+            element={<CreateOrderRequest />}
+          ></Route>
           <Route path="success" element={<RegisterSuccessPage />} />
         </Route>
-        <Route path="home" element={<HomePage />} />
         <Route path="/login/">
           <Route path="" element={<Login />} />
           <Route path="customer" element={<LoginCustomer />} />
         </Route>
-        <Route path="my-order/" element={<MyOrderPage/>}/>
+        <Route path="my-order/" element={<MyOrderPage />} />
         <Route path="/register/" element={<RegisterPage />} />
         <Route path="/fill-display-name" element={<FillDisplayNamePage />} />
         <Route path="/search" element={<SearchPage />} />

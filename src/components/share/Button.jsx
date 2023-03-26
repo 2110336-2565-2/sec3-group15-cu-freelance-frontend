@@ -9,7 +9,7 @@ const Button = (props) => {
   }
 
   const onClickHandler = (e) => {
-    e.stopPropagation()
+    e.stopPropagation();
     props.onClick();
   };
 
@@ -21,7 +21,7 @@ const Button = (props) => {
 
   let Button;
   if (primary) Button = ButtonPrimary;
-  else if(red) Button = ButtonRed;
+  else if (red) Button = ButtonRed;
   else if (secondary) Button = ButtonSecondary;
   else if (cancel) Button = ButtonCancel;
   else if (deleted) Button = ButtonDelete;

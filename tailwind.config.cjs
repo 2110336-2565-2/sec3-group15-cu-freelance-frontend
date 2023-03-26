@@ -24,6 +24,7 @@ module.exports = {
           'black-primary' : '#151515',
           'black-secondary': '#707070',
           'white': '#000000',
+          'landing-purple': '#4F044C',
         },
         'cufl-pink' : {
           50: '#f7d5e2',
@@ -39,12 +40,20 @@ module.exports = {
         'mobile-small': '0.75rem', // 12px
         'mobile-body': '0.875rem', // 14px
         'mobile-h2': '1rem',    // 16px
-        'mobile-h1': '1.25rem'    // 20px
+        'mobile-h1': '1.25rem',    // 20px
+
+        'desktop-base': '1rem', // 16px
+        'desktop-h2': '1.25rem',    // 24px
+        'desktop-h1': '1.5rem',    // 24px
+
       }
     },
 
     screens: {
-      dt: "800px",
+      tbl: "550px",
+      dt: "850px",
+      landing: "1000px",
+      wd: "1250px",
       pf: "1400px",
     },
 

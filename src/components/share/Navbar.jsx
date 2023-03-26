@@ -11,17 +11,17 @@ import NavDropdown from "../navbar/NavDropdown";
 import NotificationIcon from "../../assets/NotificationIcon.svg";
 
 const BigWrapper = styled.div(({ fixed, onSubmit }) => [
-  tw`w-full h-[10vh]
+  tw`w-full py-1 dt:py-4
 z-30 bg-white flex justify-center`,
   fixed && tw`fixed  top-0 left-0  `,
 ]);
-const Wrapper = tw.div` w-[90%] max-w-[1200px] h-[10vh] mx-auto 
+const Wrapper = tw.div`h-[5vh] w-[90%] max-w-[1200px]  mx-auto 
 flex justify-between items-center`;
-const SearchWrapper = tw.div` items-center w-[30%] flex justify-between font-inter dt:min-w-[295px] h-[40%]`;
-const RightWrapperLogin = tw.div`w-[12%] min-w-[80px] dt:w-1/4 dt:min-w-[205px] flex justify-end dt:justify-between items-center font-inter `;
-const RightWrapperNotLogin = tw.div`w-[12%] min-w-[80px] dt:min-w-[290px] flex justify-end dt:justify-between font-inter `;
+const SearchWrapper = tw.div` hidden tbl:flex items-center w-[40%] max-w-[300px]  justify-between font-inter dt:min-w-[295px] h-[40%]`;
+const RightWrapperLogin = tw.div` min-w-[80px] dt:w-1/4 dt:min-w-[250px] flex justify-end dt:justify-between items-center font-inter `;
+const RightWrapperNotLogin = tw.div` min-w-[80px] dt:min-w-[290px] flex justify-end dt:justify-between font-inter `;
 const Logo = tw.div`text-lg font-bold dt:text-2xl font-sans text-black cursor-pointer`;
-const NotificationWrapper = tw.img`hidden dt:inline cursor-pointer`;
+const NotificationWrapper = tw.img` cursor-pointer w-[60px]`
 
 const Navbar = (props) => {
   const [isShow, setIsShow] = useState(false);

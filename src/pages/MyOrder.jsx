@@ -33,11 +33,11 @@ import ConfirmModal from "../components/share/ConfirmModal";
 import ConfirmModalTemplate from "../components/share/ConfirmModalTemplate";
 
 const BG = tw.div`h-[85vh] relative flex flex-col items-center font-ibm`;
-const Header = tw.div`text-mobile-h1 font-bold my-4`;
-const HeaderTwoContainer = tw.div`text-mobile-h2 flex justify-center w-4/5 mx-auto`;
+const Header = tw.div`text-mobile-h1 dt:text-desktop-h1 font-bold my-4`;
+const HeaderTwoContainer = tw.div`text-mobile-h2 dt:text-desktop-h2 flex justify-center w-4/5 mx-auto`;
 const InputSearchContainer = tw.div`h-[40px] w-4/5 mx-auto my-4`;
-const SortContainer = tw.div`flex justify-between items-center w-4/5 mx-auto text-mobile-h2 mb-4`;
-const Select = tw.select`h-[30px] w-1/2 border border-[#BCBCBC] focus:outline-none rounded-lg text-mobile-body`;
+const SortContainer = tw.div`flex justify-between items-center w-4/5 mx-auto text-mobile-h2 dt:text-desktop-h2 mb-4`;
+const Select = tw.select`h-[30px] w-1/2 border border-[#BCBCBC] focus:outline-none rounded-lg text-mobile-body dt:text-desktop-base px-2`;
 const AddOrder = tw.img``;
 const OrderContainer = tw.div`flex  w-full max-w-full overflow-auto pl-4 h-[500px]`;
 const LoadingDiv = tw.div`font-ibm`;

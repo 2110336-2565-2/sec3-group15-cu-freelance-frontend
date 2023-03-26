@@ -22,6 +22,13 @@ const ChangePasswordPage = () => {
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleCancel = (event) => {
+    event.preventDefault();
+    console.log("click cancel!");
+    navigate(-1);
+  };
+
   const [formState, inputHandler, setFormData] = useForm(
     {
       Current: {
@@ -65,7 +72,7 @@ const ChangePasswordPage = () => {
   };
   return (
     <Container>
-      <Form>
+      <Form onSubmit={formSubmitHandler}>
         <Title>Change Password</Title>
         <LockIcon src={lockIcon}></LockIcon>
         <Caution>make sure you remember your password</Caution>
@@ -96,13 +103,10 @@ const ChangePasswordPage = () => {
           placeholder="Enter password"
           validator={[VALIDATOR_MATCH(formState.inputs.New.value)]}
         />
-        <SubmitButton
-          onClick={formSubmitHandler}
-          disabled={!formState.isValid || isLoading}
-        >
+        <SubmitButton type="submit" disabled={!formState.isValid || isLoading}>
           Change Password
         </SubmitButton>
-        <CancelButton onClick={()=>{navigate(-1)}}>Cancel</CancelButton>
+        <CancelButton onClick={handleCancel}>Cancel</CancelButton>
       </Form>
     </Container>
   );
