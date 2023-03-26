@@ -49,7 +49,7 @@ const ChangePasswordPage = () => {
   const formSubmitHandler = async (event) => {
     event.preventDefault();
     const { Current, New, Confirm } = formState.inputs;
-    //console.log("button click!")
+    console.log("button click!")
     try {
       setIsLoading(true);
       let data = JSON.stringify({
