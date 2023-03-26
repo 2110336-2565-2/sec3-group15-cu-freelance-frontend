@@ -31,8 +31,12 @@ const styles = {
   ],
   googleIcon: () => [tw`w-[25px] h-[25px]`],
   register: () => [tw`flex flex-row`],
-  registerText: () => [tw`whitespace-nowrap text-[16px] font-inter text-black p-[1%]`],
-  registerLink: () => [tw`whitespace-nowrap text-[16px] font-inter text-[#D62B70] p-[1%]`],
+  registerText: () => [
+    tw`whitespace-nowrap text-[16px] font-inter text-black p-[1%]`,
+  ],
+  registerLink: () => [
+    tw`whitespace-nowrap text-[16px] font-inter text-[#D62B70] p-[1%]`,
+  ],
 };
 const LoginForm = () => {
   const authCtx = useContext(AuthContext);
@@ -83,24 +87,29 @@ const LoginForm = () => {
     <div css={styles.container()}>
       <div css={styles.content()}>
         <div css={styles.title()}>Login</div>
-        <Input
-          type="text"
-          id="username"
-          label="Username"
-          placeholder="Enter username"
-          errorText="Your username should not be blank"
-          onInput={inputHandler}
-          validator={[VALIDATOR_REQUIRE()]}
-        />
-        <Input
-          type="password"
-          id="password"
-          label="Password"
-          placeholder="Enter Password"
-          errorText="Your password must be at least 8 characters"
-          onInput={inputHandler}
-          validator={[VALIDATOR_MINLENGTH(8)]}
-        />
+        <div tw="w-full min-h-[85px]">
+          <Input
+            type="text"
+            id="username"
+            label="Username"
+            placeholder="Enter username"
+            errorText="Your username should not be blank"
+            onInput={inputHandler}
+            validator={[VALIDATOR_REQUIRE()]}
+          />
+        </div>
+        <div tw="w-full min-h-[85px]">
+          <Input
+            type="password"
+            id="password"
+            label="Password"
+            placeholder="Enter Password"
+            errorText="Your password must be at least 8 characters"
+            onInput={inputHandler}
+            validator={[VALIDATOR_MINLENGTH(8)]}
+          />
+        </div>
+
         <button
           css={styles.button()}
           onClick={formSubmitHandler}
@@ -116,8 +125,8 @@ const LoginForm = () => {
 
         <div css={styles.register()}>
           <p css={styles.registerText()}> Don't have an account? </p>
-          <Link  css={styles.registerLink()} to="/register">
-             Register Here
+          <Link css={styles.registerLink()} to="/register">
+            Register Here
           </Link>
         </div>
       </div>
