@@ -1,7 +1,7 @@
 import tw, { styled } from "twin.macro";
 
 const Button = (props) => {
-  const { primary, secondary, width, disable, cancel, deleted, red } = props;
+  const { primary, secondary, width, disable, cancel, deleted, red} = props;
   let isDisable = false;
 
   if (disable) {
@@ -9,8 +9,9 @@ const Button = (props) => {
   }
 
   const onClickHandler = (e) => {
+    e.preventDefault();
     e.stopPropagation();
-    props.onClick();
+    if(props.onClick) props.onClick();
   };
 
   const ButtonPrimary = tw.button`text-white bg-[#D62B70] rounded-lg text-mobile-body dt:text-mobile-h1 px-6 py-3 font-normal`;

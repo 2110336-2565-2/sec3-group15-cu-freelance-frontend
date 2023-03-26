@@ -12,13 +12,11 @@ import successIcon from "../assets/SuccessIcon.svg"
 import { useState } from "react";
 import Button from "../components/share/Button";
 import { Navigate, useNavigate } from "react-router-dom";
-const Container = tw.div`flex justify-center pt-[20vh] min-h-[95vh]`;
-const Form = tw.form`flex flex-col shadow-[0_4px_4px_rgba(0,0,0,0.25)] px-8 py-4 rounded-[20px] gap-y-2 w-[420px] h-fit`;
+import MenuList from "../components/userSetting/MenuList";
+const Container = tw.div`flex justify-center pt-[10vh] dt:pt-[20vh] min-h-[95vh] w-3/4 dt:w-full m-auto mb-2`;
+const Form = tw.form`flex flex-col shadow-[0_4px_4px_rgba(0,0,0,0.25)] px-8 py-4 rounded-[20px] gap-y-2 w-[420px] h-fit pf:w-1/4 pf:gap-y-4`;
 const Title = tw.div`text-center font-bold text-3xl`;
-const SubmitButton = styled.button(({red=false})=>[
-    tw`bg-[#D62B70] text-center mt-1 text-white font-inter font-bold rounded-[10px] p-2 text-xl`,
-    red && tw`bg-[#D82929]`
-])
+const ButtonSection = tw.div`flex flex-row justify-between mt-2`;
 const EditProfilePage = ()=> {
     const authCtx=useContext(AuthContext);
     const [submitState, setSubmitState] = useState(0);
@@ -46,11 +44,11 @@ const EditProfilePage = ()=> {
     },true
     )
     const navigate = useNavigate();
-    const changePwHandler = () => {
-        navigate('/change-password');
+    const backHandler = (event) => {
+        navigate(-1);
     }
     const formSubmitHandler = async(event)=>{
-        event.preventDefault();
+        // event.preventDefault();
         const { Firstname, Lastname, PhoneNumber, Username, Displayname} =
                 formState.inputs;
         try{
@@ -101,6 +99,7 @@ const EditProfilePage = ()=> {
         <>
         {submitState==1&&<Toast type='success' title='สำเร็จ' description='ข้อมูลส่วนตัวของคุณได้ถูกเปลี่ยนแปลงแล้ว' icon={successIcon}/>}
         {submitState==2&&<Toast type='fail' title='ผิดพลาด' description='เปลี่ยนข้อมูลส่วนตัวของคุณไม่สำเร็จ' icon={successIcon}/>}
+        <MenuList state={0}/>
         {authCtx.userInfo.firstname && 
         <Container>
             <Form>
@@ -154,10 +153,13 @@ const EditProfilePage = ()=> {
                 initialValue={authCtx.userInfo.display_name}
                 initialValid={true}
                 ></Input>
-                <SubmitButton onClick={changePwHandler} red>Change Password</SubmitButton>
-                <SubmitButton onClick={formSubmitHandler} disabled={!formState.isValid}>
-                    Save
-                </SubmitButton>
+                <ButtonSection>
+                    <Button onClick={backHandler} secondary width={'45%'}>Back</Button>
+                    <Button onClick={formSubmitHandler} primary width={'45%'} disabled={!formState.isValid}>
+                        Save
+                    </Button>
+                </ButtonSection>
+                
             </Form>
         </Container>
         }
