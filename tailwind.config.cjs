@@ -52,6 +52,7 @@ module.exports = {
     screens: {
       tbl: "550px",
       dt: "850px",
+      landing: "1000px",
       wd: "1250px",
       pf: "1400px",
     },

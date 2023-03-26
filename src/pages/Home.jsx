@@ -5,6 +5,7 @@ import CategoryIndex from "../components/home/category/Index";
 import CommentIndex from "../components/home/comment/Index";
 import ValidateIndex from "../components/home/validate/Index";
 import Landing3 from "../components/home/page3/Landing3";
+import Landing1 from "../components/home/page1/Landing1";
 
 const HomePage = () => {
   return (
