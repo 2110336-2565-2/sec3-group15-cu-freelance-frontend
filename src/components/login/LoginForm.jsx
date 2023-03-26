@@ -82,22 +82,22 @@ const LoginForm = () => {
   return (
     <div css={styles.container()}>
       <div css={styles.content()}>
-        <div css={styles.title()}>Login</div>
+        <div css={styles.title()}>เข้าสู่ระบบ</div>
         <Input
           type="text"
           id="username"
-          label="Username"
-          placeholder="Enter username"
-          errorText="Your username should not be blank"
+          label="ชื่อผู้ใช้"
+          placeholder="ชื่อผู้ใช้ของคุณ"
+          errorText="กรุณาใส่ชื่อผู้ใช้"
           onInput={inputHandler}
           validator={[VALIDATOR_REQUIRE()]}
         />
         <Input
           type="password"
           id="password"
-          label="Password"
-          placeholder="Enter Password"
-          errorText="Your password must be at least 8 characters"
+          label="รหัสผ่าน"
+          placeholder="ใส่รหัสผ่านของคุณ "
+          errorText="รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร"
           onInput={inputHandler}
           validator={[VALIDATOR_MINLENGTH(8)]}
         />
@@ -106,18 +106,18 @@ const LoginForm = () => {
           onClick={formSubmitHandler}
           disabled={!formState.isValid || isLogin}
         >
-          {(isLogin && "Loading...") || "Login"}
+          {(isLogin && "กำลังดึงข้อมูล...") || "เข้าสู่ระบบ"}
         </button>
-        <div css={styles.or()}> OR </div>
+        {/* <div css={styles.or()}> OR </div>
         <button css={styles.googleButton()} disabled={true}>
           <img css={styles.googleIcon()} src={GoogleIcon} />
           Login with Google
-        </button>
+        </button> */}
 
         <div css={styles.register()}>
-          <p css={styles.registerText()}> Don't have an account? </p>
+          <p css={styles.registerText()}> ยังไม่มีบัญชีผู้ใช้​ ? </p>
           <Link  css={styles.registerLink()} to="/register">
-             Register Here
+             กดที่นี่เพื่อสม้คร
           </Link>
         </div>
       </div>
