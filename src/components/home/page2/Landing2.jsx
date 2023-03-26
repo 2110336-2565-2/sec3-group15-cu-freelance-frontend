@@ -5,7 +5,7 @@ import LandingButton from "../shared/LandingButton";
 import PortfolioCardContainer from "./PortfolioCardContainer";
 import { useNavigate } from "react-router-dom";
 
-const BG = tw.div`mx-auto w-[90%] h-screen snap-center font-ibm pt-[15vh] flex flex-col items-center gap-y-[7vh]`;
+const BG = tw.div`mx-auto w-[90%] h-screen snap-center font-ibm`;
 const Header = tw.div`text-4xl text-freelance-landing-purple font-bold`;
 
 const Landing2 = () => {
@@ -17,12 +17,14 @@ const Landing2 = () => {
 
   return (
     <BG>
-      <Header>หมวดหมู่ยอดนิยม</Header>
-      <CategoryButtonContainer select={select} setSelect={setSelect} />
-      <PortfolioCardContainer select={select} />
-      <LandingButton type={"onlyborder"} onClick={handleClickSeeAll}>
-        ดูงานทั้งหมด
-      </LandingButton>
+      <div tw="flex flex-col justify-center items-center gap-y-[7vh] h-full">
+        <Header>หมวดหมู่ยอดนิยม</Header>
+        <CategoryButtonContainer select={select} setSelect={setSelect} />
+        <PortfolioCardContainer select={select} />
+        <LandingButton type={"onlyborder"} onClick={handleClickSeeAll}>
+          ดูงานทั้งหมด
+        </LandingButton>
+      </div>
     </BG>
   );
 };
