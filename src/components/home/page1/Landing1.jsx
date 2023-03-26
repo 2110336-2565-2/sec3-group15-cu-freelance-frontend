@@ -40,7 +40,7 @@ const Typer = () => {
 const Section = tw.div`h-screen w-full flex justify-center items-center`
 const LeftWrapper = tw.div``
 const RightWrapper = tw.div`hidden dt:block`
-const ImgHero = tw.img` min-w-[1/2] h-1/2`
+const ImgHero = tw.img` min-w-[1/2] min-h-[1/2]`
 
 const MotionH1 = ({children, direction, delay}) => {
     if (!delay) delay = 0.1;
