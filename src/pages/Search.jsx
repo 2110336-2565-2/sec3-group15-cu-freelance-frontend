@@ -197,7 +197,7 @@ const SearchPage = () => {
         response = await authClient.get(
           `/portfolio/search?` + new URLSearchParams(params).toString()
         );
-        console.log(response.data);
+        console.log(response);
         setPortfolios(response.data.pagination.items);
         setMeta(response.data.pagination.meta);
       } catch (err) {

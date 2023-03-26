@@ -9,7 +9,7 @@ import Button from "./Button";
 import Modal from "./Modal";
 import { mapOptions } from "../../store/portfolioForm";
 
-const Container = tw.div`flex flex-col h-fit rounded-[20px] min-w-[250px] w-1/5 shadow-xl relative cursor-pointer`;
+const Container = tw.div`flex flex-col h-fit rounded-[20px] min-w-[250px] w-1/5 shadow relative cursor-pointer`;
 const Img = tw.img``;
 const ContentContainer = tw.div`flex flex-col pl-4 border-b-2 border-[#B7B7B7] text-left w-full`;
 const FirstRow = tw.div`flex justify-between relative`;
