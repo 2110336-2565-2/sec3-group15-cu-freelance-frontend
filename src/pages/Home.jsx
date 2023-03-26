@@ -9,13 +9,13 @@ import Landing1 from "../components/home/page1/Landing1";
 
 const HomePage = () => {
   return (
-    <>
-      <Hero />
-      <CategoryIndex />
-      <CommentIndex />
+    <div tw="snap-y snap-mandatory min-h-screen">
+      <Landing1 />
       <Landing3 />
-      <ValidateIndex />
-    </>
+      {/* <CategoryIndex /> */}
+      {/* <CommentIndex /> */}
+      {/* <ValidateIndex /> */}
+    </div>
   );
 };
 
