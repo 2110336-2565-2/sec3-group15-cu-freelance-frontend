@@ -10,7 +10,7 @@ import { AuthContext } from "../../context/AuthProvider";
 import { apiClient } from "../../utils/axios";
 const styles = {
   container: () => [
-    tw`flex flex-col font-inter items-center w-[50%] max-w-[460px] 
+    tw`flex flex-col font-inter items-center w-full max-w-[460px] 
     border-[1px] rounded-[30px] px-6 py-8`,
   ],
   content: () => [
@@ -115,18 +115,28 @@ const LoginForm = () => {
           onClick={formSubmitHandler}
           disabled={!formState.isValid || isLogin}
         >
-          {(isLogin && "Loading...") || "Login"}
+          {(isLogin && "กำลังดึงข้อมูล...") || "เข้าสู่ระบบ"}
         </button>
-        <div css={styles.or()}> OR </div>
+        {/* <div css={styles.or()}> OR </div>
         <button css={styles.googleButton()} disabled={true}>
           <img css={styles.googleIcon()} src={GoogleIcon} />
           Login with Google
-        </button>
+        </button> */}
 
         <div css={styles.register()}>
+<<<<<<< HEAD
           <p css={styles.registerText()}> Don't have an account? </p>
           <Link css={styles.registerLink()} to="/register">
             Register Here
+||||||| 3b5a567
+          <p css={styles.registerText()}> Don't have an account? </p>
+          <Link  css={styles.registerLink()} to="/register">
+             Register Here
+=======
+          <p css={styles.registerText()}> ยังไม่มีบัญชีผู้ใช้​ ? </p>
+          <Link  css={styles.registerLink()} to="/register">
+             กดที่นี่เพื่อสม้คร
+>>>>>>> 1a9133b6d4fa50ccaf22a5fd6df5c66defe83064
           </Link>
         </div>
       </div>
