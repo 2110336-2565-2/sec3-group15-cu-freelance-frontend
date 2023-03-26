@@ -11,8 +11,10 @@ import { AuthContext } from "../context/AuthProvider";
 import { useContext } from "react";
 import { apiClient } from "../utils/axios";
 import { useState } from "react";
-const Container = tw.div`flex justify-center pt-[20vh] min-h-[95vh] mb-4`;
-const Form = tw.form`flex flex-col shadow-[0_4px_4px_rgba(0,0,0,0.25)] px-8 py-4 rounded-[20px] gap-y-2 w-[420px] h-fit`;
+import React from "react";
+import MenuList from "../components/userSetting/MenuList";
+const Container = tw.div`flex justify-center pt-[10vh] dt:pt-[20vh] min-h-[95vh] mb-4 w-3/4 dt:w-full m-auto`;
+const Form = tw.form`flex flex-col shadow-[0_4px_4px_rgba(0,0,0,0.25)] px-8 py-4 rounded-[20px] gap-y-2 w-[420px] h-fit pf:w-1/4`;
 const Title = tw.div`text-center font-bold text-xl dt:text-3xl`;
 const LockIcon = tw.img`mx-auto mt-4`;
 const Caution = tw.div`text-center font-bold text-xs dt:text-sm font-inter my-4`;
@@ -71,6 +73,8 @@ const ChangePasswordPage = () => {
     }
   };
   return (
+    <>
+    <MenuList state={2}/>
     <Container>
       <Form onSubmit={formSubmitHandler}>
         <Title>Change Password</Title>
@@ -109,6 +113,7 @@ const ChangePasswordPage = () => {
         <CancelButton onClick={handleCancel}>Cancel</CancelButton>
       </Form>
     </Container>
+    </>
   );
 };
 export default ChangePasswordPage;
