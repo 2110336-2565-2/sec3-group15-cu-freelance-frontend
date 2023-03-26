@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const LogoButton = () => {
   
   const styles = {
-    logo: () => [tw`absolute font-bold text-3xl font-sans text-black cursor-pointer`],
+    logo: () => [tw` font-bold text-3xl font-sans text-black cursor-pointer`],
   };
 
   const navigate=useNavigate()

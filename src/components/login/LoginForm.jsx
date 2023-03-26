@@ -10,7 +10,7 @@ import { AuthContext } from "../../context/AuthProvider";
 import { apiClient } from "../../utils/axios";
 const styles = {
   container: () => [
-    tw`flex flex-col font-inter items-center w-[50%] max-w-[460px] 
+    tw`flex flex-col font-inter items-center w-full max-w-[460px] 
     border-[1px] rounded-[30px] px-6 py-8`,
   ],
   content: () => [
