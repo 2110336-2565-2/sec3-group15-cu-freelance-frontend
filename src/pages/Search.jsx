@@ -1,5 +1,5 @@
 import tw from "twin.macro";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import InputSearch from "../components/share/InputSearch";
 import Navbar from "../components/share/Navbar";
 import { AuthContext } from "../context/AuthProvider";
@@ -35,6 +35,7 @@ const SearchPage = () => {
   const authCtx = useContext(AuthContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const windowSize = useWindow();
+  const slideRef = useRef(null);
   const [searchResult, setSearchResult] = useState(
     searchParams.get("keyword") || ""
   );
@@ -49,6 +50,9 @@ const SearchPage = () => {
   const onResetPage = () => {
     searchParams.set("pages", 1);
     setSearchParams(searchParams);
+    if (slideRef.current) {
+      if (slideRef.current.swiper) slideRef.current.swiper.slideTo(0, 2000);
+    }
   };
 
   const onNextPageHandler = (e) => {
@@ -106,7 +110,6 @@ const SearchPage = () => {
   const [portfolios, setPortfolios] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [meta, setMeta] = useState(null);
-  console.log(meta);
   const handleInfiniteScrollNextPage = () => {
     if (page < meta.TotalPage) {
       searchParams.set("pages", parseInt(page) + 1);
@@ -121,8 +124,6 @@ const SearchPage = () => {
     15: splitDuration.includes("15"),
     30: splitDuration.includes("30"),
   });
-
-  console.log(selectedFaculty);
 
   const onChangeDurationHandler = (e) => {
     const changeValue = !showDuration[e.target.name];
@@ -226,7 +227,7 @@ const SearchPage = () => {
         response = await authClient.get(
           `/portfolio/search?` + new URLSearchParams(params).toString()
         );
-        console.log(response);
+
         if (page === "1" || windowSize >= 850 || !portfolios)
           setPortfolios(response.data.pagination.items);
         else {
@@ -439,6 +440,7 @@ const SearchPage = () => {
             )}
             {windowSize < 850 && (
               <SearchCorousel
+                ref={slideRef}
                 portfolios={portfolios}
                 isLoading={isLoading}
                 handleInfiniteScroll={handleInfiniteScrollNextPage}

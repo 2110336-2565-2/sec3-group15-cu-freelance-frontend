@@ -1,3 +1,5 @@
+import tw from "twin.macro";
+import { forwardRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import PortFolioCard from "../share/PortfolioCard";
 import PortfolioImg from "../../assets/PortfolioImage.svg";
@@ -8,47 +10,60 @@ import "swiper/css/navigation";
 import "swiper/css/autoplay";
 import LoadingSpinner from "../share/LoadingSpinner";
 
-const SearchCorousel = ({ portfolios, isLoading, handleInfiniteScroll }) => {
-  const navigate = useNavigate();
-  const onClickDetailCard = (id) => {
-    navigate(`/portfolio/${id}`);
-  };
+const SearchCorousel = forwardRef(
+  ({ portfolios, isLoading, handleInfiniteScroll }, ref) => {
+    const navigate = useNavigate();
+    const onClickDetailCard = (id) => {
+      navigate(`/portfolio/${id}`);
+    };
 
-  return (
-    <>
-      {portfolios && (
-        <Swiper
-          tw="py-5 px-0.5 w-full"
-          onReachEnd={(swiper) => {
-            console.log(swiper);
-            handleInfiniteScroll();
-          }}
-          grabCursor={true}
-          slidesPerView="auto"
-        >
-          {portfolios.map((portfolio) => (
-            <SwiperSlide key={portfolio.id} style={{ maxWidth: "260px" }}>
-              <PortFolioCard
-                id={portfolio.id}
-                portImg={PortfolioImg}
-                category={portfolio.category}
-                name={portfolio.name}
-                description={portfolio.description}
-                duration={portfolio.duration}
-                price={portfolio.price}
-                canEdit={false}
-                isPublic={portfolio.is_public}
-                onClick={onClickDetailCard.bind(null, portfolio.id)}
-                onClickPencil={() => {}}
-                setPortfolios={() => {}}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      )}
-      {isLoading && <LoadingSpinner />}
-    </>
-  );
-};
+    return (
+      <div tw="flex justify-center w-full">
+        {!portfolios && !isLoading && <div>no result </div>}
+        {portfolios && (
+          <Swiper
+            ref={ref}
+            tw="py-5 px-0.5 w-full"
+            // onReachEnd={(swiper) => {
+            //   console.log(swiper);
+            //
+            // }}
+            onSlideChange={(swiper) => {
+              if (swiper.activeIndex === portfolios.length - 5) {
+                handleInfiniteScroll();
+              }
+            }}
+            grabCursor={true}
+            slidesPerView="auto"
+          >
+            {portfolios.map((portfolio) => (
+              <SwiperSlide key={portfolio.id} style={{ maxWidth: "260px" }}>
+                <PortFolioCard
+                  id={portfolio.id}
+                  portImg={PortfolioImg}
+                  category={portfolio.category}
+                  name={portfolio.name}
+                  description={portfolio.description}
+                  duration={portfolio.duration}
+                  price={portfolio.price}
+                  canEdit={false}
+                  isPublic={portfolio.is_public}
+                  onClick={onClickDetailCard.bind(null, portfolio.id)}
+                  onClickPencil={() => {}}
+                  setPortfolios={() => {}}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
+        {/* {isLoading && (
+          <div tw="w-[280px]">
+            <LoadingSpinner />
+          </div>
+        )} */}
+      </div>
+    );
+  }
+);
 
 export default SearchCorousel;
