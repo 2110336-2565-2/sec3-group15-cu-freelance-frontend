@@ -15,7 +15,7 @@ import React from "react";
 import MenuList from "../components/userSetting/MenuList";
 const Container = tw.div`flex justify-center pt-[10vh] dt:pt-[20vh] min-h-[95vh] mb-4 w-3/4 dt:w-full m-auto`;
 const Form = tw.form`flex flex-col shadow-[0_4px_4px_rgba(0,0,0,0.25)] px-8 py-4 rounded-[20px] gap-y-2 w-[420px] h-fit pf:w-1/4`;
-const Title = tw.div`text-center font-bold text-xl dt:text-3xl`;
+const Title = tw.div`text-center font-bold text-xl dt:text-3xl font-ibm`;
 const LockIcon = tw.img`mx-auto mt-4`;
 const Caution = tw.div`text-center font-bold text-xs dt:text-sm font-inter my-4`;
 const SubmitButton = tw.button`bg-[#D62B70] text-center m-2 text-white font-inter font-bold rounded-[10px] p-2 disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none`;
@@ -28,7 +28,7 @@ const ChangePasswordPage = () => {
   const handleCancel = (event) => {
     event.preventDefault();
     console.log("click cancel!");
-    navigate(-1);
+    navigate(-2);
   };
 
   const [formState, inputHandler, setFormData] = useForm(
@@ -77,40 +77,40 @@ const ChangePasswordPage = () => {
     <MenuList state={2}/>
     <Container>
       <Form onSubmit={formSubmitHandler}>
-        <Title>Change Password</Title>
+        <Title>เปลี่ยนรหัสผ่าน</Title>
         <LockIcon src={lockIcon}></LockIcon>
         <Caution>make sure you remember your password</Caution>
         <Input
           type="password"
           id="Current"
-          label="Current Password"
+          label="รหัสผ่านปัจจุบัน"
           errorText=""
           onInput={inputHandler}
-          placeholder="Enter password"
+          placeholder="กรอกรหัสผ่านปัจจุบัน"
           validator={[]}
         />
         <Input
           type="password"
           id="New"
-          label="New Password"
-          errorText="Your password should be at least 8 characters"
+          label="รหัสผ่านใหม่"
+          errorText="รหัสผ่านควรมีความยาวอย่างน้อย 8 ตัวอักษร"
           onInput={inputHandler}
-          placeholder="Enter password"
+          placeholder="กรอกรหัสผ่านใหม่"
           validator={[VALIDATOR_MINLENGTH(8)]}
         />
         <Input
           type="password"
           id="Confirm"
-          label="Confirm Password"
-          errorText="Your password did not match"
+          label="ยืนยันรหัสผ่าน"
+          errorText="รหัสผ่านไม่ตรงกัน"
           onInput={inputHandler}
-          placeholder="Enter password"
+          placeholder="ยืนยันรหัสผ่านใหม่"
           validator={[VALIDATOR_MATCH(formState.inputs.New.value)]}
         />
         <SubmitButton type="submit" disabled={!formState.isValid || isLoading}>
-          Change Password
+          เปลี่ยนรหัสผ่าน
         </SubmitButton>
-        <CancelButton onClick={handleCancel}>Cancel</CancelButton>
+        <CancelButton onClick={handleCancel}>ย้อนกลับ</CancelButton>
       </Form>
     </Container>
     </>
