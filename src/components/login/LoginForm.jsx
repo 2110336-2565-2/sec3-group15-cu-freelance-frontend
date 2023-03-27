@@ -86,30 +86,25 @@ const LoginForm = () => {
   return (
     <div css={styles.container()}>
       <div css={styles.content()}>
-        <div css={styles.title()}>Login</div>
-        <div tw="w-full min-h-[85px]">
-          <Input
-            type="text"
-            id="username"
-            label="Username"
-            placeholder="Enter username"
-            errorText="Your username should not be blank"
-            onInput={inputHandler}
-            validator={[VALIDATOR_REQUIRE()]}
-          />
-        </div>
-        <div tw="w-full min-h-[85px]">
-          <Input
-            type="password"
-            id="password"
-            label="Password"
-            placeholder="Enter Password"
-            errorText="Your password must be at least 8 characters"
-            onInput={inputHandler}
-            validator={[VALIDATOR_MINLENGTH(8)]}
-          />
-        </div>
-
+        <div css={styles.title()}>เข้าสู่ระบบ</div>
+        <Input
+          type="text"
+          id="username"
+          label="ชื่อผู้ใช้"
+          placeholder="ชื่อผู้ใช้ของคุณ"
+          errorText="กรุณาใส่ชื่อผู้ใช้"
+          onInput={inputHandler}
+          validator={[VALIDATOR_REQUIRE()]}
+        />
+        <Input
+          type="password"
+          id="password"
+          label="รหัสผ่าน"
+          placeholder="ใส่รหัสผ่านของคุณ "
+          errorText="รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร"
+          onInput={inputHandler}
+          validator={[VALIDATOR_MINLENGTH(8)]}
+        />
         <button
           css={styles.button()}
           onClick={formSubmitHandler}
