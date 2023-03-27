@@ -124,19 +124,9 @@ const LoginForm = () => {
         </button> */}
 
         <div css={styles.register()}>
-<<<<<<< HEAD
-          <p css={styles.registerText()}> Don't have an account? </p>
-          <Link css={styles.registerLink()} to="/register">
-            Register Here
-||||||| 3b5a567
-          <p css={styles.registerText()}> Don't have an account? </p>
-          <Link  css={styles.registerLink()} to="/register">
-             Register Here
-=======
           <p css={styles.registerText()}> ยังไม่มีบัญชีผู้ใช้​ ? </p>
           <Link  css={styles.registerLink()} to="/register">
              กดที่นี่เพื่อสม้คร
->>>>>>> 1a9133b6d4fa50ccaf22a5fd6df5c66defe83064
           </Link>
         </div>
       </div>
