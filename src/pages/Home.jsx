@@ -11,9 +11,9 @@ import Landing4 from "../components/home/page4/Landing4";
 const HomePage = () => {
   return (
     <div tw="snap-y snap-mandatory min-h-screen">
-      {/* <Landing1 />
+      <Landing1 />
       <Landing2 />
-      <Landing3 /> */}
+      <Landing3 />
       <Landing4 />
       {/* <CategoryIndex /> */}
       {/* <CommentIndex /> */}

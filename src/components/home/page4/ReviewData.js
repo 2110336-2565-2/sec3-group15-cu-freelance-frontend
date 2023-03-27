@@ -14,5 +14,17 @@ export const ReviewData = [
         title: "อริสรา สายชม",
         subtitle: "CEO of BookBix",
         desc: "ใช้ CU Freelance ช่วยประหยัดเวลาได้มาก หางานง่าย"
-    }
+    },
+    {
+        img: Avatar1,
+        title: "อริสรา สายชม",
+        subtitle: "CEO of BookBix",
+        desc: "ใช้ CU Freelance ช่วยประหยัดเวลาได้มาก หางานง่าย"
+    },
+    {
+        img: Avatar2,
+        title: "อริสรา สายชม",
+        subtitle: "CEO of BookBix",
+        desc: "ใช้ CU Freelance ช่วยประหยัดเวลาได้มาก หางานง่าย"
+    },
 ]
