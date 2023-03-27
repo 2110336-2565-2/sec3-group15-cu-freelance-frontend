@@ -31,18 +31,22 @@ const Typer = () => {
       wrapper="span"
       cursor={true}
       repeat={Infinity}
-      style={{
-        fontSize: "2em",
-        display: "inline-block",
-        fontFamily: "Noto Sans Thai",
-        minWidth: "200px",
-      }}
+      // style={{
+      //   fontSize: "1rem",
+      //   display: "inline-block",
+      //   fontFamily: "Noto Sans Thai",
+      //   minWidth: "200px",
+      //   '@media (min-width: 550px)': {
+      //     fontSize: "3rem",
+      //   }
+      // }}
+      tw="text-xl tbl:text-4xl font-ibm text-center"
     />
   );
 };
 
 const Section = tw.div`h-screen w-full flex justify-center items-center`;
-const LeftWrapper = tw.div``;
+const LeftWrapper = tw.div`flex flex-col justify-start max-w-[300px] tbl:max-w-full `;
 const RightWrapper = tw.div`hidden dt:block`;
 const ImgHero = tw.img` min-w-[1/2] min-h-[1/2]`;
 
@@ -81,7 +85,7 @@ const Framer3 = () => {
   return (
     <div tw="snap-start overflow-hidden">
       <Section>
-        <div tw="flex flex-row items-center justify-around gap-4 w-[90%] max-w-[1200px] mx-auto">
+        <div tw="flex flex-row items-center justify-start tbl:justify-around gap-4 w-[90%] max-w-[1200px] mx-auto">
           <img
             src={AboveImg}
             alt="Above img"
@@ -121,7 +125,7 @@ const Framer3 = () => {
               initial="hidden"
               whileInView={"show"}
               viewport={{ once: false, amount: 0.7 }}
-              tw="font-ibm text-3xl font-light mb-8"
+              tw="font-ibm text-2xl tbl:text-3xl font-light mb-8"
             >
               {" "}
               ยินดีต้อนรับสู่
@@ -132,7 +136,7 @@ const Framer3 = () => {
                 initial="hidden"
                 whileInView={"show"}
                 viewport={{ once: false, amount: 0.7 }}
-                tw="font-ibm text-5xl font-bold break-words leading-normal"
+                tw="font-ibm text-3xl tbl:text-5xl font-bold break-words leading-normal tbl:leading-relaxed"
               >
                 {" "}
                 แหล่งรวมฟรีแลนซ์คุณภาพจากจุฬาฯ
