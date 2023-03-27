@@ -4,6 +4,8 @@ import React from 'react';
 import { motion } from "framer-motion";
 import { useSnapCarousel } from 'react-snap-carousel';
 
+import { fadeIn } from "../../../assets/NewHomePage/fadeIn";
+
 import Card from "../../../assets/NewHomePage/page4/Card";
 import QuoteL from "../../../assets/NewHomePage/page4/QuoteL.png"
 import QuoteR from "../../../assets/NewHomePage/page4/QuoteR.png"
@@ -23,7 +25,8 @@ const Elem = () => {
         useSnapCarousel();
     return (
         <>
-            <div tw="w-full relative ">
+           
+            <div tw=" ">
             <ul
                 ref={scrollRef}
                 tw="relative flex flex-row overflow-hidden snap-x snap-mandatory"
@@ -40,16 +43,18 @@ const Elem = () => {
                              title={data.title}
                              subtitle={data.subtitle}
                              desc={data.desc}
-                             key={index}
+                             key={data.id}
                          />
                         </motion.div>
                     );
                 })}
             </ul>
-                    <button tw="absolute bottom-[45%] left-0" onClick={() => prev()}>Prev</button>
-                    <button tw="absolute bottom-[45%] right-0"onClick={() => next()}>Next</button>
+                  
             </div>
-
+            <div tw="relative w-screen mx-auto"> 
+                     <button tw="absolute bottom-[8rem] left-0" onClick={() => prev()}>Prev</button>
+                    <button tw="absolute bottom-[8rem] right-0"onClick={() => next()}>Next</button>
+            </div>
             <div tw=" flex flex-col gap-2 items-center">
                 {activePageIndex + 1} / {pages.length}
 
@@ -79,24 +84,28 @@ const QuoteImg = tw.img`w-12 h-12`
 const Landing4 = () => {
     return ( 
         <Container>
-            <HeaderText> รีวิวจากผู้ใช้จริง </HeaderText>
-            <QuoteImg src={QuoteL} tw="ml-8 self-start"/>
-            <Elem/>
-            <QuoteImg src={QuoteR} tw="mr-8 self-end"/>
+                <motion.div    
+                    variants={fadeIn("up", 0.5)}
+                    initial="hidden"
+                    whileInView={"show"}
+                    viewport={{ once: false, amount: 0.7 }}
+                    tw=""
+                >
+
+                <HeaderText> รีวิวจากผู้ใช้จริง </HeaderText>
+                </motion.div>
+                <QuoteImg src={QuoteL} tw="ml-8 self-start"/>
+            <motion.div
+                variants={fadeIn("up", 0.5)}
+                initial="hidden"
+                whileInView={"show"}
+                // viewport={{ once: false, amount: 1 }}
+                tw=""
+                >
+                 <Elem/>        
+          </motion.div>
+          <QuoteImg src={QuoteR} tw=" self-end"/>
         </Container>
-        //     {
-        //         ReviewData.map((data, index) => {
-        //             return (
-        //                 <Card 
-        //                     img={data.img}
-        //                     title={data.title}
-        //                     subtitle={data.subtitle}
-        //                     desc={data.desc}
-        //                     key={data.title}
-        //                 />
-        //             )
-        //         })
-        //     }
      );
 }
  
