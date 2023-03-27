@@ -76,7 +76,30 @@ const Elem = () => {
 };
 
 
-
+const Cards = () => {
+    return (
+        <div tw="flex flex-col dt:flex-row">
+            {
+                    ReviewData.map((data, index) => {
+                    return (
+                        <motion.div
+                            tw="min-h-[10rem] min-w-[20rem] py-4 px-2"
+                            transition={{ duration: 3 }}
+                        >
+                            <Card 
+                                img={data.img}
+                                title={data.title}
+                                subtitle={data.subtitle}
+                                desc={data.desc}
+                                key={data.id}
+                            />
+                        </motion.div>
+                     );
+                    })
+            }
+        </div>
+    )
+}
 
 
 const HeaderText = tw.h1`text-4xl font-bold`
@@ -85,16 +108,16 @@ const Landing4 = () => {
     return ( 
         <Container>
                 <motion.div    
-                    variants={fadeIn("up", 0.5)}
+                    variants={fadeIn("dow ", 0.3)}
                     initial="hidden"
                     whileInView={"show"}
                     viewport={{ once: false, amount: 0.7 }}
                     tw=""
                 >
 
-                <HeaderText> รีวิวจากผู้ใช้จริง </HeaderText>
+                <HeaderText> รีวิวจากผู้ใช้งานจริง </HeaderText>
                 </motion.div>
-                <QuoteImg src={QuoteL} tw="ml-8 self-start"/>
+                <QuoteImg src={QuoteL} tw="ml-8 dt:ml-16 self-start"/>
             <motion.div
                 variants={fadeIn("up", 0.5)}
                 initial="hidden"
@@ -102,9 +125,9 @@ const Landing4 = () => {
                 // viewport={{ once: false, amount: 1 }}
                 tw=""
                 >
-                 <Elem/>        
+                <Cards/>
           </motion.div>
-          <QuoteImg src={QuoteR} tw=" self-end"/>
+          <QuoteImg src={QuoteR} tw="mr-8 dt:mr-16 self-end"/>
         </Container>
      );
 }
