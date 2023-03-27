@@ -1,9 +1,10 @@
 import tw, { styled } from "twin.macro";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/share/Navbar";
 import { useSearchParams } from "react-router-dom";
+import PaginationBar from "../components/share/PaginationBar";
 import {
   headerFreelance,
   headerCustomer,
@@ -32,14 +33,15 @@ import OrderModalTemplate from "../components/share/OrderModalTemplate";
 import ConfirmModal from "../components/share/ConfirmModal";
 import ConfirmModalTemplate from "../components/share/ConfirmModalTemplate";
 
-const BG = tw.div`h-[85vh] relative flex flex-col items-center font-ibm`;
+const BG = tw.div`inline dt:flex w-full max-w-[1200px] mx-auto`;
 const Header = tw.div`text-mobile-h1 dt:text-desktop-h1 font-bold my-4`;
+const ContentWrapper = tw.div`min-h-[75vh]  dt:h-fit w-full dt:w-[80%] dt:min-h-[85vh] relative flex flex-col items-center font-ibm`;
 const HeaderTwoContainer = tw.div`text-mobile-h2 dt:text-desktop-h2 flex justify-center w-4/5 mx-auto`;
 const InputSearchContainer = tw.div`h-[40px] w-4/5 mx-auto my-4`;
 const SortContainer = tw.div`flex justify-between items-center w-4/5 mx-auto text-mobile-h2 dt:text-desktop-h2 mb-4`;
 const Select = tw.select`h-[30px] w-1/2 border border-[#BCBCBC] focus:outline-none rounded-lg text-mobile-body dt:text-desktop-base px-2`;
 const AddOrder = tw.img``;
-const OrderContainer = tw.div`flex  w-full max-w-full overflow-auto pl-4 h-[500px]`;
+const OrderContainer = tw.div`flex flex-nowrap  w-full min-h-[300px] overflow-y-hidden max-w-full overflow-auto p-4 dt:overflow-hidden dt:flex-wrap  dt:p-2 dt:justify-center dt:gap-y-2`;
 const LoadingDiv = tw.div`font-ibm`;
 
 const HeaderTwo = styled.button(({ userType, select }) => [
@@ -58,8 +60,8 @@ const MyOrderPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   //InfiniteScroll or Pagination
-  const pageParams = searchParams.get("pages") || 1;
-  const [page, setPage] = useState(pageParams);
+  const pageRef = React.createRef();
+  const page = searchParams.get("pages") || 1;
 
   //header-type
   const selectOrder = searchParams.get("q");
@@ -78,6 +80,29 @@ const MyOrderPage = () => {
   const searchKeywordChangeHandler = (e) => {
     searchParams.set("keywords", e.target.value);
     onResetPage();
+  };
+  const onNextPageHandler = (e) => {
+    e.preventDefault();
+    searchParams.set("pages", parseInt(page) + 1);
+    setSearchParams(searchParams);
+  };
+
+  const onPrevPageHandler = (e) => {
+    e.preventDefault();
+    searchParams.set("pages", parseInt(page) - 1);
+    setSearchParams(searchParams);
+  };
+
+  const onSetPageHandler = (event) => {
+    event.preventDefault();
+    const inputPage = parseInt(pageRef.current.value);
+    const totalPage = parseInt(meta.TotalPage);
+    pageRef.current.value = "";
+    pageRef.current.blur();
+    if (inputPage > totalPage) searchParams.set("pages", totalPage);
+    else if (inputPage < 1) searchParams.set("pages", 1);
+    else searchParams.set("pages", inputPage);
+    setSearchParams(searchParams);
   };
 
   //searchPortfolio
@@ -294,7 +319,7 @@ const MyOrderPage = () => {
     setShowModal(true);
   };
   const FilterContent = (
-    <>
+    <div tw="h-[90%] dt:h-full dt:px-2 dt:pt-10 dt:w-[20%] overflow-y-auto overflow-x-hidden font-ibm">
       <TemplateFilter header="ช่วงราคา">
         <PriceFilter
           onChangePrice={onChangePriceHandler}
@@ -342,7 +367,7 @@ const MyOrderPage = () => {
           ))}
         </TemplateFilter>
       )}
-    </>
+    </div>
   );
 
   //OrderModalTemplate
@@ -373,6 +398,25 @@ const MyOrderPage = () => {
   //SuccessType
   const [successType, setSuccessType] = useState(null);
   console.log(orders);
+  function getWindowSize() {
+    const { innerWidth } = window;
+    return innerWidth;
+  }
+  const [windowSize, setWindowSize] = useState(getWindowSize());
+  console.log(windowSize);
+
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowSize(getWindowSize());
+    }
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+
   return (
     <>
       <ConfirmModalTemplate
@@ -417,90 +461,103 @@ const MyOrderPage = () => {
         onChange={searchResultChangeHandler}
         onSubmit={onSearchHandler}
       />
+      <FilterModal
+        content={FilterContent}
+        show={showModal}
+        onClose={onCloseModalHandler}
+        textBLeft="รีเซ็ต"
+        textBRight="เรียบร้อย"
+        onSubmitPrice={onSubmitPriceHandler2}
+        onReset={resetAllParams}
+      />
       <BG>
-        <FilterModal
-          content={FilterContent}
-          show={showModal}
-          onClose={onCloseModalHandler}
-          textBLeft="รีเซ็ต"
-          textBRight="เรียบร้อย"
-          onSubmitPrice={onSubmitPriceHandler2}
-          onReset={resetAllParams}
-        />
-        <Header>ออเดอร์ของฉัน</Header>
-        <HeaderTwoContainer>
-          {headerTwo.map((header, idx) => (
-            <HeaderTwo
-              key={idx}
-              type="button"
-              select={header.q === selectOrder}
-              userType={authCtx.userInfo.user_type}
-              onClick={onChangeHeaderHandler.bind(null, header.q)}
-              disabled={isLoadingOrder}
-            >
-              {header.text}
-            </HeaderTwo>
-          ))}
-        </HeaderTwoContainer>
-        <InputSearchContainer>
-          {" "}
-          <InputSearch
-            placeholder="ค้นหาคำขอที่นี่..."
-            value={searchOrder}
-            onChange={searchKeywordChangeHandler}
-            onSubmit={onSearchKeywordHandler}
-            filter
-            onClickFilter={onOpenModalHandler}
-          />
-        </InputSearchContainer>
-        <SortContainer>
-          เรียงตาม
-          <Select defaultValue={sort} onChange={onChangeSortHandler}>
-            {sortOptions.map((option, idx) => (
-              <option key={idx} value={option.value}>
-                {option.text}
-              </option>
-            ))}
-          </Select>
-          <AddOrder
-            src={AddOrderIcon}
-            onClick={() => {
-              navigate("/create-order-template");
-            }}
-          />
-        </SortContainer>
-        <OrderContainer>
-          {isLoadingOrder && <LoadingDiv>loading...</LoadingDiv>}
-          {!isLoadingOrder &&
-            orders &&
-            orders.map((order, idx) => (
-              <OrderCard
+        {windowSize >= 850 && FilterContent}
+        <ContentWrapper>
+          <Header>ออเดอร์ของฉัน</Header>
+          <HeaderTwoContainer>
+            {headerTwo.map((header, idx) => (
+              <HeaderTwo
                 key={idx}
-                header={order.title}
-                description={order.description}
-                customer={order.customer_name}
-                freelance={
-                  selectOrder !== "template" &&
-                  (selectOrder !== "request" || userType !== 1)
-                    ? order.freelance_name
-                    : null
-                }
-                due_date={order.due_date}
-                duration={order.duration}
-                price={order.price}
-                hasStatus={
-                  selectOrder !== "template" &&
-                  (selectOrder !== "request" || userType !== 1)
-                }
-                status={order.status}
-                orderType={selectOrder}
-                userType={userType}
-                onClick={onClickCardHandler.bind(null, order)}
-                order={order}
-                openConfirmModal={openConfirmModal}
-              />
+                type="button"
+                select={header.q === selectOrder}
+                userType={authCtx.userInfo.user_type}
+                onClick={onChangeHeaderHandler.bind(null, header.q)}
+                disabled={isLoadingOrder}
+              >
+                {header.text}
+              </HeaderTwo>
             ))}
-        </OrderContainer>
+          </HeaderTwoContainer>
+          <InputSearchContainer>
+            {" "}
+            <InputSearch
+              placeholder="ค้นหาคำขอที่นี่..."
+              value={searchOrder}
+              onChange={searchKeywordChangeHandler}
+              onSubmit={onSearchKeywordHandler}
+              filter
+              onClickFilter={onOpenModalHandler}
+            />
+          </InputSearchContainer>
+          <SortContainer>
+            เรียงตาม
+            <Select defaultValue={sort} onChange={onChangeSortHandler}>
+              {sortOptions.map((option, idx) => (
+                <option key={idx} value={option.value}>
+                  {option.text}
+                </option>
+              ))}
+            </Select>
+            <AddOrder
+              src={AddOrderIcon}
+              onClick={() => {
+                navigate("/create-order-template");
+              }}
+            />
+          </SortContainer>
+          <OrderContainer>
+            {isLoadingOrder && !orders && <LoadingDiv>loading...</LoadingDiv>}
+            {!isLoadingOrder && !orders && <LoadingDiv>No result</LoadingDiv>}
+            {orders &&
+              orders.map((order, idx) => (
+                <OrderCard
+                  key={order.id}
+                  header={order.title}
+                  description={order.description}
+                  customer={order.customer_name}
+                  freelance={
+                    selectOrder !== "template" &&
+                    (selectOrder !== "request" || userType !== 1)
+                      ? order.freelance_name
+                      : null
+                  }
+                  due_date={order.due_date}
+                  duration={order.duration}
+                  price={order.price}
+                  hasStatus={
+                    selectOrder !== "template" &&
+                    (selectOrder !== "request" || userType !== 1)
+                  }
+                  status={order.status}
+                  orderType={selectOrder}
+                  userType={userType}
+                  onClick={onClickCardHandler.bind(null, order)}
+                  order={order}
+                  openConfirmModal={openConfirmModal}
+                />
+              ))}
+          </OrderContainer>
+          {orders && meta && meta.TotalPage !== 1 && (
+            <PaginationBar
+              page={page}
+              ref={pageRef}
+              totalPage={meta.TotalPage}
+              onPrev={onPrevPageHandler}
+              onNext={onNextPageHandler}
+              onSet={onSetPageHandler}
+            />
+          )}
+        </ContentWrapper>
       </BG>
     </>
   );

@@ -1,0 +1,32 @@
+.filter-enter-active {
+    animation: FilterOpenModal 0.4s ease-out forwards;
+}
+
+.filter-exit-active {
+    animation: FilterCloseModal 0.4s ease-out forwards;
+}
+
+
+@keyframes FilterOpenModal {
+    0% {
+        opacity: 1;
+        transform: translateY(100%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes FilterCloseModal {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(100%);
+    }
+}

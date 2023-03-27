@@ -10,9 +10,10 @@ import nextButton from "../../../assets/NewHomePage/page2/nextButton.svg";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import "./PortfolioCardContainer.css";
 import { useNavigate } from "react-router-dom";
 
-const Container = tw.div`flex mx-auto max-w-[320px] w-[90vw] dt:max-w-[1200px]`;
+const Container = tw.div`flex mx-auto w-[90vw]`;
 
 const PortfolioCardContainer = ({ select }) => {
   const [portfolios, setPortfolios] = useState(null);
@@ -41,15 +42,15 @@ const PortfolioCardContainer = ({ select }) => {
     fetchData();
   }, [select]);
   return (
-    <Container>
+    <Container tw="w-full">
       <img
         src={backButton}
         alt="backButton"
-        tw="hidden dt:inline w-[5%] min-w-[60px]"
+        tw=" hidden tbl:inline w-[5%] min-w-[60px] cursor-pointer"
         ref={navigationPrevRef}
       />
       <Swiper
-        tw="py-5 px-0.5 mx-auto"
+        tw="py-5 px-0.5 w-full"
         // onReachBeginning={() => console.log("hello!")}
         loop={true}
         grabCursor={true}
@@ -57,25 +58,12 @@ const PortfolioCardContainer = ({ select }) => {
           prevEl: navigationPrevRef.current,
           nextEl: navigationNextRef.current,
         }}
-        breakpoints={{
-          1350: {
-            slidesPerView: 4,
-          },
-          980: {
-            slidesPerView: 3,
-          },
-          850: {
-            slidesPerView: 2,
-          },
-          0: {
-            slidesPerView: 1,
-          },
-        }}
+        slidesPerView="auto"
         modules={[Navigation]}
       >
         {portfolios &&
           portfolios.map((portfolio) => (
-            <SwiperSlide key={portfolio.id} style={{ maxWidth: "290px" }}>
+            <SwiperSlide key={portfolio.id} style={{ maxWidth: "260px" }}>
               <PortFolioCard
                 id={portfolio.id}
                 portImg={PortfolioImg}
@@ -96,7 +84,7 @@ const PortfolioCardContainer = ({ select }) => {
       <img
         src={nextButton}
         alt="nextButton"
-        tw="hidden dt:inline w-[5%] min-w-[60px]"
+        tw="hidden tbl:inline  w-[5%] min-w-[60px] cursor-pointer"
         ref={navigationNextRef}
       />
     </Container>

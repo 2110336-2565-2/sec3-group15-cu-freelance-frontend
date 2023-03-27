@@ -17,7 +17,7 @@ z-30 bg-white flex justify-center`,
 ]);
 const Wrapper = tw.div`h-[5vh] w-[90%] max-w-[1200px]  mx-auto 
 flex justify-between items-center`;
-const SearchWrapper = tw.div` hidden tbl:flex items-center w-[40%] max-w-[300px]  justify-between font-inter dt:min-w-[295px] h-[30px] dt:h-[45px]`;
+const SearchWrapper = tw.div` hidden dt:flex items-center w-[40%] max-w-[300px]  justify-between font-inter dt:min-w-[295px] h-[30px] dt:h-[45px]`;
 const RightWrapperLogin = tw.div` min-w-[80px] dt:w-1/4 dt:min-w-[250px] flex justify-end dt:justify-between items-center font-inter `;
 const RightWrapperNotLogin = tw.div` min-w-[80px] dt:min-w-[290px] flex justify-end dt:justify-between font-inter `;
 const Logo = tw.div`text-lg font-bold dt:text-2xl font-sans text-black cursor-pointer`;

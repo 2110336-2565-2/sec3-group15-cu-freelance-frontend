@@ -8,11 +8,11 @@ import Button from "./Button";
 import { AuthContext } from "../../context/AuthProvider";
 
 const Card = styled.div(({ focus }) => [
-  tw`flex flex-col h-fit rounded-[20px] min-w-[80vw] w-1/5 shadow-xl relative cursor-pointer p-5 gap-y-3 mr-4`,
+  tw`flex flex-col  h-fit rounded-[20px] min-w-[250px] w-[30%]  shadow relative cursor-pointer p-5 gap-y-3 mr-4`,
   focus && tw`outline outline-2 outline-freelance-pink`,
 ]);
 const Header1 = tw.div`flex justify-between items-center text-mobile-h1 font-bold text-freelance-black-primary`;
-const Body = tw.div`text-mobile-small font-normal text-freelance-black-secondary`;
+const Body = tw.div`text-mobile-small font-normal text-freelance-black-secondary leading-[2.5ex] h-[5ex] overflow-hidden`;
 const UserInfo = tw.div`flex gap-x-2 items-center text-mobile-small font-normal text-freelance-black-secondary`;
 const Lastline = tw.div`flex justify-between text-mobile-small items-center`;
 const Buttonline = tw.div`flex justify-between items-center`;
@@ -66,13 +66,12 @@ const OrderCard = (props) => {
       focus={props.selected}
     >
       <Header1>
-        {props.header}
+        <div tw="max-w-[50%] leading-[1.5em] h-[1.5em] overflow-hidden">
+          {props.header}
+        </div>
         {props.hasStatus && <StatusBar color={color}>{props.status}</StatusBar>}
       </Header1>
-      <Body>
-        {props.description.slice(0, 100)}
-        {props.description.length >= 100 ? "..." : ""}
-      </Body>
+      <Body>{props.description}</Body>
       <UserInfo>
         <img src={profile} tw="w-[20%]" />
         {`ผู้ว่าจ้าง: ${

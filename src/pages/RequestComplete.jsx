@@ -3,9 +3,9 @@ import RequestDescription from "../components/order/RequestDescription";
 import Button from "../components/share/Button";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const Container = styled.div(({from}) => [
+const Container = styled.div(({ from }) => [
   tw`flex flex-col gap-y-2 m-auto justify-between w-full dt:w-1/6 dt:relative items-center `,
-  from && tw`min-h-[95vh] pb-[5vh]`
+  from && tw`min-h-[95vh] pb-[5vh]`,
 ]);
 const Footer = styled.div(({ row = false }) => [
   tw`flex flex-col items-center dt:absolute bottom-8 gap-y-8`,
@@ -65,15 +65,15 @@ const RequestComplete = ({
         hasIconDesc={hasIconDesc}
       />
       <Footer row>
-        <Button  secondary onClick={lftOnclick}>
+        <Button secondary onClick={lftOnclick}>
           ยกเลิก
         </Button>
         {red ? (
-          <Button  red onClick={rgtOnclick}>
+          <Button red onClick={rgtOnclick}>
             ยืนยัน
           </Button>
         ) : (
-          <Button  primary onClick={rgtOnclick}>
+          <Button primary onClick={rgtOnclick}>
             ยืนยัน
           </Button>
         )}

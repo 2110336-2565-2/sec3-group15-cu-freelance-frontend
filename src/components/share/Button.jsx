@@ -13,9 +13,9 @@ const Button = (props) => {
     props.onClick();
   };
 
-  const ButtonPrimary = tw.button`text-white bg-[#D62B70] rounded-lg text-mobile-body dt:text-mobile-h1 px-6 py-3 font-normal`;
-  const ButtonRed = tw.button`text-white bg-[#EB4335] rounded-lg text-mobile-body dt:text-mobile-h1 px-6 py-3 font-normal`;
-  const ButtonSecondary = tw.button`text-black  text-mobile-body dt:text-mobile-h1 text-center px-6 py-3 font-normal`;
+  const ButtonPrimary = tw.button`text-white bg-[#D62B70] rounded-lg text-mobile-body landing:text-mobile-h2 px-6 py-3 font-normal`;
+  const ButtonRed = tw.button`text-white bg-[#EB4335] rounded-lg text-mobile-body landing:text-mobile-h2 px-6 py-3 font-normal`;
+  const ButtonSecondary = tw.button`text-black  text-mobile-body landing:text-mobile-h2 text-center px-6 py-3 font-normal`;
   const ButtonCancel = tw.button`text-white bg-[#9E9E9E] rounded-lg text-xl p-3 font-normal`;
   const ButtonDelete = tw.button`text-white bg-[#D82929] rounded-lg text-xl p-3 font-normal disabled:bg-[#9E9E9E]`;
 
