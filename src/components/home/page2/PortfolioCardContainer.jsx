@@ -1,5 +1,5 @@
 import tw from "twin.macro";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { authClient } from "../../../utils/auth";
 import PortFolioCard from "../../share/PortfolioCard";
 import PortfolioImg from "../../../assets/PortfolioImage.svg";
@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper";
 import backButton from "../../../assets/NewHomePage/page2/backButton.svg";
 import nextButton from "../../../assets/NewHomePage/page2/nextButton.svg";
+import LoadingSpinner from "../../share/LoadingSpinner";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -24,7 +25,7 @@ const PortfolioCardContainer = ({ select }) => {
   const onClickDetailCard = (id) => {
     navigate(`/portfolio/${id}`);
   };
-
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -43,58 +44,61 @@ const PortfolioCardContainer = ({ select }) => {
     fetchData();
   }, [select]);
   return (
-    <Container tw="w-full">
-      <img
-        src={backButton}
-        alt="backButton"
-        className="prev-button"
-        tw=" hidden tbl:inline w-[5%] min-w-[60px] cursor-pointer"
-        // ref={navigationPrevRef}
-      />
-      <Swiper
-        tw="py-5 px-0.5 w-full"
-        loop={true}
-        // onReachEnd={(swiper) => {
-        //   console.log(swiper);
-        //   swiper.slideTo(0, 1000);
-        // }}
-        grabCursor={true}
-        navigation={{
-          prevEl: ".prev-button",
-          nextEl: ".next-button",
-        }}
-        autoplay={{ delay: 2000, disableOnInteraction: false }}
-        slidesPerView="auto"
-        modules={[Navigation, Autoplay]}
-      >
-        {portfolios &&
-          portfolios.map((portfolio) => (
-            <SwiperSlide key={portfolio.id} style={{ maxWidth: "260px" }}>
-              <PortFolioCard
-                id={portfolio.id}
-                portImg={PortfolioImg}
-                category={portfolio.category}
-                name={portfolio.name}
-                description={portfolio.description}
-                duration={portfolio.duration}
-                price={portfolio.price}
-                canEdit={false}
-                isPublic={portfolio.is_public}
-                onClick={onClickDetailCard.bind(null, portfolio.id)}
-                onClickPencil={() => {}}
-                setPortfolios={() => {}}
-              />
-            </SwiperSlide>
-          ))}
-      </Swiper>
-      <img
-        src={nextButton}
-        alt="nextButton"
-        className="next-button"
-        tw="hidden tbl:inline  w-[5%] min-w-[60px] cursor-pointer"
-        // ref={navigationNextRef}
-      />
-    </Container>
+    <>
+      {portfolios && (
+        <Container tw="w-full">
+          <img
+            src={backButton}
+            alt="backButton"
+            className="prev-button"
+            tw=" hidden tbl:inline w-[5%] min-w-[60px] cursor-pointer"
+            // ref={navigationPrevRef}
+          />
+          <Swiper
+            tw="py-5 px-0.5 w-full"
+            loop={true}
+            // onReachEnd={(swiper) => {
+            //   console.log(swiper);
+            //   swiper.slideTo(0, 1000);
+            // }}
+            grabCursor={true}
+            navigation={{
+              prevEl: ".prev-button",
+              nextEl: ".next-button",
+            }}
+            autoplay={{ delay: 2000, disableOnInteraction: false }}
+            slidesPerView="auto"
+            modules={[Navigation, Autoplay]}
+          >
+            {portfolios.map((portfolio) => (
+              <SwiperSlide key={portfolio.id} style={{ maxWidth: "260px" }}>
+                <PortFolioCard
+                  id={portfolio.id}
+                  portImg={PortfolioImg}
+                  category={portfolio.category}
+                  name={portfolio.name}
+                  description={portfolio.description}
+                  duration={portfolio.duration}
+                  price={portfolio.price}
+                  canEdit={false}
+                  isPublic={portfolio.is_public}
+                  onClick={onClickDetailCard.bind(null, portfolio.id)}
+                  onClickPencil={() => {}}
+                  setPortfolios={() => {}}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <img
+            src={nextButton}
+            alt="nextButton"
+            className="next-button"
+            tw="hidden tbl:inline  w-[5%] min-w-[60px] cursor-pointer"
+            // ref={navigationNextRef}
+          />
+        </Container>
+      )}{" "}
+    </>
   );
 };
 

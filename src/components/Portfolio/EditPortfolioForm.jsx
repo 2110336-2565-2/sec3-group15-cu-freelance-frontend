@@ -33,8 +33,6 @@ const styles = {
 };
 
 const EditPortfolioForm = () => {
-  
-
   const FirstRow = tw.div`w-full flex justify-between pb-3`;
   const ContainButton = tw.div`flex justify-between w-[10%] h-[50px]`;
   const ImageButtonDelete = tw.img`hover:cursor-pointer`;
@@ -180,21 +178,19 @@ const EditPortfolioForm = () => {
         <Modal
           header={DeleteIcon}
           onCancel={onCancelHandler}
-          text={
-            "Do you really want to delete this portfolio? This process cannot be undone."
-          }
+          text={"ยืนยันการลบพอร์ตโฟลิโอ"}
           show={isShow}
           footer={
             <>
               <Button cancel disable={isLoading} onClick={onCancelHandler}>
-                Cancel
+                ยกเลิก
               </Button>
               <Button
                 deleted
                 disable={isLoading}
                 onClick={onClickDeleteHandler}
               >
-                Delete
+                ยืนยัน
               </Button>
             </>
           }
@@ -207,13 +203,13 @@ const EditPortfolioForm = () => {
             <ImageContainer src={PortfolioExample} />
             <ContainButton>
               <img
-                css={styles.imageButtonHidden({hidden:isVisible})}
+                css={styles.imageButtonHidden({ hidden: isVisible })}
                 src={CloseEyeIcon}
                 onClick={toggleHandler}
               />
 
               <img
-                css={styles.imageButtonHidden({hidden:!isVisible})}
+                css={styles.imageButtonHidden({ hidden: !isVisible })}
                 src={HiddenIcon}
                 onClick={toggleHandler}
               />

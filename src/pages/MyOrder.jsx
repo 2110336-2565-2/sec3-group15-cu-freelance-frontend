@@ -43,7 +43,7 @@ const InputSearchContainer = tw.div`h-[40px] w-full mx-auto my-4`;
 const SortContainer = tw.div`flex justify-between items-center w-4/5 mx-auto text-mobile-h2 dt:text-desktop-h2 mb-4`;
 const Select = tw.select`h-[30px] w-1/2 border border-[#BCBCBC] focus:outline-none rounded-lg text-mobile-body dt:text-desktop-base px-2`;
 const AddOrder = tw.img``;
-const OrderContainer = tw.div`flex flex-nowrap  w-full min-h-[300px] overflow-y-hidden max-w-full overflow-auto p-4 dt:overflow-hidden dt:flex-wrap  dt:p-2 dt:justify-center dt:gap-y-2`;
+const OrderContainer = tw.div`flex flex-nowrap  w-full min-h-[300px] overflow-y-hidden max-w-full overflow-auto p-4 dt:overflow-hidden dt:flex-wrap  dt:p-2 dt:justify-start dt:gap-y-2`;
 const LoadingDiv = tw.div`font-ibm`;
 
 const HeaderTwo = styled.button(({ userType, select }) => [

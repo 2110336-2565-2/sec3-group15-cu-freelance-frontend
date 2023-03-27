@@ -18,7 +18,9 @@ const ModalOverlay = forwardRef((props, ref) => {
     >
       <img src={props.header} tw="w-[35%]"></img>
       <div tw="text-center w-[90%]">{props.text}</div>
-      <footer tw="flex mx-auto justify-between">{props.footer}</footer>
+      <footer tw="flex mx-auto justify-between w-fit gap-x-[10px]">
+        {props.footer}
+      </footer>
     </div>
   );
   return ReactDOM.createPortal(content, document.getElementById("modal-hook"));

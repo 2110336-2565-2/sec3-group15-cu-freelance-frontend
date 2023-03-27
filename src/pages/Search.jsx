@@ -20,6 +20,7 @@ import FilterModal from "../components/share/FilterModal";
 import FilterButton from "../components/searchPage/FilterButton";
 import LoadingSpinner from "../components/share/LoadingSpinner";
 import { useWindow } from "../hooks/window-hook";
+import SearchCorousel from "../components/searchPage/SearchCorousel";
 
 const Page = tw.div`w-full`;
 const BG = tw.div`flex-col w-[90%] h-auto flex dt:flex-row justify-between min-h-[95vh] pt-[10vh] max-w-[1200px] mx-auto`;
@@ -33,7 +34,7 @@ const InputSearchContainer = tw.div`h-[40px] w-[100%] mx-auto my-4`;
 const SearchPage = () => {
   const authCtx = useContext(AuthContext);
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const windowSize = useWindow();
   const [searchResult, setSearchResult] = useState(
     searchParams.get("keyword") || ""
   );
@@ -105,6 +106,13 @@ const SearchPage = () => {
   const [portfolios, setPortfolios] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [meta, setMeta] = useState(null);
+  console.log(meta);
+  const handleInfiniteScrollNextPage = () => {
+    if (page < meta.TotalPage) {
+      searchParams.set("pages", parseInt(page) + 1);
+      setSearchParams(searchParams);
+    }
+  };
   const [priceShow, setPriceShow] = useState({ min: priceMin, max: priceMax });
   const [showDuration, setShowDuration] = useState({
     1: splitDuration.includes("1"),
@@ -219,7 +227,11 @@ const SearchPage = () => {
           `/portfolio/search?` + new URLSearchParams(params).toString()
         );
         console.log(response);
-        setPortfolios(response.data.pagination.items);
+        if (page === "1" || windowSize >= 850 || !portfolios)
+          setPortfolios(response.data.pagination.items);
+        else {
+          setPortfolios((prev) => [...prev, ...response.data.pagination.items]);
+        }
         setMeta(response.data.pagination.meta);
       } catch (err) {
         console.log(err);
@@ -243,8 +255,6 @@ const SearchPage = () => {
   };
 
   console.log(mapOptions);
-
-  const windowSize = useWindow();
 
   const FilterContent = (
     <FilterContainer>
@@ -346,6 +356,13 @@ const SearchPage = () => {
     setShowModal(false);
     document.body.style.overflow = "";
   };
+
+  useEffect(() => {
+    if (windowSize < 850) {
+      onResetPage();
+    }
+  }, [windowSize]);
+
   return (
     <>
       <FilterModal
@@ -420,41 +437,53 @@ const SearchPage = () => {
                 />
               </InputSearchContainer>
             )}
-            <PortfolioCardContainer>
-              {isLoading && <LoadingSpinner />}
-              {!isLoading &&
-                portfolios &&
-                portfolios.map((portfolio, i) => {
-                  return (
-                    <PortFolioCard
-                      id={portfolio.id}
-                      setPortfolios={setPortfolios}
-                      key={portfolio.id}
-                      portImg={PortfolioImg}
-                      category={portfolio.category}
-                      name={portfolio.name}
-                      description={portfolio.description}
-                      duration={portfolio.duration}
-                      price={portfolio.price}
-                      canEdit={false}
-                      isPublic={portfolio.is_public}
-                      onClick={onClickDetailCard.bind(null, portfolio.id)}
-                      onClickPencil={() => {}}
-                    />
-                  );
-                })}
-              {!isLoading && !portfolios && "Not found"}
-            </PortfolioCardContainer>
-            {portfolios && meta && meta.TotalPage !== 1 && (
-              <PaginationBar
-                page={page}
-                ref={pageRef}
-                totalPage={meta.TotalPage}
-                onPrev={onPrevPageHandler}
-                onNext={onNextPageHandler}
-                onSet={onSetPageHandler}
+            {windowSize < 850 && (
+              <SearchCorousel
+                portfolios={portfolios}
+                isLoading={isLoading}
+                handleInfiniteScroll={handleInfiniteScrollNextPage}
               />
             )}
+            {windowSize >= 850 && (
+              <PortfolioCardContainer>
+                {isLoading && <LoadingSpinner />}
+                {!isLoading &&
+                  portfolios &&
+                  portfolios.map((portfolio, i) => {
+                    return (
+                      <PortFolioCard
+                        id={portfolio.id}
+                        setPortfolios={setPortfolios}
+                        key={portfolio.id}
+                        portImg={PortfolioImg}
+                        category={portfolio.category}
+                        name={portfolio.name}
+                        description={portfolio.description}
+                        duration={portfolio.duration}
+                        price={portfolio.price}
+                        canEdit={false}
+                        isPublic={portfolio.is_public}
+                        onClick={onClickDetailCard.bind(null, portfolio.id)}
+                        onClickPencil={() => {}}
+                      />
+                    );
+                  })}
+                {!isLoading && !portfolios && "Not found"}
+              </PortfolioCardContainer>
+            )}
+            {windowSize >= 850 &&
+              portfolios &&
+              meta &&
+              meta.TotalPage !== 1 && (
+                <PaginationBar
+                  page={page}
+                  ref={pageRef}
+                  totalPage={meta.TotalPage}
+                  onPrev={onPrevPageHandler}
+                  onNext={onNextPageHandler}
+                  onSet={onSetPageHandler}
+                />
+              )}
           </div>
         </BG>
       </Page>
