@@ -5,7 +5,7 @@ import LandingButton from "../shared/LandingButton";
 import PortfolioCardContainer from "./PortfolioCardContainer";
 import { useNavigate } from "react-router-dom";
 
-const BG = tw.div`mx-auto w-[90%] h-screen snap-center font-ibm`;
+const BG = tw.div`mx-auto w-[90%] max-w-[1200px] h-screen snap-center font-ibm`;
 const Header = tw.div`text-4xl text-freelance-landing-purple font-bold`;
 
 const Landing2 = () => {
@@ -17,7 +17,7 @@ const Landing2 = () => {
 
   return (
     <BG>
-      <div tw="flex flex-col justify-center items-center gap-y-[7vh] h-full">
+      <div tw="flex flex-col justify-center items-center gap-y-[1vh] dt:gap-y-[7vh] h-full w-full">
         <Header>หมวดหมู่ยอดนิยม</Header>
         <CategoryButtonContainer select={select} setSelect={setSelect} />
         <PortfolioCardContainer select={select} />

@@ -18,9 +18,9 @@ import { mapFaculties, mapOptions } from "../store/portfolioForm";
 import FilterButton from "../components/searchPage/FilterButton";
 
 const Page = tw.div`w-full`;
-const BG = tw.div`flex-col w-[90%] h-auto flex dt:flex-row justify-between min-h-[95vh] pt-[15vh] max-w-[1200px] mx-auto`;
+const BG = tw.div`flex-col w-[90%] h-auto flex dt:flex-row justify-between min-h-[95vh] pt-[10vh] max-w-[1200px] mx-auto`;
 const FilterContainer = tw.div`dt:sticky top-[15vh] h-auto dt:w-[20%]  font-ibm flex flex-col items-end`;
-const PortfolioCardContainer = tw.div`w-full flex justify-center dt:justify-start flex-wrap gap-x-[3%] gap-y-[2vh] my-10 min-h-[65vh]`;
+const PortfolioCardContainer = tw.div`w-full flex justify-center  flex-wrap gap-x-[3%] gap-y-[2vh] my-10 min-h-[65vh]`;
 const Filterbar = tw.div`flex flex-wrap gap-2 items-center text-mobile-h2 font-ibm font-medium text-freelance-black-secondary`;
 
 const SearchPage = () => {
@@ -36,7 +36,7 @@ const SearchPage = () => {
   };
 
   const pageRef = React.createRef();
-  const page = searchParams.get("pages");
+  const page = searchParams.get("pages") || 1;
 
   const onResetPage = () => {
     searchParams.set("pages", 1);
@@ -223,6 +223,57 @@ const SearchPage = () => {
 
   console.log(mapOptions);
 
+  const filterBar = (
+    <FilterContainer>
+      <TemplateFilter header="หมวดหมู่">
+        {categories.map((category, idx) => (
+          <CategoryFilter
+            key={idx}
+            value={category.value}
+            text={category.text}
+            selectedFilter={parseInt(selectedCategory)}
+            setSelectedFilter={setSelected}
+          />
+        ))}
+      </TemplateFilter>
+      <TemplateFilter header="ช่วงราคา">
+        <PriceFilter
+          onChangePrice={onChangePriceHandler}
+          onSubmitPrice={onSubmitPriceHandler}
+          priceMin={priceShow.min}
+          priceMax={priceShow.max}
+          placeMin="0"
+          placeMax="Max"
+        />
+      </TemplateFilter>
+      <TemplateFilter header="ระยะเวลา">
+        {durationOptions.map((option, idx) => (
+          <DurationFilter
+            value={option.value}
+            text={option.text}
+            key={idx}
+            onChange={onChangeDurationHandler}
+            showDuration={showDuration}
+          />
+        ))}
+      </TemplateFilter>
+      <TemplateFilter header="คณะ">
+        {faculties.map((faculty, idx1) => (
+          <SubTemplateFilter key={idx1} header={faculty.text}>
+            {faculty.sub.map((subFac, idx2) => (
+              <FacultyFilter
+                key={idx2}
+                value={subFac.value}
+                text={subFac.text}
+                selectedFilter={parseInt(selectedFaculty)}
+                setSelectedFilter={setSelected}
+              />
+            ))}
+          </SubTemplateFilter>
+        ))}
+      </TemplateFilter>
+    </FilterContainer>
+  );
   return (
     <>
       <Navbar
@@ -237,55 +288,7 @@ const SearchPage = () => {
       <Page>
         {" "}
         <BG>
-          <FilterContainer>
-            <TemplateFilter header="หมวดหมู่">
-              {categories.map((category, idx) => (
-                <CategoryFilter
-                  key={idx}
-                  value={category.value}
-                  text={category.text}
-                  selectedFilter={parseInt(selectedCategory)}
-                  setSelectedFilter={setSelected}
-                />
-              ))}
-            </TemplateFilter>
-            <TemplateFilter header="ช่วงราคา">
-              <PriceFilter
-                onChangePrice={onChangePriceHandler}
-                onSubmitPrice={onSubmitPriceHandler}
-                priceMin={priceShow.min}
-                priceMax={priceShow.max}
-                placeMin="0"
-                placeMax="Max"
-              />
-            </TemplateFilter>
-            <TemplateFilter header="ระยะเวลา">
-              {durationOptions.map((option, idx) => (
-                <DurationFilter
-                  value={option.value}
-                  text={option.text}
-                  key={idx}
-                  onChange={onChangeDurationHandler}
-                  showDuration={showDuration}
-                />
-              ))}
-            </TemplateFilter>
-            <TemplateFilter header="คณะ">
-              {faculties.map((faculty, idx1) => (
-                <SubTemplateFilter key={idx1} header={faculty.text}>
-                  {faculty.sub.map((subFac, idx2) => (
-                    <FacultyFilter
-                      key={idx2}
-                      value={subFac.value}
-                      text={subFac.text}
-                      selectedFilter={parseInt(selectedFaculty)}
-                      setSelectedFilter={setSelected}
-                    />
-                  ))}
-                </SubTemplateFilter>
-              ))}
-            </TemplateFilter>
-          </FilterContainer>
+          {filterBar}
           <div tw="w-full dt:w-[70%]  h-auto dt:min-h-[70vh] mx-auto">
             <Filterbar>
               เเสดงผลลัพธ์เฉพาะ
@@ -313,15 +316,14 @@ const SearchPage = () => {
                   ))}
             </Filterbar>
             <PortfolioCardContainer>
-              {isLoading && "Loading..."}
-              {!isLoading &&
-                portfolios &&
+              {/* {isLoading && "Loading..."} */}
+              {portfolios &&
                 portfolios.map((portfolio, i) => {
                   return (
                     <PortFolioCard
                       id={portfolio.id}
                       setPortfolios={setPortfolios}
-                      key={i}
+                      key={portfolio.id}
                       portImg={PortfolioImg}
                       category={portfolio.category}
                       name={portfolio.name}

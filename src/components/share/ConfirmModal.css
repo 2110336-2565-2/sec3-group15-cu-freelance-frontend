@@ -1,0 +1,42 @@
+.fade-enter-active {
+    animation: confirmOpenModal 0.5s ease-out forwards;
+}
+
+.fade-exit-active {
+    animation: confirmCloseModal 0.5s ease-out forwards;
+}
+
+
+@keyframes confirmOpenModal {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: translateY(90%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes confirmCloseModal {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: translateY(60%);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+}
