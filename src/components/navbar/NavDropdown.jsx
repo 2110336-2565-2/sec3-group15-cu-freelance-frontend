@@ -58,7 +58,24 @@ const NavDropdown = ({ setIsShow }) => {
     navigate(url);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+  function getWindowSize() {
+    const { innerWidth } = window;
+    return innerWidth;
+  }
+  const [windowSize, setWindowSize] = useState(getWindowSize());
+  console.log(windowSize);
 
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowSize(getWindowSize());
+    }
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
   return (
     <>
       {!authCtx.userInfo.display_name && "Loading..."}
@@ -80,7 +97,7 @@ const NavDropdown = ({ setIsShow }) => {
                   <ImageNavbar
                     key={idx}
                     image={navbar.img}
-                    onClick={onClickButtonHandler.bind(null, navbar.to)}
+                    onClick={onClickButtonHandler.bind(null, navbar.to=='/edit-profile' && windowSize<850 ? "/home" : navbar.to)}
                     text={navbar.text}
                     last={idx === navbarButton.length - 1}
                   />
