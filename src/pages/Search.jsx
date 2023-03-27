@@ -1,5 +1,6 @@
 import tw from "twin.macro";
 import React, { useContext, useState, useEffect } from "react";
+import InputSearch from "../components/share/InputSearch";
 import Navbar from "../components/share/Navbar";
 import { AuthContext } from "../context/AuthProvider";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -15,13 +16,18 @@ import PriceFilter from "../components/searchPage/PriceFilter";
 import DurationFilter from "../components/searchPage/DurationFilter";
 import PaginationBar from "../components/share/PaginationBar";
 import { mapFaculties, mapOptions } from "../store/portfolioForm";
+import FilterModal from "../components/share/FilterModal";
 import FilterButton from "../components/searchPage/FilterButton";
+import LoadingSpinner from "../components/share/LoadingSpinner";
 
 const Page = tw.div`w-full`;
 const BG = tw.div`flex-col w-[90%] h-auto flex dt:flex-row justify-between min-h-[95vh] pt-[10vh] max-w-[1200px] mx-auto`;
-const FilterContainer = tw.div`dt:sticky top-[15vh] h-auto dt:w-[20%]  font-ibm flex flex-col items-end`;
+const Header = tw.div` font-ibm text-mobile-h1 dt:text-desktop-h1 font-bold my-4`;
+const Header2 = tw.div`text-mobile-h2 dt:text-desktop-h2 font-ibm font-normal my-4 text-[#707070]`;
+const FilterContainer = tw.div`h-[90%] overflow-auto overflow-x-hidden dt:sticky top-[15vh] dt:h-auto dt:w-[20%]  font-ibm flex flex-col items-end`;
 const PortfolioCardContainer = tw.div`w-full flex justify-center  flex-wrap gap-x-[3%] gap-y-[2vh] my-10 min-h-[65vh]`;
 const Filterbar = tw.div`flex flex-wrap gap-2 items-center text-mobile-h2 font-ibm font-medium text-freelance-black-secondary`;
+const InputSearchContainer = tw.div`h-[40px] w-[100%] mx-auto my-4`;
 
 const SearchPage = () => {
   const authCtx = useContext(AuthContext);
@@ -223,7 +229,25 @@ const SearchPage = () => {
 
   console.log(mapOptions);
 
-  const filterBar = (
+  function getWindowSize() {
+    const { innerWidth } = window;
+    return innerWidth;
+  }
+  const [windowSize, setWindowSize] = useState(getWindowSize());
+
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowSize(getWindowSize());
+    }
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+
+  const FilterContent = (
     <FilterContainer>
       <TemplateFilter header="หมวดหมู่">
         {categories.map((category, idx) => (
@@ -258,6 +282,12 @@ const SearchPage = () => {
         ))}
       </TemplateFilter>
       <TemplateFilter header="คณะ">
+        <FacultyFilter
+          value={0}
+          text="ทั้งหมด"
+          selectedFilter={parseInt(selectedFaculty)}
+          setSelectedFilter={setSelected}
+        />
         {faculties.map((faculty, idx1) => (
           <SubTemplateFilter key={idx1} header={faculty.text}>
             {faculty.sub.map((subFac, idx2) => (
@@ -274,8 +304,47 @@ const SearchPage = () => {
       </TemplateFilter>
     </FilterContainer>
   );
+  //FilterModal
+  const [showModal, setShowModal] = useState(false);
+  const onCloseModalHandler = () => {
+    setShowModal(false);
+    document.body.style.overflow = "";
+  };
+  const onOpenModalHandler = () => {
+    setShowModal(true);
+    document.body.style.overflow = "hidden";
+  };
+  const resetAllParams = () => {
+    searchParams.delete("min_price");
+    searchParams.delete("max_price");
+    searchParams.delete("duration");
+    setShowDuration({
+      1: false,
+      3: false,
+      7: false,
+      15: false,
+      30: false,
+    });
+    setPriceShow({ min: "", max: "" });
+    onResetPage();
+  };
+
+  const onSubmitPriceHandler2 = () => {
+    setSelected("min_price", priceShow.min === "0" ? "1" : priceShow.min);
+    setSelected("max_price", priceShow.max);
+    setShowModal(false);
+  };
   return (
     <>
+      <FilterModal
+        content={FilterContent}
+        show={showModal}
+        onClose={onCloseModalHandler}
+        textBLeft="รีเซ็ต"
+        textBRight="เรียบร้อย"
+        onSubmitPrice={onSubmitPriceHandler2}
+        onReset={resetAllParams}
+      />
       <Navbar
         login={!!authCtx.acToken}
         search
@@ -288,36 +357,61 @@ const SearchPage = () => {
       <Page>
         {" "}
         <BG>
-          {filterBar}
+          {windowSize >= 850 && FilterContent}
           <div tw="w-full dt:w-[70%]  h-auto dt:min-h-[70vh] mx-auto">
-            <Filterbar>
-              เเสดงผลลัพธ์เฉพาะ
-              {selectedCategory !== "0" && (
-                <FilterButton
-                  text={mapOptions[parseInt(selectedCategory)]}
-                  onClick={onCancelFaculty.bind(null, "category")}
+            {windowSize < 850 && <Header>พอร์ตโฟลิโอทั้งหมด</Header>}
+            {windowSize < 850 && (
+              <Header2>
+                ดูพอร์ตโฟลิโอจากทุกฟรีแลนซ์ หรือเลือกตัวกรองที่ต้องการได้เลย!
+              </Header2>
+            )}
+            {windowSize >= 850 && (
+              <Filterbar>
+                เเสดงผลลัพธ์เฉพาะ
+                {selectedCategory !== "0" && (
+                  <FilterButton
+                    text={mapOptions[parseInt(selectedCategory)]}
+                    onClick={onCancelFaculty.bind(null, "category")}
+                  />
+                )}
+                {selectedFaculty !== "0" && (
+                  <FilterButton
+                    text={mapFaculties[parseInt(selectedFaculty)]}
+                    onClick={onCancelFaculty.bind(null, "faculty")}
+                  />
+                )}
+                {duration !== "" &&
+                  duration
+                    .split(",")
+                    .map((d, idx) => (
+                      <FilterButton
+                        key={idx}
+                        text={`${d} วัน`}
+                        onClick={onCancelDurationHandler.bind(
+                          null,
+                          parseInt(d)
+                        )}
+                      />
+                    ))}
+              </Filterbar>
+            )}
+            {windowSize < 850 && (
+              <InputSearchContainer>
+                {" "}
+                <InputSearch
+                  placeholder="ค้นหาพอร์ตโฟลิโอที่นี่..."
+                  value={searchResult}
+                  onChange={searchResultChangeHandler}
+                  onSubmit={submitResultHandler}
+                  filter
+                  onClickFilter={onOpenModalHandler}
                 />
-              )}
-              {selectedFaculty !== "0" && (
-                <FilterButton
-                  text={mapFaculties[parseInt(selectedFaculty)]}
-                  onClick={onCancelFaculty.bind(null, "faculty")}
-                />
-              )}
-              {duration !== "" &&
-                duration
-                  .split(",")
-                  .map((d, idx) => (
-                    <FilterButton
-                      key={idx}
-                      text={`${d} วัน`}
-                      onClick={onCancelDurationHandler.bind(null, parseInt(d))}
-                    />
-                  ))}
-            </Filterbar>
+              </InputSearchContainer>
+            )}
             <PortfolioCardContainer>
-              {/* {isLoading && "Loading..."} */}
-              {portfolios &&
+              {isLoading && <LoadingSpinner />}
+              {!isLoading &&
+                portfolios &&
                 portfolios.map((portfolio, i) => {
                   return (
                     <PortFolioCard

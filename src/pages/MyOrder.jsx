@@ -32,12 +32,13 @@ import {
 import OrderModalTemplate from "../components/share/OrderModalTemplate";
 import ConfirmModal from "../components/share/ConfirmModal";
 import ConfirmModalTemplate from "../components/share/ConfirmModalTemplate";
+import LoadingSpinner from "../components/share/LoadingSpinner";
 
 const BG = tw.div`inline dt:flex w-full max-w-[1200px] mx-auto`;
 const Header = tw.div`text-mobile-h1 dt:text-desktop-h1 font-bold my-4`;
-const ContentWrapper = tw.div`min-h-[75vh]  dt:h-fit w-full dt:w-[80%] dt:min-h-[85vh] relative flex flex-col items-center font-ibm`;
-const HeaderTwoContainer = tw.div`text-mobile-h2 dt:text-desktop-h2 flex justify-center w-4/5 mx-auto`;
-const InputSearchContainer = tw.div`h-[40px] w-4/5 mx-auto my-4`;
+const ContentWrapper = tw.div`min-h-[75vh]  dt:h-fit w-[90%] mx-auto dt:w-[77%] dt:min-h-[85vh] dt:gap-y-[3vh] relative flex flex-col items-center font-ibm`;
+const HeaderTwoContainer = tw.div`text-mobile-h2 dt:text-desktop-h2 flex justify-center w-full mx-auto`;
+const InputSearchContainer = tw.div`h-[40px] w-full mx-auto my-4`;
 const SortContainer = tw.div`flex justify-between items-center w-4/5 mx-auto text-mobile-h2 dt:text-desktop-h2 mb-4`;
 const Select = tw.select`h-[30px] w-1/2 border border-[#BCBCBC] focus:outline-none rounded-lg text-mobile-body dt:text-desktop-base px-2`;
 const AddOrder = tw.img``;
@@ -313,9 +314,11 @@ const MyOrderPage = () => {
   //FilterModal
   const [showModal, setShowModal] = useState(false);
   const onCloseModalHandler = () => {
+    document.body.style.overflow = "";
     setShowModal(false);
   };
   const onOpenModalHandler = () => {
+    document.body.style.overflow = "hidden";
     setShowModal(true);
   };
   const FilterContent = (
@@ -488,17 +491,19 @@ const MyOrderPage = () => {
               </HeaderTwo>
             ))}
           </HeaderTwoContainer>
-          <InputSearchContainer>
-            {" "}
-            <InputSearch
-              placeholder="ค้นหาคำขอที่นี่..."
-              value={searchOrder}
-              onChange={searchKeywordChangeHandler}
-              onSubmit={onSearchKeywordHandler}
-              filter
-              onClickFilter={onOpenModalHandler}
-            />
-          </InputSearchContainer>
+          {windowSize < 850 && (
+            <InputSearchContainer>
+              {" "}
+              <InputSearch
+                placeholder="ค้นหาคำขอที่นี่..."
+                value={searchOrder}
+                onChange={searchKeywordChangeHandler}
+                onSubmit={onSearchKeywordHandler}
+                filter
+                onClickFilter={onOpenModalHandler}
+              />
+            </InputSearchContainer>
+          )}
           <SortContainer>
             เรียงตาม
             <Select defaultValue={sort} onChange={onChangeSortHandler}>
@@ -516,9 +521,10 @@ const MyOrderPage = () => {
             />
           </SortContainer>
           <OrderContainer>
-            {isLoadingOrder && !orders && <LoadingDiv>loading...</LoadingDiv>}
+            {isLoadingOrder && <LoadingSpinner />}
             {!isLoadingOrder && !orders && <LoadingDiv>No result</LoadingDiv>}
-            {orders &&
+            {!isLoadingOrder &&
+              orders &&
               orders.map((order, idx) => (
                 <OrderCard
                   key={order.id}
@@ -547,7 +553,7 @@ const MyOrderPage = () => {
                 />
               ))}
           </OrderContainer>
-          {orders && meta && meta.TotalPage !== 1 && (
+          {windowSize >= 850 && orders && meta && meta.TotalPage !== 1 && (
             <PaginationBar
               page={page}
               ref={pageRef}
