@@ -1,6 +1,7 @@
 import tw from "twin.macro"
 
-const Container = tw.div`font-ibm min-w-[300px] 
+const Container = tw.div`font-ibm 
+min-w-[300px] min-h-[280px]
 flex flex-col gap-4
 rounded-xl border-black/20 border-[0.5px] border-solid
 px-10 py-8 shadow-lg

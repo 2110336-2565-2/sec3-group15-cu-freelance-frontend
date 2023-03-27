@@ -108,7 +108,7 @@ const Landing4 = () => {
     return ( 
         <Container>
                 <motion.div    
-                    variants={fadeIn("dow ", 0.3)}
+                    variants={fadeIn("down ", 0.3)}
                     initial="hidden"
                     whileInView={"show"}
                     viewport={{ once: false, amount: 0.7 }}
