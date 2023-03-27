@@ -53,7 +53,11 @@ const PortfolioCardContainer = ({ select }) => {
       />
       <Swiper
         tw="py-5 px-0.5 w-full"
-        // loop={true}
+        loop={true}
+        // onReachEnd={(swiper) => {
+        //   console.log(swiper);
+        //   swiper.slideTo(0, 1000);
+        // }}
         grabCursor={true}
         navigation={{
           prevEl: ".prev-button",
