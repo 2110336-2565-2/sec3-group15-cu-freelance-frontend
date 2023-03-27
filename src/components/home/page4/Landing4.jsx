@@ -23,7 +23,7 @@ const Elem = () => (
     {
         ReviewData.map((data, index) => {
           return (
-              <SnapItem margin={{ left: '15px', right: '15px' }} snapAlign="center">
+              <SnapItem margin={{ left: '15px', right: '15px', top: '0px', bottom: '20px' }} snapAlign="center">
                   <Card 
                                 img={data.img}
                                 title={data.title}
@@ -87,7 +87,7 @@ const Landing4 = () => {
                 initial="hidden"
                 whileInView={"show"}
                 // viewport={{ once: false, amount: 1 }}
-                tw="w-screen"
+                tw="w-screen max-w-[1200px]"
                 >
                 <Elem/>
           </motion.div>
