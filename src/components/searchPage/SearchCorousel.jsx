@@ -44,9 +44,9 @@ const SearchCorousel = ({ portfolios, isLoading, handleInfiniteScroll }) => {
               />
             </SwiperSlide>
           ))}
-          {isLoading && <LoadingSpinner />}
         </Swiper>
-      )}{" "}
+      )}
+      {isLoading && <LoadingSpinner />}
     </>
   );
 };
