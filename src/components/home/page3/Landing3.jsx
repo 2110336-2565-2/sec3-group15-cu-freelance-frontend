@@ -53,7 +53,7 @@ const Landing3 = () => {
                 initial="hidden"
                 whileInView={"show"}
                 viewport={{ once: false, amount: 0.7 }}
-                tw="font-ibm font-medium text-2xl dt:text-5xl "
+                tw="font-ibm font-medium text-center text-3xl dt:text-5xl dt:text-left"
               >
                 {" "}
                 เราเป็น <HeaderStressed> ตัวกลาง</HeaderStressed>
@@ -64,7 +64,7 @@ const Landing3 = () => {
                 initial="hidden"
                 whileInView={"show"}
                 viewport={{ once: false, amount: 0.7 }}
-                tw="font-ibm font-medium text-2xl dt:text-5xl "
+                tw="font-ibm font-medium text-center text-3xl dt:text-5xl dt:text-left"
               >
                 {" "}
                 ในการรับจ้างงานนิสิต
@@ -74,7 +74,7 @@ const Landing3 = () => {
                 initial="hidden"
                 whileInView={"show"}
                 viewport={{ once: false, amount: 0.7 }}
-                tw="mt-2 font-ibm text-lg dt:text-xl max-w-[600px]"
+                tw="mt-2 font-ibm text-xl text-center dt:text-left max-w-[600px]"
               >
                 เราเชื่อว่านิสิตจุฬาได้เรียนรู้และเข้าใจวิชาต่าง ๆ มาเป็นอย่างดี
                 สามารถใช้ ความรู้ที่เรียนมาใน
