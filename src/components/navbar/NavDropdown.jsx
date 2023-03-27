@@ -97,7 +97,7 @@ const NavDropdown = ({ setIsShow }) => {
                   <ImageNavbar
                     key={idx}
                     image={navbar.img}
-                    onClick={onClickButtonHandler.bind(null, navbar.to=='/edit-profile' && windowSize<850 ? "/home" : navbar.to)}
+                    onClick={onClickButtonHandler.bind(null, navbar.to=='/edit-profile' && windowSize<850 ? "/user-setting-entrance" : navbar.to)}
                     text={navbar.text}
                     last={idx === navbarButton.length - 1}
                   />

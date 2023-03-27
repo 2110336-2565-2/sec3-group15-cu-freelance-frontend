@@ -3,10 +3,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import tw, {styled} from "twin.macro"
 
 const Container = styled.div(()=>[
-    tw`flex flex-col fixed invisible dt:visible top-1/4 gap-y-8 ml-4 wd:ml-32 pf:ml-64`
+    tw`flex flex-col fixed invisible tbl:visible top-1/4 gap-y-8 ml-4 wd:ml-32 pf:ml-64`
 ]);
 const List = styled.div(({checkState, nowState})=>[
-    tw`font-ibm font-bold text-xl text-freelance-black-primary hover:underline hover:cursor-pointer`,
+    tw`font-ibm font-bold dt:text-xl text-freelance-black-primary hover:underline hover:cursor-pointer`,
     checkState==nowState && tw`underline`
 ]);
 const MenuList = ({state})=>{
