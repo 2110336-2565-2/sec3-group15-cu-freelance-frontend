@@ -4,12 +4,13 @@ import { authClient } from "../../../utils/auth";
 import PortFolioCard from "../../share/PortfolioCard";
 import PortfolioImg from "../../../assets/PortfolioImage.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper";
+import { Navigation, Autoplay } from "swiper";
 import backButton from "../../../assets/NewHomePage/page2/backButton.svg";
 import nextButton from "../../../assets/NewHomePage/page2/nextButton.svg";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/autoplay";
 import "./PortfolioCardContainer.css";
 import { useNavigate } from "react-router-dom";
 
@@ -52,15 +53,15 @@ const PortfolioCardContainer = ({ select }) => {
       />
       <Swiper
         tw="py-5 px-0.5 w-full"
-        // onReachBeginning={() => console.log("hello!")}
-        loop={true}
+        // loop={true}
         grabCursor={true}
         navigation={{
           prevEl: ".prev-button",
           nextEl: ".next-button",
         }}
+        autoplay={{ delay: 2000, disableOnInteraction: false }}
         slidesPerView="auto"
-        modules={[Navigation]}
+        modules={[Navigation, Autoplay]}
       >
         {portfolios &&
           portfolios.map((portfolio) => (
