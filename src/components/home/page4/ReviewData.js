@@ -13,36 +13,36 @@ export const ReviewData = [
     {
         id: 2,
         img: Avatar2,
-        title: "อริสรา สายชม",
-        subtitle: "CEO of BookBix",
-        desc: "ใช้ CU Freelance ช่วยประหยัดเวลาได้มาก หางานง่าย"
+        title: "พริมา ประพันธ์วงศ์",
+        subtitle: "CTO of GuideKai",
+        desc: "นอกจากจะได้ช่วยนิสิตจุฬาหางาน งานที่ได้ออกมายังมีคุณภาพ ใช้ได้จริงอีกด้วย ประทับใจมาก"
     },
-    {
-        id: 3,
-        img: Avatar1,
-        title: "อริสรา สายชม",
-        subtitle: "CEO of BookBix",
-        desc: "ใช้ CU Freelance ช่วยประหยัดเวลาได้มาก หางานง่าย"
-    },
-    {
-        id: 4,
-        img: Avatar2,
-        title: "อริสรา สายชม",
-        subtitle: "CEO of BookBix",
-        desc: "ใช้ CU Freelance ช่วยประหยัดเวลาได้มาก หางานง่าย"
-    },
-    {
-        id: 5,
-        img: Avatar2,
-        title: "อริสรา สายชม",
-        subtitle: "CEO of BookBix",
-        desc: "ใช้ CU Freelance ช่วยประหยัดเวลาได้มาก หางานง่าย"
-    },
-    {
-        id: 6,
-        img: Avatar2,
-        title: "อริสรา สายชม",
-        subtitle: "CEO of BookBix",
-        desc: "ใช้ CU Freelance ช่วยประหยัดเวลาได้มาก หางานง่าย"
-    },
+    // {
+    //     id: 3,
+    //     img: Avatar1,
+    //     title: "อริสรา สายชม",
+    //     subtitle: "CEO of BookBix",
+    //     desc: "ใช้ CU Freelance ช่วยประหยัดเวลาได้มาก หางานง่าย"
+    // },
+    // {
+    //     id: 4,
+    //     img: Avatar2,
+    //     title: "อริสรา สายชม",
+    //     subtitle: "CEO of BookBix",
+    //     desc: "ใช้ CU Freelance ช่วยประหยัดเวลาได้มาก หางานง่าย"
+    // },
+    // {
+    //     id: 5,
+    //     img: Avatar2,
+    //     title: "อริสรา สายชม",
+    //     subtitle: "CEO of BookBix",
+    //     desc: "ใช้ CU Freelance ช่วยประหยัดเวลาได้มาก หางานง่าย"
+    // },
+    // {
+    //     id: 6,
+    //     img: Avatar2,
+    //     title: "อริสรา สายชม",
+    //     subtitle: "CEO of BookBix",
+    //     desc: "ใช้ CU Freelance ช่วยประหยัดเวลาได้มาก หางานง่าย"
+    // },
 ]
