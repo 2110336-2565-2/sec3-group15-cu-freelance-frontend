@@ -2,6 +2,8 @@ import tw, {styled} from "twin.macro"
 import { useNavigate } from "react-router-dom"
 import personIcon from "../assets/PersonIcon.svg"
 import keyIcon from "../assets/KeyIcon.svg"
+import {useWindow} from "../hooks/window-hook"
+import { useEffect } from "react"
 const Container = styled.div(()=>[
     tw`flex mt-[10vh] flex-col m-auto min-h-[85vh]`
 ])
@@ -26,9 +28,16 @@ const Hr = styled.div(()=>[
 ])
 const UserSettingEntrancePage = ()=>{
     const navigate = useNavigate();
+    const windowSize = useWindow();
     const onClickHandler = (path)=>{
         navigate(path);
     }
+    useEffect(()=>{
+        console.log(windowSize);
+        if(windowSize>=550){
+            navigate('/edit-profile');
+        }
+    },[windowSize])
     return (
         <Container>
             <Title>ตั้งค่าข้อมูลผู้ใช้</Title>
