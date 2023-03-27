@@ -15,11 +15,12 @@ import { Navigate, useNavigate } from "react-router-dom";
 import MenuList from "../components/userSetting/MenuList";
 const Container = tw.div`flex justify-center pt-[10vh] dt:pt-[20vh] min-h-[95vh] w-3/4 dt:w-full m-auto mb-2`;
 const Form = tw.form`flex flex-col shadow-[0_4px_4px_rgba(0,0,0,0.25)] px-8 py-4 rounded-[20px] gap-y-2 w-[420px] h-fit pf:w-1/4 pf:gap-y-4`;
-const Title = tw.div`text-center font-bold text-3xl`;
+const Title = tw.div`text-center font-bold text-3xl font-ibm dt:text-start`;
 const ButtonSection = tw.div`flex flex-row justify-between mt-2`;
 const EditProfilePage = ()=> {
     const authCtx=useContext(AuthContext);
     const [submitState, setSubmitState] = useState(0);
+    const [isClear, setIsClear] = useState(0);
     const [formState, inputHandler, setFormData] = useForm({
         Firstname: {
             value:"",
@@ -33,10 +34,10 @@ const EditProfilePage = ()=> {
             value:"",
             isValid:true,
         },
-        Username: {
-            value:"",
-            isValid:true,
-        },
+        // Username: {
+        //     value:"",
+        //     isValid:true,
+        // },
         Displayname: {
             value:"",
             isValid:true,
@@ -45,11 +46,38 @@ const EditProfilePage = ()=> {
     )
     const navigate = useNavigate();
     const backHandler = (event) => {
-        navigate(-1);
+        setFormData({
+            Firstname: {
+                value:authCtx.userInfo.firstname,
+                isValid:true,
+            },
+            Lastname: {
+                value:authCtx.userInfo.lastname,
+                isValid:true,
+            },
+            PhoneNumber: {
+                value:authCtx.userInfo.phone,
+                isValid:true,
+            },
+            // Username: {
+            //     value:authCtx.userInfo.username,
+            //     isValid:true,
+            // },
+            Displayname: {
+                value:authCtx.userInfo.display_name,
+                isValid:true,
+            }
+        },true)
+        setIsClear(1);
     }
+    useEffect(()=>{
+        if(isClear==1){
+            setIsClear(0);
+        }
+    },[isClear])
     const formSubmitHandler = async(event)=>{
         // event.preventDefault();
-        const { Firstname, Lastname, PhoneNumber, Username, Displayname} =
+        const { Firstname, Lastname, PhoneNumber, Displayname} =
                 formState.inputs;
         try{
             let data = JSON.stringify({
@@ -85,16 +113,17 @@ const EditProfilePage = ()=> {
                 value:authCtx.userInfo.phone,
                 isValid:true,
             },
-            Username: {
-                value:authCtx.userInfo.username,
-                isValid:true,
-            },
+            // Username: {
+            //     value:authCtx.userInfo.username,
+            //     isValid:true,
+            // },
             Displayname: {
                 value:authCtx.userInfo.display_name,
                 isValid:true,
             }
         },true)
     },[authCtx.userInfo.firstname])
+    console.log(formState.isValid);
     return (
         <>
         {submitState==1&&<Toast type='success' title='สำเร็จ' description='ข้อมูลส่วนตัวของคุณได้ถูกเปลี่ยนแปลงแล้ว' icon={successIcon}/>}
@@ -102,13 +131,13 @@ const EditProfilePage = ()=> {
         <MenuList state={0}/>
         {authCtx.userInfo.firstname && 
         <Container>
-            <Form>
-                <Title>Edit Profile</Title>
+            {!isClear&&<Form>
+                <Title>แก้ไขข้อมูลส่วนตัว</Title>
                 <Input
                 type="text"
                 id="Firstname"
-                label="Firstname"
-                errorText="Your firstname should not be blank"
+                label="ชื่อ"
+                errorText="ชื่อของคุณไม่ควรว่างเปล่า"
                 onInput={inputHandler}
                 validator={[VALIDATOR_REQUIRE()]}
                 initialValue={authCtx.userInfo.firstname}
@@ -116,8 +145,8 @@ const EditProfilePage = ()=> {
                 <Input
                 type="text"
                 id="Lastname"
-                label="Lastname"
-                errorText="Your lastname should not be blank"
+                label="นามสกุล"
+                errorText="นามสกุลของคุณไม่ควรว่างเปล่า"
                 onInput={inputHandler}
                 validator={[VALIDATOR_REQUIRE()]}
                 initialValue={authCtx.userInfo.lastname}
@@ -126,14 +155,14 @@ const EditProfilePage = ()=> {
                 <Input
                 type="text"
                 id="PhoneNumber"
-                label="Phone Number"
-                errorText="Your phone should be in this following format 0xxxxxxxxx"
+                label="เบอร์โทรศัพท์"
+                errorText="เบอร์โทรของคุณควรอยู่ในรูปแบบ 0xxxxxxxxx"
                 onInput={inputHandler}
                 validator={[VALIDATOR_PHONE()]}
                 initialValue={authCtx.userInfo.phone}
                 initialValid={true}>                    
                 </Input>
-                <Input
+                {/* <Input
                 type="text"
                 id="Username"
                 label="Username"
@@ -142,25 +171,25 @@ const EditProfilePage = ()=> {
                 validator={[VALIDATOR_REQUIRE()]}
                 initialValue={authCtx.userInfo.username}
                 initialValid={true}> 
-                </Input>
+                </Input> */}
                 <Input
                 type="text"
                 id="Displayname"
-                label="Display Name"
-                errorText="Your display name should not be blank"
+                label="ชื่อที่ใช้แสดง"
+                errorText="ชื่อที่ใช้แสดงไม่ควรว่างเปล่า"
                 onInput={inputHandler}
                 validator={[VALIDATOR_REQUIRE()]}
                 initialValue={authCtx.userInfo.display_name}
                 initialValid={true}
                 ></Input>
                 <ButtonSection>
-                    <Button onClick={backHandler} secondary width={'45%'}>Back</Button>
-                    <Button onClick={formSubmitHandler} primary width={'45%'} disabled={!formState.isValid}>
-                        Save
+                    <Button onClick={backHandler} secondary width={'45%'}>ล้าง</Button>
+                    <Button onClick={formSubmitHandler} primary width={'45%'} disable={!formState.isValid}>
+                        บันทึก
                     </Button>
                 </ButtonSection>
                 
-            </Form>
+            </Form>}
         </Container>
         }
         {!authCtx.userInfo && <div>...Loading</div>}
