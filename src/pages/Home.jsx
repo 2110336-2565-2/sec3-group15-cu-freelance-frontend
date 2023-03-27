@@ -6,6 +6,7 @@ import ValidateIndex from "../components/home/validate/Index";
 import Landing3 from "../components/home/page3/Landing3";
 import Landing1 from "../components/home/page1/Landing1";
 import Landing2 from "../components/home/page2/Landing2";
+import Landing4 from "../components/home/page4/Landing4";
 
 const HomePage = () => {
   return (
@@ -13,6 +14,7 @@ const HomePage = () => {
       <Landing1 />
       <Landing2 />
       <Landing3 />
+      <Landing4 />
       {/* <CategoryIndex /> */}
       {/* <CommentIndex /> */}
       {/* <ValidateIndex /> */}
