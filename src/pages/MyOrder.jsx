@@ -34,7 +34,7 @@ import ConfirmModal from "../components/share/ConfirmModal";
 import ConfirmModalTemplate from "../components/share/ConfirmModalTemplate";
 import LoadingSpinner from "../components/share/LoadingSpinner";
 
-const BG = tw.div`inline dt:flex w-full max-w-[1200px] mx-auto`;
+const BG = tw.div`inline dt:flex w-full dt:w-[90%] max-w-[1200px] mx-auto`;
 const Header = tw.div`text-mobile-h1 dt:text-desktop-h1 font-bold my-4`;
 const ContentWrapper = tw.div`min-h-[75vh]  dt:h-fit w-[90%] mx-auto dt:w-[77%] dt:min-h-[85vh] dt:gap-y-[3vh] relative flex flex-col items-center font-ibm`;
 const HeaderTwoContainer = tw.div`text-mobile-h2 dt:text-desktop-h2 flex justify-center w-full mx-auto`;
@@ -72,16 +72,28 @@ const MyOrderPage = () => {
   };
 
   //searchOrder
-  const searchOrder = searchParams.get("keywords") || "";
-  const onSearchKeywordHandler = (e) => {
-    e.preventDefault();
-    // navigate(`/search?pages=1&keyword=${searchResult}`);
+  const [searchOrderResult, setSearchOrderResult] = useState(
+    searchParams.get("keyword") || ""
+  );
+
+  const searchOrderResultChangeHandler = (e) => {
+    setSearchOrderResult(e.target.value);
   };
 
-  const searchKeywordChangeHandler = (e) => {
-    searchParams.set("keywords", e.target.value);
+  const submitResultHandler = (e) => {
+    e.preventDefault();
+    setSelected("keyword", searchOrderResult);
     onResetPage();
   };
+
+  const searchOrder = searchParams.get("keywords") || "";
+
+  const submitMBResultHandler = (e) => {
+    setSearchOrderResult(e.target.value);
+    setSelected("keyword", e.target.value);
+    onResetPage();
+  };
+
   const onNextPageHandler = (e) => {
     e.preventDefault();
     searchParams.set("pages", parseInt(page) + 1);
@@ -259,7 +271,8 @@ const MyOrderPage = () => {
     priceMin,
     priceMax,
     duration,
-    sort
+    sort,
+    keyword
   ) => {
     let ht = "/" + headerType;
     if (ht === "/order") ht = "";
@@ -300,7 +313,15 @@ const MyOrderPage = () => {
     setIsLoadingOrder(false);
   };
   useEffect(() => {
-    fetchData(selectOrder, page, priceMin, priceMax, duration, sort);
+    fetchData(
+      selectOrder,
+      page,
+      priceMin,
+      priceMax,
+      duration,
+      sort,
+      searchOrder
+    );
   }, [
     selectOrder,
     // keyword,
@@ -460,9 +481,9 @@ const MyOrderPage = () => {
       <Navbar
         login={!!authCtx.acToken}
         search
-        searchResult={searchResult}
-        onChange={searchResultChangeHandler}
-        onSubmit={onSearchHandler}
+        searchResult={searchOrderResult}
+        onChange={searchOrderResultChangeHandler}
+        onSubmit={submitResultHandler}
       />
       <FilterModal
         content={FilterContent}
@@ -496,9 +517,9 @@ const MyOrderPage = () => {
               {" "}
               <InputSearch
                 placeholder="ค้นหาคำขอที่นี่..."
-                value={searchOrder}
-                onChange={searchKeywordChangeHandler}
-                onSubmit={onSearchKeywordHandler}
+                value={searchOrderResult}
+                onChange={submitMBResultHandler}
+                onSubmit={submitResultHandler}
                 filter
                 onClickFilter={onOpenModalHandler}
               />

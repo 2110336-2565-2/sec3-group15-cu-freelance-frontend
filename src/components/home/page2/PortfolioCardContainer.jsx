@@ -17,8 +17,8 @@ const Container = tw.div`flex mx-auto w-[90vw]`;
 
 const PortfolioCardContainer = ({ select }) => {
   const [portfolios, setPortfolios] = useState(null);
-  const navigationPrevRef = useRef(null);
-  const navigationNextRef = useRef(null);
+  // const navigationPrevRef = useRef(null);
+  // const navigationNextRef = useRef(null);
   const navigate = useNavigate();
   const onClickDetailCard = (id) => {
     navigate(`/portfolio/${id}`);
@@ -46,8 +46,9 @@ const PortfolioCardContainer = ({ select }) => {
       <img
         src={backButton}
         alt="backButton"
+        className="prev-button"
         tw=" hidden tbl:inline w-[5%] min-w-[60px] cursor-pointer"
-        ref={navigationPrevRef}
+        // ref={navigationPrevRef}
       />
       <Swiper
         tw="py-5 px-0.5 w-full"
@@ -55,8 +56,8 @@ const PortfolioCardContainer = ({ select }) => {
         loop={true}
         grabCursor={true}
         navigation={{
-          prevEl: navigationPrevRef.current,
-          nextEl: navigationNextRef.current,
+          prevEl: ".prev-button",
+          nextEl: ".next-button",
         }}
         slidesPerView="auto"
         modules={[Navigation]}
@@ -84,8 +85,9 @@ const PortfolioCardContainer = ({ select }) => {
       <img
         src={nextButton}
         alt="nextButton"
+        className="next-button"
         tw="hidden tbl:inline  w-[5%] min-w-[60px] cursor-pointer"
-        ref={navigationNextRef}
+        // ref={navigationNextRef}
       />
     </Container>
   );

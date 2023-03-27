@@ -25,7 +25,7 @@ const BG = tw.div`flex-col w-[90%] h-auto flex dt:flex-row justify-between min-h
 const Header = tw.div` font-ibm text-mobile-h1 dt:text-desktop-h1 font-bold my-4`;
 const Header2 = tw.div`text-mobile-h2 dt:text-desktop-h2 font-ibm font-normal my-4 text-[#707070]`;
 const FilterContainer = tw.div`h-[90%] overflow-auto overflow-x-hidden dt:sticky top-[15vh] dt:h-auto dt:w-[20%]  font-ibm flex flex-col items-end`;
-const PortfolioCardContainer = tw.div`w-full flex justify-center  flex-wrap gap-x-[3%] gap-y-[2vh] my-10 min-h-[65vh]`;
+const PortfolioCardContainer = tw.div`w-full flex justify-start  flex-wrap gap-x-[3%] gap-y-[2vh] my-10 min-h-[65vh]`;
 const Filterbar = tw.div`flex flex-wrap gap-2 items-center text-mobile-h2 font-ibm font-medium text-freelance-black-secondary`;
 const InputSearchContainer = tw.div`h-[40px] w-[100%] mx-auto my-4`;
 

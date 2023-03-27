@@ -17,7 +17,7 @@ const Landing2 = () => {
 
   return (
     <BG>
-      <div tw="flex flex-col justify-center items-center gap-y-[1vh] dt:gap-y-[7vh] h-full w-full">
+      <div tw="flex flex-col justify-center items-center gap-y-[4vh] dt:gap-y-[7vh] h-full w-full">
         <Header>หมวดหมู่ยอดนิยม</Header>
         <CategoryButtonContainer select={select} setSelect={setSelect} />
         <PortfolioCardContainer select={select} />
