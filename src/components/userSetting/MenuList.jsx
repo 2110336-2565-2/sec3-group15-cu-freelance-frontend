@@ -17,7 +17,7 @@ const MenuList = ({state})=>{
     return (
         <Container>
             <List onClick = {onClickHandler.bind(null,'/edit-profile')} checkState={0} nowState={state}>แก้ไขข้อมูลส่วนตัว</List>
-            <List onClick = {onClickHandler.bind(null,'/edit-username')} checkState={1} nowState={state}>แก้ไขชื่อผู้ใช้</List>
+            {/* <List onClick = {onClickHandler.bind(null,'/edit-username')} checkState={1} nowState={state}>แก้ไขชื่อผู้ใช้</List> */}
             <List onClick = {onClickHandler.bind(null,'/change-password')} checkState={2} nowState={state}>เปลี่ยนรหัสผ่าน</List>
         </Container>
     )
