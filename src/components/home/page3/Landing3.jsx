@@ -26,7 +26,7 @@ const Landing3 = () => {
   return (
     <Wrapper>
       <Section>
-        <div tw="flex flex-col  dt:flex-row justify-center items-center">
+        <div tw="flex flex-col dt:flex-row justify-around items-center">
           <motion.div
             variants={fadeIn("down", 0.5)}
             initial="hidden"
@@ -47,13 +47,14 @@ const Landing3 = () => {
           </motion.div>
 
           <div tw="flex flex-col">
+            <div tw="flex flex-col gap-4 dt:gap-6">
             <div tw="flex flex-col gap-2 dt:gap-4">
               <motion.h1
                 variants={fadeIn("up", 0.1)}
                 initial="hidden"
                 whileInView={"show"}
                 viewport={{ once: false, amount: 0.7 }}
-                tw="font-ibm font-medium text-center text-3xl dt:text-5xl dt:text-left"
+                tw="font-ibm font-medium text-center text-2xl tbl:text-4xl dt:text-left"
               >
                 {" "}
                 เราเป็น <HeaderStressed> ตัวกลาง</HeaderStressed>
@@ -64,17 +65,18 @@ const Landing3 = () => {
                 initial="hidden"
                 whileInView={"show"}
                 viewport={{ once: false, amount: 0.7 }}
-                tw="font-ibm font-medium text-center text-3xl dt:text-5xl dt:text-left"
+                tw="font-ibm font-medium text-center text-2xl tbl:text-4xl dt:text-left"
               >
                 {" "}
                 ในการรับจ้างงานนิสิต
               </motion.h1>
+              </div>
               <motion.p
                 variants={fadeIn("up", 0.1)}
                 initial="hidden"
                 whileInView={"show"}
                 viewport={{ once: false, amount: 0.7 }}
-                tw="mt-2 font-ibm text-xl text-center dt:text-left max-w-[600px]"
+                tw="mt-2 font-ibm text-lg leading-8 text-center tbl:text-2xl dt:text-left max-w-[600px]"
               >
                 เราเชื่อว่านิสิตจุฬาได้เรียนรู้และเข้าใจวิชาต่าง ๆ มาเป็นอย่างดี
                 สามารถใช้ ความรู้ที่เรียนมาใน
