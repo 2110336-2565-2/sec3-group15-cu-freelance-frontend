@@ -118,7 +118,11 @@ const Navbar = (props) => {
                 onSubmit={props.onSubmit}
                 onChange={props.onChange}
                 value={props.searchResult}
-                placeholder="ค้นหางานที่ต้องการ..."
+                placeholder={
+                  props.placeholder
+                    ? props.placeholder
+                    : "ค้นหางานที่ต้องการ..."
+                }
               />
             </SearchWrapper>
           )}

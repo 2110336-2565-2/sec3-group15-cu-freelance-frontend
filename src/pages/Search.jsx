@@ -19,6 +19,7 @@ import { mapFaculties, mapOptions } from "../store/portfolioForm";
 import FilterModal from "../components/share/FilterModal";
 import FilterButton from "../components/searchPage/FilterButton";
 import LoadingSpinner from "../components/share/LoadingSpinner";
+import { useWindow } from "../hooks/window-hook";
 
 const Page = tw.div`w-full`;
 const BG = tw.div`flex-col w-[90%] h-auto flex dt:flex-row justify-between min-h-[95vh] pt-[10vh] max-w-[1200px] mx-auto`;
@@ -143,10 +144,24 @@ const SearchPage = () => {
     setPriceShow((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  console.log(priceShow.min, priceShow.max);
+
   const onSubmitPriceHandler = (e) => {
     e.preventDefault();
-    setSelected("min_price", priceShow.min === "0" ? "1" : priceShow.min);
-    setSelected("max_price", priceShow.max);
+    setSelected(
+      "min_price",
+      parseInt(priceShow.min) <= 0 ? "1" : priceShow.min
+    );
+    setSelected(
+      "max_price",
+      parseInt(priceShow.max) <= 0 ? "100000" : priceShow.max
+    );
+    if (parseInt(priceShow.min) < 0) {
+      setPriceShow((prev) => ({ ...prev, min: "0" }));
+    }
+    if (parseInt(priceShow.max) < 0) {
+      setPriceShow((prev) => ({ ...prev, max: "100000" }));
+    }
   };
 
   const onCancelDurationHandler = (name) => {
@@ -229,23 +244,7 @@ const SearchPage = () => {
 
   console.log(mapOptions);
 
-  function getWindowSize() {
-    const { innerWidth } = window;
-    return innerWidth;
-  }
-  const [windowSize, setWindowSize] = useState(getWindowSize());
-
-  useEffect(() => {
-    function handleWindowResize() {
-      setWindowSize(getWindowSize());
-    }
-
-    window.addEventListener("resize", handleWindowResize);
-
-    return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
-  }, []);
+  const windowSize = useWindow();
 
   const FilterContent = (
     <FilterContainer>

@@ -15,6 +15,7 @@ import AddOrderIcon from "../assets/AddOrder.svg";
 
 import OrderCard from "../components/share/OrderCard";
 import "./MyOrder.css";
+import { useWindow } from "../hooks/window-hook";
 
 //Filter Import
 import FilterModal from "../components/share/FilterModal";
@@ -173,14 +174,38 @@ const MyOrderPage = () => {
 
   const onSubmitPriceHandler = (e) => {
     e.preventDefault();
-    setSelected("min_price", priceShow.min === "0" ? "1" : priceShow.min);
-    setSelected("max_price", priceShow.max);
+    setSelected(
+      "min_price",
+      parseInt(priceShow.min) <= 0 ? "1" : priceShow.min
+    );
+    setSelected(
+      "max_price",
+      parseInt(priceShow.max) <= 0 ? "100000" : priceShow.max
+    );
+    if (parseInt(priceShow.min) < 0) {
+      setPriceShow((prev) => ({ ...prev, min: "0" }));
+    }
+    if (parseInt(priceShow.max) < 0) {
+      setPriceShow((prev) => ({ ...prev, max: "100000" }));
+    }
     setShowModal(false);
   };
 
   const onSubmitPriceHandler2 = () => {
-    setSelected("min_price", priceShow.min === "0" ? "1" : priceShow.min);
-    setSelected("max_price", priceShow.max);
+    setSelected(
+      "min_price",
+      parseInt(priceShow.min) <= 0 ? "1" : priceShow.min
+    );
+    setSelected(
+      "max_price",
+      parseInt(priceShow.max) <= 0 ? "100000" : priceShow.max
+    );
+    if (parseInt(priceShow.min) < 0) {
+      setPriceShow((prev) => ({ ...prev, min: "0" }));
+    }
+    if (parseInt(priceShow.max) < 0) {
+      setPriceShow((prev) => ({ ...prev, max: "100000" }));
+    }
     setShowModal(false);
   };
   //
@@ -422,24 +447,7 @@ const MyOrderPage = () => {
   //SuccessType
   const [successType, setSuccessType] = useState(null);
   console.log(orders);
-  function getWindowSize() {
-    const { innerWidth } = window;
-    return innerWidth;
-  }
-  const [windowSize, setWindowSize] = useState(getWindowSize());
-  console.log(windowSize);
-
-  useEffect(() => {
-    function handleWindowResize() {
-      setWindowSize(getWindowSize());
-    }
-
-    window.addEventListener("resize", handleWindowResize);
-
-    return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
-  }, []);
+  const windowSize = useWindow();
 
   return (
     <>
@@ -479,6 +487,7 @@ const MyOrderPage = () => {
       />
 
       <Navbar
+        placeholder="ค้นหาออเดอร์ของฉัน"
         login={!!authCtx.acToken}
         search
         searchResult={searchOrderResult}

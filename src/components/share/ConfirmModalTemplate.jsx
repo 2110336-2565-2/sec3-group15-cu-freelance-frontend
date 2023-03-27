@@ -63,6 +63,7 @@ const ConfirmModalTemplate = (props) => {
         desc="หากคุณยืนยันการลบแบบร่างแล้ว คุณจะไม่สามารถกู้คืนแบบร่างมาได้อีก"
         lftOnclick={props.cancel}
         rgtOnclick={clickDelete}
+        isModal={true}
       />
     );
   }
@@ -75,6 +76,7 @@ const ConfirmModalTemplate = (props) => {
         desc="หากคุณยืนยันออเดอร์แล้ว จะไม่สามารถเคลมเงินคืนภายหลังได้"
         lftOnclick={props.cancel}
         rgtOnclick={props.clickReceive}
+        isModal={true}
       />
     );
   }
@@ -88,6 +90,7 @@ const ConfirmModalTemplate = (props) => {
         lftOnclick={props.cancel}
         rgtOnclick={clickReject}
         red
+        isModal={true}
       />
     );
   }
@@ -100,6 +103,7 @@ const ConfirmModalTemplate = (props) => {
         desc="หากคุณยืนยันการตอบรับคำขอแล้ว ความสำเร็จของคุณในงานนี้จะถูกบันทึกใส่ระบบ"
         lftOnclick={props.cancel}
         rgtOnclick={clickAccept}
+        isModal={true}
       />
     );
   }
@@ -113,6 +117,7 @@ const ConfirmModalTemplate = (props) => {
         lftOnclick={props.cancel}
         rgtOnclick={props.clickCancel}
         red
+        isModal={true}
       />
     );
   }
@@ -125,6 +130,7 @@ const ConfirmModalTemplate = (props) => {
         desc="เมื่อคุณส่งงานไปแล้วจะกลับมาแก้ไขไม่ได้อีก"
         lftOnclick={props.cancel}
         rgtOnclick={props.clickSend}
+        isModal={true}
       />
     );
   }
