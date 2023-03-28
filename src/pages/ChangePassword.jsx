@@ -1,11 +1,15 @@
 import tw from "twin.macro";
 import Input from "../components/share/Input";
 import lockIcon from "../assets/LockIcon.svg";
+import failIcon from "../assets/FailIcon.svg"
+import {AnimatePresence} from "framer-motion";
 import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_MATCH,
+  VALIDATOR_UNMATCH,
 } from "../components/share/Validate";
 import { useForm } from "../hooks/form-hook";
+// import {useHistory} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 import { useContext } from "react";
@@ -13,6 +17,9 @@ import { apiClient } from "../utils/axios";
 import { useState } from "react";
 import React from "react";
 import MenuList from "../components/userSetting/MenuList";
+import Toast from "../components/share/Toast";
+import { useWindow } from "../hooks/window-hook";
+import { useEffect } from "react";
 const Container = tw.div`flex justify-center pt-[10vh] dt:pt-[20vh] min-h-[95vh] mb-4 w-3/4 dt:w-full m-auto`;
 const Form = tw.form`flex flex-col shadow-[0_4px_4px_rgba(0,0,0,0.25)] px-8 py-4 rounded-[20px] gap-y-2 w-[420px] h-fit pf:w-1/4`;
 const Title = tw.div`text-center font-bold text-xl dt:text-3xl font-ibm`;
@@ -24,13 +31,20 @@ const ChangePasswordPage = () => {
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
-
+  // const history = useHistory();
+  // console.log(history);
+  const [submitState, setSubmitState] = useState(0);
   const handleCancel = (event) => {
     event.preventDefault();
     console.log("click cancel!");
-    navigate(-2);
+    navigate(-1);
   };
-
+  const windowSize = useWindow();
+  useEffect(()=>{
+    if(windowSize>=550){
+      navigate('/user-setting-entrance-dt');
+    }
+  }, [windowSize])
   const [formState, inputHandler, setFormData] = useForm(
     {
       Current: {
@@ -65,16 +79,30 @@ const ChangePasswordPage = () => {
       });
       setIsLoading(false);
       //console.log(response.data);
-      navigate("/success", {
-        state: { text: "เปลี่ยนรหัสผ่านสำเร็จ", mid: "true" },
+      navigate('/request-complete', {
+        state:{
+            title:"เปลี่ยนรหัสผ่านสำเร็จ",
+            desc:"ยินดีด้วย!",
+            bt1Text:"กลับหน้าหลัก",
+            path1:"/home",
+        }
       });
+      // navigate("/success", {
+      //   state: { text: "เปลี่ยนรหัสผ่านสำเร็จ", mid: "true" },
+      // });
     } catch (err) {
       console.log(err);
+      setSubmitState(2);
+      setTimeout(() => { setSubmitState(0); }, 2000);
+      setIsLoading(false);
     }
   };
   return (
     <>
-    <MenuList state={2}/>
+    {/* <MenuList state={2}/> */}
+    <AnimatePresence>
+      {submitState==2&&<Toast type='fail' title='ผิดพลาด' description='รหัสผ่านเก่าไม่ตรง' icon={failIcon}/>}
+    </AnimatePresence>
     <Container>
       <Form onSubmit={formSubmitHandler}>
         <Title>เปลี่ยนรหัสผ่าน</Title>
@@ -93,10 +121,10 @@ const ChangePasswordPage = () => {
           type="password"
           id="New"
           label="รหัสผ่านใหม่"
-          errorText="รหัสผ่านควรมีความยาวอย่างน้อย 8 ตัวอักษร"
+          errorText="รหัสผ่านควรมีความยาวอย่างน้อย 8 ตัวอักษร และไม่ควรตรงกับรหัสผ่านเก่า"
           onInput={inputHandler}
           placeholder="กรอกรหัสผ่านใหม่"
-          validator={[VALIDATOR_MINLENGTH(8)]}
+          validator={[VALIDATOR_MINLENGTH(8), VALIDATOR_UNMATCH(formState.inputs.Current.value)]}
         />
         <Input
           type="password"

@@ -2,9 +2,13 @@ import tw from "twin.macro";
 import ProgressBar from "./ProgressBar";
 import Input from "../share/Input";
 import GoogleIcon from "../../assets/GoogleIcon.svg";
+import failIcon from "../../assets/FailIcon.svg"
 import Button from "../share/Button";
 import { useContext, useReducer, useState } from "react";
+import React from "react";
+import {AnimatePresence} from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import Toast from "../share/Toast";
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MATCH,
@@ -20,15 +24,16 @@ import { AuthContext } from "../../context/AuthProvider";
 const styles = {
   container: () => [
     tw`flex flex-col font-inter items-center w-full max-w-[460px] 
-    border-[1px] rounded-[30px] px-6 py-8`,
+    dt:border-[1px] dt:shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded-[30px] px-6 py-8 min-h-[75vh] pf:min-h-[566px]`,
   ],
   content: () => [
-    tw`flex flex-col box-border h-full w-full  items-center px-[2%] gap-6`,
+    tw`flex flex-col box-border h-full w-full  items-center px-[2%] gap-x-6 gap-y-2`,
   ],
   title: () => [tw`py-4 text-3xl font-ibm font-bold`],
-  show: ({ showState, nowState }) => [
+  show: ({ showState, nowState, input }) => [
     !(showState & (1 << (nowState - 1))) && tw`hidden`,
     tw`w-full`,
+    input && tw`min-h-[84px]`
   ],
   button: () => [
     tw`w-full font-ibm bg-[#D62B70] font-bold text-[20px] text-white rounded-[10px] py-2 mt-[1%] 
@@ -64,6 +69,7 @@ const loginForm = () => {
   const [check, setCheck] = useState(false);
   const [progress, setProgress] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [submitState, setSubmitState] = useState(0);
   const authCtx = useContext(AuthContext);
 
   const onChangeStateHandler = (value) => {
@@ -116,9 +122,20 @@ const loginForm = () => {
       let expiresOn = new Date();
       expiresOn.setSeconds(expiresOn.getSeconds() + expires_in);
       response = await authCtx.login(access_token, refresh_token, expiresOn);
-      navigate("/success");
+      navigate('/request-complete', {
+        state:{
+            title:"ลงทะเบียนสำเร็จ",
+            desc:"ยินดีต้อนรับสู่ CU Freelance!",
+            bt1Text:"กลับหน้าหลัก",
+            path1:"home",
+        }
+        //bt1OnclickHandler
+    });
+      // navigate("/success");
     } catch (err) {
       console.log(err);
+      setSubmitState(1);
+      setTimeout(() => { setSubmitState(0); }, 2000);
     }
     setLoading(false);
   };
@@ -178,6 +195,10 @@ const loginForm = () => {
     ((state.value === 3) & (!formState3.isValid | !check));
 
   return (
+    <>
+    <AnimatePresence>
+      {submitState==1&&<Toast type='fail' title='ผิดพลาด' description='username ถูกใช้แล้ว' icon={failIcon}/>}
+    </AnimatePresence>
     <div css={styles.container()}>
       <div css={styles.content()}>
         <div css={styles.title()}> สมัครสมาชิก </div>
@@ -191,7 +212,7 @@ const loginForm = () => {
             form3: formState3.isValid,
           }}
         />
-        <div css={styles.show({ showState: 1, nowState: state.value })}>
+        <div css={styles.show({ showState: 1, nowState: state.value, input:true })}>
           <Input
             type="text"
             id="firstname"
@@ -203,7 +224,7 @@ const loginForm = () => {
             required
           />
         </div>
-        <div css={styles.show({ showState: 1, nowState: state.value })}>
+        <div css={styles.show({ showState: 1, nowState: state.value, input:true })}>
           <Input
             type="text"
             id="lastname"
@@ -215,19 +236,19 @@ const loginForm = () => {
             required
           />
         </div>
-        <div css={styles.show({ showState: 1, nowState: state.value })}>
+        <div css={styles.show({ showState: 1, nowState: state.value, input:true})}>
           <Input
             type="tel"
             id="phonenumber"
             label="เบอร์โทรศัพท์"
             placeholder="ใส่ในรูปแบบ 0xxxxxxxxx"
-            errorText="Your phone should be in this format 0xxxxxxxxx"
+            errorText="เบอร์โทรศัพท์ของคุณต้องอยู่ในรูปแบบ 0xxxxxxxxx"
             validator={[VALIDATOR_PHONE()]}
             onInput={inputHandler1}
             required
           />
         </div>
-        <div css={styles.show({ showState: 2, nowState: state.value })}>
+        <div css={styles.show({ showState: 2, nowState: state.value, input:true })}>
           <Input
             type="text"
             id="username"
@@ -239,7 +260,7 @@ const loginForm = () => {
             required
           />
         </div>
-        <div css={styles.show({ showState: 2, nowState: state.value })}>
+        <div css={styles.show({ showState: 2, nowState: state.value, input:true })}>
           <Input
             type="password"
             id="password"
@@ -251,11 +272,11 @@ const loginForm = () => {
             required
           />
         </div>
-        <div css={styles.show({ showState: 2, nowState: state.value })}>
+        <div css={styles.show({ showState: 2, nowState: state.value, input:true })}>
           <Input
             type="password"
             id="confirmPW"
-            label="Confirm password"
+            label="ยืนยันรหัสผ่าน"
             placeholder="ใส่รหัสผ่าน"
             errorText="รหัสผ่านไม่ตรงกัน!"
             validator={[VALIDATOR_MATCH(formState2.inputs.password.value)]}
@@ -263,7 +284,7 @@ const loginForm = () => {
             required
           />
         </div>
-        <div css={styles.show({ showState: 4, nowState: state.value })}>
+        <div css={styles.show({ showState: 4, nowState: state.value, input:true })}>
           <Input
             type="text"
             id="displayname"
@@ -275,7 +296,7 @@ const loginForm = () => {
             required
           />
         </div>
-        <div css={styles.show({ showState: 4, nowState: state.value })}>
+        <div css={styles.show({ showState: 4, nowState: state.value, input:true })}>
           <Input
             type="text"
             id="email"
@@ -289,12 +310,15 @@ const loginForm = () => {
         </div>
         <div css={styles.buttonContainer()}>
         <div css={styles.show({ showState: 6, nowState: state.value })}>
-            <button
+            {/* <button
               css={styles.button()}
               onClick={backHandler}
             >
               ย้อนกลับ
-            </button>
+            </button> */}
+            <Button primary onClick={backHandler} width='100%'>
+              ย้อนกลับ
+            </Button>
           </div>
           <div css={styles.show({ showState: 3, nowState: state.value })}>
             {/* <button
@@ -305,7 +329,7 @@ const loginForm = () => {
               Continue
             </button> */}
             <Button primary onClick={continueHandler} disable={disableButton} width='100%'>
-              Continue
+              ถัดไป
             </Button>
           </div>
         </div>
@@ -346,7 +370,7 @@ const loginForm = () => {
           </p>
           </label>
         </div>
-        <button
+        {/* <button
           css={[
             styles.button(),
             styles.show({ showState: 4, nowState: state.value }),
@@ -355,9 +379,15 @@ const loginForm = () => {
           disabled={disableButton | loading}
         >
           {(loading && "กำลังโหลด...") || "บืนยันการสมัคร"}
-        </button>
+        </button> */}
+        <div css={styles.show({ showState: 4, nowState: state.value })}>
+          <Button primary onClick={submitHandler} disable={disableButton} width="100%">
+            {(loading && "กำลังโหลด...") || "ยืนยันการสมัคร"}
+          </Button>
+        </div>
       </div>
     </div>
+    </>
   );
 };
 export default loginForm;

@@ -8,6 +8,7 @@ const VALIDATOR_TYPE_FILE = 'FILE';
 const VALIDATOR_TYPE_MATCH = 'MATCH';
 const VALIDATOR_TYPE_PHONE = 'PHONE';
 const VALIDATOR_TYPE_PRICE = 'PRICE';
+const VALIDATOR_TYPE_UNMATCH = 'UNMATCH';
 
 export const VALIDATOR_REQUIRE = () => ({ type: VALIDATOR_TYPE_REQUIRE });
 export const VALIDATOR_FILE = () => ({ type: VALIDATOR_TYPE_FILE });
@@ -25,6 +26,7 @@ export const VALIDATOR_EMAIL = () => ({ type: VALIDATOR_TYPE_EMAIL });
 export const VALIDATOR_MATCH = val => ({ type: VALIDATOR_TYPE_MATCH, val: val });
 export const VALIDATOR_PHONE = () => ({type: VALIDATOR_TYPE_PHONE})
 export const VALIDATOR_PRICE = () => ({type:VALIDATOR_TYPE_PRICE});
+export const VALIDATOR_UNMATCH = val => ({type:VALIDATOR_TYPE_UNMATCH, val:val})
 export const validate = (value, validators) => {
   let isValid = true;
   for (const validator of validators) {
@@ -54,6 +56,9 @@ export const validate = (value, validators) => {
     }
     if(validator.type === VALIDATOR_TYPE_PRICE) {
       isValid = isValid &&  /^[1-9][0-9]*$/.test(value);
+    }
+    if(validator.type === VALIDATOR_TYPE_UNMATCH){
+      isValid = isValid && !(value===validator.val);
     }
   }
   return isValid;

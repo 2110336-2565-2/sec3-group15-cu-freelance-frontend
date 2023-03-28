@@ -7,6 +7,6 @@ export const navbarButton = [
   { img: SearchIcon, to: "/search" ,text:"ค้นหางานทั้งหมด"},
   { img: ProfileIcon, to: "/profile" ,text:"โปรไฟล์ของฉัน"},
   { img: OrderIcon, to: "/my-order"  ,text:"ออเดอร์ของฉัน"},
-  { img: SettingIcon, to: "/edit-profile" ,text:"ตั้งค่า"},
+  { img: SettingIcon, to: "/user-setting-entrance-dt" ,text:"ตั้งค่า"},
   { img: SignoutIcon, to: "/logout" ,text:"ล็อคเอาท์"},
 ];

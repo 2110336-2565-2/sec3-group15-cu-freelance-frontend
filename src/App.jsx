@@ -23,6 +23,7 @@ import CreateOrderTemplatePage from "./pages/CreateOrderTemplate";
 import RequestCompletePage from "./pages/RequestComplete";
 import CreateOrderRequest from "./pages/CreateOrderRequest";
 import UserSettingEntrancePage from "./pages/UserSettingEntrance";
+import UserSettingEntranceDtPage from "./pages/UserSettingEntranceDt";
 function App() {
   const { acToken, reToken, login, logout, userInfo, setUserInfo } = useAuth();
   return (
@@ -65,6 +66,7 @@ function App() {
           ></Route>
           <Route path="success" element={<RegisterSuccessPage />} />
           <Route path="/user-setting-entrance" element={<UserSettingEntrancePage/>}/>
+          <Route path="/user-setting-entrance-dt" element={<UserSettingEntranceDtPage/>}/>
         </Route>
         <Route path="/login/">
           <Route path="" element={<Login />} />

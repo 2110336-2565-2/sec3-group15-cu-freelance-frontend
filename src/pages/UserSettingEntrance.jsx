@@ -35,7 +35,7 @@ const UserSettingEntrancePage = ()=>{
     useEffect(()=>{
         console.log(windowSize);
         if(windowSize>=550){
-            navigate('/edit-profile');
+            navigate('/user-setting-entrance-dt');
         }
     },[windowSize])
     return (

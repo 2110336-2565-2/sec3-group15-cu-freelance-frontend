@@ -87,7 +87,7 @@ const NavDropdown = ({ setIsShow }) => {
                     image={navbar.img}
                     onClick={onClickButtonHandler.bind(
                       null,
-                      navbar.to == "/edit-profile" && windowSize < 850
+                      navbar.to == "/user-setting-entrance-dt" && windowSize < 850
                         ? "/user-setting-entrance"
                         : navbar.to
                     )}
