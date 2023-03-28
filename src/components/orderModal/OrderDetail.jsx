@@ -50,7 +50,7 @@ const OrderDetail = (props) => {
   if (status === "reject" || status === "failed") color = "red";
   if (status === "pending") color = "gray";
   if (status === "close") color = "blue";
-  console.log(props.orderType);
+  console.log(props.orderType, props.order.status);
 
   return (
     <>
@@ -119,10 +119,28 @@ const OrderDetail = (props) => {
       </BG>
       {props.userType === 1 && (
         <ButtonLine>
-          <Button width="40%" secondary onClick={props.clickLeft}>
+          <Button
+            width="40%"
+            secondary
+            onClick={props.clickLeft}
+            disable={
+              (props.orderType === "request" &&
+                props.order.status === "close") ||
+              props.order.status === "failed"
+            }
+          >
             {props.leftBtn}
           </Button>
-          <Button width="40%" primary onClick={props.clickRight}>
+          <Button
+            width="40%"
+            primary
+            onClick={props.clickRight}
+            disable={
+              (props.orderType === "request" &&
+                props.order.status === "close") ||
+              props.order.status === "failed"
+            }
+          >
             {props.rightBtn}
           </Button>
         </ButtonLine>

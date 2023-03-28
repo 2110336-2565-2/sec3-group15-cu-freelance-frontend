@@ -82,7 +82,6 @@ const ProfilePage = () => {
             `/portfolio/user/${userId}?limit=6&page=${page}`
           );
         }
-        console.log(response.data);
         setPortfolios(response.data.items);
         setMeta(response.data.meta);
       } catch (err) {
@@ -107,7 +106,6 @@ const ProfilePage = () => {
       fetchData2();
     }
     fetchData();
-    console.log("fetch");
   }, [user_type, page, params.userId]);
 
   return (

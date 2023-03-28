@@ -54,6 +54,20 @@ const ConfirmModalTemplate = (props) => {
     }
   };
 
+  const handleClickCancel = async () => {
+    try {
+      const res = await apiClient.put(`/order/${id}/cancel`);
+      console.log(res);
+      props.fetchData();
+      props.setOrderModalPage(2);
+      props.setSuccessType("cancel");
+      props.setShowOrderModal(true);
+      props.setShowConfirmModal(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   if (page === "delete") {
     content = (
       <RequestComplete
@@ -115,7 +129,7 @@ const ConfirmModalTemplate = (props) => {
         title="ยืนยันการยกเลิกออเดอร์"
         desc="คุณจะไม่ได้รับค่าตอบแทนและจะถูกเก็บประวัติการยกเลิกออเดอร์ไว้ในระบบ"
         lftOnclick={props.cancel}
-        rgtOnclick={props.clickCancel}
+        rgtOnclick={handleClickCancel}
         red
         isModal={true}
       />

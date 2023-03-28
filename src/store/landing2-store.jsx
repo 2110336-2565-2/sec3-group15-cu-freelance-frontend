@@ -1,11 +1,11 @@
-import allWhite from "../assets/NewHomePage/page2/allWhite.svg";
-import allPink from "../assets/NewHomePage/page2/allPink.svg";
-import graphicPink from "../assets/NewHomePage/page2/graphicPink.svg";
-import graphicWhite from "../assets/NewHomePage/page2/graphicWhite.svg";
-import lawWhite from "../assets/NewHomePage/page2/lawWhite.svg";
-import lawPink from "../assets/NewHomePage/page2/lawPink.svg";
-import economicWhite from "../assets/NewHomePage/page2/economicWhite.svg";
-import economicPink from "../assets/NewHomePage/page2/economicPink.svg";
+import allWhite from "../assets/Category/allWhite.svg";
+import allPink from "../assets/Category/AllBlack.svg";
+import graphicPink from "../assets/Category/GraphicBlack.svg";
+import graphicWhite from "../assets/Category/graphicWhite.svg";
+import lawWhite from "../assets/Category/lawWhite.svg";
+import lawPink from "../assets/Category/LawBlack.svg";
+import economicWhite from "../assets/Category/economicWhite.svg";
+import economicPink from "../assets/Category/EconomicBlack.svg";
 
 export const categories = [
   { text: "ทั้งหมด", value: 0, imgPink: allPink, imgWhite: allWhite },

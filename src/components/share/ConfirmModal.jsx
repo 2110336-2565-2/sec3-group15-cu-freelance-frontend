@@ -15,7 +15,7 @@ const ModalOverlay = forwardRef((props, ref) => {
   const content = (
     <div
       ref={ref}
-      tw="bg-white rounded-[20px] max-w-[351px] max-h-[280px] w-[90vw] h-fit flex flex-col fixed m-auto top-0 left-0 bottom-0 right-0 items-center p-2  justify-between z-[70]"
+      tw="bg-white rounded-[20px] max-w-[351px] max-h-[280px] w-[90vw] h-[50vh] flex flex-col fixed m-auto top-0 left-0 bottom-0 right-0 items-center p-2  justify-between z-[70]"
     >
       {props.content}
     </div>

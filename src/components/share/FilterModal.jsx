@@ -1,4 +1,5 @@
 import React, { forwardRef, useRef } from "react";
+import { useEffect } from "react";
 import ReactDOM from "react-dom";
 import tw from "twin.macro";
 import XIcon from "../../assets/XIcon.svg";
@@ -17,7 +18,7 @@ const ModalOverlay = forwardRef((props, ref) => {
   const content = (
     <div
       ref={ref}
-      tw="overflow-auto flex flex-col items-center p-4 h-[80vh] w-[100vw] z-30 absolute top-[20vh] left-0 bg-white rounded-t-[20px] shadow-navbar font-ibm"
+      tw="overflow-auto flex flex-col items-center p-4 h-[80vh] w-[100vw] z-30 fixed top-[20vh] left-0 bg-white rounded-t-[20px] shadow-navbar font-ibm"
     >
       <HeaderFilter>
         ตัวกรอง
@@ -39,7 +40,9 @@ const ModalOverlay = forwardRef((props, ref) => {
 
 const FilterModal = (props) => {
   const FilterRef = useRef(null);
-  console.log(FilterRef);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
   return (
     <CSSTransition
       ref={FilterRef}

@@ -30,7 +30,6 @@ const RequestComplete = ({
   hasIconDesc,
   isModal = false,
 }) => {
-  console.log(isModal);
   //pass dict of title: string, desc: string, bt1desc:string, bt2: boolean (optional), bt2desc: string through navigate
   const location = useLocation();
   const navigate = useNavigate();

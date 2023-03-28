@@ -6,6 +6,7 @@ import DownButton from "../../assets/ArrowFilter.svg";
 import { useNavigate } from "react-router-dom";
 import { navbarButton } from "../../store/navbar-store";
 import ImageNavbar from "./ImageNavbar";
+import { useWindow } from "../../hooks/window-hook";
 
 const NavWrapper = styled.div(({ visible }) => [
   tw`relative w-[90%] h-[35px] dt:w-[70%] dt:h-[50px] rounded-[20px] px-2 flex shadow-navbar items-center justify-between cursor-pointer z-50`,
@@ -62,20 +63,7 @@ const NavDropdown = ({ setIsShow }) => {
     const { innerWidth } = window;
     return innerWidth;
   }
-  const [windowSize, setWindowSize] = useState(getWindowSize());
-  console.log(windowSize);
-
-  useEffect(() => {
-    function handleWindowResize() {
-      setWindowSize(getWindowSize());
-    }
-
-    window.addEventListener("resize", handleWindowResize);
-
-    return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
-  }, []);
+  const windowSize = useWindow();
   return (
     <>
       {!authCtx.userInfo.display_name && "Loading..."}
@@ -97,7 +85,12 @@ const NavDropdown = ({ setIsShow }) => {
                   <ImageNavbar
                     key={idx}
                     image={navbar.img}
-                    onClick={onClickButtonHandler.bind(null, navbar.to=='/edit-profile' && windowSize<850 ? "/user-setting-entrance" : navbar.to)}
+                    onClick={onClickButtonHandler.bind(
+                      null,
+                      navbar.to == "/edit-profile" && windowSize < 850
+                        ? "/user-setting-entrance"
+                        : navbar.to
+                    )}
                     text={navbar.text}
                     last={idx === navbarButton.length - 1}
                   />

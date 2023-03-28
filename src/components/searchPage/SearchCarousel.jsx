@@ -8,7 +8,6 @@ import React from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
-import LoadingSpinner from "../share/LoadingSpinner";
 
 const SearchCorousel = forwardRef(
   ({ portfolios, isLoading, handleInfiniteScroll }, ref) => {
@@ -18,7 +17,7 @@ const SearchCorousel = forwardRef(
     };
 
     return (
-      <div tw="flex justify-center w-full">
+      <div tw="flex justify-center w-full pl-2 dt:pl-0">
         {!portfolios && !isLoading && <div>no result </div>}
         {portfolios && (
           <Swiper

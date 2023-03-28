@@ -6,6 +6,7 @@ import tw, { styled } from "twin.macro";
 import React, { useEffect } from "react";
 import { useForm } from "../../hooks/form-hook";
 import Button from "./Button";
+import { apiClient } from "../../utils/axios";
 
 const SuccessContainer = tw.div`h-[80vh] flex items-center justify-center`;
 const Footer1 = styled.div(({}) => [
@@ -39,7 +40,7 @@ const OrderModalTemplate = (props) => {
       />
     );
   }
-  console.log(props.page, props.successType);
+
   if (props.page === 2) {
     if (props.successType === "edit")
       content = (
@@ -162,7 +163,6 @@ const OrderModalTemplate = (props) => {
     false
   );
   useEffect(() => {
-    console.log(props.order);
     let selectedOrder = props.order;
     setFormData1(
       {
@@ -207,15 +207,37 @@ const OrderModalTemplate = (props) => {
 
   let disableButton =
     formState1.isValid & formState2.isValid & formState3.isValid;
-  const clickEditHandler = () => {
-    let title=formState1.inputs.topic.value
-    let description=formState1.inputs.desc.value
-    let price=formState2.inputs.price.value
-    let duration=formState2.inputs.duration.value
-    let email=formState3.inputs.email.value
-    let tel=formState3.inputs.tel.value
+  const clickEditHandler = async () => {
+    let title = formState1.inputs.topic.value;
+    let description = formState1.inputs.desc.value;
+    let price = parseInt(formState2.inputs.price.value);
+    let duration = parseInt(formState2.inputs.duration.value);
+    let email = formState3.inputs.email.value;
+    let tel = formState3.inputs.phone.value;
     // let data=JSON.stringify({title,description,pr})
-    let newOrder = {...order,title,description,price,duration,email,tel};
+    let data = JSON.stringify({
+      title,
+      description,
+      price,
+      duration,
+      email,
+      tel,
+    });
+    try {
+      const res = await apiClient.put(
+        `/order/template/${props.order.id}`,
+        data,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      console.log(res);
+      props.fetchData();
+      props.setOrderModalPage(2);
+      props.setSuccessType("edit");
+    } catch (err) {
+      console.log(err);
+    }
   };
   if (props.page === 3) {
     header = "เเก้ไขแบบร่าง";
@@ -271,7 +293,6 @@ const OrderModalTemplate = (props) => {
     else if (props.successType === "cancel") header = "รายละเอียดออเดอร์";
   }
 
-  console.log("hello2");
   return (
     <OrderModal
       content={content}

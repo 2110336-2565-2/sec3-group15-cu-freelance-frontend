@@ -1,10 +1,8 @@
 import tw, { styled } from "twin.macro";
-
 const Button = styled.button(({ isSelect }) => [
-  tw`px-5 font-ibm dt:text-desktop-h2 landing:px-10 py-1 rounded-[27px] flex gap-x-2 items-center transition-all duration-500 ease-linear`,
-  isSelect && tw`bg-freelance-pink border-none text-white`,
-  !isSelect &&
-    tw`px-5 bg-white border border-freelance-black-secondary text-black`,
+  tw`px-6 py-2 font-ibm rounded-[27px] flex gap-x-2 items-center transition-all duration-500 ease-linear`,
+  isSelect && tw`py-2.5 bg-freelance-pink border-none text-white`,
+  !isSelect && tw` bg-white border border-freelance-black-secondary text-black`,
 ]);
 const ImgPink = styled.img(({ isSelect }) => [
   tw` w-[25px] dt:min-w-[34px]`,
@@ -17,11 +15,10 @@ const ImgWhite = styled.img(({ isSelect }) => [
   !isSelect && tw`hidden`,
 ]);
 const Text = styled.div(({ isSelect }) => [
-  isSelect && tw`hidden tbl:inline  `,
-  !isSelect && tw`hidden landing:inline`,
+  isSelect && tw`inline  `,
+  !isSelect && tw`hidden`,
 ]);
-
-const CategoryButton = ({
+const CategoryButtonMB = ({
   text,
   isSelect,
   imgPink,
@@ -29,10 +26,11 @@ const CategoryButton = ({
   setSelect,
   value,
 }) => {
+  console.log(isSelect);
   const handleClickCategoryButton = (event) => {
     event.preventDefault();
     console.log(value);
-    setSelect(value);
+    setSelect("category", value);
   };
 
   return (
@@ -44,4 +42,4 @@ const CategoryButton = ({
   );
 };
 
-export default CategoryButton;
+export default CategoryButtonMB;

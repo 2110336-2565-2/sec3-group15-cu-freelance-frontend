@@ -8,7 +8,7 @@ import Button from "./Button";
 import { AuthContext } from "../../context/AuthProvider";
 
 const Card = styled.div(({ focus }) => [
-  tw`flex flex-col  h-fit rounded-[20px] min-w-[250px] w-[30%]  shadow relative cursor-pointer p-5 gap-y-3 mr-4`,
+  tw`flex flex-col  h-fit rounded-[20px] min-w-[245px] w-[30%]  shadow relative cursor-pointer p-5 gap-y-3`,
   focus && tw`outline outline-2 outline-freelance-pink`,
 ]);
 const Header1 = tw.div`flex justify-between items-center text-mobile-h1 font-bold text-freelance-black-primary`;
@@ -48,10 +48,26 @@ const OrderCard = (props) => {
     }
     buttonLine = (
       <Buttonline>
-        <Button width="45%" primary onClick={onClickLeft}>
+        <Button
+          width="45%"
+          primary
+          onClick={onClickLeft}
+          disable={
+            (props.orderType === "request" && props.status === "close") ||
+            props.status === "failed"
+          }
+        >
           {left}
         </Button>
-        <Button width="45%" secondary onClick={onClickRight}>
+        <Button
+          width="45%"
+          secondary
+          onClick={onClickRight}
+          disable={
+            (props.orderType === "request" && props.status === "close") ||
+            props.status === "failed"
+          }
+        >
           {right}
         </Button>
       </Buttonline>
@@ -69,7 +85,11 @@ const OrderCard = (props) => {
         <div tw="max-w-[50%] leading-[1.5em] h-[1.5em] overflow-hidden">
           {props.header}
         </div>
-        {props.hasStatus && <StatusBar color={color}>{props.status}</StatusBar>}
+        {props.hasStatus && (
+          <StatusBar color={color}>
+            {props.status === "close" ? "closed" : props.status}
+          </StatusBar>
+        )}
       </Header1>
       <Body>{props.description}</Body>
       <UserInfo>

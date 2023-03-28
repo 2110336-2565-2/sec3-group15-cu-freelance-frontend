@@ -20,16 +20,17 @@ import FilterModal from "../components/share/FilterModal";
 import FilterButton from "../components/searchPage/FilterButton";
 import LoadingSpinner from "../components/share/LoadingSpinner";
 import { useWindow } from "../hooks/window-hook";
-import SearchCorousel from "../components/searchPage/SearchCorousel";
+import SearchCorousel from "../components/searchPage/SearchCarousel";
+import CategoryButtonContainer from "../components/searchPage/CategoryButtonContainer";
 
 const Page = tw.div`w-full`;
-const BG = tw.div`flex-col w-[90%] h-auto flex dt:flex-row justify-between min-h-[95vh] pt-[10vh] max-w-[1200px] mx-auto`;
-const Header = tw.div` font-ibm text-mobile-h1 dt:text-desktop-h1 font-bold my-4`;
-const Header2 = tw.div`text-mobile-h2 dt:text-desktop-h2 font-ibm font-normal my-4 text-[#707070]`;
+const BG = tw.div`flex-col w-full dt:w-[90%] h-auto flex dt:flex-row justify-between min-h-[95vh] pt-[10vh] max-w-[1200px] mx-auto`;
+const Header = tw.div`pl-2 dt:pl-0 font-ibm text-mobile-h1 dt:text-desktop-h1 font-bold my-4`;
+const Header2 = tw.div`pl-2 dt:pl-0 text-mobile-h2 dt:text-desktop-h2 font-ibm font-normal my-4 text-[#707070]`;
 const FilterContainer = tw.div`h-[90%] overflow-auto overflow-x-hidden dt:sticky top-[15vh] dt:h-auto dt:w-[20%]  font-ibm flex flex-col items-end`;
 const PortfolioCardContainer = tw.div`w-full flex justify-center dt:justify-start flex-wrap gap-x-[3%] gap-y-[2vh] my-10 min-h-[65vh]`;
-const Filterbar = tw.div`flex flex-wrap gap-2 items-center text-mobile-h2 font-ibm font-medium text-freelance-black-secondary`;
-const InputSearchContainer = tw.div`h-[40px] w-[100%] mx-auto my-4`;
+const Filterbar = tw.div`min-h-[42px] flex flex-wrap gap-2 items-center text-mobile-h2 font-ibm font-medium text-freelance-black-secondary`;
+const InputSearchContainer = tw.div`px-2 dt:px-0 h-[40px] w-[100%] mx-auto my-4`;
 
 const SearchPage = () => {
   const authCtx = useContext(AuthContext);
@@ -51,7 +52,7 @@ const SearchPage = () => {
     searchParams.set("pages", 1);
     setSearchParams(searchParams);
     if (slideRef.current) {
-      if (slideRef.current.swiper) slideRef.current.swiper.slideTo(0, 2000);
+      if (slideRef.current.swiper) slideRef.current.swiper.slideTo(0, 1000);
     }
   };
 
@@ -153,8 +154,6 @@ const SearchPage = () => {
     setPriceShow((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  console.log(priceShow.min, priceShow.max);
-
   const onSubmitPriceHandler = (e) => {
     e.preventDefault();
     setSelected(
@@ -198,7 +197,6 @@ const SearchPage = () => {
     onResetPage();
   };
 
-  console.log(duration);
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -254,8 +252,6 @@ const SearchPage = () => {
   const onClickDetailCard = (id) => {
     navigate(`/portfolio/${id}`);
   };
-
-  console.log(mapOptions);
 
   const FilterContent = (
     <FilterContainer>
@@ -439,6 +435,12 @@ const SearchPage = () => {
               </InputSearchContainer>
             )}
             {windowSize < 850 && (
+              <CategoryButtonContainer
+                setSelectedCategory={setSelected}
+                select={parseInt(selectedCategory)}
+              />
+            )}
+            {windowSize < 850 && (
               <SearchCorousel
                 ref={slideRef}
                 portfolios={portfolios}
@@ -448,9 +450,8 @@ const SearchPage = () => {
             )}
             {windowSize >= 850 && (
               <PortfolioCardContainer>
-                {isLoading && <LoadingSpinner />}
-                {!isLoading &&
-                  portfolios &&
+                {isLoading && !portfolios && <LoadingSpinner />}
+                {portfolios &&
                   portfolios.map((portfolio, i) => {
                     return (
                       <PortFolioCard
