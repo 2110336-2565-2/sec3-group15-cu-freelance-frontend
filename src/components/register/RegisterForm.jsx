@@ -2,6 +2,7 @@ import tw from "twin.macro";
 import ProgressBar from "./ProgressBar";
 import Input from "../share/Input";
 import GoogleIcon from "../../assets/GoogleIcon.svg";
+import Button from "../share/Button";
 import { useContext, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -301,13 +302,16 @@ const loginForm = () => {
             </button>
           </div>
           <div css={styles.show({ showState: 3, nowState: state.value })}>
-            <button
+            {/* <button
               css={styles.button()}
               onClick={continueHandler}
               disabled={disableButton}
             >
               Continue
-            </button>
+            </button> */}
+            <Button primary onClick={continueHandler} disable={disableButton} width='100%'>
+              Continue
+            </Button>
           </div>
         </div>
         <div
