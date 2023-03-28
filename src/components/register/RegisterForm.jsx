@@ -37,11 +37,6 @@ const styles = {
     `,
   ],
   or: () => [tw`my-[0%] text-center`],
-  googleButton: () => [
-    tw`flex flex-row justify-center items-center gap-x-[10px] w-full 
-    border-[1px] border-slate-200 text-lg rounded-[10px] font-inter py-2`,
-  ],
-  googleLogo: () => [tw`h-[25px] w-[25px]`],
   checkbox: () => [tw`flex flex-row items-center text-[14px] gap-x-[10px]`],
   box: () => [tw``],
   login: () => [tw`flex flex-row justify-center`],
@@ -310,24 +305,6 @@ const loginForm = () => {
             </button>
           </div>
         </div>
-        <div
-          css={[
-            styles.or(),
-            styles.show({ showState: 1, nowState: state.value }),
-          ]}
-        >
-          OR
-        </div>
-        <button
-          css={[
-            styles.googleButton(),
-            styles.show({ showState: 1, nowState: state.value }),
-          ]}
-          disabled={true}
-        >
-          <img css={styles.googleLogo()} src={GoogleIcon} />
-          Log in with Google
-        </button>
 
         {/* <Link css={[styles.loginLink(),styles.show({showState:1, nowState:state.value})]} to="/home">
                     Already have an account? Login
