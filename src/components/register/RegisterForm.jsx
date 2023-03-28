@@ -18,11 +18,11 @@ import { authClient } from "../../utils/auth";
 import { AuthContext } from "../../context/AuthProvider";
 const styles = {
   container: () => [
-    tw`font-ibm flex flex-col items-center w-[50%] 
-        max-w-[460px] border-[1px] rounded-[30px] px-6 py-4 h-fit`,
+    tw`flex flex-col font-inter items-center w-full max-w-[460px] 
+    border-[1px] rounded-[30px] px-6 py-8`,
   ],
   content: () => [
-    tw`flex flex-col box-border max-h-[95vh] w-full items-center px-[2%] gap-2`,
+    tw`flex flex-col box-border h-full w-full  items-center px-[2%] gap-6`,
   ],
   title: () => [tw`py-4 text-3xl font-ibm font-bold`],
   show: ({ showState, nowState }) => [
