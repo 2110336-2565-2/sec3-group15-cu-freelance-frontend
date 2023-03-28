@@ -18,19 +18,19 @@ import { authClient } from "../../utils/auth";
 import { AuthContext } from "../../context/AuthProvider";
 const styles = {
   container: () => [
-    tw`flex flex-col font-inter items-center w-[50%] 
+    tw`font-ibm flex flex-col items-center w-[50%] 
         max-w-[460px] border-[1px] rounded-[30px] px-6 py-4 h-fit`,
   ],
   content: () => [
     tw`flex flex-col box-border max-h-[95vh] w-full items-center px-[2%] gap-2`,
   ],
-  title: () => [tw`text-3xl font-ibm font-bold`],
+  title: () => [tw`py-4 text-3xl font-ibm font-bold`],
   show: ({ showState, nowState }) => [
     !(showState & (1 << (nowState - 1))) && tw`hidden`,
     tw`w-full`,
   ],
   button: () => [
-    tw`w-full bg-[#D62B70] font-bold text-[20px] text-white rounded-[10px] font-inter py-2 mt-[1%] 
+    tw`w-full font-ibm bg-[#D62B70] font-bold text-[20px] text-white rounded-[10px] py-2 mt-[1%] 
     // disabled:bg-gray-800 disabled:text-gray-600 
     disabled:opacity-30
     disabled:cursor-not-allowed
@@ -184,7 +184,7 @@ const loginForm = () => {
   return (
     <div css={styles.container()}>
       <div css={styles.content()}>
-        <div css={styles.title()}>Sign Up</div>
+        <div css={styles.title()}> สมัครสมาชิก </div>
         <ProgressBar
           onClick={onChangeStateHandler}
           state={state.value}
@@ -199,9 +199,9 @@ const loginForm = () => {
           <Input
             type="text"
             id="firstname"
-            label="Firstname"
-            placeholder="Enter first name"
-            errorText="Your first name should not be blank"
+            label="ชื่อจริง"
+            placeholder="ใส่ชื่อจริงของคุณ"
+            errorText="ชื่อจริงไม่สามารถเว้นว่างได้!"
             validator={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler1}
             required
@@ -211,9 +211,9 @@ const loginForm = () => {
           <Input
             type="text"
             id="lastname"
-            label="Lastname"
-            placeholder="Enter last name"
-            errorText="Your last name should not be blank"
+            label="นามสกุล"
+            placeholder="ใส่นามสกุลของคุณ"
+            errorText="นามสกุลไม่สามารถเว้นว่างได้!"
             validator={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler1}
             required
@@ -223,8 +223,8 @@ const loginForm = () => {
           <Input
             type="tel"
             id="phonenumber"
-            label="Phone Number"
-            placeholder="0xxxxxxxxx"
+            label="เบอร์โทรศัพท์"
+            placeholder="ใส่ในรูปแบบ 0xxxxxxxxx"
             errorText="Your phone should be in this format 0xxxxxxxxx"
             validator={[VALIDATOR_PHONE()]}
             onInput={inputHandler1}
@@ -236,8 +236,8 @@ const loginForm = () => {
             type="text"
             id="username"
             label="Username"
-            placeholder="Enter username"
-            errorText="Your username should not be blank"
+            placeholder="ใส่ username"
+            errorText="username ไม่สามารถเว้นว่างได้!"
             validator={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler2}
             required
@@ -247,9 +247,9 @@ const loginForm = () => {
           <Input
             type="password"
             id="password"
-            label="Password"
-            placeholder="Enter password"
-            errorText="Your password should be at least 8 characters"
+            label="รหัสผ่าน"
+            placeholder="ใส่รหัสผ่าน"
+            errorText="รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัว!"
             validator={[VALIDATOR_MINLENGTH(8)]}
             onInput={inputHandler2}
             required
@@ -260,7 +260,7 @@ const loginForm = () => {
             type="password"
             id="confirmPW"
             label="Confirm password"
-            placeholder="Enter password"
+            placeholder="ใส่รหัสผ่าน"
             errorText="Your password did not match"
             validator={[VALIDATOR_MATCH(formState2.inputs.password.value)]}
             onInput={inputHandler2}
@@ -306,7 +306,7 @@ const loginForm = () => {
               onClick={continueHandler}
               disabled={disableButton}
             >
-              Continue
+              ถัดไป
             </button>
           </div>
         </div>
@@ -339,9 +339,9 @@ const loginForm = () => {
             styles.show({ showState: 1, nowState: state.value }),
           ]}
         >
-          <p css={styles.loginText()}> Already have an account? </p>
+          <p css={styles.loginText()}> มีบัญชีผู้ใช้อยู่แล้ว ?​ </p>
           <Link css={[styles.loginLink()]} to="/login">
-            Login Here
+            เข้าสู่ระบบที่นี่
           </Link>
         </div>
 
