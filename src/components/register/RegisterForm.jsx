@@ -41,10 +41,10 @@ const styles = {
   box: () => [tw``],
   login: () => [tw`flex flex-row justify-center`],
   loginText: () => [
-    tw`whitespace-nowrap text-[16px] font-inter text-black p-[1%]`,
+    tw`whitespace-nowrap text-[16px] font-ibm text-black p-[1%]`,
   ],
   loginLink: () => [
-    tw`whitespace-nowrap text-[16px] font-inter text-[#D62B70] p-[1%]`,
+    tw`whitespace-nowrap text-[16px] font-ibm text-[#D62B70] p-[1%]`,
   ],
   buttonContainer: () => [
     tw`w-full flex flex-row gap-x-2`
@@ -256,7 +256,7 @@ const loginForm = () => {
             id="confirmPW"
             label="Confirm password"
             placeholder="ใส่รหัสผ่าน"
-            errorText="Your password did not match"
+            errorText="รหัสผ่านไม่ตรงกัน!"
             validator={[VALIDATOR_MATCH(formState2.inputs.password.value)]}
             onInput={inputHandler2}
             required
@@ -267,8 +267,8 @@ const loginForm = () => {
             type="text"
             id="displayname"
             label="Display name"
-            placeholder="Enter display name"
-            errorText="Your display name should not be blank"
+            placeholder="ใส่ชื่อที่ใช้แสดงในเว็บ"
+            errorText="ชื่อที่ใช้แสดงในเว็บไม่สามารถเว้นว่าง!"
             validator={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler3}
             required
@@ -278,9 +278,9 @@ const loginForm = () => {
           <Input
             type="text"
             id="email"
-            label="Email"
+            label="อีเมล"
             placeholder="example@example.com"
-            errorText="Your email should not be blank | Example: example@example.com"
+            errorText="อีเมลไม่สามารถเว้นว่าง! | ตัวอย่างอีเมล: example@example.com"
             validator={[VALIDATOR_REQUIRE(), VALIDATOR_EMAIL()]}
             onInput={inputHandler3}
             required
@@ -292,7 +292,7 @@ const loginForm = () => {
               css={styles.button()}
               onClick={backHandler}
             >
-              Back
+              ย้อนกลับ
             </button>
           </div>
           <div css={styles.show({ showState: 3, nowState: state.value })}>
@@ -337,7 +337,9 @@ const loginForm = () => {
             onChange={checkboxChangeHandler}
           ></input>
           <label htmlFor="privacy">
-            I agree to <b>Terms of Service</b> and <b>Privacy Policy</b>.
+          <p tw="font-ibm text-base">
+            ฉันยอมรับใน <b>ข้อกำหนดในการให้บริการ</b> และ <b>นโยบายความเป็นส่วนตัว</b>.
+          </p>
           </label>
         </div>
         <button
@@ -348,7 +350,7 @@ const loginForm = () => {
           onClick={submitHandler}
           disabled={disableButton | loading}
         >
-          {(loading && "Loading...") || "Sign Up"}
+          {(loading && "กำลังโหลด...") || "บืนยันการสมัคร"}
         </button>
       </div>
     </div>
