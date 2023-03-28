@@ -39,30 +39,7 @@ const Elem = () => (
   </SnapList>
 );
 
-const Cards = () => {
-  return (
-    <div tw="flex flex-col dt:flex-row">
-      {ReviewData.map((data, index) => {
-        return (
-          <motion.div
-            tw="min-h-[10rem] min-w-[20rem] py-4 px-2"
-            transition={{ duration: 3 }}
-          >
-            <Card
-              img={data.img}
-              title={data.title}
-              subtitle={data.subtitle}
-              desc={data.desc}
-              key={data.id}
-            />
-          </motion.div>
-        );
-      })}
-    </div>
-  );
-};
-
-const HeaderText = tw.h1`text-4xl font-bold`;
+const HeaderText = tw.h1`text-2xl tbl:text-4xl font-bold`;
 const QuoteImg = tw.img`w-12 h-12`;
 const Landing4 = () => {
   return (

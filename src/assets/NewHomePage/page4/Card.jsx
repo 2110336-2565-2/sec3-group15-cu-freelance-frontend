@@ -9,10 +9,10 @@ px-10 py-8 shadow-lg
 const Header = tw.div`flex flex-row gap-6`
 const HeaderImg = tw.img`w-24 h-24 rounded-full`
 const HeaderText = tw.div`flex flex-col justify-center gap-1`
-const HeaderTextTitle = tw.h1`text-2xl font-bold`
-const HeaderTextSubTitle = tw.h2`text-xl font-normal`
+const HeaderTextTitle = tw.h1`text-lg tbl:text-2xl font-bold`
+const HeaderTextSubTitle = tw.h2`text-lg tbl:text-xl font-normal`
 const Description = tw.div`flex flex-col justify-center`
-const DescriptionText = tw.p`text-lg font-normal max-w-[240px]`
+const DescriptionText = tw.p`text-base tbl:text-lg font-normal max-w-[240px]`
 
 const Card = ( { img , title , subtitle, desc}) => {
     return ( 
