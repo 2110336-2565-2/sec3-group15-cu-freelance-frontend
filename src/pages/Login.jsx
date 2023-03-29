@@ -12,7 +12,7 @@ const Title = styled.div(()=>[
   tw`text-center font-ibm font-bold text-mobile-h1 dt:text-3xl m-14 dt:m-14 pf:m-24 ip8:mb-24`
 ])
 const AuthChoiceContainer = styled.div(()=>[
-  tw`flex flex-col dt:flex-row px-8 dt:px-16 w-full items-center dt:justify-between gap-y-10`
+  tw`flex flex-col dt:flex-row px-8 dt:px-16 w-full items-center dt:justify-center gap-y-10 gap-x-16`
 ])
 const Login = () => {
   const navigate = useNavigate();
