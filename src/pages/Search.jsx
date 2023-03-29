@@ -22,6 +22,7 @@ import LoadingSpinner from "../components/share/LoadingSpinner";
 import { useWindow } from "../hooks/window-hook";
 import SearchCorousel from "../components/searchPage/SearchCarousel";
 import CategoryButtonContainer from "../components/searchPage/CategoryButtonContainer";
+import { AnimatePresence } from "framer-motion";
 
 const Page = tw.div`w-full`;
 const BG = tw.div`flex-col w-full dt:w-[90%] h-auto flex dt:flex-row justify-between min-h-[95vh] pt-[10vh] max-w-[1200px] mx-auto`;
@@ -225,7 +226,7 @@ const SearchPage = () => {
         response = await authClient.get(
           `/portfolio/search?` + new URLSearchParams(params).toString()
         );
-
+        console.log(response.data.pagination.items);
         if (page === "1" || windowSize >= 850 || !portfolios)
           setPortfolios(response.data.pagination.items);
         else {
@@ -394,31 +395,37 @@ const SearchPage = () => {
             {windowSize >= 850 && (
               <Filterbar>
                 เเสดงผลลัพธ์เฉพาะ
-                {selectedCategory !== "0" && (
-                  <FilterButton
-                    text={mapOptions[parseInt(selectedCategory)]}
-                    onClick={onCancelFaculty.bind(null, "category")}
-                  />
-                )}
-                {selectedFaculty !== "0" && (
-                  <FilterButton
-                    text={mapFaculties[parseInt(selectedFaculty)]}
-                    onClick={onCancelFaculty.bind(null, "faculty")}
-                  />
-                )}
-                {duration !== "" &&
-                  duration
-                    .split(",")
-                    .map((d, idx) => (
-                      <FilterButton
-                        key={idx}
-                        text={`${d} วัน`}
-                        onClick={onCancelDurationHandler.bind(
-                          null,
-                          parseInt(d)
-                        )}
-                      />
-                    ))}
+                <AnimatePresence>
+                  {selectedCategory !== "0" && (
+                    <FilterButton
+                      text={mapOptions[parseInt(selectedCategory)]}
+                      onClick={onCancelFaculty.bind(null, "category")}
+                    />
+                  )}
+                </AnimatePresence>
+                <AnimatePresence>
+                  {selectedFaculty !== "0" && (
+                    <FilterButton
+                      text={mapFaculties[parseInt(selectedFaculty)]}
+                      onClick={onCancelFaculty.bind(null, "faculty")}
+                    />
+                  )}
+                </AnimatePresence>
+                <AnimatePresence>
+                  {duration !== "" &&
+                    duration
+                      .split(",")
+                      .map((d, idx) => (
+                        <FilterButton
+                          key={idx}
+                          text={`${d} วัน`}
+                          onClick={onCancelDurationHandler.bind(
+                            null,
+                            parseInt(d)
+                          )}
+                        />
+                      ))}
+                </AnimatePresence>
               </Filterbar>
             )}
             {windowSize < 850 && (

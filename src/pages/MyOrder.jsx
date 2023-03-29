@@ -560,6 +560,7 @@ const MyOrderPage = () => {
         )}
         successType={successType}
         setSuccessType={setSuccessType}
+        handleResetPage={onResetPage}
       />
 
       <OrderModalTemplate

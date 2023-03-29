@@ -58,7 +58,7 @@ const ConfirmModalTemplate = (props) => {
     try {
       const res = await apiClient.put(`/order/${id}/cancel`);
       console.log(res);
-      props.fetchData();
+      props.handleResetPage();
       props.setOrderModalPage(2);
       props.setSuccessType("cancel");
       props.setShowOrderModal(true);

@@ -9,6 +9,7 @@ import { AuthContext } from "../../context/AuthProvider";
 import Modal from "./Modal";
 import NavDropdown from "../navbar/NavDropdown";
 import NotificationIcon from "../../assets/NotificationIcon.svg";
+import { delay } from "../../utils/delay";
 
 const BigWrapper = styled.div(({ fixed, onSubmit }) => [
   tw`w-full py-1 dt:py-4
@@ -41,7 +42,7 @@ const Navbar = (props) => {
     setIsShow(false);
   };
 
-  const onClickButtonHandler = (url) => {
+  const onClickButtonHandler = async (url) => {
     if (url === "/logout") {
       document.body.style.overflow = "hidden";
       setIsShow(true);
@@ -50,6 +51,7 @@ const Navbar = (props) => {
       authCtx.logout();
       onCancelHandler();
       url = "/home";
+      await delay(700);
     } else if (url === "/profile") {
       url += `/${authCtx.userInfo.id}`;
     } else if (url === "/my-order") {
