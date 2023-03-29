@@ -1,20 +1,19 @@
-import tw from "twin.macro";
+import tw, {styled} from "twin.macro";
 import { useNavigate } from "react-router-dom";
 import { APP_URL, SSO_URL } from "../config/env";
-
-import AuthLayout from "../components/share/AuthLayout";
-const styles = {
-  container: () => [
-    tw`flex flex-col items-center pt-[0.5%] h-[95vh] box-border`,
-  ],
-  image: () => [tw`my-[1%] w-[10%] box-border`],
-  text: () => [
-    tw`text-[40px] text-[#D62B70] font-bold font-inter mb-[2%] box-border`,
-  ],
-  typeContainer: () => [
-    tw`flex flex-row px-[10%] w-[100vw] box-border justify-between h-[48vh]`,
-  ],
-};
+import LogoButton from "../components/share/LogoButton";
+import customerAvatar from "../assets/CustomerAvatar.svg"
+import freelanceAvatar from "../assets/FreelanceAvatar.svg"
+import AuthTypeCard from "../components/share/AuthTypeCard";
+const Container = styled.div(()=>[
+  tw`box-border flex flex-col items-center min-h-[90vh] mt-8 w-full px-4 ip8:px-8`
+]);
+const Title = styled.div(()=>[
+  tw`text-center font-ibm font-bold text-mobile-h1 dt:text-3xl m-14 dt:m-14 pf:m-24 ip8:mb-24`
+])
+const AuthChoiceContainer = styled.div(()=>[
+  tw`flex flex-col dt:flex-row px-8 dt:px-16 w-full items-center dt:justify-between gap-y-10`
+])
 const Login = () => {
   const navigate = useNavigate();
   const onLoginHandler = () => {
@@ -24,13 +23,15 @@ const Login = () => {
     window.location.href = `${SSO_URL}/login?service=${APP_URL}/auth`;
   };
   return (
-    <AuthLayout
-      title="เข้าสู่ระบบ"
-      leftText="ล็อคอินเป็นผู้รับจ้าง"
-      rightText="ล็อคอินเป็นฟรีแลนซ์"
-      navigateLeft="/login/customer"
-      navigateRight={onFreelanceLoginHandler}
-    />
+    <Container>
+      <LogoButton/>
+      <Title>เข้าสู่ระบบ</Title>
+      <AuthChoiceContainer>
+        <AuthTypeCard text="ล็อคอินเป็นผู้รับจ้าง" avatar={customerAvatar} onClick={onLoginHandler}/>
+        <AuthTypeCard text="ล็อคอินเป็นฟรีแลนซ์" avatar={freelanceAvatar} onClick={onFreelanceLoginHandler}/>
+      </AuthChoiceContainer>
+    </Container>
+
   );
 };
 
