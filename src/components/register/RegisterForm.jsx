@@ -24,7 +24,7 @@ import { AuthContext } from "../../context/AuthProvider";
 const styles = {
   container: () => [
     tw`flex flex-col font-inter items-center w-full max-w-[460px] 
-    dt:border-[1px] dt:shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded-[30px] px-6 py-8 min-h-[75vh] pf:min-h-[566px]`,
+    dt:border-[1px] dt:shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded-[30px] ip8:px-6 py-8 min-h-[75vh] pf:min-h-[566px]`,
   ],
   content: () => [
     tw`flex flex-col box-border h-full w-full  items-center px-[2%] gap-x-6 gap-y-2`,
@@ -43,7 +43,7 @@ const styles = {
     `,
   ],
   or: () => [tw`my-[0%] text-center`],
-  checkbox: () => [tw`flex flex-row items-center text-[14px] gap-x-[10px]`],
+  checkbox: () => [tw`flex flex-row items-center text-[14px] gap-x-[10px] mb-4`],
   box: () => [tw``],
   login: () => [tw`flex flex-row justify-center`],
   loginText: () => [
@@ -242,7 +242,7 @@ const loginForm = () => {
             id="phonenumber"
             label="เบอร์โทรศัพท์"
             placeholder="ใส่ในรูปแบบ 0xxxxxxxxx"
-            errorText="เบอร์โทรศัพท์ของคุณต้องอยู่ในรูปแบบ 0xxxxxxxxx"
+            errorText="เบอร์โทรศัพท์ควรอยู่ในรูปแบบ 0xxxxxxxxx"
             validator={[VALIDATOR_PHONE()]}
             onInput={inputHandler1}
             required
@@ -308,48 +308,6 @@ const loginForm = () => {
             required
           />
         </div>
-        <div css={styles.buttonContainer()}>
-        <div css={styles.show({ showState: 6, nowState: state.value })}>
-            {/* <button
-              css={styles.button()}
-              onClick={backHandler}
-            >
-              ย้อนกลับ
-            </button> */}
-            <Button primary onClick={backHandler} width='100%'>
-              ย้อนกลับ
-            </Button>
-          </div>
-          <div css={styles.show({ showState: 3, nowState: state.value })}>
-            {/* <button
-              css={styles.button()}
-              onClick={continueHandler}
-              disabled={disableButton}
-            >
-              Continue
-            </button> */}
-            <Button primary onClick={continueHandler} disable={disableButton} width='100%'>
-              ถัดไป
-            </Button>
-          </div>
-        </div>
-
-        {/* <Link css={[styles.loginLink(),styles.show({showState:1, nowState:state.value})]} to="/home">
-                    Already have an account? Login
-                </Link> */}
-
-        <div
-          css={[
-            styles.login(),
-            styles.show({ showState: 1, nowState: state.value }),
-          ]}
-        >
-          <p css={styles.loginText()}> มีบัญชีผู้ใช้อยู่แล้ว ?​ </p>
-          <Link css={[styles.loginLink()]} to="/login">
-            เข้าสู่ระบบที่นี่
-          </Link>
-        </div>
-
         <div
           css={[
             styles.checkbox(),
@@ -370,6 +328,68 @@ const loginForm = () => {
           </p>
           </label>
         </div>
+        <div css={styles.buttonContainer()}>
+        <div css={styles.show({ showState: 6, nowState: state.value })}>
+            {/* <button
+              css={styles.button()}
+              onClick={backHandler}
+            >
+              ย้อนกลับ
+            </button> */}
+            <Button secondary onClick={backHandler} width={state.value<=2 ? '100%' : '100%'}>
+              ย้อนกลับ
+            </Button>
+          </div>
+          <div css={styles.show({ showState: 7, nowState: state.value })}>
+            {/* <button
+              css={styles.button()}
+              onClick={continueHandler}
+              disabled={disableButton}
+            >
+              Continue
+            </button> */}
+            <Button primary onClick={state.value<=2 ? continueHandler : submitHandler} disable={disableButton} width={state.value<=2 ? '100%' : '100%'}>
+              {state.value<=2 ? 'ถัดไป' : 'ยืนยันการสมัคร'}
+            </Button>
+          </div>
+        </div>
+
+        {/* <Link css={[styles.loginLink(),styles.show({showState:1, nowState:state.value})]} to="/home">
+                    Already have an account? Login
+                </Link> */}
+
+        <div
+          css={[
+            styles.login(),
+            styles.show({ showState: 1, nowState: state.value }),
+          ]}
+        >
+          <p css={styles.loginText()}> มีบัญชีผู้ใช้อยู่แล้ว ?​ </p>
+          <Link css={[styles.loginLink()]} to="/login">
+            เข้าสู่ระบบที่นี่
+          </Link>
+        </div>
+
+        {/* <div
+          css={[
+            styles.checkbox(),
+            styles.show({ showState: 4, nowState: state.value }),
+          ]}
+        >
+          <input
+            css={styles.box()}
+            type="checkbox"
+            id="privacy"
+            name="privacy"
+            checked={check}
+            onChange={checkboxChangeHandler}
+          ></input>
+          <label htmlFor="privacy">
+          <p tw="font-ibm text-base">
+            ฉันยอมรับใน <b>ข้อกำหนดในการให้บริการ</b> และ <b>นโยบายความเป็นส่วนตัว</b>.
+          </p>
+          </label>
+        </div> */}
         {/* <button
           css={[
             styles.button(),
@@ -380,11 +400,11 @@ const loginForm = () => {
         >
           {(loading && "กำลังโหลด...") || "บืนยันการสมัคร"}
         </button> */}
-        <div css={styles.show({ showState: 4, nowState: state.value })}>
+        {/* <div css={styles.show({ showState: 4, nowState: state.value })}>
           <Button primary onClick={submitHandler} disable={disableButton} width="100%">
             {(loading && "กำลังโหลด...") || "ยืนยันการสมัคร"}
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
     </>
