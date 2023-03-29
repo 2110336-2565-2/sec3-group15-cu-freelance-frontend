@@ -12,7 +12,7 @@ import LayoutWithNavbar from "./pages/LayoutWithNavbar";
 import { AuthContext } from "./context/AuthProvider";
 import { useAuth } from "./hooks/auth-hook";
 import FillDisplayNamePage from "./pages/FillDisplayName";
-import AddedPortfolioPage from "./pages/AddedPortfolio";
+import CreatePortfolioPage from "./pages/CreatePortfolio";
 import PortfolioPage from "./pages/Portfolio";
 import EditPortfolioPage from "./pages/EditPortfolio";
 import EditProfilePage from "./pages/EditProfile";
@@ -43,7 +43,7 @@ function App() {
           <Route path="my-portfolio/:portId/" element={<PortfolioPage />} />
           <Route path="profile/">
             <Route path=":userId/">
-              <Route path="add-portfolio" element={<AddedPortfolioPage />} />
+              <Route path="add-portfolio" element={<CreatePortfolioPage />} />
               <Route path="" element={<ProfilePage />} />
             </Route>
           </Route>
@@ -65,8 +65,14 @@ function App() {
             element={<CreateOrderRequest />}
           ></Route>
           <Route path="success" element={<RegisterSuccessPage />} />
-          <Route path="/user-setting-entrance" element={<UserSettingEntrancePage/>}/>
-          <Route path="/user-setting-entrance-dt" element={<UserSettingEntranceDtPage/>}/>
+          <Route
+            path="/user-setting-entrance"
+            element={<UserSettingEntrancePage />}
+          />
+          <Route
+            path="/user-setting-entrance-dt"
+            element={<UserSettingEntranceDtPage />}
+          />
         </Route>
         <Route path="/login/">
           <Route path="" element={<Login />} />

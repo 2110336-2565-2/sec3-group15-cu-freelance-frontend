@@ -25,11 +25,11 @@ import CategoryButtonContainer from "../components/searchPage/CategoryButtonCont
 import { AnimatePresence } from "framer-motion";
 
 const Page = tw.div`w-full`;
-const BG = tw.div`flex-col w-full dt:w-[90%] h-auto flex dt:flex-row justify-between min-h-[95vh] pt-[10vh] max-w-[1200px] mx-auto`;
+const BG = tw.div`flex-col w-full h-auto flex dt:flex-row justify-between min-h-[95vh] pt-[5vh] dt:pt-[10vh] max-w-[1200px] mx-auto`;
 const Header = tw.div`pl-2 dt:pl-0 font-ibm text-mobile-h1 dt:text-desktop-h1 font-bold my-4`;
 const Header2 = tw.div`pl-2 dt:pl-0 text-mobile-h2 dt:text-desktop-h2 font-ibm font-normal my-4 text-[#707070]`;
-const FilterContainer = tw.div`h-[90%] overflow-auto overflow-x-hidden dt:sticky top-[15vh] dt:h-auto dt:w-[20%]  font-ibm flex flex-col items-end`;
-const PortfolioCardContainer = tw.div`w-full flex justify-center dt:justify-start flex-wrap gap-x-[3%] gap-y-[2vh] my-10 min-h-[65vh]`;
+const FilterContainer = tw.div`h-[90%] overflow-auto overflow-x-hidden dt:sticky  dt:top-[15vh] dt:h-auto dt:w-[20%] dt:mx-auto font-ibm flex flex-col items-end`;
+const PortfolioCardContainer = tw.div`w-full flex justify-center dt:justify-start flex-wrap gap-y-[2vh] mb-5 mt-2 min-h-[65vh] gap-x-[2%]`;
 const Filterbar = tw.div`min-h-[42px] flex flex-wrap gap-2 items-center text-mobile-h2 font-ibm font-medium text-freelance-black-secondary`;
 const InputSearchContainer = tw.div`px-2 dt:px-0 h-[40px] w-[100%] mx-auto my-4`;
 
@@ -226,7 +226,7 @@ const SearchPage = () => {
         response = await authClient.get(
           `/portfolio/search?` + new URLSearchParams(params).toString()
         );
-        console.log(response.data.pagination.items);
+        console.log(response.data);
         if (page === "1" || windowSize >= 850 || !portfolios)
           setPortfolios(response.data.pagination.items);
         else {
@@ -385,7 +385,7 @@ const SearchPage = () => {
         {" "}
         <BG>
           {windowSize >= 850 && FilterContent}
-          <div tw="w-full dt:w-[70%]  h-auto dt:min-h-[70vh] mx-auto">
+          <div tw="w-full dt:w-[75%]  h-auto dt:min-h-[70vh] mx-auto">
             {windowSize < 850 && <Header>พอร์ตโฟลิโอทั้งหมด</Header>}
             {windowSize < 850 && (
               <Header2>

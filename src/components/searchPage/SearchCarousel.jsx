@@ -21,6 +21,7 @@ const SearchCorousel = forwardRef(
         {!portfolios && !isLoading && <div>no result </div>}
         {portfolios && (
           <Swiper
+            spaceBetween={25}
             ref={ref}
             tw="py-5 px-0.5 w-full"
             // onReachEnd={(swiper) => {
@@ -36,7 +37,7 @@ const SearchCorousel = forwardRef(
             slidesPerView="auto"
           >
             {portfolios.map((portfolio) => (
-              <SwiperSlide key={portfolio.id} style={{ maxWidth: "260px" }}>
+              <SwiperSlide key={portfolio.id} style={{ width: "fit-content" }}>
                 <PortFolioCard
                   id={portfolio.id}
                   portImg={PortfolioImg}

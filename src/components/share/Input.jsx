@@ -4,7 +4,7 @@ import { validate } from "./Validate.jsx";
 import { useEffect } from "react";
 
 const styles = {
-  container: () => [tw`box-border flex flex-col w-full font-inter min-h-[84px]`],
+  container: () => [tw`box-border flex flex-col w-full font-ibm min-h-[84px]`],
   label: () => [tw`mb-2 font-light font-[16px] align-top font-ibm`],
   input: () => [
     tw`focus:outline-0 focus:border-[#D62B70] box-border rounded-[10px] border-[1px] font-light text-base text-[F4B86A] px-4 py-1 font-ibm`,
@@ -13,10 +13,10 @@ const styles = {
     tw`focus:outline-0 resize-none  focus:border-[#D62B70] box-border rounded-[10px] border-[1px] font-light text-base text-[F4B86A] px-4 py-1 font-ibm`,
   ],
   inputSelect: () => [
-    tw`focus:outline-0 box-border rounded-[10px] border-[3px] font-light font-[20px] text-freelance-black-primary p-2 font-ibm`,
+    tw`focus:outline-0 box-border rounded-[10px] border-[1px] font-light text-base text-freelance-black-primary px-4 py-1 font-ibm`,
   ],
   inputOption: () => [
-    tw`box-border rounded-[10px] border-[#D62B70] border-[3px] font-light font-[20px] text-[#D62B70] bg-[#FFFFFF] p-[1%] font-ibm`,
+    tw` font-[20px] text-freelance-black-primary p-[1%] font-light font-ibm`,
   ],
   errorText: ({ isFirstClick, isValid }) => [
     tw`my-[1px] font-light text-red-700 text-xs`,
@@ -52,7 +52,7 @@ const Input = ({
   min,
   step,
   required,
-  rows=10,
+  rows = 10,
 }) => {
   const [state, dispatch] = useReducer(reducer, {
     value: initialValue || "",

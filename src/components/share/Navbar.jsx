@@ -48,10 +48,10 @@ const Navbar = (props) => {
       setIsShow(true);
       return;
     } else if (url === "/modal") {
-      authCtx.logout();
       onCancelHandler();
-      url = "/home";
       await delay(700);
+      authCtx.logout();
+      url = "/home";
     } else if (url === "/profile") {
       url += `/${authCtx.userInfo.id}`;
     } else if (url === "/my-order") {

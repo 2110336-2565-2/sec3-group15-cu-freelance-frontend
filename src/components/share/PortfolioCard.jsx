@@ -1,4 +1,4 @@
-import tw from "twin.macro";
+import tw, { styled } from "twin.macro";
 import React, { useState, useRef, useEffect } from "react";
 import durationIcon from "../../assets/DurationIcon.svg";
 import OptionIcon from "../../assets/OptionIcon.svg";
@@ -9,7 +9,10 @@ import Button from "./Button";
 import Modal from "./Modal";
 import { mapOptions } from "../../store/portfolioForm";
 
-const Container = tw.div`flex flex-col h-fit rounded-[20px] min-w-[250px] w-[30%] shadow relative cursor-pointer `;
+const Container = styled.div(({ isLanding }) => [
+  tw`flex flex-col h-fit rounded-[20px] max-w-[270px] dt:w-[32%] shadow relative cursor-pointer`,
+  isLanding && tw`dt:w-full`,
+]);
 const Img = tw.img``;
 const ContentContainer = tw.div`flex flex-col pl-4 border-b-2 border-[#B7B7B7] text-left w-full`;
 const FirstRow = tw.div`flex justify-between relative`;
@@ -36,6 +39,7 @@ const PortFolioCard = ({
   id,
   setPortfolios,
   canEdit,
+  isLanding = false,
 }) => {
   const [isVisible, setIsVisible] = useState(isPublic || false);
   const [show, setShow] = useState(false);
@@ -153,8 +157,10 @@ const PortFolioCard = ({
         onClick={onClick ? onClick : () => {}}
         ref={menuRef}
         tw="font-ibm"
+        isLanding={isLanding}
       >
         {!isVisible && <Backdrop />}
+
         <Img src={portImg} />
         <ContentContainer>
           <FirstRow>

@@ -57,6 +57,7 @@ const PortfolioCardContainer = ({ select }) => {
           <Swiper
             tw="py-5 px-0.5 w-full"
             loop={true}
+            spaceBetween={15}
             // onReachEnd={(swiper) => {
             //   console.log(swiper);
             //   swiper.slideTo(0, 1000);
@@ -71,8 +72,9 @@ const PortfolioCardContainer = ({ select }) => {
             modules={[Navigation, Autoplay]}
           >
             {portfolios.map((portfolio) => (
-              <SwiperSlide key={portfolio.id} style={{ maxWidth: "260px" }}>
+              <SwiperSlide key={portfolio.id} style={{ width: "fit-content" }}>
                 <PortFolioCard
+                  isLanding={true}
                   id={portfolio.id}
                   portImg={PortfolioImg}
                   category={portfolio.category}

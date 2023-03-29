@@ -1,5 +1,5 @@
 export const DUMMY_options = [
-  { value: "none", label: "Select category" },
+  { value: "none", label: "เลือกหมวดหมู่ที่นี่" },
   { value: 1, label: "ออกแบบเเละกราฟิก" },
   { value: 2, label: "การเขียนเเละการแปล" },
   { value: 3, label: "โปรเเกรมมิ่ง" },
@@ -62,7 +62,6 @@ export const mapFaculties = {
 };
 
 export const DUMMY_duration_options = [
-  { value: "none", label: "Select duration" },
   { value: 1, label: "1 วัน" },
   { value: 3, label: "3 วัน" },
   { value: 7, label: "7 วัน" },
