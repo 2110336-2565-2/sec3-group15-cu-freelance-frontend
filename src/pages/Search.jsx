@@ -227,7 +227,7 @@ const SearchPage = () => {
           `/portfolio/search?` + new URLSearchParams(params).toString()
         );
         console.log(response.data);
-        if (page === "1" || windowSize >= 850 || !portfolios)
+        if (page === 1 || page === "1" || windowSize >= 850 || !portfolios)
           setPortfolios(response.data.pagination.items);
         else {
           setPortfolios((prev) => [...prev, ...response.data.pagination.items]);

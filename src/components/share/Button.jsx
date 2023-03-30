@@ -1,7 +1,17 @@
 import tw, { styled } from "twin.macro";
 
 const Button = (props) => {
-  const { primary, secondary, width, disable, cancel, deleted, red, px } = props;
+  const {
+    primary,
+    secondary,
+    width,
+    height,
+    disable,
+    cancel,
+    deleted,
+    red,
+    px,
+  } = props;
   let isDisable = false;
   if (disable) {
     isDisable = disable;
@@ -28,11 +38,12 @@ const Button = (props) => {
 
   const StyledButton = styled(Button)`
     width: ${width || "auto"};
+    height: ${height || "auto"};
     ${tw`shadow-button rounded-lg font-ibm px-6 py-3 
     hover:shadow-buttonHover
     disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none`};
-    padding-left: ${px || '1.5rem' };
-    padding-right: ${px || '1.5rem'};
+    padding-left: ${px || "1.5rem"};
+    padding-right: ${px || "1.5rem"};
   `;
 
   return (

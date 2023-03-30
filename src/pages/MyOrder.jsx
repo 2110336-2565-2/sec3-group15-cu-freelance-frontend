@@ -646,12 +646,14 @@ const MyOrderPage = () => {
                 </option>
               ))}
             </Select>
-            <AddOrder
-              src={AddOrderIcon}
-              onClick={() => {
-                navigate("/create-order-template");
-              }}
-            />
+            {selectOrder === "template" && (
+              <AddOrder
+                src={AddOrderIcon}
+                onClick={() => {
+                  navigate("/create-order-template");
+                }}
+              />
+            )}
           </SortContainer>
           {windowSize < 850 && (
             <OrderCarousel
