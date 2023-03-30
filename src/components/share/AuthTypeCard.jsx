@@ -1,28 +1,20 @@
-import tw from "twin.macro"
-import Card from "./Card"
-const avatarVariants={
-    left: tw`h-[100%] box-border absolute -bottom-[17%] right-[50%] translate-x-[50%]`,
-    right: tw`w-[85%] h-[100%] box-border absolute -bottom-[18%] right-[50%] translate-x-[50%] rotate-[356deg]`
-};
-const styles={
-    container:()=>[
-        tw`flex flex-col relative h-[100%]`
-    ],
-    text:()=>[
-        tw`text-[36px] font-normal font-ibm`
-    ],
-    avatar:({type})=>[
-        avatarVariants[type]
-    ]
-};
-const AuthTypeCard=({text, avatar, type, onClick})=>{
+import tw, {styled} from "twin.macro"
+const Container = styled.div(()=>[
+    tw`flex box-border rounded-[20px] border-2 border-black w-full ip8:w-[250px] dt:max-w-full dt:w-2/5 flex-row 
+    dt:flex-col shadow-inherit dt:relative dt:h-[450px] items-center justify-between px-4 hover:border-[#D62B70] pf:w-1/4`
+]);
+const Type = styled.div(()=>[
+    tw`font-ibm font-bold text-mobile-h2 dt:text-desktop-h2 dt:text-center my-4 dt:text-2xl`
+])
+const Avatar = styled.img(()=>[
+    tw`dt:absolute dt:left-[50%] dt:translate-x-[-50%] dt:bottom-[-10%] h-[50px] dt:h-full`
+])
+const AuthTypeCard=({text, avatar, onClick})=>{
     return (
-        <Card type="loginType" onClick={onClick}>
-            <div css={styles.container}>
-                <div css={styles.text}>{text}</div>
-                <img css={styles.avatar({type})} src={avatar}/>
-            </div>
-        </Card>
+        <Container onClick={onClick}>
+            <Type>{text}</Type>
+            <Avatar src={avatar}/>
+        </Container>
     )
 }
 

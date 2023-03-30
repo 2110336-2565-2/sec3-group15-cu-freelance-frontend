@@ -51,6 +51,7 @@ module.exports = {
     },
 
     screens: {
+      ip8: "375px",
       tbl: "550px",
       sws: "723px",
       dt: "850px",
