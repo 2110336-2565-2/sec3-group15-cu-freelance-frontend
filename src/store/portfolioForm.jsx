@@ -68,3 +68,18 @@ export const DUMMY_duration_options = [
   { value: 15, label: "15 วัน" },
   { value: 30, label: "30 วัน" },
 ];
+
+export const headerTwoPort = [
+  {
+    q: 1,
+    text: "รูปภาพปก",
+  },
+  { q: 2, text: "รูปภาพเพิ่มเติม" },
+];
+export const headerTwoSummaryPort = [
+  {
+    q: 1,
+    text: "รายละเอียด",
+  },
+  { q: 2, text: "ตัวอย่างการ์ด" },
+];

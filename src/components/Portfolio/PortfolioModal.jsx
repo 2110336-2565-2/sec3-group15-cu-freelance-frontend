@@ -8,7 +8,7 @@ const FirstRow = tw.div`relative flex justify-center mb-2`;
 
 const ModalOverlay = (props) => {
   const content = (
-    <div tw="font-ibm fixed m-auto w-screen h-screen py-2 top-0 bottom-0 left-0 right-0 bg-white z-[60]">
+    <div tw="font-ibm fixed m-auto w-screen h-screen py-2 top-0 bottom-0 left-0 right-0 bg-white z-[60] dt:max-w-[850px] dt:max-h-[80vh] shadow rounded-[10px]">
       <FirstRow>
         {props.header}
         <img src={XIcon} tw="absolute right-2 top-0" onClick={props.onClose} />

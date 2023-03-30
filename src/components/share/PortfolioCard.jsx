@@ -10,10 +10,10 @@ import Modal from "./Modal";
 import { mapOptions } from "../../store/portfolioForm";
 
 const Container = styled.div(({ isLanding }) => [
-  tw`flex flex-col h-fit rounded-[20px] max-w-[270px] dt:w-[32%] shadow relative cursor-pointer`,
-  isLanding && tw`dt:w-full`,
+  tw`flex flex-col h-[376px] rounded-[20px] max-w-[270px] dt:w-[32%] shadow relative cursor-pointer overflow-hidden`,
+  isLanding && tw`w-full dt:w-full`,
 ]);
-const Img = tw.img``;
+const Img = tw.img`object-contain max-w-none h-full`;
 const ContentContainer = tw.div`flex flex-col pl-4 border-b-2 border-[#B7B7B7] text-left w-full`;
 const FirstRow = tw.div`flex justify-between relative`;
 const OptionIconImg = tw.img`z-20`;
@@ -24,7 +24,7 @@ const FooterContainer = tw.div`flex flex-row justify-between p-2 items-center`;
 const Duration = tw.div`flex flex-row items-center gap-x-2 text-[#707070]`;
 const DurationIcon = tw.img`max-w-[1rem]`;
 const Price = tw.div`font-sans text-freelance-black-secondary`;
-const Backdrop = tw.div`absolute w-full h-full bg-black/50 z-20 rounded-[20px]`;
+const Backdrop = tw.div`absolute w-full h-[376px] bg-black/50 z-20 rounded-[20px]`;
 
 const PortFolioCard = ({
   portImg,
@@ -160,8 +160,9 @@ const PortFolioCard = ({
         isLanding={isLanding}
       >
         {!isVisible && <Backdrop />}
-
-        <Img src={portImg} />
+        <div tw="w-full h-full overflow-hidden flex justify-center items-center rounded-t-[20px]">
+          <Img src={portImg} />
+        </div>
         <ContentContainer>
           <FirstRow>
             <Category>{mapOptions[category]}</Category>

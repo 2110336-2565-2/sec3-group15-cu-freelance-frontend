@@ -13,13 +13,14 @@ import CreatePortForm4 from "./CreatePortForm4";
 const Container = tw.div`relative w-full mx-auto h-auto flex flex-col items-center font-ibm gap-y-[3%] max-w-[600px] dt:shadow dt:py-3 mb-5 rounded-[10px]`;
 const Header = tw.div`font-bold text-xl`;
 const ProgressBarContainer = tw.div`w-full px-[5%] mb-[5%] mx-auto flex justify-center items-center`;
-const FormContainer = tw.form`min-h-[60vh] h-full w-full flex flex-col items-center gap-y-2`;
+const FormContainer = tw.div`min-h-[60vh] h-full w-full flex flex-col items-center gap-y-2`;
 const ButtonContainer = tw.div`flex bottom-[0%] justify-between w-[90%]`;
 const step = ["รายละเอียด", "สถานะ", "รูปภาพ", "ยืนยัน"];
 
 const CreatePortfolioForm = () => {
   const [stage, setStage] = useState(1);
   const navigate = useNavigate();
+  const [isPublic, setIsPublic] = useState(true);
   let disableButton;
   const [formState1, inputHandler1] = useForm(
     {
@@ -34,6 +35,9 @@ const CreatePortfolioForm = () => {
     },
     false
   );
+  const handleSetIsPublic = () => {
+    setIsPublic((prev) => !prev);
+  };
   const [formState2, inputHandler2] = useForm(
     {
       price: {
@@ -57,6 +61,10 @@ const CreatePortfolioForm = () => {
         value: [],
         isValid: false,
       },
+      thumbnail: {
+        value: [],
+        isValid: false,
+      },
     },
     false
   );
@@ -73,7 +81,7 @@ const CreatePortfolioForm = () => {
   disableButton =
     (stage === 1 && !formState1.isValid) ||
     (stage === 2 && !formState2.isValid) ||
-    (stage === 3 && formState3.inputs.image.value.length === 0);
+    (stage === 3 && !formState3.isValid);
   return (
     <Container>
       <Header>สร้างพอร์ตฟอลิโอใหม่</Header>
@@ -82,7 +90,7 @@ const CreatePortfolioForm = () => {
         <ProgressBar
           onClick={setStage}
           state={stage}
-          progress={4}
+          progress={stage}
           formValid={{
             form1: formState1.isValid,
             form2: formState2.isValid,
@@ -121,6 +129,8 @@ const CreatePortfolioForm = () => {
             formState2={formState2}
             formState3={formState3}
             setStage={setStage}
+            isPublic={isPublic}
+            setIsPublic={handleSetIsPublic}
           />
         )}
       </FormContainer>

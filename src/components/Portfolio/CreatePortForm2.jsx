@@ -24,7 +24,7 @@ const CreatePortForm2 = ({ inputHandler, initialValue }) => {
       <Input
         type="number"
         id="price"
-        label="Price"
+        label="ราคา(บาท)"
         placeholder="ใส่ราคาที่นี่..."
         errorText="โปรดกรอกราคา"
         onInput={inputHandler}
