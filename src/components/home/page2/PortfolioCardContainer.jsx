@@ -67,12 +67,12 @@ const PortfolioCardContainer = ({ select }) => {
               prevEl: ".prev-button",
               nextEl: ".next-button",
             }}
-            autoplay={{ delay: 2000, disableOnInteraction: false }}
+            // autoplay={{ delay: 2000, disableOnInteraction: false }}
             slidesPerView="auto"
             modules={[Navigation, Autoplay]}
           >
             {portfolios.map((portfolio) => (
-              <SwiperSlide key={portfolio.id} style={{ width: "fit-content" }}>
+              <SwiperSlide key={portfolio.id} style={{ width: "270px" }}>
                 <PortFolioCard
                   isLanding={true}
                   id={portfolio.id}

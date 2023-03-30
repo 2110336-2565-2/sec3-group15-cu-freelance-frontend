@@ -32,7 +32,7 @@ const ProfilePage = () => {
   const userId = params.userId;
 
   const pageRef = React.createRef();
-  const page = searchParams.get("pages");
+  const page = searchParams.get("pages") || 1;
   const onNextPageHandler = () => {
     setSearchParams({ pages: parseInt(page) + 1 });
   };

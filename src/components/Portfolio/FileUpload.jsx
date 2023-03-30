@@ -24,6 +24,8 @@ const FileUpload = ({
   setFile,
   isValid,
   setIsValid,
+  text2,
+  multiple = false,
 }) => {
   const filePickerRef = useRef();
 
@@ -61,12 +63,13 @@ const FileUpload = ({
         onClick={(event) => {
           event.target.value = null;
         }}
-        multiple
+        multiple={multiple}
       />
       <Container>
         <UploadButton onClick={pickImageHandler}>
           <UploadPic src={FileUploadIcon} alt="uploadIcon" />
           <UploadText>{text}</UploadText>
+          <UploadText>{text2}</UploadText>
         </UploadButton>
       </Container>
       {!isValid && (

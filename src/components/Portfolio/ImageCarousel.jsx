@@ -3,7 +3,7 @@ import { Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import tw from "twin.macro";
-
+import "./ImageCarousel.css";
 const ImageCarousel = ({ images }) => {
   return (
     <Swiper
