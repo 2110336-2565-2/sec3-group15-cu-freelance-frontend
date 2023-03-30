@@ -10,18 +10,18 @@ import Modal from "./Modal";
 import NavDropdown from "../navbar/NavDropdown";
 import NotificationIcon from "../../assets/NotificationIcon.svg";
 import { delay } from "../../utils/delay";
-
+import { useWindow } from "../../hooks/window-hook";
 const BigWrapper = styled.div(({ fixed, onSubmit }) => [
   tw`w-full py-1 dt:py-4
 z-30 bg-white flex justify-center`,
   fixed && tw`fixed  top-0 left-0  `,
 ]);
 const Wrapper = tw.div`h-[5vh] w-[90%] max-w-[1200px]  mx-auto 
-flex justify-between items-center`;
+flex justify-between items-center mt-2`;
 const SearchWrapper = tw.div` hidden dt:flex items-center w-[40%] max-w-[300px]  justify-between font-inter dt:min-w-[295px] h-[30px] dt:h-[45px]`;
 const RightWrapperLogin = tw.div` min-w-[80px] dt:w-1/4 dt:min-w-[250px] flex justify-end dt:justify-between items-center font-inter `;
-const RightWrapperNotLogin = tw.div` min-w-[250px] flex justify-end gap-2 dt:gap-4 font-inter `;
-const Logo = tw.div`text-lg font-bold dt:text-2xl font-sans text-black cursor-pointer`;
+const RightWrapperNotLogin = tw.div`min-w-[200px] ip8:min-w-[230px] flex justify-end gap-2 dt:gap-4 font-inter `;
+const Logo = tw.div`text-xs ip8:text-sm font-bold dt:text-2xl font-sans text-black cursor-pointer`;
 const NotificationWrapper = tw.img` cursor-pointer w-[60px]`;
 
 const Navbar = (props) => {
@@ -62,7 +62,8 @@ const Navbar = (props) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   let Right;
-
+  const windowSize = useWindow();
+  console.log(windowSize);
   if (login) {
     Right = (
       <>
@@ -75,16 +76,15 @@ const Navbar = (props) => {
   } else {
     Right = (
       <>
-        <Button secondary onClick={onClickLoginHandler}>
+        <Button secondary onClick={onClickLoginHandler} px = {windowSize >= 375 ? '1.5rem' : '0.75rem'}>
           เข้าสู่ระบบ
         </Button>
-        <Button primary onClick={OnClickRegisterHandler}>
+        <Button primary onClick={OnClickRegisterHandler} px={windowSize >= 375 ? '1.5rem' : '0.75rem'}>
           สมัครสมาชิก
         </Button>
       </>
     );
   }
-
   return (
     <>
       <Modal
