@@ -18,10 +18,22 @@ const Container = tw.div`flex justify-center pt-[10vh] dt:pt-[20vh] min-h-[95vh]
 const Form = tw.form`flex flex-col dt:shadow-[0_4px_4px_rgba(0,0,0,0.25)] px-8 py-4 rounded-[20px] gap-y-2 w-[420px] h-fit pf:w-1/4 pf:gap-y-4`;
 const Title = tw.div`text-center font-bold text-xl dt:text-3xl font-ibm`;
 const ButtonSection = tw.div`flex flex-row justify-between mt-2`;
+const FileUploadButton = tw.label`font-ibm text-center w-full bg-freelance-pink 
+                                  text-white rounded-[20px] py-2 text-mobile-body dt:text-desktop-base
+                                  hover:cursor-pointer`;
+const FileUploadInput = tw.input`w-full hidden`
+const ProfileImage = tw.img`rounded-full mx-auto w-[100px] h-[100px] dt:w-[128px] dt:h-[128px] overflow-hidden object-fill my-2`
 const EditProfilePage = ()=> {
     const authCtx=useContext(AuthContext);
     const [submitState, setSubmitState] = useState(0);
     const [isClear, setIsClear] = useState(0);
+    const [selectedProfile, SetSelectedProfile] = useState(null);
+    const [previewProfile, SetPreviewProfile] = useState(null);
+    const profileChangeHandler=(event)=>{
+        event.preventDefault();
+        SetSelectedProfile(event.target.files[0]);
+        SetPreviewProfile(URL.createObjectURL(event.target.files[0]));
+    }
     const [formState, inputHandler, setFormData] = useForm({
         Firstname: {
             value:"",
@@ -99,6 +111,12 @@ const EditProfilePage = ()=> {
             const response = await apiClient.patch(`/user`, data, {
                 headers: { "Content-Type": "application/json" },
             });
+            console.log('form response', response);
+            const formData = new FormData();
+            formData.append("file", selectedProfile);
+            console.log(selectedProfile)
+            const fileResponse = await apiClient.put(`/file/avatar`, formData);
+            console.log(fileResponse);
             setSubmitState(1);
             setTimeout(() => { setSubmitState(0); }, 3000);
         }
@@ -107,7 +125,8 @@ const EditProfilePage = ()=> {
             setSubmitState(2);
             setTimeout(() => { setSubmitState(0); }, 3000);
         }
-        navigate(0);
+        setTimeout(() => { setSubmitState(0); }, 3000);
+        // navigate(0);
     }
     useEffect(()=>{
         setFormData({
@@ -143,6 +162,13 @@ const EditProfilePage = ()=> {
         <Container>
             {!isClear&&<Form>
                 <Title>แก้ไขข้อมูลส่วนตัว</Title>
+                <ProfileImage src={previewProfile}>
+                    {/* <img src={previewProfile}/> */}
+                </ProfileImage>
+                <FileUploadButton>
+                    <FileUploadInput type='file' onChange={profileChangeHandler}/>
+                    เปลี่ยนรูปโปรไฟล์
+                </FileUploadButton>
                 <Input
                 type="text"
                 id="Firstname"
