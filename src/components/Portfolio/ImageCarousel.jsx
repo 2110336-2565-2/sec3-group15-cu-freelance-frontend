@@ -5,9 +5,10 @@ import "swiper/css/pagination";
 import tw from "twin.macro";
 import "./ImageCarousel.css";
 const ImageCarousel = ({ images }) => {
+  console.log(images);
   return (
     <Swiper
-      tw="w-full mb-5"
+      tw="w-full mb-5 h-full"
       pagination={true}
       modules={[Pagination]}
       loop={true}

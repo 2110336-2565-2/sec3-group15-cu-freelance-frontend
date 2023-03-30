@@ -22,10 +22,18 @@ export const useAuth = () => {
       })
     );
     try {
-      const response = await apiClient.get("/auth/me");
-      setUserInfo(response.data);
-      localStorage.setItem("userInfo", JSON.stringify(response.data));
-      return response.data;
+      let response1 = await apiClient.get("/auth/me");
+      let response2 = await apiClient.get(
+        `/file/avatar?id=${response1.data.id}`
+      );
+      const url = { url: "//" + response2.data.avatars[0].url };
+      console.log(response2);
+      localStorage.setItem(
+        "userInfo",
+        JSON.stringify({ ...response1.data, ...url })
+      );
+      setUserInfo({ ...response1.data, ...url });
+      return { ...response1.data };
     } catch (err) {
       console.log(err);
     }
@@ -65,5 +73,5 @@ export const useAuth = () => {
     }
   }, [login]);
 
-  return { acToken, reToken, login, logout, userInfo,setUserInfo };
+  return { acToken, reToken, login, logout, userInfo, setUserInfo };
 };
