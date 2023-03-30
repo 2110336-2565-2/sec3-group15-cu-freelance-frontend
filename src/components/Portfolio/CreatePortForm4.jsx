@@ -89,7 +89,7 @@ const CreatePortForm4 = ({
       let res = await apiClient.put(`/file/portfolio/${portfolioId}`, data);
       console.log(res);
 
-      data = JSON.stringify({ key: res.data.key.split("/")[1] });
+      data = JSON.stringify({ key: res.data.url.split("/")[1] });
       res = await apiClient.put(
         `/file/portfolio/${portfolioId}/thumbnail`,
         data,
