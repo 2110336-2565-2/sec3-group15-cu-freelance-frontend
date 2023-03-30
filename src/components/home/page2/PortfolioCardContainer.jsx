@@ -19,8 +19,6 @@ const Container = tw.div`flex mx-auto w-[90vw]`;
 
 const PortfolioCardContainer = ({ select }) => {
   const [portfolios, setPortfolios] = useState(null);
-  // const navigationPrevRef = useRef(null);
-  // const navigationNextRef = useRef(null);
   const navigate = useNavigate();
   const onClickDetailCard = (id) => {
     navigate(`/portfolio/${id}`);
@@ -36,7 +34,27 @@ const PortfolioCardContainer = ({ select }) => {
           `
         );
         console.log(res);
-        setPortfolios(res.data.pagination.items);
+        let ports = [];
+        let data;
+        if (res.data.pagination.items != 0) {
+          let portIds = [];
+          ports = [...res.data.pagination.items];
+          ports.some((port) => {
+            portIds.push(port.id);
+          });
+          data = JSON.stringify({ portIds: portIds });
+          const res_img = await authClient.get(
+            "/file/portfolio/thumbnail",
+            data,
+            {
+              Headers: { "Content-Type": "application/json" },
+            }
+          );
+          const thumbnails = [...res_img.thumbnails];
+          console.log(thumbnails);
+        }
+
+        setPortfolios(port);
       } catch (err) {
         console.log(err);
       }

@@ -8,6 +8,8 @@ import ImageCarousel from "./ImageCarousel";
 import { apiClient } from "../../utils/axios";
 import { useNavigate } from "react-router-dom";
 import PortfolioCard from "../share/PortfolioCard";
+import LoadingModal from "../share/LoadingModal";
+import { delay } from "../../utils/delay";
 
 const Header = tw.div`font-bold text-mobile-h1`;
 const HeaderDescription = tw.div`w-[90%] text-freelance-black-secondary text-center`;
@@ -58,6 +60,7 @@ const CreatePortForm4 = ({
   const handleCreateForm = async () => {
     try {
       setIsLoading(true);
+      // await delay(10000000);
       let data = JSON.stringify({
         category: category.value,
         description: description.value,
@@ -115,6 +118,11 @@ const CreatePortForm4 = ({
   console.log(isPublic);
   return (
     <>
+      <LoadingModal
+        show={isLoading}
+        header={"กำลังสร้างพอร์ตฟอลิโอ"}
+        desc={"เรากำลังอัพโหลดพอร์โฟลิโอคุณเข้าสู่ระบบกรุณารอสักครู่..."}
+      />
       <div tw="w-[90%] h-fit flex flex-col items-center min-h-[40vh]">
         <div tw="w-full flex">
           {headerTwoSummaryPort.map((header, idx) => (
