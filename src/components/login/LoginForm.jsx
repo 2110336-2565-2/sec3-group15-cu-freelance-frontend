@@ -8,6 +8,7 @@ import { authClient } from "../../utils/auth";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { apiClient } from "../../utils/axios";
+import Button from "../share/Button";
 const styles = {
   container: () => [
     tw`flex flex-col font-inter items-center w-full max-w-[460px] 
@@ -57,7 +58,7 @@ const LoginForm = () => {
   );
 
   const formSubmitHandler = async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     try {
       setIsLogin(true);
       let response = await authClient.post(
@@ -105,13 +106,19 @@ const LoginForm = () => {
           onInput={inputHandler}
           validator={[VALIDATOR_MINLENGTH(8)]}
         />
-        <button
+        {/* <button
           css={styles.button()}
           onClick={formSubmitHandler}
           disabled={!formState.isValid || isLogin}
         >
           {(isLogin && "กำลังดึงข้อมูล...") || "เข้าสู่ระบบ"}
-        </button>
+        </button> */}
+        <Button primary width='100%'
+          onClick={formSubmitHandler}
+          disable={!formState.isValid || isLogin}
+        >
+          {(isLogin && "กำลังดึงข้อมูล...") || "เข้าสู่ระบบ"}
+        </Button>
         {/* <div css={styles.or()}> OR </div>
         <button css={styles.googleButton()} disabled={true}>
           <img css={styles.googleIcon()} src={GoogleIcon} />

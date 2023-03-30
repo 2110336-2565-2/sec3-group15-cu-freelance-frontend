@@ -9,7 +9,7 @@ import { useForm } from "../hooks/form-hook";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { apiClient } from "../utils/axios";
-
+import Button from "../components/share/Button"
 const FillDisplayNamePage = () => {
   const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
@@ -26,12 +26,12 @@ const FillDisplayNamePage = () => {
 
   const styles = {
     container: () => [
-      tw`flex flex-col font-inter items-center w-[50%] max-w-[460px] h-2/5 drop-shadow border-[1px] rounded-[30px] px-[3%] py-[1%]`,
+      tw`flex flex-col font-inter items-center w-fit dt:w-[50%] max-w-[460px] h-fit drop-shadow border-[1px] rounded-[30px] px-[3%] py-[1%]`,
     ],
     content: () => [
-      tw`flex flex-col box-border h-full w-full  items-center px-[2%] gap-y-[20px]`,
+      tw`flex flex-col box-border h-full w-full  items-center px-2 pb-4`,
     ],
-    title: () => [tw`text-[48px] font-bold`],
+    title: () => [tw`text-mobile-h1 dt:text-[48px] font-bold my-4`],
     button: () => [
       tw`w-full bg-[#D62B70] font-bold text-[20px] text-white rounded-[10px] font-inter p-[1%] mt-[1%] disabled:bg-gray-600`,
     ],
@@ -44,7 +44,7 @@ const FillDisplayNamePage = () => {
 
   const formSubmitHandler = async (event) => {
     console.log(authCtx)
-    event.preventDefault();
+    // event.preventDefault();
     try {
       await apiClient.patch(
         "/user",
@@ -57,7 +57,15 @@ const FillDisplayNamePage = () => {
       userInfo.displayName=formState.inputs.displayName.value;
       localStorage.setItem("userInfo", JSON.stringify(userInfo))
       authCtx.setUserInfo(prev=>({...prev,display_name:formState.inputs.displayName.value}))
-      navigate("/success", { replace: true });
+      navigate('/request-complete', {
+        state:{
+            title:"ลงทะเบียนสำเร็จ",
+            desc:"ยินดีต้อนรับสู่ CU Freelance!",
+            bt1Text:"กลับหน้าหลัก",
+            path1:"/home",
+        }
+        //bt1OnclickHandler
+    });
     } catch (err) {
       console.log(err);
     }
@@ -77,13 +85,16 @@ const FillDisplayNamePage = () => {
             onInput={inputHandler}
             validator={[VALIDATOR_REQUIRE()]}
           />
-          <button
+          {/* <button
             css={styles.button()}
             onClick={formSubmitHandler}
             disabled={!formState.isValid || isLogin}
           >
             {(isLogin && "loading...") || "Login"}
-          </button>
+          </button> */}
+          <Button primary onClick={formSubmitHandler} disable={!formState.isValid || isLogin} width='100%'>
+            {(isLogin && "loading...") || "Login"}
+          </Button>
         </div>
       </div>
     </div>
