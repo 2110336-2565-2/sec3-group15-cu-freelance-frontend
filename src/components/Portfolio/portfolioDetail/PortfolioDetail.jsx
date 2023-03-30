@@ -20,9 +20,9 @@ const HR = tw.hr`w-[90%] border-freelance-pink border-t-2 font-bold`;
 const Li = tw.li`list-item font-bold text-desktop-h2`;
 const Header2 = tw.ul`w-[90%] list-disc list-inside text-mobile-body`;
 const Description = tw.div`w-[90%] justify-between`;
-const SendContainer = tw.div`w-[90%] h-[15vh] flex flex-col`;
-const ProfileContainer = tw.div`w-full h-1/2 flex gap-x-2 font-bold`;
-const ButtonContainer = tw.div`w-full flex justify-between`;
+const SendContainer = tw.div`w-[90%] h-[15vh] mb-2 flex flex-col items-center rounded-[8px] shadow-[0_8px_4px_rgba(0,0,0,0.25)]`;
+const ProfileContainer = tw.div`w-[90%] h-1/2 flex gap-x-2 font-bold`;
+const ButtonContainer = tw.div`w-[90%] flex justify-between`;
 
 const PortfolioDetail = () => {
   const authCtx = useContext(AuthContext);
@@ -45,8 +45,7 @@ const PortfolioDetail = () => {
         console.log(response);
         response = await authClient.get(`/file/portfolio/${portId}`);
         console.log(response);
-        const imgs = response.data.urls.map((url) => "//" + url);
-        setImages(imgs);
+        setImages(response.data.urls);
       } catch (err) {
         console.log(err);
       }
@@ -95,7 +94,7 @@ const PortfolioDetail = () => {
           </Header2>
         </InfoContainer>
         <SendContainer>
-          <ProfileContainer></ProfileContainer>
+          <ProfileContainer>{freelance.display_name}</ProfileContainer>
           <ButtonContainer></ButtonContainer>
         </SendContainer>
       </>

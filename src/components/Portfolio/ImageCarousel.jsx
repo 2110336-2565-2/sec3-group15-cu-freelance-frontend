@@ -11,6 +11,7 @@ const ImageCarousel = ({ images }) => {
       tw="w-full mb-5 h-full"
       pagination={true}
       modules={[Pagination]}
+      pagination={{ clickable: true }}
       loop={true}
       grabCursor={true}
       //   autoplay={{ delay: 2000, disableOnInteraction: false }}

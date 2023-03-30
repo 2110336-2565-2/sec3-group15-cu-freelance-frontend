@@ -26,14 +26,14 @@ export const useAuth = () => {
       let response2 = await apiClient.get(
         `/file/avatar?id=${response1.data.id}`
       );
-      const url = { url: "//" + response2.data.avatars[0].url };
+      const url = { url: response2.data.avatars[0].url };
       console.log(response2);
       localStorage.setItem(
         "userInfo",
         JSON.stringify({ ...response1.data, ...url })
       );
       setUserInfo({ ...response1.data, ...url });
-      return { ...response1.data };
+      return { ...response1.data, ...url };
     } catch (err) {
       console.log(err);
     }
