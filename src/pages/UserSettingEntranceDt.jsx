@@ -11,7 +11,7 @@ const UserSettingEntranceDtPage = ()=>{
     return (
         <>
             <MenuList state={state} setState={setState}/>
-            {!state ? <EditProfilePage/> : <ChangePasswordPage/>}
+            {!state ? <EditProfilePage/> : <ChangePasswordPage setState={setState}/>}
         </>
     )
 }
