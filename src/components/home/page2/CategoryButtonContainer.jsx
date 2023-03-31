@@ -5,8 +5,6 @@ import CategoryButton from "./CategoryButton";
 const Container = tw.div`flex gap-x-4 mx-auto w-fit max-w-[500px] landing:max-w-[1000px]`;
 
 const CategoryButtonContainer = ({ select, setSelect }) => {
-  console.log(select);
-
   return (
     <Container>
       {categories.map((category, idx) => (

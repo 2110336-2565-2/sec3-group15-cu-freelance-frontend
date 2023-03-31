@@ -31,7 +31,6 @@ const CategoryButton = ({
 }) => {
   const handleClickCategoryButton = (event) => {
     event.preventDefault();
-    console.log(value);
     setSelect(value);
   };
 

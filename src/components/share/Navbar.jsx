@@ -63,7 +63,7 @@ const Navbar = (props) => {
   };
   let Right;
   const windowSize = useWindow();
-  console.log(windowSize);
+
   if (login) {
     Right = (
       <>
@@ -76,10 +76,18 @@ const Navbar = (props) => {
   } else {
     Right = (
       <>
-        <Button secondary onClick={onClickLoginHandler} px = {windowSize >= 375 ? '1.5rem' : '0.75rem'}>
+        <Button
+          secondary
+          onClick={onClickLoginHandler}
+          px={windowSize >= 375 ? "1.5rem" : "0.75rem"}
+        >
           เข้าสู่ระบบ
         </Button>
-        <Button primary onClick={OnClickRegisterHandler} px={windowSize >= 375 ? '1.5rem' : '0.75rem'}>
+        <Button
+          primary
+          onClick={OnClickRegisterHandler}
+          px={windowSize >= 375 ? "1.5rem" : "0.75rem"}
+        >
           สมัครสมาชิก
         </Button>
       </>

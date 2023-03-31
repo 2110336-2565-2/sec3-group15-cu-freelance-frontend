@@ -54,6 +54,7 @@ const PortfolioDetail = () => {
         response = await authClient.get(`/file/avatar?id=${freelanceId}`);
         // console.log(response.data.avatars[0]);
         setProfileImg(response.data.avatars[0].url);
+        console.log(response.data.avatars[0].url);
         setIsLoading(false);
       } catch (err) {
         console.log(err);

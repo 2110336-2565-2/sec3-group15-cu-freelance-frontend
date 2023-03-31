@@ -33,28 +33,33 @@ const PortfolioCardContainer = ({ select }) => {
           }
           `
         );
-        console.log(res);
+
         let ports = [];
-        let data;
+        const data = [];
+        let thumbnails;
         if (res.data.pagination.items != 0) {
-          let portIds = [];
+          let portIds = "";
           ports = [...res.data.pagination.items];
           ports.some((port) => {
-            portIds.push(port.id);
+            portIds += `${port.id},`;
           });
-          data = JSON.stringify({ portIds: portIds });
-          const res_img = await authClient.get(
-            "/file/portfolio/thumbnail",
-            data,
-            {
-              Headers: { "Content-Type": "application/json" },
-            }
-          );
-          const thumbnails = [...res_img.thumbnails];
-          console.log(thumbnails);
-        }
+          if (portIds.length > 0) {
+            portIds = portIds.slice(0, portIds.length - 1);
+          }
 
-        setPortfolios(port);
+          const params = { id: portIds };
+          const res_img = await authClient.get(
+            `/file/portfolio/thumbnail?` +
+              new URLSearchParams(params).toString()
+          );
+
+          thumbnails = [...res_img.data.thumbnails];
+        }
+        for (let i = 0; i < ports.length; i++) {
+          data.push({ ...ports[i], url: thumbnails[i].url });
+        }
+        console.log(data);
+        setPortfolios(data);
       } catch (err) {
         console.log(err);
       }
@@ -63,6 +68,11 @@ const PortfolioCardContainer = ({ select }) => {
   }, [select]);
   return (
     <>
+      {!portfolios && (
+        <div tw="w-screen h-[30px]">
+          <LoadingSpinner />
+        </div>
+      )}
       {portfolios && (
         <Container tw="w-full">
           <img
@@ -94,7 +104,7 @@ const PortfolioCardContainer = ({ select }) => {
                 <PortFolioCard
                   isLanding={true}
                   id={portfolio.id}
-                  portImg={PortfolioImg}
+                  portImg={portfolio.url}
                   category={portfolio.category}
                   name={portfolio.name}
                   description={portfolio.description}

@@ -40,7 +40,7 @@ const SearchCorousel = forwardRef(
               <SwiperSlide key={portfolio.id} style={{ width: "fit-content" }}>
                 <PortFolioCard
                   id={portfolio.id}
-                  portImg={PortfolioImg}
+                  portImg={portfolio.url}
                   category={portfolio.category}
                   name={portfolio.name}
                   description={portfolio.description}

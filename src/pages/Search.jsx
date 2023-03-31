@@ -47,7 +47,7 @@ const SearchPage = () => {
   };
 
   const pageRef = React.createRef();
-  const page = searchParams.get("pages") || 1;
+  const page = searchParams.get("pages") || "1";
 
   const onResetPage = () => {
     searchParams.set("pages", 1);
@@ -227,11 +227,32 @@ const SearchPage = () => {
           `/portfolio/search?` + new URLSearchParams(params).toString()
         );
         console.log(response.data);
-        if (page === 1 || page === "1" || windowSize >= 850 || !portfolios)
-          setPortfolios(response.data.pagination.items);
-        else {
-          setPortfolios((prev) => [...prev, ...response.data.pagination.items]);
+        let ports;
+        let portIds = "";
+        if (page === "1" || windowSize >= 850 || !portfolios) {
+          ports = [...response.data.pagination.items];
+        } else {
+          ports = [...portfolios, ...response.data.pagination.items];
         }
+        ports.some((port) => {
+          portIds += `${port.id},`;
+        });
+        if (portIds.length > 0) {
+          portIds = portIds.slice(0, portIds.length - 1);
+        }
+
+        let data = [];
+        params = { id: portIds };
+        const res_img = await authClient.get(
+          `/file/portfolio/thumbnail?` + new URLSearchParams(params).toString()
+        );
+        console.log(res_img);
+        const thumbnails = [...res_img.data.thumbnails];
+        for (let i = 0; i < ports.length; i++) {
+          data.push({ ...ports[i], url: thumbnails[i].url });
+        }
+        console.log(data);
+        setPortfolios(data);
         setMeta(response.data.pagination.meta);
       } catch (err) {
         console.log(err);
@@ -459,13 +480,13 @@ const SearchPage = () => {
               <PortfolioCardContainer>
                 {isLoading && !portfolios && <LoadingSpinner />}
                 {portfolios &&
-                  portfolios.map((portfolio, i) => {
+                  portfolios.map((portfolio) => {
                     return (
                       <PortFolioCard
                         id={portfolio.id}
                         setPortfolios={setPortfolios}
                         key={portfolio.id}
-                        portImg={PortfolioImg}
+                        portImg={portfolio.url}
                         category={portfolio.category}
                         name={portfolio.name}
                         description={portfolio.description}
