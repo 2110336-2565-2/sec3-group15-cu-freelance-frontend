@@ -9,6 +9,7 @@ import { AuthContext } from "../context/AuthProvider";
 import { useEffect } from "react";
 import Toast from "../components/share/Toast";
 import successIcon from "../assets/SuccessIcon.svg"
+import failIcon from "../assets/FailIcon.svg"
 import { useState } from "react";
 import Button from "../components/share/Button";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -29,12 +30,17 @@ const EditProfilePage = ()=> {
     const authCtx=useContext(AuthContext);
     const [submitState, setSubmitState] = useState(0);
     const [isClear, setIsClear] = useState(0);
-    const [selectedProfile, SetSelectedProfile] = useState(null);
-    const [previewProfile, SetPreviewProfile] = useState(null);
+    const [selectedProfile, setSelectedProfile] = useState(null);
+    const [previewProfile, setPreviewProfile] = useState(null);
+    console.log(authCtx.userInfo.url);
+    useEffect(()=>{
+        setPreviewProfile(authCtx.userInfo.url)
+    },[authCtx.userInfo.url])
     const profileChangeHandler=(event)=>{
         event.preventDefault();
-        SetSelectedProfile(event.target.files[0]);
-        SetPreviewProfile(URL.createObjectURL(event.target.files[0]));
+        console.log(event.target.files);
+        setSelectedProfile(event.target.files[0]);
+        setPreviewProfile(URL.createObjectURL(event.target.files[0]));
     }
     const [formState, inputHandler, setFormData] = useForm({
         Firstname: {
@@ -114,12 +120,17 @@ const EditProfilePage = ()=> {
                 headers: { "Content-Type": "application/json" },
             });
             console.log('form response', response);
-            const formData = new FormData();
-            formData.append("file", selectedProfile);
-            console.log(selectedProfile)
-            const fileResponse = await apiClient.put(`/file/avatar`, formData);
-            console.log(fileResponse);
+            let fileResponse=null
+             if(selectedProfile){
+                const formData = new FormData();
+                formData.append("file", selectedProfile);
+                console.log(selectedProfile)
+                console.log(formData.get('file'));
+                fileResponse = await apiClient.put(`/file/avatar`, formData);
+                console.log(fileResponse);
+            }
             setSubmitState(1);
+            authCtx.setUserInfo({...authCtx.userInfo,display_name:Displayname.value,url:fileResponse?fileResponse.data.url:authCtx.userInfo.url})
             setTimeout(() => { setSubmitState(0); }, 3000);
         }
         catch(err){
@@ -158,7 +169,7 @@ const EditProfilePage = ()=> {
     return (
         <>
         {submitState==1&&<Toast type='success' title='สำเร็จ' description='ข้อมูลส่วนตัวของคุณได้ถูกเปลี่ยนแปลงแล้ว' icon={successIcon}/>}
-        {submitState==2&&<Toast type='fail' title='ผิดพลาด' description='เปลี่ยนข้อมูลส่วนตัวของคุณไม่สำเร็จ' icon={successIcon}/>}
+        {submitState==2&&<Toast type='fail' title='ผิดพลาด' description='เปลี่ยนข้อมูลส่วนตัวของคุณไม่สำเร็จ' icon={failIcon}/>}
         {/* <MenuList state={0}/> */}
         {authCtx.userInfo.firstname && 
         <Container>
@@ -169,7 +180,7 @@ const EditProfilePage = ()=> {
                 </ImageContainer>
                 
                 <FileUploadButton>
-                    <FileUploadInput type='file' accept="image/*" onChange={profileChangeHandler}/>
+                    <FileUploadInput type='file' accept="image/png,image/jpg" onChange={profileChangeHandler}/>
                     เปลี่ยนรูปโปรไฟล์
                 </FileUploadButton>
                 <Input
