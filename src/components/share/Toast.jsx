@@ -7,9 +7,9 @@ const colorVariants = {
     fail: tw.div`bg-[#FFE7E1] border-l-[#FE8963]`
 }
 const Toast = ({type, title, description, icon}) => {
-    const Container = tw(colorVariants[type])`fixed flex flex-row rounded-[12px] top-[10vh] -translate-x-1/2 inset-x-1/2 dt:h-24 w-2/3 dt:w-1/6 border-l-[12px] p-4 gap-x-2 dt:gap-x-4`;
+    const Container = tw(colorVariants[type])`fixed flex flex-row rounded-[12px] top-[10vh] -translate-x-1/2 inset-x-1/2 dt:h-24 w-2/3 tbl:w-fit border-l-[12px] p-4 gap-x-2 dt:gap-x-4 z-[60]`;
     const Icon = tw.img`items-center w-8`;
-    const TextContainer = tw.div`flex flex-col w-fit ml-4 dt:mr-16`;
+    const TextContainer = tw.div`flex flex-col w-fit ml-4 dt:mr-16 h-fit`;
     const Title = tw.div`font-bold font-ibm`;
     const Description = tw.div`font-ibm text-xs dt:text-sm`;
     const XButton = tw.button(colorVariants[type])`cursor-pointer dt:text-xl font-ibm`;
