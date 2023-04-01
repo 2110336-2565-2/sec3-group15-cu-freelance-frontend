@@ -13,8 +13,8 @@ const ModalOverlay = (props) => {
         <div tw="text-freelance-black-secondary w-[80%] text-center text-mobile-h2">
           {props.desc}
         </div>
+        {props.footer}
       </div>
-      {props.footer}
     </div>
   );
   return ReactDOM.createPortal(content, document.getElementById("modal-hook"));
@@ -23,7 +23,9 @@ const ModalOverlay = (props) => {
 const LoadingModal = (props) => {
   return (
     <React.Fragment>
-      {props.show && <Backdrop />}
+      {props.show && (
+        <Backdrop onClick={props.onCancel ? props.onCancel : () => {}} />
+      )}
       {props.show && <ModalOverlay {...props} />}
     </React.Fragment>
   );

@@ -14,7 +14,7 @@ import { delay } from "../../utils/delay";
 const Header = tw.div`font-bold text-mobile-h1`;
 const HeaderDescription = tw.div`w-[90%] text-freelance-black-secondary text-center`;
 const ContainDescription = tw.div`flex flex-col w-full items-start`;
-const Header2 = tw.div`text-mobile-h2`;
+const Header2 = tw.div`text-mobile-h2 font-semibold`;
 const Description = tw.div`text-freelance-black-secondary`;
 const ButtonContainer = tw.div`w-[90%] mx-auto flex flex-col items-center gap-y-3 mb-2 justify-center`;
 const Back2Edit = styled.button(({}) => [
@@ -47,6 +47,8 @@ const CreatePortForm4 = ({
     image.value.some((img) => {
       images.push(URL.createObjectURL(img));
     });
+    // console.log(thumbnail.value);
+    images.push(URL.createObjectURL(thumbnail.value[0]));
     setPreview(images);
   }, [image]);
   useEffect(() => {

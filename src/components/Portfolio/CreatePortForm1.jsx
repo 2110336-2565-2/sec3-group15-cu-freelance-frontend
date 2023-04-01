@@ -10,9 +10,9 @@ const CreatePortForm1 = ({ inputHandler, initialValue }) => {
       <Input
         type="text"
         id="portfolioName"
-        label="หัวข้องาน"
-        placeholder="ใส่หัวข้องานที่นี่..."
-        errorText="โปรดกรอกหัวข้องาน"
+        label="หัวข้อพอร์ตฟอลิโอ"
+        placeholder="ใส่หัวข้อพอร์ตฟอลิโอที่นี่..."
+        errorText="โปรดกรอกหัวข้อพอร์ตฟอลิโอ"
         onInput={inputHandler}
         initialValue={initialValue.inputs.portfolioName.value}
         initialValid={initialValue.inputs.portfolioName.isValid}
@@ -22,9 +22,9 @@ const CreatePortForm1 = ({ inputHandler, initialValue }) => {
       <Input
         type="textarea"
         id="description"
-        label="รายละเอียดงาน"
-        placeholder="ใส่รายละเอียดงานที่นี่..."
-        errorText="โปรดกรอกคำอธิบาย"
+        label="รายละเอียดพอร์ตโฟลิโอ"
+        placeholder="ใส่รายละเอียดพอร์ตฟอลิโอที่นี่..."
+        errorText="โปรดกรอกรายละเอียด"
         onInput={inputHandler}
         initialValue={initialValue.inputs.portfolioName.value}
         initialValid={initialValue.inputs.portfolioName.isValid}

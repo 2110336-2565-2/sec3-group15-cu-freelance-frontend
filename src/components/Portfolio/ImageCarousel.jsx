@@ -1,18 +1,24 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper";
+import { Pagination, Mousewheel } from "swiper";
 import "swiper/css";
+import "swiper/css/bundle";
 import "swiper/css/pagination";
 import tw from "twin.macro";
 import "./ImageCarousel.css";
-const ImageCarousel = ({ images }) => {
-  console.log(images);
+const ImageCarousel = ({ images, onSwiperImg = () => {} }) => {
+  // console.log(images);
   return (
     <Swiper
       tw="w-full mb-5 h-full"
       pagination={true}
-      modules={[Pagination]}
+      modules={[Pagination, Mousewheel]}
+      mousewheel
+      onSlideChange={(swiper) => {
+        // console.log(swiper.activeIndex);
+        onSwiperImg(swiper.activeIndex);
+      }}
       pagination={{ clickable: true }}
-      loop={true}
+      // loop={true}
       grabCursor={true}
       //   autoplay={{ delay: 2000, disableOnInteraction: false }}
       slidesPerView={1}

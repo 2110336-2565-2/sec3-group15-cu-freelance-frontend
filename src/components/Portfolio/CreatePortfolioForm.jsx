@@ -59,7 +59,7 @@ const CreatePortfolioForm = () => {
     {
       image: {
         value: [],
-        isValid: false,
+        isValid: true,
       },
       thumbnail: {
         value: [],

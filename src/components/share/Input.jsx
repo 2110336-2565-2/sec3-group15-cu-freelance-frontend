@@ -7,9 +7,7 @@ const styles = {
   container: () => [
     tw`box-border flex flex-col w-full font-inter min-h-[84px]`,
   ],
-  label: () => [
-    tw`mb-2 font-light text-mobile-body dt:font-[16px] align-top font-ibm`,
-  ],
+  label: () => [tw`mb-2   dt:font-[16px] align-top font-ibm`],
   input: () => [
     tw`focus:outline-0 focus:border-[#D62B70] box-border rounded-[10px] border-[1px] font-light text-base text-[F4B86A] px-4 py-1 font-ibm`,
   ],
@@ -23,7 +21,7 @@ const styles = {
     tw` font-[20px] text-freelance-black-primary p-[1%] font-light font-ibm`,
   ],
   errorText: ({ isFirstClick, isValid }) => [
-    tw`my-[1px] font-light text-red-700 text-xs`,
+    tw`my-[1px] font-light text-red-700 text-xs font-ibm`,
     (!isFirstClick || isValid) && tw`hidden`,
   ],
 };

@@ -56,13 +56,8 @@ const CreatePortForm3 = ({ inputHandler, formState }) => {
     setIsShow(false);
     const newFile = file.filter((f, index) => index != idx);
     console.log(newFile);
-    let isValid = true;
-    if (newFile.length === 0) {
-      setIsValid(false);
-      isValid = false;
-    }
     setFile(newFile);
-    inputHandler("image", newFile, isValid);
+    inputHandler("image", newFile, true);
   };
 
   const handleClickFileThumbnail = () => {

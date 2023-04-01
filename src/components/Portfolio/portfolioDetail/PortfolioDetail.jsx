@@ -11,10 +11,10 @@ import { mapOptions } from "../../../store/portfolioForm";
 import Button from "../../share/Button";
 import CircleImage from "../../share/CircleImage";
 
-const Container = tw.div`h-auto w-full flex flex-col items-center font-ibm gap-y-3`;
+const Container = tw.div`h-auto w-full flex flex-col items-center font-ibm max-w-[500px] gap-y-3`;
 const InfoContainer = tw.div`h-[70vh] w-full max-h-[70vh] overflow-y-auto flex flex-col items-center font-ibm gap-y-3`;
 const LoadingContainer = tw.div`h-[30px] w-[100px]`;
-const ImagesContainer = tw.div`h-[184px] w-full`;
+const ImagesContainer = tw.div`h-[250px] w-full`;
 const Header1 = tw.div`w-[90%] font-bold text-desktop-h1`;
 const CategoryContainer = tw.div`w-[90%] text-freelance-pink font-bold`;
 const HR = tw.hr`w-[90%] border-freelance-pink border-t-2 font-bold`;

@@ -4,7 +4,7 @@ import { authClient } from "../../../utils/auth";
 import PortFolioCard from "../../share/PortfolioCard";
 import PortfolioImg from "../../../assets/PortfolioImage.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper";
+import { Navigation, Autoplay, Mousewheel } from "swiper";
 import backButton from "../../../assets/NewHomePage/page2/backButton.svg";
 import nextButton from "../../../assets/NewHomePage/page2/nextButton.svg";
 import LoadingSpinner from "../../share/LoadingSpinner";
@@ -12,6 +12,7 @@ import LoadingSpinner from "../../share/LoadingSpinner";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
+import "swiper/css/bundle";
 import "./PortfolioCardContainer.css";
 import { useNavigate } from "react-router-dom";
 
@@ -86,6 +87,7 @@ const PortfolioCardContainer = ({ select }) => {
             tw="py-5 px-0.5 w-full"
             loop={true}
             spaceBetween={15}
+            mousewheel
             // onReachEnd={(swiper) => {
             //   console.log(swiper);
             //   swiper.slideTo(0, 1000);
@@ -97,7 +99,7 @@ const PortfolioCardContainer = ({ select }) => {
             }}
             // autoplay={{ delay: 2000, disableOnInteraction: false }}
             slidesPerView="auto"
-            modules={[Navigation, Autoplay]}
+            modules={[Navigation, Autoplay, Mousewheel]}
           >
             {portfolios.map((portfolio) => (
               <SwiperSlide key={portfolio.id} style={{ width: "270px" }}>
