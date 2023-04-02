@@ -180,7 +180,7 @@ const EditProfilePage = ()=> {
                 </ImageContainer>
                 
                 <FileUploadButton>
-                    <FileUploadInput type='file' accept="image/png,image/jpg" onChange={profileChangeHandler}/>
+                    <FileUploadInput type='file' accept="image/png,image/jpeg" onChange={profileChangeHandler}/>
                     เปลี่ยนรูปโปรไฟล์
                 </FileUploadButton>
                 <Input
