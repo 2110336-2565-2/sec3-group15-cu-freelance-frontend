@@ -50,37 +50,6 @@ const LeftWrapper = tw.div`flex flex-col justify-start max-w-[300px] tbl:max-w-f
 const RightWrapper = tw.div`hidden dt:block`;
 const ImgHero = tw.img` min-w-[1/2] min-h-[1/2]`;
 
-const MotionH1 = ({ children, direction, delay }) => {
-  if (!delay) delay = 0.1;
-  if (!direction) direction = "up";
-  return (
-    <motion.h1
-      variants={fadeIn(direction, delay)}
-      initial="hidden"
-      whileInView={"show"}
-      viewport={{ once: false, amount: 0.7 }}
-      tw="font-ibm text-5xl font-bold"
-    >
-      {children}
-    </motion.h1>
-  );
-};
-
-const MotionDiv = ({ children, direction, delay }) => {
-  if (!delay) delay = 0.1;
-  if (!direction) direction = "up";
-  return (
-    <motion.div
-      variants={fadeIn(direction, delay)}
-      initial="hidden"
-      whileInView={"show"}
-      viewport={{ once: false, amount: 0.7 }}
-    >
-      {children}
-    </motion.div>
-  );
-};
-
 const Framer3 = () => {
   return (
     <div tw="snap-start overflow-hidden">
