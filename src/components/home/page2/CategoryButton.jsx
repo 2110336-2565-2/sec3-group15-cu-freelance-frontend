@@ -1,7 +1,7 @@
 import tw, { styled } from "twin.macro";
 
 const Button = styled.button(({ isSelect }) => [
-  tw`px-5 font-ibm dt:text-desktop-h2 landing:px-10 py-1 rounded-[27px] flex gap-x-2 items-center transition-all duration-500 ease-linear`,
+  tw`px-5 font-ibm text-sm tbl:text-base  landing:px-10 py-1 rounded-[27px] flex gap-x-2 items-center transition-all duration-500 ease-linear`,
   isSelect && tw`bg-freelance-pink border-none text-white`,
   !isSelect &&
     tw`px-5 bg-white border border-freelance-black-secondary text-black`,

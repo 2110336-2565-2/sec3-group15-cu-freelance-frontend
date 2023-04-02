@@ -6,7 +6,7 @@ import PortfolioCardContainer from "./PortfolioCardContainer";
 import { useNavigate } from "react-router-dom";
 
 const BG = tw.div`mx-auto w-[90%] max-w-[1200px] h-screen snap-center font-ibm pt-[5vh]`;
-const Header = tw.div`text-xl text-black font-bold`;
+const Header = tw.div`text-2xl dt:text-3xl  text-black font-bold`;
 
 const Landing2 = () => {
   const [select, setSelect] = useState(0);
