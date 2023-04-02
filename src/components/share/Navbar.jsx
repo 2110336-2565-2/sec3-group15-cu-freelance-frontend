@@ -81,7 +81,7 @@ const Navbar = (props) => {
           onClick={onClickLoginHandler}
           px={
             // windowSize >= 375 ? "1.5rem" : "0.75rem"
-            windowSize >= 375 ? (windowSize >= 550 ? "1.5rem" : "1.25rem") : "0.75rem"
+            windowSize >=400  ? (windowSize >= 550 ? "1.5rem" : "1.25rem") : "0.75rem"
             }
         >
           เข้าสู่ระบบ
@@ -90,7 +90,7 @@ const Navbar = (props) => {
           primary
           onClick={OnClickRegisterHandler}
           px={ 
-            windowSize >= 375 ? (windowSize >= 550 ? "1.5rem" : "1.25rem") : "0.75rem"}
+            windowSize >= 400 ? (windowSize >= 550 ? "1.5rem" : "1.25rem") : "0.75rem"}
         >
           สมัครสมาชิก
         </Button>
