@@ -58,7 +58,7 @@ const Framer3 = () => {
           <img
             src={AboveImg}
             alt="Above img"
-            tw="absolute -z-10 top-[20%] left-[67%] max-w-[30px]"
+            tw="absolute -z-10 top-[10%] tbl:top-[20%] left-[67%] max-w-[30px]"
           />
           <img
             src={BelowImg}
