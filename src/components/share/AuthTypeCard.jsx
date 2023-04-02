@@ -1,5 +1,4 @@
 import tw, {styled} from "twin.macro"
-import { useWindow } from "../../hooks/window-hook";
 import React from "react";
 const Container = styled.div(()=>[
     tw`flex box-border rounded-[20px] border-2 border-black/10 w-full ip8:min-w-[280px] 
@@ -14,7 +13,6 @@ const Avatar = styled.img(()=>[
     tw`dt:absolute dt:left-[50%] dt:translate-x-[-50%] dt:bottom-[-10%] h-[50px] dt:h-full`
 ])
 const AuthTypeCard=({text, avatar, onClick})=>{
-    const windowSize = useWindow();
     return (
         <Container onClick={onClick}>
             {/* {windowSize >=550 ?
