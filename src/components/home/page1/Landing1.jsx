@@ -116,7 +116,7 @@ const Framer3 = () => {
           <img
             src={BagLine}
             alt="NewHomePage/page1"
-            tw="-z-10 absolute left-0 top-[20%] min-w-[300px] max-w-[40%] dt:top-[17%] dt:w-[40%] dt:max-w-[500px]"
+            tw="-z-10 absolute left-0 top-[20%] min-w-[300px] max-w-[40%] dt:top-[12%] dt:w-[35%] dt:max-w-[300px]"
           />
 
           <LeftWrapper>
