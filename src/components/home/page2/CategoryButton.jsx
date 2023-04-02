@@ -17,7 +17,8 @@ const ImgWhite = styled.img(({ isSelect }) => [
   !isSelect && tw`hidden`,
 ]);
 const Text = styled.div(({ isSelect }) => [
-  isSelect && tw`hidden tbl:inline  `,
+  tw`text-freelance-black-secondary`,
+  isSelect && tw`text-white hidden tbl:inline  `,
   !isSelect && tw`hidden landing:inline`,
 ]);
 
