@@ -106,7 +106,7 @@ const OrderCard = (props) => {
       )}
       <Lastline>
         <Duration>
-          <img src={props.duration ? DurationIcon : CalendarIcon} />
+          <img src={props.due_date ? CalendarIcon : DurationIcon} />
           {props.due_date
             ? `${props.due_date.slice(8, 10)}/${props.due_date.slice(
                 5,

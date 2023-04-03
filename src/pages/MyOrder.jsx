@@ -649,23 +649,25 @@ const MyOrderPage = () => {
                 ))}
               </Select>
             </div>
-            {selectOrder === "template" && windowSize >= 850 ? (
-              <Button
-                primary
-                onClick={() => {
-                  navigate("/create-order-template");
-                }}
-              >
-                เพิ่มออเดอร์
-              </Button>
-            ) : (
-              <AddOrder
-                src={AddOrderIcon}
-                onClick={() => {
-                  navigate("/create-order-template");
-                }}
-              />
-            )}
+            {selectOrder === "template" ? (
+              windowSize >= 850 ? (
+                <Button
+                  primary
+                  onClick={() => {
+                    navigate("/create-order-template");
+                  }}
+                >
+                  เพิ่มออเดอร์
+                </Button>
+              ) : (
+                <AddOrder
+                  src={AddOrderIcon}
+                  onClick={() => {
+                    navigate("/create-order-template");
+                  }}
+                />
+              )
+            ) : null}
           </SortContainer>
           {windowSize < 850 && (
             <OrderCarousel
