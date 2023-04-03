@@ -118,6 +118,8 @@ const EditPortfolioform = () => {
   const handleDelete = async () => {
     if (previewImages.length === 1) {
       setIsValidImg(false);
+      setIsLoadingDelete(false);
+      setIsShowDelete(false);
       return;
     }
     setIsValidImg(true);
@@ -129,7 +131,9 @@ const EditPortfolioform = () => {
         key: previewImages[selectIdx].split(".net/")[1],
       });
       console.log(data);
-      const res = await apiClient.delete(`/file/portfolio/${id}`, data);
+      const res = await apiClient.delete(`/file/portfolio/${id}`, data, {
+        headers: { "Content-Type": "application/json" },
+      });
       console.log(res);
       setPreviewImages(previewImages.filter((image, idx) => idx !== selectIdx));
       setSelectIdx(0);
@@ -148,6 +152,7 @@ const EditPortfolioform = () => {
   const handleSelectImage = async (e) => {
     console.log(e.target.files);
     const files = Array.prototype.slice.call(e.target.files);
+    if (files.length < 1) return;
     setIsLoadingAdd(true);
     setPreviewImages(null);
     try {
