@@ -1,6 +1,7 @@
 import tw from "twin.macro";
 import { forwardRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay, Mousewheel } from "swiper";
 import PortFolioCard from "../share/PortfolioCard";
 import PortfolioImg from "../../assets/PortfolioImage.svg";
 import { useNavigate } from "react-router";
@@ -8,6 +9,7 @@ import React from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
+import "swiper/css/bundle";
 
 const SearchCorousel = forwardRef(
   ({ portfolios, isLoading, handleInfiniteScroll }, ref) => {
@@ -35,6 +37,8 @@ const SearchCorousel = forwardRef(
             }}
             grabCursor={true}
             slidesPerView="auto"
+            mousewheel
+            modules={[Mousewheel]}
           >
             {portfolios.map((portfolio) => (
               <SwiperSlide key={portfolio.id} style={{ width: "270px" }}>
