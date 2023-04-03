@@ -37,14 +37,15 @@ import OrderModalTemplate from "../components/share/OrderModalTemplate";
 import ConfirmModalTemplate from "../components/share/ConfirmModalTemplate";
 import LoadingSpinner from "../components/share/LoadingSpinner";
 import OrderCarousel from "../components/order/OrderCarousel";
+import Button from "../components/share/Button";
 
 const BG = tw.div`inline dt:flex w-full dt:w-[90%] max-w-[1200px] mx-auto`;
 const Header = tw.div`text-mobile-h1 dt:text-desktop-h1 font-bold my-4`;
-const ContentWrapper = tw.div`min-h-[75vh]  dt:h-fit w-[90%] mx-auto dt:w-[70%] dt:min-h-[85vh] relative flex flex-col items-center font-ibm`;
+const ContentWrapper = tw.div`min-h-[85vh]  dt:h-fit w-[90%] mx-auto dt:w-[70%] dt:min-h-[80vh] relative flex flex-col items-center font-ibm`;
 const HeaderTwoContainer = tw.div`text-mobile-h2 dt:text-desktop-h2 flex justify-center w-full mx-auto my-5`;
 const InputSearchContainer = tw.div`h-[40px] w-full mx-auto my-4`;
-const SortContainer = tw.div`flex justify-between items-center w-4/5 mx-auto text-mobile-h2 dt:text-desktop-h2 mb-4`;
-const Select = tw.select`h-[30px] w-1/2 border border-[#BCBCBC] focus:outline-none rounded-lg text-mobile-body dt:text-desktop-base px-2`;
+const SortContainer = tw.div`flex justify-between items-center w-full mx-auto text-mobile-h2 dt:text-desktop-h2 mb-4`;
+const Select = tw.select`h-[30px] w-2/3 border border-[#BCBCBC] focus:outline-none rounded-lg text-mobile-body dt:text-desktop-base px-2`;
 const AddOrder = tw.img``;
 const OrderContainer = tw.div`flex flex-nowrap  w-full dt:min-h-[68vh] overflow-y-hidden max-w-full overflow-auto p-4 dt:overflow-hidden dt:gap-x-[3%] dt:flex-wrap  dt:p-2 dt:justify-start dt:gap-y-2`;
 const LoadingDiv = tw.div`font-ibm`;
@@ -638,15 +639,26 @@ const MyOrderPage = () => {
             </InputSearchContainer>
           )}
           <SortContainer>
-            เรียงตาม
-            <Select defaultValue={sort} onChange={onChangeSortHandler}>
-              {sortOptions.map((option, idx) => (
-                <option key={idx} value={option.value}>
-                  {option.text}
-                </option>
-              ))}
-            </Select>
-            {selectOrder === "template" && (
+            <div tw="w-3/5 dt:w-2/5 flex justify-between">
+              เรียงตาม
+              <Select defaultValue={sort} onChange={onChangeSortHandler}>
+                {sortOptions.map((option, idx) => (
+                  <option key={idx} value={option.value}>
+                    {option.text}
+                  </option>
+                ))}
+              </Select>
+            </div>
+            {selectOrder === "template" && windowSize >= 850 ? (
+              <Button
+                primary
+                onClick={() => {
+                  navigate("/create-order-template");
+                }}
+              >
+                เพิ่มออเดอร์
+              </Button>
+            ) : (
               <AddOrder
                 src={AddOrderIcon}
                 onClick={() => {

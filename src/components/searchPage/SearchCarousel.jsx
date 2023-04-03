@@ -37,8 +37,9 @@ const SearchCorousel = forwardRef(
             slidesPerView="auto"
           >
             {portfolios.map((portfolio) => (
-              <SwiperSlide key={portfolio.id} style={{ width: "fit-content" }}>
+              <SwiperSlide key={portfolio.id} style={{ width: "270px" }}>
                 <PortFolioCard
+                  isLanding={true}
                   id={portfolio.id}
                   portImg={portfolio.url}
                   category={portfolio.category}
