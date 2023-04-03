@@ -88,6 +88,7 @@ const ProfilePage = () => {
           );
         }
         setPortfolios(response.data.items);
+        console.log(response.data);
         setMeta(response.data.meta);
       } catch (err) {
         console.log(err);
