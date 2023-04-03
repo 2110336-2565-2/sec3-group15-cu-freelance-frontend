@@ -4,7 +4,7 @@ import CategoryButtonMB from "./CategoryButtonMB";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
-const Container = tw.div`w-full h-fit pl-2 dt:pl-0`;
+const Container = tw.div`w-full h-fit pl-2 dt:pl-0 z-30`;
 
 const CategoryButtonContainer = ({ setSelectedCategory, select }) => {
   return (
