@@ -4,7 +4,7 @@ import Input from "../share/Input";
 import { VALIDATOR_REQUIRE, VALIDATOR_PRICE } from "../share/Validate";
 import { DUMMY_options } from "../../store/portfolioForm";
 import { useForm } from "../../hooks/form-hook";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import LoadingSpinner from "../share/LoadingSpinner";
 import { apiClient } from "../../utils/axios";
 import { useParams } from "react-router-dom";
@@ -18,6 +18,7 @@ const Container = tw.div`font-ibm w-full max-w-[600px] mx-auto h-auto overflow-y
 const InputContainer = tw.div`w-[90%] flex flex-col items-center`;
 const Header = tw.div`font-bold text-xl`;
 const EditPortfolioform = () => {
+  const fileRef = useRef(null);
   const [portfolio, setPortfolio] = useState(null);
   const [selectIdx, setSelectIdx] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -111,6 +112,17 @@ const EditPortfolioform = () => {
     }
     setIsLoadingDelete(false);
     setIsShowDelete(false);
+  };
+
+  const handleAddFileClick = (e) => {
+    e.preventDefault();
+    fileRef.current.click();
+  };
+
+  const handleSelectImage = (e) => {
+    console.log(e.target.files);
+    const files = Array.prototype.slice.call(e.target.files);
+    console.log(files);
   };
 
   useEffect(() => {
@@ -269,7 +281,16 @@ const EditPortfolioform = () => {
               </div>
             )}
             <div tw="w-full flex justify-around mt-2">
-              <button tw="w-[40%] text-white rounded-[20px] bg-[#D62B70] h-[30px]">
+              <input
+                type="file"
+                ref={fileRef}
+                style={{ display: "none" }}
+                onChange={handleSelectImage}
+              />
+              <button
+                tw="w-[40%] text-white rounded-[20px] bg-[#D62B70] h-[30px]"
+                onClick={handleAddFileClick}
+              >
                 เพิ่มรูปภาพ
               </button>
               <button
