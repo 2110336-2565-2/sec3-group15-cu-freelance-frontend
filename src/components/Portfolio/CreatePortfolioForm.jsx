@@ -10,7 +10,7 @@ import Button from "../share/Button";
 import { useNavigate } from "react-router-dom";
 import CreatePortForm4 from "./CreatePortForm4";
 
-const Container = tw.div`relative w-full mx-auto h-auto flex flex-col items-center font-ibm gap-y-[3%] max-w-[600px] dt:shadow dt:py-3 mb-5 rounded-[10px]`;
+const Container = tw.div`relative w-full mx-auto h-auto flex flex-col items-center font-ibm gap-y-[3%] max-w-[600px] dt:py-3`;
 const Header = tw.div`font-bold text-xl`;
 const ProgressBarContainer = tw.div`w-full px-[5%] mb-[5%] mx-auto flex justify-center items-center`;
 const FormContainer = tw.div`min-h-[60vh] h-full w-full flex flex-col items-center gap-y-2`;
