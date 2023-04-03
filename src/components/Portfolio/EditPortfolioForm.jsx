@@ -132,7 +132,7 @@ const EditPortfolioform = () => {
       });
       console.log(data);
       const res = await apiClient.delete(`/file/portfolio/${id}`, data, {
-        headers: { "Content-Type": "application/json" },
+        headers: { "content-type": "application/json" },
       });
       console.log(res);
       setPreviewImages(previewImages.filter((image, idx) => idx !== selectIdx));

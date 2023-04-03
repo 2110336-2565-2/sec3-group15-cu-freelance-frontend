@@ -6,7 +6,7 @@ import MyOrderAvIcon from "../../assets/MyOrderAvIcon.svg";
 import Button from "../share/Button";
 import StatusBar from "../orderCard/StatusBar";
 
-const BG = tw.div`font-ibm flex flex-col gap-y-5 h-[82vh] max-h-[82vh] overflow-auto`;
+const BG = tw.div`font-ibm flex flex-col gap-y-5 h-[82vh] dt:h-[70vh] max-h-[82vh] overflow-auto`;
 
 const TitleLine = styled.div(({ between }) => [
   tw`flex items-center font-bold border-b-2 border-b-freelance-pink p-1 w-full`,

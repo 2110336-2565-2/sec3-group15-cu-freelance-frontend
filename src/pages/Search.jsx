@@ -249,7 +249,14 @@ const SearchPage = () => {
         console.log(res_img);
         const thumbnails = [...res_img.data.thumbnails];
         for (let i = 0; i < ports.length; i++) {
-          data.push({ ...ports[i], url: thumbnails[i].url });
+          data.push({
+            ...ports[i],
+            url: thumbnails[
+              thumbnails.findIndex((thumbnail) => {
+                return thumbnail.portId === ports[i].id;
+              })
+            ].url,
+          });
         }
         console.log(data);
         setPortfolios(data);
