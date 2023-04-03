@@ -406,121 +406,117 @@ const SearchPage = () => {
         {" "}
         <BG>
           {windowSize >= 850 && FilterContent}
-          <div tw="w-full dt:w-[75%]  h-[90vh] dt:min-h-[70vh] mx-auto flex flex-col justify-center dt:block ">
-
-          <div>
-
-              <Header>พอร์ตโฟลิโอทั้งหมด</Header>
-              <Header2>
-                ดูพอร์ตโฟลิโอจากทุกฟรีแลนซ์ หรือเลือกตัวกรองที่ต้องการได้เลย!
-              </Header2>
-          </div>
-          <div>
-
-
-            {windowSize >= 850 && (
-              <Filterbar>
-                เเสดงผลลัพธ์เฉพาะ
-                <AnimatePresence>
-                  {selectedCategory !== "0" && (
-                    <FilterButton
-                      text={mapOptions[parseInt(selectedCategory)]}
-                      onClick={onCancelFaculty.bind(null, "category")}
-                    />
-                  )}
-                </AnimatePresence>
-                <AnimatePresence>
-                  {selectedFaculty !== "0" && (
-                    <FilterButton
-                      text={mapFaculties[parseInt(selectedFaculty)]}
-                      onClick={onCancelFaculty.bind(null, "faculty")}
-                    />
-                  )}
-                </AnimatePresence>
-                <AnimatePresence>
-                  {duration !== "" &&
-                    duration
-                      .split(",")
-                      .map((d, idx) => (
-                        <FilterButton
-                          key={idx}
-                          text={`${d} วัน`}
-                          onClick={onCancelDurationHandler.bind(
-                            null,
-                            parseInt(d)
-                          )}
-                        />
-                      ))}
-                </AnimatePresence>
-              </Filterbar>
-            )}
-            {windowSize < 850 && (
-              <InputSearchContainer>
-                {" "}
-                <InputSearch
-                  placeholder="ค้นหาพอร์ตโฟลิโอที่นี่..."
-                  value={searchResult}
-                  onChange={searchResultChangeHandler}
-                  onSubmit={submitResultHandler}
-                  filter
-                  onClickFilter={onOpenModalHandler}
-                />
-              </InputSearchContainer>
-            )}
-            {windowSize < 850 && (
-              <CategoryButtonContainer
-                setSelectedCategory={setSelected}
-                select={parseInt(selectedCategory)}
-              />
-            )}
-            {windowSize < 850 && (
-              <SearchCorousel
-                ref={slideRef}
-                portfolios={portfolios}
-                isLoading={isLoading}
-                handleInfiniteScroll={handleInfiniteScrollNextPage}
-              />
-            )}
-            {windowSize >= 850 && (
-              <PortfolioCardContainer>
-                {isLoading && !portfolios && <LoadingSpinner />}
-                {portfolios &&
-                  portfolios.map((portfolio) => {
-                    return (
-                      <PortFolioCard
-                        id={portfolio.id}
-                        setPortfolios={setPortfolios}
-                        key={portfolio.id}
-                        portImg={portfolio.url}
-                        category={portfolio.category}
-                        name={portfolio.name}
-                        description={portfolio.description}
-                        duration={portfolio.duration}
-                        price={portfolio.price}
-                        canEdit={false}
-                        isPublic={portfolio.is_public}
-                        onClick={onClickDetailCard.bind(null, portfolio.id)}
-                        onClickPencil={() => {}}
+          <div tw="w-full dt:w-[75%]  h-auto dt:min-h-[70vh] mx-auto flex flex-col justify-center dt:block ">
+            <div>
+              <div>
+                <Header>พอร์ตโฟลิโอทั้งหมด</Header>
+                <Header2>
+                  ดูพอร์ตโฟลิโอจากทุกฟรีแลนซ์ หรือเลือกตัวกรองที่ต้องการได้เลย!
+                </Header2>
+              </div>
+              {windowSize >= 850 && (
+                <Filterbar>
+                  เเสดงผลลัพธ์เฉพาะ
+                  <AnimatePresence>
+                    {selectedCategory !== "0" && (
+                      <FilterButton
+                        text={mapOptions[parseInt(selectedCategory)]}
+                        onClick={onCancelFaculty.bind(null, "category")}
                       />
-                    );
-                  })}
-                {!isLoading && !portfolios && "Not found"}
-              </PortfolioCardContainer>
-            )}
-            {windowSize >= 850 &&
-              portfolios &&
-              meta &&
-              meta.TotalPage !== 1 && (
-                <PaginationBar
-                  page={page}
-                  ref={pageRef}
-                  totalPage={meta.TotalPage}
-                  onPrev={onPrevPageHandler}
-                  onNext={onNextPageHandler}
-                  onSet={onSetPageHandler}
+                    )}
+                  </AnimatePresence>
+                  <AnimatePresence>
+                    {selectedFaculty !== "0" && (
+                      <FilterButton
+                        text={mapFaculties[parseInt(selectedFaculty)]}
+                        onClick={onCancelFaculty.bind(null, "faculty")}
+                      />
+                    )}
+                  </AnimatePresence>
+                  <AnimatePresence>
+                    {duration !== "" &&
+                      duration
+                        .split(",")
+                        .map((d, idx) => (
+                          <FilterButton
+                            key={idx}
+                            text={`${d} วัน`}
+                            onClick={onCancelDurationHandler.bind(
+                              null,
+                              parseInt(d)
+                            )}
+                          />
+                        ))}
+                  </AnimatePresence>
+                </Filterbar>
+              )}
+              {windowSize < 850 && (
+                <InputSearchContainer>
+                  {" "}
+                  <InputSearch
+                    placeholder="ค้นหาพอร์ตโฟลิโอที่นี่..."
+                    value={searchResult}
+                    onChange={searchResultChangeHandler}
+                    onSubmit={submitResultHandler}
+                    filter
+                    onClickFilter={onOpenModalHandler}
+                  />
+                </InputSearchContainer>
+              )}
+              {windowSize < 850 && (
+                <CategoryButtonContainer
+                  setSelectedCategory={setSelected}
+                  select={parseInt(selectedCategory)}
                 />
               )}
-              </div>
+              {windowSize < 850 && (
+                <SearchCorousel
+                  ref={slideRef}
+                  portfolios={portfolios}
+                  isLoading={isLoading}
+                  handleInfiniteScroll={handleInfiniteScrollNextPage}
+                />
+              )}
+              {windowSize >= 850 && (
+                <PortfolioCardContainer>
+                  {isLoading && !portfolios && <LoadingSpinner />}
+                  {portfolios &&
+                    portfolios.map((portfolio) => {
+                      return (
+                        <PortFolioCard
+                          id={portfolio.id}
+                          setPortfolios={setPortfolios}
+                          key={portfolio.id}
+                          portImg={portfolio.url}
+                          category={portfolio.category}
+                          name={portfolio.name}
+                          description={portfolio.description}
+                          duration={portfolio.duration}
+                          price={portfolio.price}
+                          canEdit={false}
+                          isPublic={portfolio.is_public}
+                          onClick={onClickDetailCard.bind(null, portfolio.id)}
+                          onClickPencil={() => {}}
+                        />
+                      );
+                    })}
+                  {!isLoading && !portfolios && "Not found"}
+                </PortfolioCardContainer>
+              )}
+              {windowSize >= 850 &&
+                portfolios &&
+                meta &&
+                meta.TotalPage !== 1 && (
+                  <PaginationBar
+                    page={page}
+                    ref={pageRef}
+                    totalPage={meta.TotalPage}
+                    onPrev={onPrevPageHandler}
+                    onNext={onNextPageHandler}
+                    onSet={onSetPageHandler}
+                  />
+                )}
+            </div>
           </div>
         </BG>
       </Page>
