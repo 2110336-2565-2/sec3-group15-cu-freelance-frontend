@@ -1,4 +1,4 @@
-import tw from "twin.macro";
+import tw,{styled} from "twin.macro";
 import React, { useContext, useState, useEffect, useRef } from "react";
 import InputSearch from "../components/share/InputSearch";
 import Navbar from "../components/share/Navbar";
@@ -23,7 +23,7 @@ import { useWindow } from "../hooks/window-hook";
 import SearchCorousel from "../components/searchPage/SearchCarousel";
 import CategoryButtonContainer from "../components/searchPage/CategoryButtonContainer";
 import { AnimatePresence } from "framer-motion";
-
+import Suggestion from "../components/share/Suggestion";
 const Page = tw.div`w-full`;
 const BG = tw.div`flex-col w-full h-auto flex dt:flex-row justify-between min-h-[95vh] pt-[5vh] dt:pt-[10vh] max-w-[1200px] mx-auto`;
 const Header = tw.div`pl-2 dt:pl-0 font-ibm text-mobile-h1 dt:text-desktop-h1 font-bold my-4`;
@@ -32,6 +32,10 @@ const FilterContainer = tw.div`h-[90%] overflow-auto overflow-x-hidden dt:sticky
 const PortfolioCardContainer = tw.div`w-full flex justify-center dt:justify-start flex-wrap gap-y-[2vh] mb-5 mt-2 min-h-[65vh] gap-x-[2%]`;
 const Filterbar = tw.div`min-h-[42px] flex flex-wrap gap-2 items-center text-mobile-h2 font-ibm font-medium text-freelance-black-secondary`;
 const InputSearchContainer = tw.div`px-2 dt:px-0 h-[40px] w-[100%] mx-auto my-4`;
+const SuggestionList = styled.div(({isHidden})=>[
+  tw`flex flex-col place-self-start w-full bg-white border-2 border-gray-200 mt-1 rounded-lg z-40`,
+  isHidden && tw`hidden`
+])
 
 const SearchPage = () => {
   const authCtx = useContext(AuthContext);
@@ -41,10 +45,30 @@ const SearchPage = () => {
   const [searchResult, setSearchResult] = useState(
     searchParams.get("keyword") || ""
   );
-
+  const [timerId, setTimerId] = useState(null);
+  const [suggestList, setSuggestList] = useState(null);
+  const [fetchFinished, setFetchFinished] = useState(true);
+  const [isSuggestHidden, setIsSuggestHidden] = useState(true);
   const searchResultChangeHandler = (e) => {
+    // e.preventDefault();
+    // console.log(e.target.value);
+    setIsSuggestHidden(false);
     setSearchResult(e.target.value);
+    if(timerId){
+      clearTimeout(timerId);
+    }
+    setTimerId(setTimeout(()=>{
+      fetchSuggest(e.target.value)
+    }, 30))
   };
+  
+  const fetchSuggest = async(value)=>{
+    setFetchFinished(false);
+    const response = await authClient.get(`/portfolio/suggest?keyword=${value}`);
+    // console.log(response.data.Suggests, searchResult);
+    setSuggestList(response.data.Suggests||!value ? response.data.Suggests : []);
+    setFetchFinished(true);
+  }
 
   const pageRef = React.createRef();
   const page = searchParams.get("pages") || "1";
@@ -68,7 +92,11 @@ const SearchPage = () => {
     searchParams.set("pages", parseInt(page) - 1);
     setSearchParams(searchParams);
   };
-
+  const suggestOnclickHandler = (text)=>{
+    setIsSuggestHidden(true);
+    setSearchResult(text);
+    navigate(`/search?pages=1&limit=6&keyword=${text}`);
+  }
   const onSetPageHandler = (event) => {
     event.preventDefault();
     const inputPage = parseInt(pageRef.current.value);
@@ -404,10 +432,13 @@ const SearchPage = () => {
         login={!!authCtx.acToken}
         search
         fixed
+        suggestList = {suggestList}
         searchResult={searchResult}
         onChange={searchResultChangeHandler}
         onSubmit={submitResultHandler}
         placeholder="ค้นหางานที่ต้องการ..."
+        setSearchResult={setSearchResult}
+        fetchFinished={fetchFinished}
       />
       <Page>
         {" "}
@@ -467,6 +498,17 @@ const SearchPage = () => {
                   filter
                   onClickFilter={onOpenModalHandler}
                 />
+                {suggestList && <SuggestionList isHidden={isSuggestHidden||!searchResult||!fetchFinished}>
+                {suggestList.length!=0 ? 
+                (suggestList.map((suggest, i) => {
+                  return (
+                    <Suggestion text={suggest} key={i} onClick={suggestOnclickHandler.bind(null, suggest)}/>
+                  );
+                }))
+                :
+                <Suggestion def/>
+              }
+              </SuggestionList>}
               </InputSearchContainer>
             )}
             {windowSize < 850 && (
