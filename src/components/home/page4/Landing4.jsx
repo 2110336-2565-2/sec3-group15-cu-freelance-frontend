@@ -39,7 +39,7 @@ const Elem = () => (
   </SnapList>
 );
 
-const HeaderText = tw.h1`text-2xl tbl:text-4xl font-bold`;
+const HeaderText = tw.h1`text-freelance-black-primary text-2xl tbl:text-4xl font-bold`;
 const QuoteImg = tw.img`w-12 h-12`;
 const Landing4 = () => {
   return (

@@ -216,7 +216,7 @@ const EditProfilePage = () => {
               <FileUploadButton>
                 <FileUploadInput
                   type="file"
-                  accept="image/png,image/jpg"
+                  accept="image/png,image/jpeg"
                   onChange={profileChangeHandler}
                 />
                 เปลี่ยนรูปโปรไฟล์

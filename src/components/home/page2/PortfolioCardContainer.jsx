@@ -80,7 +80,7 @@ const PortfolioCardContainer = ({ select }) => {
             src={backButton}
             alt="backButton"
             className="prev-button"
-            tw=" hidden tbl:inline w-[5%] min-w-[60px] cursor-pointer"
+            tw=" hidden tbl:inline w-[5%] min-w-[50px] cursor-pointer"
             // ref={navigationPrevRef}
           />
           <Swiper
@@ -125,7 +125,7 @@ const PortfolioCardContainer = ({ select }) => {
             src={nextButton}
             alt="nextButton"
             className="next-button"
-            tw="hidden tbl:inline  w-[5%] min-w-[60px] cursor-pointer"
+            tw="hidden tbl:inline w-[5%] min-w-[50px] cursor-pointer"
             // ref={navigationNextRef}
           />
         </Container>

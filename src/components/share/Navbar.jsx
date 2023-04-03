@@ -20,8 +20,8 @@ const Wrapper = tw.div`h-[5vh] w-[90%] max-w-[1200px]  mx-auto
 flex justify-between items-center mt-2`;
 const SearchWrapper = tw.div` hidden dt:flex items-center w-[40%] max-w-[300px]  justify-between font-inter dt:min-w-[295px] h-[30px] dt:h-[45px]`;
 const RightWrapperLogin = tw.div` min-w-[80px] dt:w-1/4 dt:min-w-[250px] flex justify-end dt:justify-between items-center font-inter `;
-const RightWrapperNotLogin = tw.div`min-w-[230px] flex justify-end gap-2 dt:gap-4 font-inter `;
-const Logo = tw.div`text-sm font-bold dt:text-2xl font-sans text-black cursor-pointer`;
+const RightWrapperNotLogin = tw.div`min-w-[200px] flex justify-end gap-2 dt:gap-4 font-inter `;
+const Logo = tw.div`text-sm whitespace-nowrap ip8:text-lg font-bold dt:text-2xl font-sans text-black cursor-pointer`;
 const NotificationWrapper = tw.img` cursor-pointer w-[60px]`;
 
 const Navbar = (props) => {
@@ -79,14 +79,18 @@ const Navbar = (props) => {
         <Button
           secondary
           onClick={onClickLoginHandler}
-          px={windowSize >= 375 ? "1.5rem" : "0.75rem"}
+          px={
+            // windowSize >= 375 ? "1.5rem" : "0.75rem"
+            windowSize >=400  ? (windowSize >= 550 ? "1.5rem" : "1.25rem") : "0.75rem"
+            }
         >
           เข้าสู่ระบบ
         </Button>
         <Button
           primary
           onClick={OnClickRegisterHandler}
-          px={windowSize >= 375 ? "1.5rem" : "0.75rem"}
+          px={ 
+            windowSize >= 400 ? (windowSize >= 550 ? "1.5rem" : "1.25rem") : "0.75rem"}
         >
           สมัครสมาชิก
         </Button>

@@ -50,37 +50,6 @@ const LeftWrapper = tw.div`flex flex-col justify-start max-w-[300px] tbl:max-w-f
 const RightWrapper = tw.div`hidden dt:block`;
 const ImgHero = tw.img` min-w-[1/2] min-h-[1/2]`;
 
-const MotionH1 = ({ children, direction, delay }) => {
-  if (!delay) delay = 0.1;
-  if (!direction) direction = "up";
-  return (
-    <motion.h1
-      variants={fadeIn(direction, delay)}
-      initial="hidden"
-      whileInView={"show"}
-      viewport={{ once: false, amount: 0.7 }}
-      tw="font-ibm text-5xl font-bold"
-    >
-      {children}
-    </motion.h1>
-  );
-};
-
-const MotionDiv = ({ children, direction, delay }) => {
-  if (!delay) delay = 0.1;
-  if (!direction) direction = "up";
-  return (
-    <motion.div
-      variants={fadeIn(direction, delay)}
-      initial="hidden"
-      whileInView={"show"}
-      viewport={{ once: false, amount: 0.7 }}
-    >
-      {children}
-    </motion.div>
-  );
-};
-
 const Framer3 = () => {
   return (
     <div tw="snap-start overflow-hidden">
@@ -89,7 +58,7 @@ const Framer3 = () => {
           <img
             src={AboveImg}
             alt="Above img"
-            tw="absolute -z-10 top-[20%] left-[67%] max-w-[30px]"
+            tw="absolute -z-10 top-[10%] tbl:top-[20%] left-[67%] max-w-[30px]"
           />
           <img
             src={BelowImg}
@@ -116,7 +85,7 @@ const Framer3 = () => {
           <img
             src={BagLine}
             alt="NewHomePage/page1"
-            tw="-z-10 absolute left-0 top-[20%] min-w-[300px] max-w-[40%] dt:top-[17%] dt:w-[40%] dt:max-w-[500px]"
+            tw="-z-10 absolute left-0 top-[20%] min-w-[300px] max-w-[40%] dt:top-[12%] dt:w-[35%] dt:max-w-[300px]"
           />
 
           <LeftWrapper>
