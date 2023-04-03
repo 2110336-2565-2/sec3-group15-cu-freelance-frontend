@@ -4,7 +4,7 @@ import React from "react";
 
 const Container = tw.div`w-full flex justify-between items-center`;
 const Name = tw.div`hover:text-blue-600 cursor-pointer`;
-const DeleteImg = tw.img``;
+const DeleteImg = tw.img`cursor-pointer`;
 
 const Filename = ({ name, onClick, onClickDelete }) => {
   return (

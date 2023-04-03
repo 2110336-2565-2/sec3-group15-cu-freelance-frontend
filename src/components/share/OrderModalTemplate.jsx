@@ -7,6 +7,7 @@ import React, { useEffect } from "react";
 import { useForm } from "../../hooks/form-hook";
 import Button from "./Button";
 import { apiClient } from "../../utils/axios";
+import SendOrder from "../orderModal/SendOrder";
 
 const SuccessContainer = tw.div`h-[80vh] flex items-center justify-center`;
 const Footer1 = styled.div(({}) => [
@@ -14,6 +15,7 @@ const Footer1 = styled.div(({}) => [
   // tw`flex flex-row w-full gap-x-4 justify-between dt:absolute bottom-8`
 ]);
 const OrderModalTemplate = (props) => {
+  console.log(props.page);
   let content;
   let header;
   if (props.page === 1) {
@@ -30,7 +32,7 @@ const OrderModalTemplate = (props) => {
         clickLeft={
           props.orderType === "request"
             ? props.openConfirmModal.bind(null, "accept", props.order)
-            : props.openConfirmModal.bind(null, "send", props.order)
+            : props.onClickSendWork
         }
         clickRight={
           props.orderType === "request"
@@ -121,6 +123,7 @@ const OrderModalTemplate = (props) => {
         </SuccessContainer>
       );
   }
+
   const [formState1, inputHandler1, setFormData1] = useForm(
     {
       topic: {
@@ -291,6 +294,22 @@ const OrderModalTemplate = (props) => {
       header = "รายละเอียดคำขอ";
     else if (props.successType === "send") header = "ส่งงาน";
     else if (props.successType === "cancel") header = "รายละเอียดออเดอร์";
+  }
+
+  if (props.page === 4) {
+    header = "ส่งงาน";
+    content = (
+      <SendOrder
+        onClose={props.onClose}
+        handleConfirmSend={props.openConfirmModal.bind(
+          null,
+          "send",
+          props.order
+        )}
+        formState={props.formState}
+        inputHandler={props.inputHandler}
+      />
+    );
   }
 
   return (

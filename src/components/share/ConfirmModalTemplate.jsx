@@ -5,13 +5,15 @@ import CheckIcon from "../../assets/CheckIconFull.svg";
 import CrossIcon from "../../assets/CrossIcon.svg";
 import AcceptIcon from "../../assets/AcceptIcon.svg";
 import { apiClient } from "../../utils/axios";
+import { useState } from "react";
 
 const ConfirmModalTemplate = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
   let content = null;
   const page = props.page;
   let id;
   if (props.order) id = props.order.id;
-
+  console.log(props.order);
   const clickAccept = async () => {
     try {
       const res = await apiClient.patch(`/order/request/${id}/accept`);
@@ -66,6 +68,32 @@ const ConfirmModalTemplate = (props) => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleClickSendWork = async () => {
+    try {
+      setIsLoading(true);
+      console.log(props.formState.inputs);
+      const response = await apiClient.get(`/order/${id}`);
+      console.log(response.data.submission.id);
+      for (let i = 0; i < props.formState.inputs.files.value.length; i++) {
+        console.log(props.formState.inputs.files.value[i]);
+        const data = new FormData();
+        data.append("file", props.formState.inputs.files.value[i]);
+        data.append("id", response.data.submission.id);
+        const res = await apiClient.put(`/file/order/${id}`, data);
+        console.log(res);
+      }
+      props.inputHandler("files", [], false);
+      props.handleResetPage();
+      props.setOrderModalPage(2);
+      props.setSuccessType("send");
+      props.setShowOrderModal(true);
+      props.setShowConfirmModal(false);
+    } catch (err) {
+      console.log(err);
+    }
+    setIsLoading(true);
   };
 
   if (page === "delete") {
@@ -143,8 +171,9 @@ const ConfirmModalTemplate = (props) => {
         title="ยืนยันการส่งงาน"
         desc="เมื่อคุณส่งงานไปแล้วจะกลับมาแก้ไขไม่ได้อีก"
         lftOnclick={props.cancel}
-        rgtOnclick={props.clickSend}
+        rgtOnclick={handleClickSendWork}
         isModal={true}
+        disable={isLoading}
       />
     );
   }

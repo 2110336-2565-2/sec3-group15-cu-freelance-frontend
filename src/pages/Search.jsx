@@ -485,8 +485,9 @@ const SearchPage = () => {
             )}
             {windowSize >= 850 && (
               <PortfolioCardContainer>
-                {isLoading && !portfolios && <LoadingSpinner />}
-                {portfolios &&
+                {isLoading && <LoadingSpinner />}
+                {!isLoading &&
+                  portfolios &&
                   portfolios.map((portfolio) => {
                     return (
                       <PortFolioCard
