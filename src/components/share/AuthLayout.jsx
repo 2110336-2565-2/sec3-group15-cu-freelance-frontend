@@ -6,14 +6,14 @@ import AuthTypeCard from "../share/AuthTypeCard";
 import LogoButton from "./LogoButton";
 const styles = {
   container: () => [
-    tw`flex flex-col items-center pt-[0.5%] h-[95vh] box-border`,
+    tw`flex flex-col items-center pt-[0.5%] h-[95vh] box-border w-full`,
   ],
   image: () => [tw`my-[1%] w-[10%] box-border`],
   text: () => [
     tw`text-4xl text-black font-normal font-ibm mb-[2%] box-border`,
   ],
   typeContainer: () => [
-    tw`flex flex-row px-[10%] w-[100vw] box-border justify-between h-[48vh]`,
+    tw`flex flex-col dt:flex-row px-[10%] w-[100vw] box-border justify-between h-[48vh] items-center w-full`,
   ],
   middleWrapper: () => [
     tw`flex flex-col items-center justify-center h-screen gap-4`

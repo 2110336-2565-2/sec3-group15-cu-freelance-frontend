@@ -2,29 +2,27 @@ import tw from "twin.macro"
 import RegisterCustomerAvatar from "../assets/LoginCustomerAvatar.svg"
 import RegisterForm from "../components/register/RegisterForm.jsx"
 import LogoButton from "../components/share/LogoButton"
-const styles = {
-    container:()=> [
-        tw`flex flex-col items-center min-h-[95vh] max-w-[1400px] mx-auto`  
-    ],
-    logo: () => [
-        tw`my-[1%] w-[10%] `
-    ],
-    content:()=>[
-        tw`w-full h-full flex flex-row  justify-between mt-[10vh] pl-[10%] pr-[6%]`
-    ],
-    avatar:()=>[
-        tw`object-contain self-center`
-    ]
+
+const AvatarImg = tw.img`hidden dt:block object-contain self-center`
+const Wrapper = tw.div`flex flex-col justify-between items-center min-h-[95vh] max-w-[1200px] mx-auto gap-y-4`
+const Content = tw.div`flex flex-row justify-around items-center w-[95%] bg-white`
+const DummyDiv = tw.div``
+
+const Avatar = () => {
+    return <img src={RegisterCustomerAvatar} alt="Avatar image" tw="hidden dt:block" />
 }
 const RegisterPage=()=>{
     return (
-        <div css={styles.container()}>
-            <LogoButton/>
-            <div css={styles.content()}>
-                <img css={styles.avatar()} src={RegisterCustomerAvatar}/>
-                <RegisterForm/>
+        <Wrapper>
+            <div tw="mt-2">
+                <LogoButton/>
             </div>
-        </div>
+           <Content>
+                <Avatar/>
+                <RegisterForm/>
+            </Content>
+            <DummyDiv/>
+        </Wrapper>
     )
 }
 

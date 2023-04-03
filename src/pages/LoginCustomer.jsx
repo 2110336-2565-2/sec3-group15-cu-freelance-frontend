@@ -2,27 +2,25 @@ import tw from "twin.macro"
 import LoginForm from "../components/login/LoginForm"
 import LoginCustomerAvatar from "../assets/LoginCustomerAvatar.svg"
 import LogoButton from "../components/share/LogoButton"
-const styles={
-    container:()=>[
-        tw`flex flex-col items-center pt-[0.5%] min-h-[95vh] box-border max-w-[1400px] mx-auto`  
-    ],
-    content:()=>[
-        tw`w-full h-full flex flex-row items-center mt-[10vh] justify-between pl-[10%] pr-[6%] items-center my-auto`
-        
-    ],
-    avatar:()=>[
-        tw``
-    ]
+
+const Wrapper = tw.div`flex flex-col justify-between items-center min-h-[95vh] max-w-[1200px] mx-auto `
+const Content = tw.div`flex flex-row justify-around items-center w-[95%] bg-white`
+const DummyDiv = tw.div``
+const Avatar = () => {
+    return <img src={LoginCustomerAvatar} tw="hidden dt:block"/>
 }
 const LoginCustomer=()=>{
     return (
-        <div css={styles.container}>
-           <LogoButton/>
-            <div css={styles.content}>
-                <img css={styles.avatar} src={LoginCustomerAvatar}/>
-                <LoginForm/>
+        <Wrapper>
+            <div tw="mt-2">
+                <LogoButton/>
             </div>
-        </div>
+           <Content>
+                <Avatar/>
+                <LoginForm/>
+            </Content>
+            <DummyDiv/>
+        </Wrapper>
     )
 }
 

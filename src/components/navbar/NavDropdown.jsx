@@ -6,13 +6,15 @@ import DownButton from "../../assets/ArrowFilter.svg";
 import { useNavigate } from "react-router-dom";
 import { navbarButton } from "../../store/navbar-store";
 import ImageNavbar from "./ImageNavbar";
+import { useWindow } from "../../hooks/window-hook";
+import CircleImage from "../share/CircleImage";
 
 const NavWrapper = styled.div(({ visible }) => [
   tw`relative w-[90%] h-[35px] dt:w-[70%] dt:h-[50px] rounded-[20px] px-2 flex shadow-navbar items-center justify-between cursor-pointer z-50`,
   visible && tw`rounded-b-none`,
 ]);
 const DisplayNameWrapper = tw.div`hidden dt:inline`;
-const AvatarWrapper = tw.img`w-[50%] dt:w-[22%]`;
+const AvatarWrapper = tw.div`w-[30px] h-[30px]`;
 const DownButtonWrapper = tw.img``;
 const DropdownWrapper = tw.div`w-[150%]  absolute right-0 top-full rounded-b-[20px] h-auto bg-white   shadow-dropnav dt:left-0  dt:w-full  `;
 const DropdownItemWrapper = tw.ul`flex flex-col`;
@@ -58,7 +60,11 @@ const NavDropdown = ({ setIsShow }) => {
     navigate(url);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
+  function getWindowSize() {
+    const { innerWidth } = window;
+    return innerWidth;
+  }
+  const windowSize = useWindow();
   return (
     <>
       {!authCtx.userInfo.display_name && "Loading..."}
@@ -68,7 +74,7 @@ const NavDropdown = ({ setIsShow }) => {
           visible={isVisible}
           ref={menuRef}
         >
-          <AvatarWrapper src={NavAvatar} alt="Avatar" />
+          <AvatarWrapper><CircleImage image={authCtx.userInfo.url}/></AvatarWrapper>
           <DisplayNameWrapper>
             {authCtx.userInfo.display_name}
           </DisplayNameWrapper>
@@ -80,7 +86,12 @@ const NavDropdown = ({ setIsShow }) => {
                   <ImageNavbar
                     key={idx}
                     image={navbar.img}
-                    onClick={onClickButtonHandler.bind(null, navbar.to)}
+                    onClick={onClickButtonHandler.bind(
+                      null,
+                      navbar.to == "/user-setting-entrance-dt" && windowSize < 850
+                        ? "/user-setting-entrance"
+                        : navbar.to
+                    )}
                     text={navbar.text}
                     last={idx === navbarButton.length - 1}
                   />

@@ -6,6 +6,7 @@
   -webkit-text-size-adjust: 100%;
   scroll-snap-type: y mandatory;
 }
+
 /* width */
 
 /* Chrome, Safari, Edge, Opera */
@@ -20,6 +21,24 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+
+.swiper-pagination {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.swiper-pagination-horizontal {
+  bottom: 0px !important;
+}
+
+.swiper-horizontal {}
+
+.swiper-pagination-bullet {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #fff !important;
+}
 
 /* 
 

@@ -12,7 +12,7 @@ import LayoutWithNavbar from "./pages/LayoutWithNavbar";
 import { AuthContext } from "./context/AuthProvider";
 import { useAuth } from "./hooks/auth-hook";
 import FillDisplayNamePage from "./pages/FillDisplayName";
-import AddedPortfolioPage from "./pages/AddedPortfolio";
+import CreatePortfolioPage from "./pages/CreatePortfolio";
 import PortfolioPage from "./pages/Portfolio";
 import EditPortfolioPage from "./pages/EditPortfolio";
 import EditProfilePage from "./pages/EditProfile";
@@ -22,6 +22,8 @@ import MyOrderPage from "./pages/MyOrder";
 import CreateOrderTemplatePage from "./pages/CreateOrderTemplate";
 import RequestCompletePage from "./pages/RequestComplete";
 import CreateOrderRequest from "./pages/CreateOrderRequest";
+import UserSettingEntrancePage from "./pages/UserSettingEntrance";
+import UserSettingEntranceDtPage from "./pages/UserSettingEntranceDt";
 function App() {
   const { acToken, reToken, login, logout, userInfo, setUserInfo } = useAuth();
   return (
@@ -31,6 +33,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LayoutWithNavbar acToken={acToken} />}>
           <Route path="" element={<Navigate to="home" />} />
+          <Route path="home" element={<HomePage />} />
           <Route path="portfolio/">
             <Route path=":portId/">
               <Route path="" element={<PortfolioPage />} />
@@ -40,27 +43,47 @@ function App() {
           <Route path="my-portfolio/:portId/" element={<PortfolioPage />} />
           <Route path="profile/">
             <Route path=":userId/">
-              <Route path="add-portfolio" element={<AddedPortfolioPage />} />
+              <Route path="add-portfolio" element={<CreatePortfolioPage />} />
               <Route path="" element={<ProfilePage />} />
             </Route>
           </Route>
-          <Route path="/edit-profile" element={<EditProfilePage/>}></Route>
-          <Route path="/change-password" element={<ChangePasswordPage/>}></Route>
-          <Route path="/create-order-template" element={<CreateOrderTemplatePage/>}></Route>
-          <Route path="/request-complete" element={<RequestCompletePage/>}></Route>
-          <Route path="/create-order-request" element={<CreateOrderRequest/>}></Route>
+          <Route path="/edit-profile" element={<EditProfilePage />}></Route>
+          <Route
+            path="/change-password"
+            element={<ChangePasswordPage />}
+          ></Route>
+          <Route
+            path="/create-order-template"
+            element={<CreateOrderTemplatePage />}
+          ></Route>
+          <Route
+            path="/request-complete"
+            element={<RequestCompletePage />}
+          ></Route>
+          <Route
+            path="/create-order-request"
+            element={<CreateOrderRequest />}
+          ></Route>
           <Route path="success" element={<RegisterSuccessPage />} />
+          <Route
+            path="/user-setting-entrance"
+            element={<UserSettingEntrancePage />}
+          />
+          <Route
+            path="/user-setting-entrance-dt"
+            element={<UserSettingEntranceDtPage />}
+          />
         </Route>
-        <Route path="home" element={<HomePage />} />
         <Route path="/login/">
           <Route path="" element={<Login />} />
           <Route path="customer" element={<LoginCustomer />} />
         </Route>
-        <Route path="my-order/" element={<MyOrderPage/>}/>
+        <Route path="my-order/" element={<MyOrderPage />} />
         <Route path="/register/" element={<RegisterPage />} />
         <Route path="/fill-display-name" element={<FillDisplayNamePage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/auth" element={<Auth />} />
+        {/* <Route path="/user-setting-entrance" element={<UserSettingEntrancePage/>}/> */}
         <Route path="*" element={<Navigate to="home" />} />
       </Routes>
       <Footer />

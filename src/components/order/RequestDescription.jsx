@@ -21,7 +21,6 @@ const RequestDescription = ({
   desc,
   hasIconDesc = true,
 }) => {
-  console.log(title, desc);
   return (
     <Container>
       <IconSection>

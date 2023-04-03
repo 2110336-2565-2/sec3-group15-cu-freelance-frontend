@@ -1,4 +1,4 @@
-import tw from "twin.macro";
+import tw, { styled } from "twin.macro";
 import React, { useState, useRef, useEffect } from "react";
 import durationIcon from "../../assets/DurationIcon.svg";
 import OptionIcon from "../../assets/OptionIcon.svg";
@@ -9,19 +9,22 @@ import Button from "./Button";
 import Modal from "./Modal";
 import { mapOptions } from "../../store/portfolioForm";
 
-const Container = tw.div`flex flex-col h-fit rounded-[20px] min-w-[250px] w-1/5 shadow-xl relative cursor-pointer`;
-const Img = tw.img``;
+const Container = styled.div(({ isLanding }) => [
+  tw`flex flex-col h-[376px] rounded-[20px] max-w-[270px] dt:w-[32%] shadow relative cursor-pointer overflow-hidden`,
+  isLanding && tw`w-full dt:w-full`,
+]);
+const Img = tw.img`object-contain max-w-none h-full`;
 const ContentContainer = tw.div`flex flex-col pl-4 border-b-2 border-[#B7B7B7] text-left w-full`;
 const FirstRow = tw.div`flex justify-between relative`;
-const OptionIconImg = tw.img`z-40`;
+const OptionIconImg = tw.img`z-20`;
 const Category = tw.div`mt-4 mb-2 text-freelance-pink text-sm font-ibm font-medium`;
-const Name = tw.div`font-semibold text-xl leading-[2.4em] h-[2.4em] overflow-hidden`;
+const Name = tw.div`text-freelance-black-primary font-semibold text-xl leading-[2.4em] h-[2.4em] overflow-hidden`;
 const Description = tw.p`my-2 leading-[1.2em] h-[3.5em] overflow-hidden text-sm mb-4 font-ibm`;
 const FooterContainer = tw.div`flex flex-row justify-between p-2 items-center`;
 const Duration = tw.div`flex flex-row items-center gap-x-2 text-[#707070]`;
 const DurationIcon = tw.img`max-w-[1rem]`;
 const Price = tw.div`font-sans text-freelance-black-secondary`;
-const Backdrop = tw.div`absolute w-full h-full bg-black/50 z-20 rounded-[20px]`;
+const Backdrop = tw.div`absolute w-full h-[376px] bg-black/50 z-20 rounded-[20px]`;
 
 const PortFolioCard = ({
   portImg,
@@ -36,6 +39,7 @@ const PortFolioCard = ({
   id,
   setPortfolios,
   canEdit,
+  isLanding = false,
 }) => {
   const [isVisible, setIsVisible] = useState(isPublic || false);
   const [show, setShow] = useState(false);
@@ -47,7 +51,6 @@ const PortFolioCard = ({
   useEffect(() => {
     const closeHandler = (e) => {
       if (!menuRef.current.contains(e.target)) {
-        console.log("wrong");
         setShow(false);
       }
     };
@@ -55,7 +58,6 @@ const PortFolioCard = ({
     document.addEventListener("mousedown", closeHandler);
 
     return () => {
-      console.log("clean");
       document.removeEventListener("mousedown", closeHandler);
     };
   }, []);
@@ -151,13 +153,22 @@ const PortFolioCard = ({
         />
       )}
 
-      <Container onClick={onClick ? onClick : () => {}} ref={menuRef} tw="font-ibm">
+      <Container
+        onClick={onClick ? onClick : () => {}}
+        ref={menuRef}
+        tw="font-ibm"
+        isLanding={isLanding}
+      >
         {!isVisible && <Backdrop />}
-        <Img src={portImg} />
+        <div tw="w-full h-full overflow-hidden flex justify-center items-center rounded-t-[20px]">
+          <Img src={portImg} />
+        </div>
         <ContentContainer>
           <FirstRow>
             <Category>{mapOptions[category]}</Category>
-            {canEdit&&<OptionIconImg src={OptionIcon} onClick={optionHandler} />}
+            {canEdit && (
+              <OptionIconImg src={OptionIcon} onClick={optionHandler} />
+            )}
             {show && (
               <OptionDropdown
                 show={show}
@@ -178,7 +189,7 @@ const PortFolioCard = ({
             <DurationIcon src={durationIcon}></DurationIcon>
             <div tw="font-ibm">{duration} วัน</div>
           </Duration>
-          <Price>{price.toLocaleString('en-US')}.-</Price>
+          <Price>{price.toLocaleString("en-US")}.-</Price>
         </FooterContainer>
       </Container>
     </>

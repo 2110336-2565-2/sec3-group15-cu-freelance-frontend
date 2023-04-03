@@ -14,12 +14,13 @@ const InputSearch = (props) => {
         value={props.value}
         type="text"
         placeholder={props.placeholder}
-        tw="border-none font-ibm text-[#D62B70] text-mobile-body focus:outline-none placeholder:font-ibm  p-2  bg-transparent ml-[12%] w-[85%] h-[100%] dt:text-mobile-h2"
+        onFocus={props.onFocus}
+        tw="border-none font-ibm text-[#D62B70] text-mobile-body focus:outline-none placeholder:font-ibm  p-2  bg-transparent ml-8 w-[85%] h-[100%] dt:text-mobile-h2"
       />
       <img
         src={searchIcon}
         alt="searchIcon"
-        tw="object-fill absolute left-0.5 top-1/2 translate-y-[-50%]"
+        tw="object-fill absolute left-2 top-1/2 translate-y-[-50%]"
       />
       {props.filter&&<img tw="absolute right-2 top-1/2 translate-y-[-50%]" src={filterIcon} onClick={props.onClickFilter}/>}
     </form>

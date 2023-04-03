@@ -8,9 +8,10 @@ import { authClient } from "../../utils/auth";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { apiClient } from "../../utils/axios";
+import Button from "../share/Button";
 const styles = {
   container: () => [
-    tw`flex flex-col font-inter items-center w-[50%] max-w-[460px] 
+    tw`flex flex-col font-inter items-center w-full max-w-[460px] 
     border-[1px] rounded-[30px] px-6 py-8`,
   ],
   content: () => [
@@ -31,8 +32,12 @@ const styles = {
   ],
   googleIcon: () => [tw`w-[25px] h-[25px]`],
   register: () => [tw`flex flex-row`],
-  registerText: () => [tw`whitespace-nowrap text-[16px] font-inter text-black p-[1%]`],
-  registerLink: () => [tw`whitespace-nowrap text-[16px] font-inter text-[#D62B70] p-[1%]`],
+  registerText: () => [
+    tw`whitespace-nowrap text-[16px] font-inter text-black p-[1%]`,
+  ],
+  registerLink: () => [
+    tw`whitespace-nowrap text-[16px] font-inter text-[#D62B70] p-[1%]`,
+  ],
 };
 const LoginForm = () => {
   const authCtx = useContext(AuthContext);
@@ -53,7 +58,7 @@ const LoginForm = () => {
   );
 
   const formSubmitHandler = async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     try {
       setIsLogin(true);
       let response = await authClient.post(
@@ -82,42 +87,49 @@ const LoginForm = () => {
   return (
     <div css={styles.container()}>
       <div css={styles.content()}>
-        <div css={styles.title()}>Login</div>
+        <div css={styles.title()}>เข้าสู่ระบบ</div>
         <Input
           type="text"
           id="username"
-          label="Username"
-          placeholder="Enter username"
-          errorText="Your username should not be blank"
+          label="ชื่อผู้ใช้"
+          placeholder="ชื่อผู้ใช้ของคุณ"
+          errorText="กรุณาใส่ชื่อผู้ใช้"
           onInput={inputHandler}
           validator={[VALIDATOR_REQUIRE()]}
         />
         <Input
           type="password"
           id="password"
-          label="Password"
-          placeholder="Enter Password"
-          errorText="Your password must be at least 8 characters"
+          label="รหัสผ่าน"
+          placeholder="ใส่รหัสผ่านของคุณ "
+          errorText="รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร"
           onInput={inputHandler}
           validator={[VALIDATOR_MINLENGTH(8)]}
         />
-        <button
+        {/* <button
           css={styles.button()}
           onClick={formSubmitHandler}
           disabled={!formState.isValid || isLogin}
         >
-          {(isLogin && "Loading...") || "Login"}
-        </button>
-        <div css={styles.or()}> OR </div>
+          {(isLogin && "กำลังดึงข้อมูล...") || "เข้าสู่ระบบ"}
+        </button> */}
+        <Button primary width='100%'
+          onClick={formSubmitHandler}
+          disable={!formState.isValid || isLogin}
+        >
+          {(isLogin && "กำลังดึงข้อมูล...") || "เข้าสู่ระบบ"}
+        </Button>
+        {/* <div css={styles.or()}> OR </div>
         <button css={styles.googleButton()} disabled={true}>
           <img css={styles.googleIcon()} src={GoogleIcon} />
           Login with Google
-        </button>
+        </button> */}
 
         <div css={styles.register()}>
-          <p css={styles.registerText()}> Don't have an account? </p>
-          <Link  css={styles.registerLink()} to="/register">
-             Register Here
+          <p css={styles.registerText()}> ยังไม่มีบัญชีผู้ใช้​ ? </p>
+
+          <Link css={styles.registerLink()} to="/register">
+            กดที่นี่เพื่อสม้คร
           </Link>
         </div>
       </div>
