@@ -32,7 +32,7 @@ const ProfilePage = () => {
   const userId = params.userId;
 
   const pageRef = React.createRef();
-  const page = searchParams.get("pages") || 1;
+  const page = searchParams.get("pages") || "1";
   const onNextPageHandler = () => {
     setSearchParams({ pages: parseInt(page) + 1 });
   };
@@ -71,9 +71,14 @@ const ProfilePage = () => {
   };
 
   const onClickDetailCard = (id) => {
+    console.log(authCtx.userInfo.id, userId);
     if (authCtx.userInfo.id === userId) navigate(`/my-portfolio/${id}`);
     else navigate(`/portfolio/${id}`);
   };
+
+  useEffect(() => {
+    setSearchParams({ pages: 1 });
+  }, [windowSize]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -87,8 +92,37 @@ const ProfilePage = () => {
             `/portfolio/user/${userId}?limit=6&page=${page}`
           );
         }
-        setPortfolios(response.data.items);
-        console.log(response.data);
+        //
+        let portIds = "";
+        let ports = [...response.data.items];
+        if (windowSize < 850 && page !== "1") {
+          ports = [...portfolios, ...response.data.items];
+        }
+        ports.some((port) => {
+          portIds += `${port.id},`;
+        });
+        if (portIds.length > 0) {
+          portIds = portIds.slice(0, portIds.length - 1);
+        }
+        const data = [];
+        const params = { id: portIds };
+        const res_img = await authClient.get(
+          `/file/portfolio/thumbnail?` + new URLSearchParams(params).toString()
+        );
+        console.log(res_img);
+        const thumbnails = [...res_img.data.thumbnails];
+        for (let i = 0; i < ports.length; i++) {
+          data.push({
+            ...ports[i],
+            url: thumbnails[
+              thumbnails.findIndex((thumbnail) => {
+                return thumbnail.portId === ports[i].id;
+              })
+            ].url,
+          });
+        }
+        console.log(data);
+        setPortfolios(data);
         setMeta(response.data.meta);
       } catch (err) {
         console.log(err);
@@ -119,7 +153,7 @@ const ProfilePage = () => {
       {authCtx.userInfo.user_type == 1 ? (
         <>
           <FreelanceProfileViewPage freelance_id={userId} />
-          <div tw="w-full dt:w-[70%] h-auto dt:min-h-[70vh] mx-auto">
+          <div tw="w-full dt:w-[65%] h-auto dt:min-h-[70vh] mx-auto flex flex-col items-center">
             {windowSize >= 850 ? (
               <>
                 <PortfolioCardWrapper>
@@ -132,7 +166,7 @@ const ProfilePage = () => {
                           id={portfolio.id}
                           setPortfolios={setPortfolios}
                           key={i}
-                          portImg={PortfolioImg}
+                          portImg={portfolio.url}
                           category={portfolio.category}
                           name={portfolio.name}
                           description={portfolio.description}
@@ -166,6 +200,10 @@ const ProfilePage = () => {
                 portfolios={portfolios}
                 isLoading={isLoading}
                 handleInfiniteScroll={handleInfiniteScrollNextPage}
+                canEdit={authCtx.userInfo.id === userId}
+                handleClickDetailCard={onClickDetailCard}
+                onClickPencil={onClickEditCard}
+                setPortfolios={setPortfolios}
               />
             )}
           </div>

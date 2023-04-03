@@ -37,7 +37,7 @@ const OrderCard = (props) => {
     if (props.orderType === "order") {
       left = "ส่งงาน";
       right = "ยกเลิก";
-      onClickLeft = props.openConfirmModal.bind(null, "send", props.order);
+      onClickLeft = props.onClickSendWork;
       onClickRight = props.openConfirmModal.bind(null, "cancel", props.order);
     }
     if (props.orderType === "request") {

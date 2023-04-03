@@ -24,6 +24,8 @@ import PriceFilter from "../components/searchPage/PriceFilter";
 import DurationFilter from "../components/searchPage/DurationFilter";
 import FilterButton from "../components/searchPage/FilterButton";
 
+import { useForm } from "../hooks/form-hook";
+
 import { apiClient } from "../utils/axios";
 
 import {
@@ -69,9 +71,19 @@ const MyOrderPage = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const [formState, inputHandler] = useForm(
+    {
+      files: {
+        value: [],
+        isValid: false,
+      },
+    },
+    false
+  );
+
   //InfiniteScroll or Pagination
   const pageRef = React.createRef();
-  const page = searchParams.get("pages") || 1;
+  const page = searchParams.get("pages") || "1";
 
   //header-type
   const selectOrder = searchParams.get("q");
@@ -507,10 +519,17 @@ const MyOrderPage = () => {
   const [showOrderModal, setShowOrderModal] = useState(false);
   const onCloseOrderModal = () => {
     setShowOrderModal(false);
+    inputHandler("files", [], false);
   };
   const onClickCardHandler = (order) => {
     setShowOrderModal(true);
     setOrderModalPage(1);
+    setSelectedOrder(order);
+  };
+
+  const handleClickSendWork = (order) => {
+    setShowOrderModal(true);
+    setOrderModalPage(4);
     setSelectedOrder(order);
   };
 
@@ -541,6 +560,8 @@ const MyOrderPage = () => {
   return (
     <>
       <ConfirmModalTemplate
+        formState={formState}
+        inputHandler={inputHandler}
         show={showConfirmModal}
         setShowOrderModal={setShowOrderModal}
         setShowConfirmModal={setShowConfirmModal}
@@ -565,6 +586,9 @@ const MyOrderPage = () => {
       />
 
       <OrderModalTemplate
+        formState={formState}
+        inputHandler={inputHandler}
+        onClickSendWork={handleClickSendWork.bind(null, selectedOrder)}
         onClose={onCloseOrderModal}
         show={showOrderModal}
         orderType={selectOrder}
@@ -679,6 +703,7 @@ const MyOrderPage = () => {
               openConfirmModal={openConfirmModal}
               onClickCardHandler={onClickCardHandler}
               ref={carouselRef}
+              onClickSendWork={handleClickSendWork}
             />
           )}
           {windowSize >= 850 && (
@@ -707,6 +732,7 @@ const MyOrderPage = () => {
                     orderType={selectOrder}
                     userType={userType}
                     onClick={onClickCardHandler.bind(null, order)}
+                    onClickSendWork={handleClickSendWork.bind(null, order)}
                     order={order}
                     openConfirmModal={openConfirmModal}
                   />
