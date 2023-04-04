@@ -104,7 +104,7 @@ const PortfolioCardContainer = ({ select }) => {
               prevEl: ".prev-button",
               nextEl: ".next-button",
             }}
-            // autoplay={{ delay: 2000, disableOnInteraction: false }}
+            autoplay={{ delay: 2000, disableOnInteraction: false }}
             slidesPerView="auto"
             modules={[Navigation, Autoplay, Mousewheel]}
           >
