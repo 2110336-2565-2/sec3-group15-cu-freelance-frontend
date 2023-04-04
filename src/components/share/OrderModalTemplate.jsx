@@ -8,6 +8,7 @@ import { useForm } from "../../hooks/form-hook";
 import Button from "./Button";
 import { apiClient } from "../../utils/axios";
 import SendOrder from "../orderModal/SendOrder";
+import ReceiveOrder from "../orderModal/ReceiveOrder";
 
 const SuccessContainer = tw.div`h-[80vh] flex items-center justify-center`;
 const Footer1 = styled.div(({}) => [
@@ -27,17 +28,31 @@ const OrderModalTemplate = (props) => {
         order={props.order}
         orderType={props.orderType}
         userType={props.userType}
-        leftBtn={props.orderType === "request" ? "ยอมรับ" : "ส่งงาน"}
-        rightBtn={props.orderType === "request" ? "ปฏิเสธ" : "ยกเลิก"}
-        clickLeft={
+        leftBtn={
           props.orderType === "request"
-            ? props.openConfirmModal.bind(null, "accept", props.order)
-            : props.onClickSendWork
+            ? "ปฏิเสธ"
+            : props.userType === 1
+            ? "ยกเลิก"
+            : "ย้อนกลับ"
         }
-        clickRight={
+        rightBtn={
+          props.orderType === "request"
+            ? "ยอมรับ"
+            : props.userType === 1
+            ? "ส่งงาน"
+            : "รับงาน"
+        }
+        clickLeft={
           props.orderType === "request"
             ? props.openConfirmModal.bind(null, "reject", props.order)
             : props.openConfirmModal.bind(null, "cancel", props.order)
+        }
+        clickRight={
+          props.orderType === "request"
+            ? props.openConfirmModal.bind(null, "accept", props.order)
+            : props.userType === 1
+            ? props.onClickSendWork
+            : props.onClickReceiveWork
         }
       />
     );
@@ -310,6 +325,11 @@ const OrderModalTemplate = (props) => {
         inputHandler={props.inputHandler}
       />
     );
+  }
+
+  if (props.page === 5) {
+    header = "ตรวจรับงาน";
+    content = <ReceiveOrder id={props.order.id} />;
   }
 
   return (

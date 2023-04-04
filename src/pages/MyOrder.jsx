@@ -533,6 +533,12 @@ const MyOrderPage = () => {
     setSelectedOrder(order);
   };
 
+  const handleClickReceiveWork = (order) => {
+    setShowOrderModal(true);
+    setOrderModalPage(5);
+    setSelectedOrder(order);
+  };
+
   //ConfirmModal
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [pageConfirmModal, setPageConfirmModal] = useState(null);
@@ -589,6 +595,7 @@ const MyOrderPage = () => {
         formState={formState}
         inputHandler={inputHandler}
         onClickSendWork={handleClickSendWork.bind(null, selectedOrder)}
+        onClickReceiveWork={handleClickReceiveWork.bind(null, selectedOrder)}
         onClose={onCloseOrderModal}
         show={showOrderModal}
         orderType={selectOrder}

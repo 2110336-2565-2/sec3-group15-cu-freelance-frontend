@@ -117,7 +117,8 @@ const OrderDetail = (props) => {
           </FC>
         )}
       </BG>
-      {props.userType === 1 && (
+      {(props.userType === 1 ||
+        (props.userType === 2 && props.orderType === "order")) && (
         <ButtonLine>
           <Button
             width="40%"
@@ -126,7 +127,8 @@ const OrderDetail = (props) => {
             disable={
               (props.orderType === "request" &&
                 props.order.status === "close") ||
-              props.order.status === "failed"
+              props.order.status === "failed" ||
+              (props.orderType === "order" && props.userType === 2)
             }
           >
             {props.leftBtn}
@@ -138,7 +140,8 @@ const OrderDetail = (props) => {
             disable={
               (props.orderType === "request" &&
                 props.order.status === "close") ||
-              props.order.status === "failed"
+              props.order.status === "failed" ||
+              (props.orderType === "order" && props.userType === 2)
             }
           >
             {props.rightBtn}
