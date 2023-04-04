@@ -25,7 +25,7 @@ import CategoryButtonContainer from "../components/searchPage/CategoryButtonCont
 import { AnimatePresence } from "framer-motion";
 import Suggestion from "../components/share/Suggestion";
 const Page = tw.div`w-full`;
-const BG = tw.div`flex-col w-full h-auto flex dt:flex-row justify-between min-h-[95vh] pt-[5vh] dt:pt-[10vh] max-w-[1200px] mx-auto`;
+const BG = tw.div`flex-col w-full dt:w-[90%] mx-auto gap-4 h-auto flex dt:flex-row justify-center min-h-[95vh] pt-[5vh] dt:pt-[10vh] max-w-[1200px]`;
 const Header = tw.div`pl-2 dt:pl-0 font-ibm text-mobile-h1 dt:text-desktop-h1 font-bold my-4`;
 const Header2 = tw.div`pl-2 dt:pl-0 text-mobile-h2 dt:text-desktop-h2 font-ibm font-normal my-4 text-[#707070]`;
 const FilterContainer = tw.div`pt-4 h-[90%] overflow-auto overflow-x-hidden dt:sticky  dt:top-[15vh] dt:h-auto dt:w-[20%] dt:mx-auto font-ibm flex flex-col items-end`;
