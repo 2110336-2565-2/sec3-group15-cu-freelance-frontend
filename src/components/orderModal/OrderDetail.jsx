@@ -50,7 +50,6 @@ const OrderDetail = (props) => {
   if (status === "reject" || status === "failed") color = "red";
   if (status === "pending") color = "gray";
   if (status === "close") color = "blue";
-  console.log(props.orderType, props.order.status);
 
   return (
     <>
@@ -127,8 +126,7 @@ const OrderDetail = (props) => {
             disable={
               (props.orderType === "request" &&
                 props.order.status === "close") ||
-              props.order.status === "failed" ||
-              (props.orderType === "order" && props.userType === 2)
+              props.order.status === "failed"
             }
           >
             {props.leftBtn}
@@ -140,8 +138,7 @@ const OrderDetail = (props) => {
             disable={
               (props.orderType === "request" &&
                 props.order.status === "close") ||
-              props.order.status === "failed" ||
-              (props.orderType === "order" && props.userType === 2)
+              props.order.status === "failed"
             }
           >
             {props.rightBtn}

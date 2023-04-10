@@ -13,7 +13,7 @@ const ConfirmModalTemplate = (props) => {
   const page = props.page;
   let id;
   if (props.order) id = props.order.id;
-  console.log(props.order);
+
   const clickAccept = async () => {
     try {
       const res = await apiClient.patch(`/order/request/${id}/accept`);

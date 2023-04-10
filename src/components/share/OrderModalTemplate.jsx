@@ -16,7 +16,6 @@ const Footer1 = styled.div(({}) => [
   // tw`flex flex-row w-full gap-x-4 justify-between dt:absolute bottom-8`
 ]);
 const OrderModalTemplate = (props) => {
-  console.log(props.page);
   let content;
   let header;
   if (props.page === 1) {
@@ -45,7 +44,9 @@ const OrderModalTemplate = (props) => {
         clickLeft={
           props.orderType === "request"
             ? props.openConfirmModal.bind(null, "reject", props.order)
-            : props.openConfirmModal.bind(null, "cancel", props.order)
+            : props.userType === 1
+            ? props.openConfirmModal.bind(null, "cancel", props.order)
+            : props.onClose
         }
         clickRight={
           props.orderType === "request"
@@ -329,7 +330,12 @@ const OrderModalTemplate = (props) => {
 
   if (props.page === 5) {
     header = "ตรวจรับงาน";
-    content = <ReceiveOrder id={props.order.id} />;
+    content = (
+      <ReceiveOrder
+        id={props.order.id}
+        setOrderModalPage={props.setOrderModalPage}
+      />
+    );
   }
 
   return (

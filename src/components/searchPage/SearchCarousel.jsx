@@ -10,6 +10,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
 import "swiper/css/bundle";
+import LoadingSpinner from "../share/LoadingSpinner";
 
 const SearchCorousel = forwardRef(
   (
@@ -34,8 +35,11 @@ const SearchCorousel = forwardRef(
 
     return (
       <div tw="flex justify-center w-full pl-2 dt:pl-0">
-        {!portfolios && !isLoading && <div>no result </div>}
-        {portfolios && (
+        {isLoading && !portfolios && <LoadingSpinner />}
+        {portfolios && portfolios.length === 0 && !isLoading && (
+          <div>no result </div>
+        )}
+        {portfolios && portfolios.length !== 0 && (
           <Swiper
             spaceBetween={25}
             ref={ref}

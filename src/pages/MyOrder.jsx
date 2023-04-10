@@ -326,7 +326,6 @@ const MyOrderPage = () => {
     keyword,
     status
   ) => {
-    console.log(page);
     let ht = "/" + headerType;
     if (ht === "/order") ht = "";
     setIsLoadingOrder(true);
@@ -360,7 +359,7 @@ const MyOrderPage = () => {
       response = await apiClient.get(
         `/order${ht}?` + new URLSearchParams(params).toString()
       );
-      // console.log(response.data);
+      console.log(response.data);
       if (windowSize >= 850 || page === "1" || !orders) {
         if (selectOrder === "template")
           setOrders(response.data.order_templates);
@@ -519,7 +518,8 @@ const MyOrderPage = () => {
   const [showOrderModal, setShowOrderModal] = useState(false);
   const onCloseOrderModal = () => {
     setShowOrderModal(false);
-    inputHandler("files", [], false);
+    if (selectOrder === "order" && userType === 1)
+      inputHandler("files", [], false);
   };
   const onClickCardHandler = (order) => {
     setShowOrderModal(true);

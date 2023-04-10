@@ -133,7 +133,7 @@ const CreatePortForm3 = ({ inputHandler, formState }) => {
             <FileUploadContainer>
               {" "}
               <FileUpload
-                accept="image/*"
+                accept="image/jpg,image/jpeg,image/png"
                 onInput={inputHandler}
                 id="thumbnail"
                 errorText="โปรดอัพโหลดรูปภาพปก 1 รูป"

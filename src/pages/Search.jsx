@@ -260,7 +260,12 @@ const SearchPage = () => {
         response = await authClient.get(
           `/portfolio/search?` + new URLSearchParams(params).toString()
         );
-        console.log(response.data);
+
+        if (!response.data.pagination.items) {
+          setPortfolios([]);
+          setIsLoading(false);
+          return;
+        }
         let ports;
         let portIds = "";
         if (page === "1" || windowSize >= 850 || !portfolios) {
@@ -280,7 +285,7 @@ const SearchPage = () => {
         const res_img = await authClient.get(
           `/file/portfolio/thumbnail?` + new URLSearchParams(params).toString()
         );
-        console.log(res_img);
+
         const thumbnails = [...res_img.data.thumbnails];
         for (let i = 0; i < ports.length; i++) {
           data.push({
@@ -292,7 +297,7 @@ const SearchPage = () => {
             ].url,
           });
         }
-        console.log(data);
+
         setPortfolios(data);
         setMeta(response.data.pagination.meta);
       } catch (err) {
@@ -451,14 +456,13 @@ const SearchPage = () => {
         <BG>
           {windowSize >= 850 && FilterContent}
           <div tw="w-full dt:w-[75%]  h-auto dt:min-h-[70vh] mx-auto">
-
             <div tw="text-center py-2">
               <Header>พอร์ตโฟลิโอทั้งหมด</Header>
               <Header2>
                 ดูพอร์ตโฟลิโอจากทุกฟรีแลนซ์ หรือเลือกตัวกรองที่ต้องการได้เลย!
               </Header2>
             </div>
-            
+
             {windowSize >= 850 && (
               <Filterbar>
                 เเสดงผลลัพธ์เฉพาะ
@@ -546,6 +550,9 @@ const SearchPage = () => {
             {windowSize >= 850 && (
               <PortfolioCardContainer>
                 {isLoading && <LoadingSpinner />}
+                {!isLoading && portfolios && portfolios.length === 0 && (
+                  <div>No result</div>
+                )}
                 {!isLoading &&
                   portfolios &&
                   portfolios.map((portfolio) => {
