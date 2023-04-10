@@ -28,7 +28,7 @@ const Page = tw.div`w-full`;
 const BG = tw.div`flex-col w-full h-auto flex dt:flex-row justify-between min-h-[95vh] pt-[5vh] dt:pt-[10vh] max-w-[1200px] mx-auto`;
 const Header = tw.div`pl-2 dt:pl-0 font-ibm text-mobile-h1 dt:text-desktop-h1 font-bold my-4`;
 const Header2 = tw.div`pl-2 dt:pl-0 text-mobile-h2 dt:text-desktop-h2 font-ibm font-normal my-4 text-[#707070]`;
-const FilterContainer = tw.div`h-[90%] overflow-auto overflow-x-hidden dt:sticky  dt:top-[15vh] dt:h-auto dt:w-[20%] dt:mx-auto font-ibm flex flex-col items-end`;
+const FilterContainer = tw.div`pt-4 h-[90%] overflow-auto overflow-x-hidden dt:sticky  dt:top-[15vh] dt:h-auto dt:w-[20%] dt:mx-auto font-ibm flex flex-col items-end`;
 const PortfolioCardContainer = tw.div`w-full flex justify-center dt:justify-start flex-wrap gap-y-[2vh] mb-5 mt-2 min-h-[65vh] gap-x-[2%]`;
 const Filterbar = tw.div`min-h-[42px] flex flex-wrap gap-2 items-center text-mobile-h2 font-ibm font-medium text-freelance-black-secondary`;
 const InputSearchContainer = tw.div`px-2 dt:px-0 h-[40px] w-[100%] mx-auto my-4`;
@@ -451,12 +451,14 @@ const SearchPage = () => {
         <BG>
           {windowSize >= 850 && FilterContent}
           <div tw="w-full dt:w-[75%]  h-auto dt:min-h-[70vh] mx-auto">
-            {windowSize < 850 && <Header>พอร์ตโฟลิโอทั้งหมด</Header>}
-            {windowSize < 850 && (
+
+            <div tw="text-center py-2">
+              <Header>พอร์ตโฟลิโอทั้งหมด</Header>
               <Header2>
                 ดูพอร์ตโฟลิโอจากทุกฟรีแลนซ์ หรือเลือกตัวกรองที่ต้องการได้เลย!
               </Header2>
-            )}
+            </div>
+            
             {windowSize >= 850 && (
               <Filterbar>
                 เเสดงผลลัพธ์เฉพาะ
