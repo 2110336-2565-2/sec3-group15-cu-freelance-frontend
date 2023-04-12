@@ -39,7 +39,7 @@ const OrderModalTemplate = (props) => {
             ? "ยอมรับ"
             : props.userType === 1
             ? "ส่งงาน"
-            : "รับงาน"
+            : "ดูงาน"
         }
         clickLeft={
           props.orderType === "request"

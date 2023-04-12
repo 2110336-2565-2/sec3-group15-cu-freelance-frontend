@@ -24,6 +24,7 @@ import RequestCompletePage from "./pages/RequestComplete";
 import CreateOrderRequest from "./pages/CreateOrderRequest";
 import UserSettingEntrancePage from "./pages/UserSettingEntrance";
 import UserSettingEntranceDtPage from "./pages/UserSettingEntranceDt";
+import IssueReport from "./pages/IssueReport";
 
 function App() {
   const { acToken, reToken, login, logout, userInfo, setUserInfo } = useAuth();
@@ -34,6 +35,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LayoutWithNavbar acToken={acToken} />}>
           <Route path="" element={<Navigate to="home" />} />
+          <Route path="support" element={<IssueReport />} />
           <Route path="home" element={<HomePage />} />
           <Route path="portfolio/">
             <Route path=":portId/">
@@ -87,7 +89,7 @@ function App() {
         {/* <Route path="/user-setting-entrance" element={<UserSettingEntrancePage/>}/> */}
         <Route path="*" element={<Navigate to="home" />} />
       </Routes>
-      <Footer />
+      <Footer isLogin={!!acToken} />
     </AuthContext.Provider>
   );
 }
