@@ -24,7 +24,7 @@ import RequestCompletePage from "./pages/RequestComplete";
 import CreateOrderRequest from "./pages/CreateOrderRequest";
 import UserSettingEntrancePage from "./pages/UserSettingEntrance";
 import UserSettingEntranceDtPage from "./pages/UserSettingEntranceDt";
-import IssueReport from "./pages/IssueReport";
+import IssueReportPage from "./pages/IssueReport";
 
 function App() {
   const { acToken, reToken, login, logout, userInfo, setUserInfo } = useAuth();
@@ -35,7 +35,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LayoutWithNavbar acToken={acToken} />}>
           <Route path="" element={<Navigate to="home" />} />
-          <Route path="support" element={<IssueReport />} />
+          <Route path="support" element={<IssueReportPage />} />
           <Route path="home" element={<HomePage />} />
           <Route path="portfolio/">
             <Route path=":portId/">

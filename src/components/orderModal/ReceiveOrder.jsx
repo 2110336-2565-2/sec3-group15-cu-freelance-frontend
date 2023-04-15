@@ -27,7 +27,7 @@ const ModalContainer = tw.div`flex flex-col items-center justify-center w-full h
 const ButtonModal = tw.div`h-[7%] w-full flex justify-center px-[5%]`;
 const ModalImage = tw.img`object-scale-down h-[70%]`;
 
-const ReceiveOrder = ({ id, setOrderModalPage }) => {
+const ReceiveOrder = ({ id, setOrderModalPage, setSuccessType }) => {
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
   const [list, setList] = useState(null);
@@ -89,6 +89,8 @@ const ReceiveOrder = ({ id, setOrderModalPage }) => {
     } catch (err) {
       console.log(err);
     }
+    setOrderModalPage(2);
+    setSuccessType("receive");
     setIsLoadingReceive(false);
     setIsShowReceive(false);
   };

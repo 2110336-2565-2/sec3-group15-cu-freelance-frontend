@@ -333,6 +333,8 @@ const OrderModalTemplate = (props) => {
     content = (
       <ReceiveOrder
         id={props.order.id}
+        onClose={props.onClose}
+        setSuccessType={props.setSuccessType}
         setOrderModalPage={props.setOrderModalPage}
       />
     );

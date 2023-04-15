@@ -54,7 +54,8 @@ const OrderCard = (props) => {
           onClick={onClickLeft}
           disable={
             (props.orderType === "request" && props.status === "close") ||
-            props.status === "failed"
+            props.status === "failed" ||
+            props.status === "complete"
           }
         >
           {left}
@@ -65,7 +66,8 @@ const OrderCard = (props) => {
           onClick={onClickRight}
           disable={
             (props.orderType === "request" && props.status === "close") ||
-            props.status === "failed"
+            props.status === "failed" ||
+            props.status === "complete"
           }
         >
           {right}
