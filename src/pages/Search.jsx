@@ -305,7 +305,8 @@ const SearchPage = () => {
       }
       setIsLoading(false);
     };
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    if (windowSize >= 850)
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     fetchData();
   }, [
     keyword,
