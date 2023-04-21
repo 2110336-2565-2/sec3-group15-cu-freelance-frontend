@@ -5,7 +5,7 @@ import PortFolioCard from "../../share/PortfolioCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Mousewheel } from "swiper";
 import BackButton from '../../../assets/NewHomePage/page2/BackButton.svg';
-import NextButton from '../../../assets/NewHomePage/page2/NextButton.svg';
+import NextButton from '../../../assets/NewHomePage/page2/nextButton.svg';
 import LoadingSpinner from "../../share/LoadingSpinner";
 
 import "swiper/css";
