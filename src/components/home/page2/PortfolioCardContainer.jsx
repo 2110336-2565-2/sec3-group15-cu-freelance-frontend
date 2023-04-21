@@ -2,7 +2,6 @@ import tw from "twin.macro";
 import React, { useState, useEffect } from "react";
 import { authClient } from "../../../utils/auth";
 import PortFolioCard from "../../share/PortfolioCard";
-import PortfolioImg from "../../../assets/PortfolioImage.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Mousewheel } from "swiper";
 import backButton from "../../../assets/NewHomePage/page2/BackButton.svg";
