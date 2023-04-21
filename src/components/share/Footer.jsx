@@ -1,5 +1,5 @@
 import tw from "twin.macro";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Footer = ({ isLogin }) => {
   const HeaderWrapper = tw.div`w-[90%] h-[5vh] max-w-[1150px] mx-auto text-[8px] dt:text-sm  font-normal  flex justify-between 
@@ -8,9 +8,11 @@ const Footer = ({ isLogin }) => {
   `;
 
   const navigate = useNavigate();
-
+  const location = useLocation();
   const handleClickSupport = () => {
-    navigate("/support");
+    if (location.pathname !== "/support") {
+      navigate("/support");
+    }
   };
 
   return (

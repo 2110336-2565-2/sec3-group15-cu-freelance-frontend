@@ -5,8 +5,8 @@ import PortFolioCard from "../../share/PortfolioCard";
 import PortfolioImg from "../../../assets/PortfolioImage.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Mousewheel } from "swiper";
-import backButton from "../../../assets/NewHomePage/page2/backButton.svg";
-import nextButton from "../../../assets/NewHomePage/page2/nextButton.svg";
+import backButton from "../../../assets/NewHomePage/page2/BackButton.svg";
+import nextButton from "../../../assets/NewHomePage/page2/NextButton.svg";
 import LoadingSpinner from "../../share/LoadingSpinner";
 
 import "swiper/css";
