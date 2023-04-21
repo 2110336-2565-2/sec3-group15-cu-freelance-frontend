@@ -4,8 +4,8 @@ import { authClient } from "../../../utils/auth";
 import PortFolioCard from "../../share/PortfolioCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Mousewheel } from "swiper";
-import backButton from "../../../assets/NewHomePage/page2/BackButton.svg";
-import nextButton from "../../../assets/NewHomePage/page2/NextButton.svg";
+import BackButton from '../../../assets/NewHomePage/page2/BackButton.svg';
+import NextButton from '../../../assets/NewHomePage/page2/NextButton.svg';
 import LoadingSpinner from "../../share/LoadingSpinner";
 
 import "swiper/css";
@@ -83,7 +83,7 @@ const PortfolioCardContainer = ({ select }) => {
       {portfolios && (
         <Container tw="w-full">
           <img
-            src={backButton}
+            src={BackButton}
             alt="backButton"
             className="prev-button"
             tw=" hidden tbl:inline w-[5%] min-w-[50px] cursor-pointer"
@@ -128,7 +128,7 @@ const PortfolioCardContainer = ({ select }) => {
             ))}
           </Swiper>
           <img
-            src={nextButton}
+            src={NextButton}
             alt="nextButton"
             className="next-button"
             tw="hidden tbl:inline w-[5%] min-w-[50px] cursor-pointer"
