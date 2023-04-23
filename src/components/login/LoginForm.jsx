@@ -69,7 +69,7 @@ const LoginForm = () => {
         "/auth/login",
         JSON.stringify({
           username: formState.inputs.username.value.trim(),
-          password: formState.inputs.password.value,
+          password: formState.inputs.password.value.trim(),
         }),
         {
           headers: { "Content-Type": "application/json" },
