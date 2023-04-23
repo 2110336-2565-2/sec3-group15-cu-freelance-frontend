@@ -68,7 +68,7 @@ const LoginForm = () => {
       let response = await authClient.post(
         "/auth/login",
         JSON.stringify({
-          username: formState.inputs.username.value,
+          username: formState.inputs.username.value.trim(),
           password: formState.inputs.password.value,
         }),
         {
