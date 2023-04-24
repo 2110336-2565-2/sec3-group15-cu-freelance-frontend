@@ -17,6 +17,7 @@ const OrderCarousel = forwardRef(
       userType,
       openConfirmModal,
       onClickCardHandler,
+      onClickSendWork,
     },
     ref
   ) => {
@@ -42,6 +43,7 @@ const OrderCarousel = forwardRef(
             {orders.map((order) => (
               <SwiperSlide key={order.id} style={{ width: "260px" }}>
                 <OrderCard
+                  onClickSendWork={onClickSendWork.bind(null, order)}
                   header={order.title}
                   description={order.description}
                   customer={order.customer_name}

@@ -37,7 +37,7 @@ const OrderCard = (props) => {
     if (props.orderType === "order") {
       left = "ส่งงาน";
       right = "ยกเลิก";
-      onClickLeft = props.openConfirmModal.bind(null, "send", props.order);
+      onClickLeft = props.onClickSendWork;
       onClickRight = props.openConfirmModal.bind(null, "cancel", props.order);
     }
     if (props.orderType === "request") {
@@ -54,7 +54,8 @@ const OrderCard = (props) => {
           onClick={onClickLeft}
           disable={
             (props.orderType === "request" && props.status === "close") ||
-            props.status === "failed"
+            props.status === "failed" ||
+            props.status === "complete"
           }
         >
           {left}
@@ -65,7 +66,8 @@ const OrderCard = (props) => {
           onClick={onClickRight}
           disable={
             (props.orderType === "request" && props.status === "close") ||
-            props.status === "failed"
+            props.status === "failed" ||
+            props.status === "complete"
           }
         >
           {right}

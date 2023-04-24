@@ -1,21 +1,27 @@
 import tw from "twin.macro";
 import FileUpload from "../Portfolio/FileUpload";
 import React, { useState } from "react";
-import { useForm } from "../../hooks/form-hook";
 import Filename from "../Portfolio/createPortfolioPage3/Filename";
 import Button from "../share/Button";
 import PortfolioModal from "../Portfolio/PortfolioModal";
+import { Viewer, Worker } from "@react-pdf-viewer/core";
+import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
+
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
+import "@react-pdf-viewer/core/lib/styles/index.css";
 
 const Container = tw.div`w-[90%] mx-auto h-auto flex flex-col gap-y-5 min-h-[85%]`;
 const ButtonContainer = tw.div`w-[90%] mx-auto flex justify-between`;
 const Header = tw.div`font-bold w-full `;
 const UploadContainer = tw.div`w-full  h-[200px] flex items-center flex-col`;
-const FilenameContainer = tw.div`h-auto flex flex-col gap-y-3 max-h-[270px] overflow-y-auto`;
-const ModalContent = tw.div`flex flex-col items-center justify-center w-full h-[85%] mb-2 w-[90%] mx-auto`;
+const FilenameContainer = tw.div`flex flex-col gap-y-3 max-h-[220px] dt:max-h-[200px] overflow-y-auto`;
+const ModalContent = tw.div`flex flex-col items-center justify-center w-full h-[85%] mb-2  mx-auto`;
 const ButtonModal = tw.div`h-[7%] w-full flex justify-between px-[5%]`;
 const ModalImage = tw.img`object-scale-down h-[70%]`;
 
 const SendOrder = ({ onClose, handleConfirmSend, formState, inputHandler }) => {
+  const defaultLayoutPluginInstance = defaultLayoutPlugin();
+
   const [files, setFiles] = useState(formState.inputs.files.value);
   const [isValid, setIsValid] = useState(formState.inputs.files.isValid);
   const [isShow, setIsShow] = useState(false);
@@ -30,6 +36,7 @@ const SendOrder = ({ onClose, handleConfirmSend, formState, inputHandler }) => {
     setId(idx);
     setNamePreview(file.name);
     setIsShow(true);
+    // console.log($("#iframeMob").attr("src", URL.createObjectURL(file)));
   };
   const handleDeleteFile = (idx) => {
     setPreview(null);
@@ -53,17 +60,19 @@ const SendOrder = ({ onClose, handleConfirmSend, formState, inputHandler }) => {
     <>
       <ModalContent>
         <div tw="font-bold">{namePreview}</div>
-        {typePreview && typePreview.slice(0, 5) === "image" ? (
+        {typePreview && typePreview.split("/")[0] === "image" ? (
           <ModalImage src={preview} />
         ) : (
-          <div tw="w-[90%] h-full">
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
             {" "}
-            <iframe
-              src={`${preview}#view=fitH`}
-              title="testPdf"
-              tw="w-full h-full"
-            />
-          </div>
+            <div tw="w-[90%] h-[90%] dt:h-[90%]">
+              {" "}
+              <Viewer
+                fileUrl={preview}
+                plugins={[defaultLayoutPluginInstance]}
+              />
+            </div>
+          </Worker>
         )}
       </ModalContent>
       <ButtonModal>
@@ -76,7 +85,7 @@ const SendOrder = ({ onClose, handleConfirmSend, formState, inputHandler }) => {
       </ButtonModal>
     </>
   );
-  console.log(files);
+
   return (
     <>
       {" "}

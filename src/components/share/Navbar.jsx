@@ -78,7 +78,7 @@ const Navbar = (props) => {
   };
   let Right;
   const windowSize = useWindow();
-  console.log(props.suggestList);
+
   if (login) {
     Right = (
       <>

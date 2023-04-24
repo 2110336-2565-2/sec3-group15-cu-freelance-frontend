@@ -24,6 +24,12 @@ import RequestCompletePage from "./pages/RequestComplete";
 import CreateOrderRequest from "./pages/CreateOrderRequest";
 import UserSettingEntrancePage from "./pages/UserSettingEntrance";
 import UserSettingEntranceDtPage from "./pages/UserSettingEntranceDt";
+<<<<<<< HEAD
+import IssueReportPage from "./pages/IssueReport";
+
+=======
+import ChatEntrancePage from "./pages/ChatEntrance";
+>>>>>>> 5464a24 (Updated Chat)
 function App() {
   const { acToken, reToken, login, logout, userInfo, setUserInfo } = useAuth();
   return (
@@ -33,6 +39,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LayoutWithNavbar acToken={acToken} />}>
           <Route path="" element={<Navigate to="home" />} />
+          <Route path="support" element={<IssueReportPage />} />
           <Route path="home" element={<HomePage />} />
           <Route path="portfolio/">
             <Route path=":portId/">
@@ -73,6 +80,10 @@ function App() {
             path="/user-setting-entrance-dt"
             element={<UserSettingEntranceDtPage />}
           />
+          <Route
+            path="/chat"
+            element={<ChatEntrancePage/>}
+          />
         </Route>
         <Route path="/login/">
           <Route path="" element={<Login />} />
@@ -86,7 +97,7 @@ function App() {
         {/* <Route path="/user-setting-entrance" element={<UserSettingEntrancePage/>}/> */}
         <Route path="*" element={<Navigate to="home" />} />
       </Routes>
-      <Footer />
+      <Footer isLogin={!!acToken} />
     </AuthContext.Provider>
   );
 }

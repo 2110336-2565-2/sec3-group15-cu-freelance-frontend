@@ -24,6 +24,8 @@ import PriceFilter from "../components/searchPage/PriceFilter";
 import DurationFilter from "../components/searchPage/DurationFilter";
 import FilterButton from "../components/searchPage/FilterButton";
 
+import { useForm } from "../hooks/form-hook";
+
 import { apiClient } from "../utils/axios";
 
 import {
@@ -69,9 +71,19 @@ const MyOrderPage = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const [formState, inputHandler] = useForm(
+    {
+      files: {
+        value: [],
+        isValid: false,
+      },
+    },
+    false
+  );
+
   //InfiniteScroll or Pagination
   const pageRef = React.createRef();
-  const page = searchParams.get("pages") || 1;
+  const page = searchParams.get("pages") || "1";
 
   //header-type
   const selectOrder = searchParams.get("q");
@@ -314,7 +326,6 @@ const MyOrderPage = () => {
     keyword,
     status
   ) => {
-    console.log(page);
     let ht = "/" + headerType;
     if (ht === "/order") ht = "";
     setIsLoadingOrder(true);
@@ -348,7 +359,7 @@ const MyOrderPage = () => {
       response = await apiClient.get(
         `/order${ht}?` + new URLSearchParams(params).toString()
       );
-      // console.log(response.data);
+      console.log(response.data);
       if (windowSize >= 850 || page === "1" || !orders) {
         if (selectOrder === "template")
           setOrders(response.data.order_templates);
@@ -507,10 +518,24 @@ const MyOrderPage = () => {
   const [showOrderModal, setShowOrderModal] = useState(false);
   const onCloseOrderModal = () => {
     setShowOrderModal(false);
+    if (selectOrder === "order" && userType === 1)
+      inputHandler("files", [], false);
   };
   const onClickCardHandler = (order) => {
     setShowOrderModal(true);
     setOrderModalPage(1);
+    setSelectedOrder(order);
+  };
+
+  const handleClickSendWork = (order) => {
+    setShowOrderModal(true);
+    setOrderModalPage(4);
+    setSelectedOrder(order);
+  };
+
+  const handleClickReceiveWork = (order) => {
+    setShowOrderModal(true);
+    setOrderModalPage(5);
     setSelectedOrder(order);
   };
 
@@ -541,6 +566,8 @@ const MyOrderPage = () => {
   return (
     <>
       <ConfirmModalTemplate
+        formState={formState}
+        inputHandler={inputHandler}
         show={showConfirmModal}
         setShowOrderModal={setShowOrderModal}
         setShowConfirmModal={setShowConfirmModal}
@@ -565,6 +592,10 @@ const MyOrderPage = () => {
       />
 
       <OrderModalTemplate
+        formState={formState}
+        inputHandler={inputHandler}
+        onClickSendWork={handleClickSendWork.bind(null, selectedOrder)}
+        onClickReceiveWork={handleClickReceiveWork.bind(null, selectedOrder)}
         onClose={onCloseOrderModal}
         show={showOrderModal}
         orderType={selectOrder}
@@ -679,6 +710,7 @@ const MyOrderPage = () => {
               openConfirmModal={openConfirmModal}
               onClickCardHandler={onClickCardHandler}
               ref={carouselRef}
+              onClickSendWork={handleClickSendWork}
             />
           )}
           {windowSize >= 850 && (
@@ -707,6 +739,7 @@ const MyOrderPage = () => {
                     orderType={selectOrder}
                     userType={userType}
                     onClick={onClickCardHandler.bind(null, order)}
+                    onClickSendWork={handleClickSendWork.bind(null, order)}
                     order={order}
                     openConfirmModal={openConfirmModal}
                   />

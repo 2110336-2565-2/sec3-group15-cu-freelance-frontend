@@ -10,18 +10,36 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
 import "swiper/css/bundle";
+import LoadingSpinner from "../share/LoadingSpinner";
 
 const SearchCorousel = forwardRef(
-  ({ portfolios, isLoading, handleInfiniteScroll }, ref) => {
+  (
+    {
+      portfolios,
+      isLoading,
+      handleInfiniteScroll,
+      canEdit = false,
+      setPortfolios = () => {},
+      handleClickDetailCard,
+    },
+    ref
+  ) => {
     const navigate = useNavigate();
     const onClickDetailCard = (id) => {
       navigate(`/portfolio/${id}`);
     };
+    const onClickEditCard = (id, e) => {
+      e.stopPropagation();
+      navigate(`/portfolio/${id}/edit`);
+    };
 
     return (
       <div tw="flex justify-center w-full pl-2 dt:pl-0">
-        {!portfolios && !isLoading && <div>no result </div>}
-        {portfolios && (
+        {isLoading && !portfolios && <LoadingSpinner />}
+        {portfolios && portfolios.length === 0 && !isLoading && (
+          <div>no result </div>
+        )}
+        {portfolios && portfolios.length !== 0 && (
           <Swiper
             spaceBetween={25}
             ref={ref}
@@ -51,11 +69,15 @@ const SearchCorousel = forwardRef(
                   description={portfolio.description}
                   duration={portfolio.duration}
                   price={portfolio.price}
-                  canEdit={false}
+                  canEdit={canEdit}
                   isPublic={portfolio.is_public}
-                  onClick={onClickDetailCard.bind(null, portfolio.id)}
-                  onClickPencil={() => {}}
-                  setPortfolios={() => {}}
+                  onClick={
+                    handleClickDetailCard
+                      ? handleClickDetailCard.bind(null, portfolio.id)
+                      : onClickDetailCard.bind(null, portfolio.id)
+                  }
+                  onClickPencil={onClickEditCard.bind(null, portfolio.id)}
+                  setPortfolios={setPortfolios}
                 />
               </SwiperSlide>
             ))}

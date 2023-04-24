@@ -131,8 +131,9 @@ const EditPortfolioform = () => {
         key: previewImages[selectIdx].split(".net/")[1],
       });
       console.log(data);
-      const res = await apiClient.delete(`/file/portfolio/${id}`, data, {
-        headers: { "content-type": "application/json" },
+      const res = await apiClient.delete(`/file/portfolio/${id}`, {
+        data: data,
+        headers: { "Content-Type": "application/json" },
       });
       console.log(res);
       setPreviewImages(previewImages.filter((image, idx) => idx !== selectIdx));
@@ -257,13 +258,13 @@ const EditPortfolioform = () => {
         show={isShowSubmit}
         header={
           isLoadingSubmit
-            ? "กำลังสร้างพอร์ตฟอลิโอ"
-            : "ยืนยันการสร้างพอร์ตฟอลิโอ"
+            ? "กำลังเเก้ไขพอร์ตฟอลิโอ"
+            : "ยืนยันการเเก้ไขพอร์ตฟอลิโอ"
         }
         desc={
           isLoadingSubmit
-            ? "เรากำลังสร้างฟอร์ตฟอลิโอของคุณ"
-            : "หากคุณยืนยันการสร้างพอร์ตฟอลิโอแล้ว ถ้าไม่ได้ปิดการมองเห็น ผู้ว่าจ้างจะสามารถเห็นพอร์ตฟอลิโอได้"
+            ? "เรากำลังเเก้ไขพอร์ตฟอลิโอของคุณ"
+            : "หากคุณยืนยันการเเก้ไขพอร์ตฟอลิโอแล้ว ถ้าไม่ได้ปิดการมองเห็น ผู้ว่าจ้างจะสามารถเห็นพอร์ตฟอลิโอได้"
         }
         footer={
           isLoadingSubmit ? null : (
@@ -390,7 +391,7 @@ const EditPortfolioform = () => {
                 onClick={handleClickDelete}
                 tw="w-[40%] text-white rounded-[20px] bg-[#EB4335] h-[30px]"
               >
-                ลบรูปนี้
+                ลบรูปภาพนี้
               </button>
             </div>
           </div>

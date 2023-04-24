@@ -8,11 +8,15 @@ import { authClient } from "../../utils/auth";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { apiClient } from "../../utils/axios";
+import { AnimatePresence } from "framer-motion";
+import Toast from "../share/Toast";
 import Button from "../share/Button";
+import React from "react";
+import failIcon from "../../assets/FailIcon.svg"
 const styles = {
   container: () => [
     tw`flex flex-col font-inter items-center w-full max-w-[460px] 
-    border-[1px] rounded-[30px] px-6 py-8`,
+    dt:border-[1px] dt:rounded-[30px] px-6 py-8`,
   ],
   content: () => [
     tw`flex flex-col box-border h-full w-full  items-center px-[2%] gap-6`,
@@ -56,7 +60,7 @@ const LoginForm = () => {
     },
     false
   );
-
+  const [submitState, setSubmitState] = useState(0);
   const formSubmitHandler = async (event) => {
     // event.preventDefault();
     try {
@@ -64,8 +68,8 @@ const LoginForm = () => {
       let response = await authClient.post(
         "/auth/login",
         JSON.stringify({
-          username: formState.inputs.username.value,
-          password: formState.inputs.password.value,
+          username: formState.inputs.username.value.trim(),
+          password: formState.inputs.password.value.trim(),
         }),
         {
           headers: { "Content-Type": "application/json" },
@@ -80,11 +84,17 @@ const LoginForm = () => {
       navigate("/search?pages=1&keyword=", { replace: true });
     } catch (err) {
       console.log(err);
+      setSubmitState(1);
+      setTimeout(() => { setSubmitState(0); }, 2000);
     }
     setIsLogin(false);
   };
 
   return (
+    <>
+    <AnimatePresence>
+      {submitState==1&&<Toast type='fail' title='ผิดพลาด' description='ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง' icon={failIcon}/>}
+    </AnimatePresence>
     <div css={styles.container()}>
       <div css={styles.content()}>
         <div css={styles.title()}>เข้าสู่ระบบ</div>
@@ -129,11 +139,12 @@ const LoginForm = () => {
           <p css={styles.registerText()}> ยังไม่มีบัญชีผู้ใช้​ ? </p>
 
           <Link css={styles.registerLink()} to="/register">
-            กดที่นี่เพื่อสม้คร
+            กดที่นี่เพื่อสมัคร
           </Link>
         </div>
       </div>
     </div>
+    </>
   );
 };
 export default LoginForm;

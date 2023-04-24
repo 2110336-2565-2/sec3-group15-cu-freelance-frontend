@@ -26,10 +26,8 @@ const CategoryButtonMB = ({
   setSelect,
   value,
 }) => {
-  console.log(isSelect);
   const handleClickCategoryButton = (event) => {
     event.preventDefault();
-    console.log(value);
     setSelect("category", value);
   };
 
