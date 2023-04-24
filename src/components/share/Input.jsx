@@ -2,6 +2,7 @@ import React, { useReducer, useRef } from "react";
 import tw from "twin.macro";
 import { validate } from "./Validate.jsx";
 import { useEffect } from "react";
+import { isPropertySignature } from "typescript";
 
 const styles = {
   container: ({isTextArea}) => [
@@ -56,6 +57,7 @@ const Input = ({
   step,
   required,
   rows = 10,
+  keyDownHandler,
 }) => {
   const [state, dispatch] = useReducer(reducer, {
     value: initialValue || "",
@@ -63,6 +65,12 @@ const Input = ({
     isFirstClick: false,
   });
   const { value, isValid } = state;
+
+  const onKeyDown = (event) => {
+    if (event.key == "Enter") {
+      keyDownHandler();
+    }
+  }
 
   useEffect(() => {
     onInput(id, value, isValid);
@@ -143,6 +151,7 @@ const Input = ({
         }}
         min={min}
         step={step}
+        onKeyDown={onKeyDown}
       ></input>
     );
 
@@ -150,7 +159,7 @@ const Input = ({
     <div css={styles.container({isTextArea:type==="textarea"})}>
       <label css={styles.label()} htmlFor={id}>
         {label}
-        {required && <span tw="text-red-700 ">*</span>}
+        {required && <span className="text-red-700 ">*</span>}
       </label>
       {input}
       <div
@@ -161,7 +170,7 @@ const Input = ({
       >
         {errorText}
       </div>
-    </div>
+    </div >
   );
 };
 
