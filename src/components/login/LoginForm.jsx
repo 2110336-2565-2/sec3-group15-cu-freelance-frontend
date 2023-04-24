@@ -93,7 +93,7 @@ const LoginForm = () => {
   return (
     <>
     <AnimatePresence>
-      {submitState==1&&<Toast type='fail' title='ผิดพลาด' description='ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง' icon={failIcon}/>}
+      {submitState==1&&<Toast type='fail' title='ผิดพลาด' description='usernameหรือรหัสผ่านไม่ถูกต้อง' icon={failIcon}/>}
     </AnimatePresence>
     <div css={styles.container()}>
       <div css={styles.content()}>
