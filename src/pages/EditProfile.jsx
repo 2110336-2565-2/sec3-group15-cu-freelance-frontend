@@ -139,6 +139,9 @@ const EditProfilePage = () => {
       setSubmitState(1);
       authCtx.setUserInfo({
         ...authCtx.userInfo,
+        firstname: Firstname.value,
+        lastname: Lastname.value,
+        phone: PhoneNumber.value,
         display_name: Displayname.value,
         url: fileResponse ? fileResponse.data.url : authCtx.userInfo.url,
       });

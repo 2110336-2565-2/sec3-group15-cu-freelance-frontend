@@ -78,7 +78,7 @@ function App() {
           />
           <Route
             path="/chat"
-            element={<ChatEntrancePage/>}
+            element={<ChatEntrancePage />}
           />
         </Route>
         <Route path="/login/">
