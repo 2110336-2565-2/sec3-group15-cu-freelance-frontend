@@ -103,7 +103,7 @@ const CreatePortForm4 = ({
 
       navigate("/request-complete", {
         state: {
-          title: "การสร้างพอร์ตฟอลิโอสำเร็จ",
+          title: "การสร้างพอร์ตโฟลิโอสำเร็จ",
           desc: "ยินดีด้วย พอร์ตโฟลิโอของคุณถูกสร้างแล้วไปดูได้เลย!",
           bt1Text: "ไปหน้าโปรไฟล์",
           path1: `/profile/${authCtx.userInfo.id}`,
@@ -122,7 +122,7 @@ const CreatePortForm4 = ({
     <>
       <LoadingModal
         show={isLoading}
-        header={"กำลังสร้างพอร์ตฟอลิโอ"}
+        header={"กำลังสร้างพอร์ตโฟลิโอ"}
         desc={"เรากำลังอัพโหลดพอร์โฟลิโอคุณเข้าสู่ระบบกรุณารอสักครู่..."}
       />
       <div tw="w-[90%] h-fit flex flex-col items-center min-h-[40vh]">
@@ -144,7 +144,7 @@ const CreatePortForm4 = ({
             <Header>ตรวจสอบการ์ดอีกครั้ง</Header>
             <HeaderDescription>
               ตรวจสอบความถูกต้องของการ์ดคุณอีกครั้ง
-              ถ้าถูกต้องก็สร้างพอร์ตฟอลิโอ์ได้เลย!!
+              ถ้าถูกต้องก็สร้างพอร์ตโฟลิโอ์ได้เลย!!
             </HeaderDescription>
             {previewThumbnail && (
               <div tw="w-full mx-auto flex justify-center my-5">
@@ -205,7 +205,7 @@ const CreatePortForm4 = ({
             checked={isPublic === false}
             onChange={setIsPublic}
           />
-          <label htmlFor="ch">ปิดการมองเห็นพอร์ตฟอลิโอ</label>
+          <label htmlFor="ch">ปิดการมองเห็นพอร์ตโฟลิโอ</label>
         </div>
       )}
       <ButtonContainer>
@@ -215,7 +215,7 @@ const CreatePortForm4 = ({
           width="100%"
           disable={isLoading}
         >
-          {isLoading === true ? "กำลังสร้างพอร์ตฟอลิโอ" : "ยืนยันการสร้าง"}
+          {isLoading === true ? "กำลังสร้างพอร์ตโฟลิโอ" : "ยืนยันการสร้าง"}
         </Button>
         <Back2Edit
           onClick={(e) => {
