@@ -36,6 +36,8 @@ const PortfolioDetail = () => {
   const [profileImg, setProfileImg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  // console.log(authCtx.userInfo)
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -118,6 +120,7 @@ const PortfolioDetail = () => {
                 freelance.display_name,
                 freelance.id
               )}
+              disable={authCtx.userInfo.user_type===1}
             >
               <div tw="font-bold text-base">ส่งออเดอร์</div>
             </Button>

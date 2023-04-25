@@ -221,7 +221,7 @@ const loginForm = () => {
             label="ชื่อจริง"
             placeholder="ใส่ชื่อจริงของคุณ"
             errorText="ชื่อจริงไม่ควรเว้นว่าง หรือมีตัวอักษรพิเศษ"
-            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_NOT_CONTAIN_NUMBER(),VALIDATOR_MAXLENGTH(50)]}
+            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_NOT_CONTAIN_NUMBER(),VALIDATOR_MAXLENGTH(30)]}
             onInput={inputHandler1}
             required
           />
@@ -233,7 +233,7 @@ const loginForm = () => {
             label="นามสกุล"
             placeholder="ใส่นามสกุลของคุณ"
             errorText="นามสกุลไม่ควรเว้นว่าง หรือมีตัวอักษรพิเศษ"
-            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_NOT_CONTAIN_NUMBER(),VALIDATOR_MAXLENGTH(50)]}
+            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_NOT_CONTAIN_NUMBER(),VALIDATOR_MAXLENGTH(30)]}
             onInput={inputHandler1}
             required
           />
@@ -257,7 +257,7 @@ const loginForm = () => {
             label="ชื่อผู้ใช้"
             placeholder="ใส่ชื่อผู้ใช้"
             errorText="ชื่อผูใช้ไม่ควรเว้นว่าง หรือมีตัวอักษรพิเศษ"
-            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_MAXLENGTH(25)]}
+            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_MAXLENGTH(25),VALIDATOR_MINLENGTH(5)]}
             onInput={inputHandler2}
             required
           />
@@ -269,7 +269,7 @@ const loginForm = () => {
             label="รหัสผ่าน"
             placeholder="ใส่รหัสผ่าน"
             errorText="รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัว!"
-            validator={[VALIDATOR_MINLENGTH(8)]}
+            validator={[VALIDATOR_MINLENGTH(8),VALIDATOR_MAXLENGTH(20)]}
             onInput={inputHandler2}
             required
           />
@@ -292,8 +292,8 @@ const loginForm = () => {
             id="displayname"
             label="Display name"
             placeholder="ใส่ชื่อที่ใช้แสดงในเว็บ"
-            errorText="ชื่อที่ใช้แสดงในเว็บไม่ควรเว้นว่างหรือมีตัวอักษรพิเศษ เเละมีความยาวได้มากสุด 10 ตัวอักษร"
-            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_MAXLENGTH(10)]}
+            errorText="ชื่อที่ใช้เเสดงไม่ควรมีตัวอักษรพิเศษ เเละมีความยาวอยู่ระหว่าง 4-10 ตัวอักษร"
+            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_MAXLENGTH(10),VALIDATOR_MINLENGTH(4)]}
             onInput={inputHandler3}
             required
           />
@@ -305,7 +305,7 @@ const loginForm = () => {
             label="อีเมล"
             placeholder="example@example.com"
             errorText="อีเมลไม่สามารถเว้นว่าง! | ตัวอย่างอีเมล: example@example.com"
-            validator={[VALIDATOR_REQUIRE(), VALIDATOR_EMAIL()]}
+            validator={[VALIDATOR_REQUIRE(), VALIDATOR_EMAIL(),VALIDATOR_MAXLENGTH(30)]}
             onInput={inputHandler3}
             required
           />

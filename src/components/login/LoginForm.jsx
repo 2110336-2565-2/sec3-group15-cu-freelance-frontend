@@ -105,7 +105,7 @@ const LoginForm = () => {
           placeholder="ชื่อผู้ใช้ของคุณ"
           errorText="ชื่อผู้ใช้ไม่ควรเว้นว่างหรือมีตัวอักษรพิเศษ"
           onInput={inputHandler}
-          validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_MAXLENGTH(25)]}
+          validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_MAXLENGTH(25),VALIDATOR_MINLENGTH(5)]}
         />
         <Input
           type="password"
@@ -114,7 +114,7 @@ const LoginForm = () => {
           placeholder="ใส่รหัสผ่านของคุณ"
           errorText="รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร"
           onInput={inputHandler}
-          validator={[VALIDATOR_MINLENGTH(8)]}
+          validator={[VALIDATOR_MINLENGTH(8),VALIDATOR_MAXLENGTH(20)]}
         />
         {/* <button
           css={styles.button()}
