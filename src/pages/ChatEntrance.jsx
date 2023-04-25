@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import ChatList from '../components/chat/ChatList';
 import Chat from '../components/chat/Chat';
 const Container = styled.div(() => [
-  tw`mt-[10vh] flex flex-row justify-center gap-x-5 mb-4`
+  tw`mt-[10vh] flex flex-row justify-center gap-x-5 mb-4 max-h-[82vh]`
 ]);
 
 
@@ -14,8 +14,8 @@ const ChatEntrancePage = () => {
   return (
     <>
       <Container>
-        <ChatList/>
-        {windowSize>=850 && <Chat/>}
+        <ChatList />
+        {windowSize >= 850 && <Chat />}
       </Container>
     </>
   );
