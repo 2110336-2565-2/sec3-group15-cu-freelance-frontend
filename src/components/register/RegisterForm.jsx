@@ -14,8 +14,10 @@ import {
   VALIDATOR_MATCH,
   VALIDATOR_MAXLENGTH,
   VALIDATOR_MINLENGTH,
+  VALIDATOR_NOT_CONTAIN_NUMBER,
   VALIDATOR_PHONE,
   VALIDATOR_REQUIRE,
+  VALIDATOR_SPECIALCHAR,
 } from "../share/Validate.jsx";
 import { Link } from "react-router-dom";
 import { useForm } from "../../hooks/form-hook";
@@ -219,7 +221,7 @@ const loginForm = () => {
             label="ชื่อจริง"
             placeholder="ใส่ชื่อจริงของคุณ"
             errorText="ชื่อจริงไม่สามารถเว้นว่างได้!"
-            validator={[VALIDATOR_REQUIRE()]}
+            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_NOT_CONTAIN_NUMBER()]}
             onInput={inputHandler1}
             required
           />
@@ -231,7 +233,7 @@ const loginForm = () => {
             label="นามสกุล"
             placeholder="ใส่นามสกุลของคุณ"
             errorText="นามสกุลไม่สามารถเว้นว่างได้!"
-            validator={[VALIDATOR_REQUIRE()]}
+            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_NOT_CONTAIN_NUMBER()]}
             onInput={inputHandler1}
             required
           />
@@ -255,7 +257,7 @@ const loginForm = () => {
             label="Username"
             placeholder="ใส่ username"
             errorText="username ไม่สามารถเว้นว่างได้!"
-            validator={[VALIDATOR_REQUIRE()]}
+            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR()]}
             onInput={inputHandler2}
             required
           />
@@ -291,7 +293,7 @@ const loginForm = () => {
             label="Display name"
             placeholder="ใส่ชื่อที่ใช้แสดงในเว็บ"
             errorText="ชื่อที่ใช้แสดงในเว็บไม่สามารถเว้นว่าง!"
-            validator={[VALIDATOR_REQUIRE()]}
+            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR()]}
             onInput={inputHandler3}
             required
           />

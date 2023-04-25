@@ -1,7 +1,7 @@
 import tw from "twin.macro";
 import Input from "../share/Input";
 import GoogleIcon from "../../assets/GoogleIcon.svg";
-import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../share/Validate";
+import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE, VALIDATOR_SPECIALCHAR } from "../share/Validate";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/form-hook";
 import { authClient } from "../../utils/auth";
@@ -105,7 +105,7 @@ const LoginForm = () => {
           placeholder="ชื่อผู้ใช้ของคุณ"
           errorText="กรุณาใส่ชื่อผู้ใช้"
           onInput={inputHandler}
-          validator={[VALIDATOR_REQUIRE()]}
+          validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR()]}
         />
         <Input
           type="password"

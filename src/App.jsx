@@ -24,12 +24,8 @@ import RequestCompletePage from "./pages/RequestComplete";
 import CreateOrderRequest from "./pages/CreateOrderRequest";
 import UserSettingEntrancePage from "./pages/UserSettingEntrance";
 import UserSettingEntranceDtPage from "./pages/UserSettingEntranceDt";
-<<<<<<< HEAD
 import IssueReportPage from "./pages/IssueReport";
-
-=======
 import ChatEntrancePage from "./pages/ChatEntrance";
->>>>>>> 5464a24 (Updated Chat)
 function App() {
   const { acToken, reToken, login, logout, userInfo, setUserInfo } = useAuth();
   return (

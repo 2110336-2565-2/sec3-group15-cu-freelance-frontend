@@ -2,7 +2,6 @@ import React, { useReducer, useRef } from "react";
 import tw from "twin.macro";
 import { validate } from "./Validate.jsx";
 import { useEffect } from "react";
-import { isPropertySignature } from "typescript";
 
 const styles = {
   container: ({isTextArea}) => [
