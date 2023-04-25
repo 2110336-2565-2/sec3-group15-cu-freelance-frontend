@@ -123,7 +123,7 @@ const CreatePortForm3 = ({ inputHandler, formState }) => {
         <PortfolioModal
           show={isShow}
           onClose={handleCloseModal}
-          header="เเก้ไขพอร์ตฟอลิโอ"
+          header="เเก้ไขพอร์ตโฟลิโอ"
           content={modalContent}
         />
       )}

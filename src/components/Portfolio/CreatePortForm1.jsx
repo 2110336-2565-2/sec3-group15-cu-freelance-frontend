@@ -10,7 +10,7 @@ const CreatePortForm1 = ({ inputHandler, initialValue }) => {
       <Input
         type="text"
         id="portfolioName"
-        label="หัวข้อพอร์ตฟอลิโอ"
+        label="หัวข้อพอร์ตโฟลิโอ"
         placeholder="ใส่หัวข้อพอร์ตฟอลิโอที่นี่..."
         errorText="โปรดกรอกหัวข้อพอร์ตฟอลิโอ"
         onInput={inputHandler}

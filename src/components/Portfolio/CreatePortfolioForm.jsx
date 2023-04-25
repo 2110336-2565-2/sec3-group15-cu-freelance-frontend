@@ -84,7 +84,7 @@ const CreatePortfolioForm = () => {
     (stage === 3 && !formState3.isValid);
   return (
     <Container>
-      <Header>สร้างพอร์ตฟอลิโอใหม่</Header>
+      <Header>สร้างพอร์ตโฟลิโอใหม่</Header>
       <ProgressBarContainer>
         {" "}
         <ProgressBar
