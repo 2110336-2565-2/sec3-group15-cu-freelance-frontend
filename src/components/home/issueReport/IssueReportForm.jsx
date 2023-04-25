@@ -73,15 +73,20 @@ const IssueReportForm = () => {
         reproduce,
         additionalContext,
         contractEmail,
+        priority: "",
+        attrachments: "",
+        status: "",
+        assignedTo: "",
+        openedDated: "",
+        bugSource: "",
       });
       try {
         const res = await authClient.post("/issue", data, {
           headers: { "Content-Type": "application/json" },
         });
-        console.log(res);
-        // navigate(-1);
+        navigate(-1);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
       setIsLoading(false);
     }
@@ -100,7 +105,7 @@ const IssueReportForm = () => {
     <>
       {isLoading && (
         <div tw="fixed w-screen h-screen z-[80] top-0 left-0 bg-black/50 flex justify-center items-center">
-          <LoadingSpinner white/>
+          <LoadingSpinner white />
         </div>
       )}
       <FormContainer className="form-container">
