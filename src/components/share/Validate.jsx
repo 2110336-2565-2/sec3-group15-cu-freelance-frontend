@@ -60,7 +60,7 @@ export const validate = (value, validators) => {
       isValid = isValid && +value <= validator.val;
     }
     if (validator.type === VALIDATOR_TYPE_SPECIALCHAR) {
-      isValid = isValid && /^[a-zA-Z0-9]*$/.test(value);
+      isValid = isValid && /^[\u0E00-\u0E7Fa-zA-Z0-9\s]+$/gm.test(value);
     }
     if (validator.type === VALIDATOR_TYPE_NOT_CONTAIN_NUMBER) {
       isValid = isValid && /^[^\d]*$/.test(value);

@@ -1,7 +1,7 @@
 import tw from "twin.macro";
 import Input from "../share/Input";
 import GoogleIcon from "../../assets/GoogleIcon.svg";
-import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE, VALIDATOR_SPECIALCHAR } from "../share/Validate";
+import { VALIDATOR_MAXLENGTH, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE, VALIDATOR_SPECIALCHAR } from "../share/Validate";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/form-hook";
 import { authClient } from "../../utils/auth";
@@ -103,15 +103,15 @@ const LoginForm = () => {
           id="username"
           label="ชื่อผู้ใช้"
           placeholder="ชื่อผู้ใช้ของคุณ"
-          errorText="กรุณาใส่ชื่อผู้ใช้"
+          errorText="ชื่อผู้ใช้ไม่ควรเว้นว่างหรือมีตัวอักษรพิเศษ"
           onInput={inputHandler}
-          validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR()]}
+          validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_MAXLENGTH(25)]}
         />
         <Input
           type="password"
           id="password"
           label="รหัสผ่าน"
-          placeholder="ใส่รหัสผ่านของคุณ "
+          placeholder="ใส่รหัสผ่านของคุณ"
           errorText="รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร"
           onInput={inputHandler}
           validator={[VALIDATOR_MINLENGTH(8)]}

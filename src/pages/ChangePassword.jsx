@@ -112,7 +112,7 @@ const ChangePasswordPage = ({setState}) => {
       <Form onSubmit={formSubmitHandler}>
         <Title>เปลี่ยนรหัสผ่าน</Title>
         <LockIcon src={lockIcon}></LockIcon>
-        <Caution>make sure you remember your password</Caution>
+        {/* <Caution>make sure you remember your password</Caution> */}
         <Input
           type="password"
           id="Current"

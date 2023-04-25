@@ -220,8 +220,8 @@ const loginForm = () => {
             id="firstname"
             label="ชื่อจริง"
             placeholder="ใส่ชื่อจริงของคุณ"
-            errorText="ชื่อจริงไม่สามารถเว้นว่างได้!"
-            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_NOT_CONTAIN_NUMBER()]}
+            errorText="ชื่อจริงไม่ควรเว้นว่าง หรือมีตัวอักษรพิเศษ"
+            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_NOT_CONTAIN_NUMBER(),VALIDATOR_MAXLENGTH(50)]}
             onInput={inputHandler1}
             required
           />
@@ -232,8 +232,8 @@ const loginForm = () => {
             id="lastname"
             label="นามสกุล"
             placeholder="ใส่นามสกุลของคุณ"
-            errorText="นามสกุลไม่สามารถเว้นว่างได้!"
-            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_NOT_CONTAIN_NUMBER()]}
+            errorText="นามสกุลไม่ควรเว้นว่าง หรือมีตัวอักษรพิเศษ"
+            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_NOT_CONTAIN_NUMBER(),VALIDATOR_MAXLENGTH(50)]}
             onInput={inputHandler1}
             required
           />
@@ -254,10 +254,10 @@ const loginForm = () => {
           <Input
             type="text"
             id="username"
-            label="Username"
-            placeholder="ใส่ username"
-            errorText="username ไม่สามารถเว้นว่างได้!"
-            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR()]}
+            label="ชื่อผู้ใช้"
+            placeholder="ใส่ชื่อผู้ใช้"
+            errorText="ชื่อผูใช้ไม่ควรเว้นว่าง หรือมีตัวอักษรพิเศษ"
+            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_MAXLENGTH(25)]}
             onInput={inputHandler2}
             required
           />
@@ -292,8 +292,8 @@ const loginForm = () => {
             id="displayname"
             label="Display name"
             placeholder="ใส่ชื่อที่ใช้แสดงในเว็บ"
-            errorText="ชื่อที่ใช้แสดงในเว็บไม่สามารถเว้นว่าง!"
-            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR()]}
+            errorText="ชื่อที่ใช้แสดงในเว็บไม่ควรเว้นว่างหรือมีตัวอักษรพิเศษ เเละมีความยาวได้มากสุด 10 ตัวอักษร"
+            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_MAXLENGTH(10)]}
             onInput={inputHandler3}
             required
           />

@@ -3,8 +3,11 @@ import Input from "../components/share/Input";
 import React from "react";
 import { useForm } from "../hooks/form-hook";
 import {
+  VALIDATOR_MAXLENGTH,
+  VALIDATOR_NOT_CONTAIN_NUMBER,
   VALIDATOR_PHONE,
   VALIDATOR_REQUIRE,
+  VALIDATOR_SPECIALCHAR,
 } from "../components/share/Validate";
 import { apiClient } from "../utils/axios";
 import { useContext } from "react";
@@ -155,9 +158,9 @@ const EditProfilePage = () => {
         setSubmitState(0);
       }, 3000);
     }
-    setTimeout(() => {
-      setSubmitState(0);
-    }, 3000);
+    // setTimeout(() => {
+    //   setSubmitState(0);
+    // }, 3000);
     // navigate(0);
   };
   useEffect(() => {
@@ -227,10 +230,10 @@ const EditProfilePage = () => {
               <Input
                 type="text"
                 id="Firstname"
-                label="ชื่อ"
-                errorText="ชื่อของคุณไม่ควรว่างเปล่า"
+                label="ชื่อจริง"
+                errorText="ชื่อจริงของคุณไม่ควรเว้นว่างหรือมีตัวอักษรพิเศษ"
                 onInput={inputHandler}
-                validator={[VALIDATOR_REQUIRE()]}
+                validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_NOT_CONTAIN_NUMBER(),VALIDATOR_MAXLENGTH(50)]}
                 initialValue={authCtx.userInfo.firstname}
                 initialValid={true}
               ></Input>
@@ -238,9 +241,9 @@ const EditProfilePage = () => {
                 type="text"
                 id="Lastname"
                 label="นามสกุล"
-                errorText="นามสกุลของคุณไม่ควรว่างเปล่า"
+                errorText="นามสกุลไม่ควรเว้นว่างหรือมีตัวอักษรพิเศษ"
                 onInput={inputHandler}
-                validator={[VALIDATOR_REQUIRE()]}
+                validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_NOT_CONTAIN_NUMBER(),VALIDATOR_MAXLENGTH(50)]}
                 initialValue={authCtx.userInfo.lastname}
                 initialValid={true}
               ></Input>
@@ -268,9 +271,9 @@ const EditProfilePage = () => {
                 type="text"
                 id="Displayname"
                 label="ชื่อที่ใช้แสดง"
-                errorText="ชื่อที่ใช้แสดงไม่ควรว่างเปล่า"
+                errorText="ชื่อที่ใช้เเสดงไม่ควรเว้นว่างหรือมีตัวอักษรพิเศษ เเละมีความยาวได้มากสุด 10 ตัวอักษร"
                 onInput={inputHandler}
-                validator={[VALIDATOR_REQUIRE()]}
+                validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_MAXLENGTH(10)]}
                 initialValue={authCtx.userInfo.display_name}
                 initialValid={true}
               ></Input>
