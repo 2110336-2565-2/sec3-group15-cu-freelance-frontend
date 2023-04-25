@@ -9,7 +9,7 @@ const IconDesc = styled.div(({}) => [
   tw`font-ibm font-bold text-mobile-small tbl:text-base`,
 ]);
 const Title = styled.div(({}) => [
-  tw`font-bold font-ibm text-freelance-black-primary text-mobile-h1 tbl:text-4xl text-center`,
+  tw`font-bold font-ibm text-freelance-black-primary text-mobile-h1 tbl:text-2xl text-center`,
 ]);
 const Desc = styled.div(({}) => [
   tw`font-normal font-ibm text-freelance-black-secondary text-mobile-body  tbl:text-xl text-center`,

@@ -16,7 +16,7 @@ const Header = tw.div`font-bold w-full `;
 const UploadContainer = tw.div`w-full  h-[200px] flex items-center flex-col`;
 const FilenameContainer = tw.div`flex flex-col gap-y-3 max-h-[220px] dt:max-h-[200px] overflow-y-auto`;
 const ModalContent = tw.div`flex flex-col items-center justify-center w-full h-[85%] mb-2  mx-auto`;
-const ButtonModal = tw.div`h-[7%] w-full flex justify-between px-[5%]`;
+const ButtonModal = tw.div`h-[7%] w-full flex justify-center px-[5%]`;
 const ModalImage = tw.img`object-scale-down h-[70%]`;
 
 const SendOrder = ({ onClose, handleConfirmSend, formState, inputHandler }) => {
@@ -79,9 +79,9 @@ const SendOrder = ({ onClose, handleConfirmSend, formState, inputHandler }) => {
         <Button secondary onClick={handleCloseModal} width="40%">
           ย้อนกลับ
         </Button>
-        <Button primary onClick={handleDeleteFile.bind(null, id)} width="40%">
+        {/* <Button primary onClick={handleDeleteFile.bind(null, id)} width="40%">
           ลบไฟล์
-        </Button>
+        </Button> */}
       </ButtonModal>
     </>
   );

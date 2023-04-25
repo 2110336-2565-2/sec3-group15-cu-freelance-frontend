@@ -38,7 +38,7 @@ const Step = styled.div(({}) => [
 const StepDesc = styled.div(({}) => [
   tw`font-ibm font-normal text-mobile-small dt:text-base text-freelance-black-secondary mr-4`,
 ]);
-const OrderContainer = tw.div`flex  w-full max-w-full overflow-auto pl-4 min-h-[40vh] dt:min-h-[30vh] items-center`;
+const OrderContainer = tw.div`flex gap-x-5  w-full max-w-full overflow-auto pl-4 min-h-[40vh] dt:min-h-[30vh] items-center`;
 const LoadingDiv = tw.div`font-ibm`;
 
 const Footer1 = styled.div(({}) => [

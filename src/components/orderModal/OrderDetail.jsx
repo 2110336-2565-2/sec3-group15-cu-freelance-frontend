@@ -27,7 +27,7 @@ const PersonalInfo = tw.div`inline text-mobile-h2 font-semibold text-freelance-p
 const FC = tw.div`flex text-mobile-body gap-x-2 items-center`;
 const TypeFC = tw.div`font-normal`;
 const NameFC = tw.div`font-bold`;
-const ButtonLine = tw.div`flex justify-between`;
+const ButtonLine = tw.div`flex justify-around mx-auto w-[90%]`;
 
 const OrderDetail = (props) => {
   let typeFC = props.userType === 2 ? "ฟรีเเลนซ์:" : "ผู้ว่าจ้าง:";
