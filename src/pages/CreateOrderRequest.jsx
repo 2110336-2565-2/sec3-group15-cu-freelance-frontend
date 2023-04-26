@@ -12,6 +12,8 @@ import OrderCard from "../components/share/OrderCard";
 import "./MyOrder.css";
 import EditOrder from "../components/order/EditOrder";
 import { OrderContext } from "../context/OrderProvider";
+import LoadingSpinner from "../components/share/LoadingSpinner";
+import CreatedTemplateCard from "../components/order/CreatedTemplateCard";
 function reducer(state, action) {
   if (action.type == "CHANGESTATE") {
     return {
@@ -36,8 +38,8 @@ const Step = styled.div(({}) => [
 const StepDesc = styled.div(({}) => [
   tw`font-ibm font-normal text-mobile-body dt:text-base text-center text-freelance-black-secondary mr-4`,
 ]);
-const OrderContainer = tw.div`flex gap-x-5  w-full max-w-full overflow-auto pl-4 min-h-[40vh] dt:min-h-[30vh] items-center`;
-const LoadingDiv = tw.div`font-ibm`;
+const OrderContainer = tw.div`flex gap-x-5  w-full max-w-full overflow-auto pl-4 dt:min-h-[30vh] h-[250px] items-center`;
+const LoadingDiv = tw.div`w-full`;
 
 const Footer1 = styled.div(({}) => [
   tw`flex flex-row w-full gap-x-4 justify-between`,
@@ -57,6 +59,7 @@ const stepDesc = [
 ];
 const CreateOrderRequest = () => {
   const [state, dispatch] = useReducer(reducer, { value: 1 });
+  const [avatar, setAvatar] = useState(null);
   const orderCtx = useContext(OrderContext);
   // console.log(orderCtx);
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -73,57 +76,57 @@ const CreateOrderRequest = () => {
   };
   const [isLoadingOne, setIsLoadingOne] = useState(false);
   useEffect(() => {
-    console.log(selectedOrder);
     const fetchOne = async () => {
       try {
         setIsLoadingOne(true);
         const res = await apiClient.get(`/order/template/${selectedOrder.id}`);
-        console.log(res.data.order_template);
       } catch (err) {
         console.log(err);
       }
       setIsLoadingOne(false);
     };
-    fetchOne();
-    setFormData1(
-      {
-        topic: {
-          value: selectedOrder ? selectedOrder.title : null,
-          isValid: true,
+    if (selectedOrder) {
+      fetchOne();
+      setFormData1(
+        {
+          topic: {
+            value: selectedOrder ? selectedOrder.title : null,
+            isValid: true,
+          },
+          desc: {
+            value: selectedOrder ? selectedOrder.description : null,
+            isValid: true,
+          },
         },
-        desc: {
-          value: selectedOrder ? selectedOrder.description : null,
-          isValid: true,
+        true
+      );
+      setFormData2(
+        {
+          price: {
+            value: selectedOrder ? selectedOrder.price : null,
+            isValid: true,
+          },
+          duration: {
+            value: selectedOrder ? selectedOrder.duration : null,
+            isValid: true,
+          },
         },
-      },
-      true
-    );
-    setFormData2(
-      {
-        price: {
-          value: selectedOrder ? selectedOrder.price : null,
-          isValid: true,
+        true
+      );
+      setFormData3(
+        {
+          email: {
+            value: selectedOrder ? selectedOrder.email : null,
+            isValid: true,
+          },
+          phone: {
+            value: selectedOrder ? selectedOrder.tel : null,
+            isValid: true,
+          },
         },
-        duration: {
-          value: selectedOrder ? selectedOrder.duration : null,
-          isValid: true,
-        },
-      },
-      true
-    );
-    setFormData3(
-      {
-        email: {
-          value: selectedOrder ? selectedOrder.email : null,
-          isValid: true,
-        },
-        phone: {
-          value: selectedOrder ? selectedOrder.tel : null,
-          isValid: true,
-        },
-      },
-      true
-    );
+        true
+      );
+    }
   }, [selectedOrder]);
   const onClickCardHandler = (order) => {
     // console.log(order)
@@ -135,7 +138,7 @@ const CreateOrderRequest = () => {
   };
   const backHandler = () => {
     if (state.value == 1) {
-      navigate(-1);
+      navigate(`/portfolio/${orderCtx.portID}`);
     }
     dispatch({ type: "CHANGESTATE", value: state.value - 1 });
     setProgress(state.value - 1);
@@ -161,8 +164,8 @@ const CreateOrderRequest = () => {
       state: {
         title: "การส่งออเดอร์สำเร็จ",
         desc: "ยินดีด้วย ออเดอร์ของคุณถูกส่งให้ฟรีแลนซ์ เมื่อฟรีแลนซ์รับออเดอร์ก็เริ่มงานได้เลย!",
-        bt1Text: "กลับหน้าหลัก",
-        path1: "/home",
+        bt1Text: "ไปหน้าออเดอร์ของฉัน",
+        path1: "/my-order?q=request&pages=1",
       },
     });
   };
@@ -243,6 +246,9 @@ const CreateOrderRequest = () => {
       console.log(response.data);
       setOrders(response.data.order_templates);
       setMeta(response.data.meta);
+      response = await apiClient.get(`/file/avatar?id=${authCtx.userInfo.id}`);
+      console.log(response.data);
+      setAvatar(response.data.avatars[0].url);
     } catch (err) {
       console.log(err);
     }
@@ -250,10 +256,7 @@ const CreateOrderRequest = () => {
   };
   useEffect(() => {
     fetchData("template", page);
-  }, [
-    // keyword,
-    page,
-  ]);
+  }, [page]);
   return (
     <Container>
       <ProgressBar
@@ -278,18 +281,24 @@ const CreateOrderRequest = () => {
       <StepDesc>{stepDesc[state.value - 1]}</StepDesc>
       {state.value == 1 && (
         <OrderContainer>
-          {isLoadingOrder && <LoadingDiv>loading...</LoadingDiv>}
-          {
-            !isLoadingOrder &&
-              orders &&
-              orders.map((order, idx) => (
+          {isLoadingOrder && (
+            <LoadingDiv>
+              <LoadingSpinner />
+            </LoadingDiv>
+          )}
+          {!isLoadingOrder&&<CreatedTemplateCard />}
+          {!isLoadingOrder &&
+            orders && 
+            orders.map((order, idx) => {
+              return (
                 <OrderCard
                   key={idx}
                   selected={selectedOrder && selectedOrder.id === order.id}
                   header={order.title}
                   description={order.description}
                   duration={order.duration}
-                  customer={"customer"}
+                  customer={authCtx.userInfo.display_name}
+                  avatar={avatar}
                   price={order.price}
                   freelance={null}
                   hasStatus={false}
@@ -298,31 +307,10 @@ const CreateOrderRequest = () => {
                   userType={authCtx.userInfo.user_type}
                   onClick={onClickCardHandler.bind(null, order)}
                 />
-              ))
-            // <OrderCard
-            // key={"idx"}
-            // header={"order.title"}
-            // description={"order.description"}
-            // customer={"customer"}
-            // freelance={
-            //     null
-            // }
-            // duration="7"
-            // price="2000"
-            // hasStatus={
-            //     false
-            // }
-            // status="In Progress"
-            // orderType={"template"}
-            // userType={authCtx.userInfo.user_type}
-            // onClick={onClickCardHandler.bind(null, "order")}
-            // />
-          }
+              );
+            })}
         </OrderContainer>
       )}
-      {/* <CreateOrder1 inputHandler1={inputHandler1} show={state.value == 1} />
-      <CreateOrder2 inputHandler2={inputHandler2} show={state.value == 1} />
-      <CreateOrder3 inputHandler3={inputHandler3} show={state.value == 1} /> */}
       {!isLoadingOne && (
         <EditOrder
           inputHandler1={inputHandler1}
@@ -357,13 +345,12 @@ const CreateOrderRequest = () => {
         </Footer1>
       ) : (
         <Footer1>
-        <Button onClick={backHandler} width="50%" secondary>
+          <Button onClick={backHandler} width="50%" secondary>
             <u>กลับไปแก้ไข</u>
           </Button>
           <Button onClick={submitHandler} width="50%" primary>
             ส่งออเดอร์
           </Button>
-         
         </Footer1>
       )}
     </Container>

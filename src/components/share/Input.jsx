@@ -4,9 +4,10 @@ import { validate } from "./Validate.jsx";
 import { useEffect } from "react";
 
 const styles = {
-  container: ({isTextArea}) => [
+  container: ({isTextArea,rows}) => [
     tw`box-border flex flex-col w-full font-inter min-h-[84px]`,
-    isTextArea&&tw`min-h-[300px]`
+    isTextArea&&rows!==7&&tw`min-h-[300px]`,
+    isTextArea&&rows===7&&tw`min-h-[230px]`
   ],
   label: () => [tw`mb-2   dt:text-[16px] align-top font-ibm`],
   input: () => [
@@ -155,7 +156,7 @@ const Input = ({
     );
 
   return (
-    <div css={styles.container({isTextArea:type==="textarea"})}>
+    <div css={styles.container({isTextArea:type==="textarea",rows})}>
       <label css={styles.label()} htmlFor={id}>
         {label}
         {required && <span className="text-red-700 ">*</span>}

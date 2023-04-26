@@ -40,6 +40,7 @@ import ConfirmModalTemplate from "../components/share/ConfirmModalTemplate";
 import LoadingSpinner from "../components/share/LoadingSpinner";
 import OrderCarousel from "../components/order/OrderCarousel";
 import Button from "../components/share/Button";
+import { OrderContext } from "../context/OrderProvider";
 
 const BG = tw.div`inline dt:flex w-full dt:w-[90%] max-w-[1200px] mx-auto`;
 const Header = tw.div`text-mobile-h1 dt:text-desktop-h1 font-bold my-4`;
@@ -65,6 +66,7 @@ const MyOrderPage = () => {
   const windowSize = useWindow();
   const carouselRef = useRef(null);
   const authCtx = useContext(AuthContext);
+  const orderCtx=useContext(OrderContext)
   const userType = authCtx.userInfo.user_type;
   // console.log(authCtx.userInfo.user_type);
   const navigate = useNavigate();
@@ -685,6 +687,7 @@ const MyOrderPage = () => {
                 <Button
                   primary
                   onClick={() => {
+                    orderCtx.clickCreateTemplate("order")
                     navigate("/create-order-template");
                   }}
                 >

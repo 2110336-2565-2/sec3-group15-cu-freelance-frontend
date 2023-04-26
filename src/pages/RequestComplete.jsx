@@ -35,7 +35,7 @@ const RequestComplete = ({
   const location = useLocation();
   const navigate = useNavigate();
   const btOnclickHandler = (path) => {
-    navigate(path);
+    navigate(path,{replace:true});
   };
   return location.state ? (
     <Container from={location.state} isModal={isModal}>

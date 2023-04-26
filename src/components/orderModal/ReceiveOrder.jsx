@@ -205,7 +205,7 @@ const ReceiveOrder = ({ id, setOrderModalPage, setSuccessType }) => {
           primary
           width="40%"
           onClick={handleClickConfirm}
-          disable={order ? order.status === "complete" : true}
+          disable={order ? order.status === "completed" : true}
         >
           ยืนยันออเดอร์
         </Button>

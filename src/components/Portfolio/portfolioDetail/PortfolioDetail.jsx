@@ -88,6 +88,7 @@ const PortfolioDetail = () => {
     const {display_name,id}=portfolio.freelance
     orderCtx.setFLDisplayName(display_name)
     orderCtx.setFreelanceID(id)
+    orderCtx.setPortID(portfolio.id)
     navigate('/create-order-request')
   };
 

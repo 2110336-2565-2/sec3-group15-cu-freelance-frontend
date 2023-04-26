@@ -45,11 +45,11 @@ const OrderDetail = (props) => {
   } = props.order;
 
   let color;
-  if (status === "complete" || status === "accept") color = "green";
+  if (status === "completed" || status === "accepted") color = "green";
   if (status === "in progress") color = "orange";
-  if (status === "reject" || status === "failed") color = "red";
+  if (status === "rejected" || status === "failed") color = "red";
   if (status === "pending") color = "gray";
-  if (status === "close") color = "blue";
+  if (status === "closed") color = "blue";
 
   return (
     <>

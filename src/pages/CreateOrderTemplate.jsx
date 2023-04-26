@@ -12,6 +12,7 @@ import { authClient } from "../utils/auth";
 import { apiClient } from "../utils/axios";
 import Button from "../components/share/Button";
 import LoadingSpinner from "../components/share/LoadingSpinner";
+import { OrderContext } from "../context/OrderProvider";
 function reducer(state, action) {
   if (action.type == "CHANGESTATE") {
     return {
@@ -58,7 +59,9 @@ const CreateOrderTemplate = () => {
   const [progress, setProgress] = useState(1);
   const [loading, setLoading] = useState(false);
   const authCtx = useContext(AuthContext);
+  const orderCtx=useContext(OrderContext)
   const [isLoading, setIsLoading] = useState(false);
+
 
   const onChangeStateHandler = (value) => {
     dispatch({ type: "CHANGESTATE", value: value });
@@ -97,14 +100,15 @@ const CreateOrderTemplate = () => {
     // const bt2OnClickHandler = () => {
     //   navigate("/home");
     // };
+    console.log(orderCtx);
     navigate("/request-complete", {
       state: {
         title: "การสร้างออเดอร์สำเร็จ",
         desc: "ยินดีด้วย ออเดอร์ของคุณถูกสร้าง เลือกฟรีแลนซ์ที่ถูกใจแล้วกดส่งได้เลย!",
-        bt1Text: "เลือกฟรีแลนซ์",
-        bt2Text: "กลับหน้าหลัก",
+        bt1Text: orderCtx.backToText,
+        bt2Text: "กลับสู่หน้าออเดอร์ของฉัน",
         bt2: "true",
-        path1: "/search",
+        path1: orderCtx.backTo,
         path2: "/my-order?q=template&pages=1",
       },
       //bt1OnclickHandler
