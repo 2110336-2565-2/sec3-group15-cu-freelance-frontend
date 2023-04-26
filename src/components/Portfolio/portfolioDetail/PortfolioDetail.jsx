@@ -55,7 +55,7 @@ const PortfolioDetail = () => {
         const freelanceId = response.data.portfolio.freelance.id;
         // console.log(response);
         response = await authClient.get(`/file/portfolio/${portId}`);
-        // console.log(response);
+        console.log(response);
         setImages(response.data.urls);
         response = await authClient.get(`/file/avatar?id=${freelanceId}`);
         // console.log(response.data.avatars[0]);

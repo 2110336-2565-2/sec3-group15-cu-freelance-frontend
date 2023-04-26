@@ -6,6 +6,7 @@ import React from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
+import LoadingSpinner from "../share/LoadingSpinner";
 
 const OrderCarousel = forwardRef(
   (
@@ -71,6 +72,7 @@ const OrderCarousel = forwardRef(
             ))}
           </Swiper>
         )}
+         {/* {isLoading&&<div><LoadingSpinner/></div>} */}
       </div>
     );
   }

@@ -42,6 +42,7 @@ const CreatePortForm4 = ({
   const { image, thumbnail } = formState3.inputs;
   const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
+  console.log(formState1,formState2,formState3);
   useEffect(() => {
     const images = [];
     image.value.some((img) => {
@@ -78,13 +79,13 @@ const CreatePortForm4 = ({
       console.log(response.data);
       const portfolioId = response.data.portfolio.id;
       for (var x = 0; x < image.value.length; x++) {
-        let data = new FormData();
+        const data = new FormData();
         data.append("file", image.value[x]);
         const response = await apiClient.put(
           `/file/portfolio/${portfolioId}`,
           data
         );
-        console.log(response);
+        console.log(response.data);
       }
       data = new FormData();
       data.append("file", thumbnail.value[0]);
