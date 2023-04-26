@@ -1,7 +1,11 @@
 import tw, { styled } from "twin.macro"
 import React from "react"
 import CircleImage from "../share/CircleImage"
+<<<<<<< HEAD
 import defaultProfile from "../../assets/DefaultProfile.svg"
+=======
+import defaultProfile from "../../assets/defaultProfile.svg"
+>>>>>>> chat
 const Container = styled.div(({ selected }) => [
     tw`flex flex-row gap-x-2 items-center w-full py-2 hover:bg-gray-100`,
     selected && tw`bg-gray-200`
