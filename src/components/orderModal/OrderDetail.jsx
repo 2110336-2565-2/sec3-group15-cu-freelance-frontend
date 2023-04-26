@@ -5,6 +5,7 @@ import DeleteIcon from "../../assets/DeleteProIcon.svg";
 import MyOrderAvIcon from "../../assets/MyOrderAvIcon.svg";
 import Button from "../share/Button";
 import StatusBar from "../orderCard/StatusBar";
+import CircleImage from "../share/CircleImage";
 
 const BG = tw.div`font-ibm flex flex-col gap-y-5 h-[82vh] dt:h-[80%] max-h-[82vh] overflow-auto`;
 
@@ -28,9 +29,10 @@ const FC = tw.div`flex text-mobile-body gap-x-2 items-center`;
 const TypeFC = tw.div`font-normal`;
 const NameFC = tw.div`font-bold`;
 const ButtonLine = tw.div`flex justify-around mx-auto w-[90%]`;
+const AvatarContainer = tw.div`w-[40px] h-[40px]`;
 
 const OrderDetail = (props) => {
-  let typeFC = props.userType === 2 ? "ฟรีเเลนซ์:" : "ผู้ว่าจ้าง:";
+  let typeFC = props.userType === 2 ? "ผู้รับจ้าง:" : "ผู้ว่าจ้าง:";
   const {
     customer_name,
     freelance_name,
@@ -108,10 +110,16 @@ const OrderDetail = (props) => {
         </OrderInfo>
         {props.orderType !== "template" && (
           <FC>
-            <img src={MyOrderAvIcon} />
+            <AvatarContainer>
+              <CircleImage
+                image={
+                  props.order.avatar2
+                }
+              />
+            </AvatarContainer>
             <TypeFC>{typeFC}</TypeFC>
             <NameFC>
-              {typeFC === "ฟรีเเลนซ์" ? freelance_name : customer_name}
+              {props.userType===2 ? props.order.freelance_name : props.order.customer_name}
             </NameFC>
           </FC>
         )}

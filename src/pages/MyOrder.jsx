@@ -66,11 +66,11 @@ const MyOrderPage = () => {
   const windowSize = useWindow();
   const carouselRef = useRef(null);
   const authCtx = useContext(AuthContext);
-  const orderCtx=useContext(OrderContext)
+  const orderCtx = useContext(OrderContext);
   const userType = authCtx.userInfo.user_type;
   // console.log(authCtx.userInfo.user_type);
   const navigate = useNavigate();
-
+  const [avatar, setAvatar] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [formState, inputHandler] = useForm(
@@ -361,20 +361,52 @@ const MyOrderPage = () => {
       response = await apiClient.get(
         `/order${ht}?` + new URLSearchParams(params).toString()
       );
-      console.log(response.data);
-      if (windowSize >= 850 || page === "1" || !orders) {
-        if (selectOrder === "template")
-          setOrders(response.data.order_templates);
-        else if (selectOrder === "request") setOrders(response.data.requests);
-        else setOrders(response.data.orders);
-      } else {
-        if (selectOrder === "template")
-          setOrders((prev) => [...prev, ...response.data.order_templates]);
-        else if (selectOrder === "request")
-          setOrders((prev) => [...prev, ...response.data.requests]);
-        else setOrders((prev) => [...prev, ...response.data.orders]);
-      }
+      let responseOrders,
+        avatarsId = null,
+        resultOrders = [];
+      if (selectOrder === "template")
+        responseOrders = response.data.order_templates;
+      else if (selectOrder === "request")
+        responseOrders = response.data.requests;
+      else responseOrders = response.data.orders;
 
+      if (userType === 1)
+        avatarsId = responseOrders.map((order) => order.customer_id);
+      else if (userType === 2 && selectOrder !== "template")
+        avatarsId = responseOrders.map((order) => order.freelance_id);
+
+      console.log(avatarsId);
+
+      const responseAvatar2 = await apiClient.get(
+        `/file/avatar?id=${avatarsId}`
+      );
+      console.log(responseAvatar2.data);
+
+      resultOrders = responseOrders.map((order) => {
+        if (!avatarsId) return order;
+        else {
+          let idx;
+          if (userType === 1)
+            idx = responseAvatar2.data.avatars.findIndex(
+              (resAV2) => resAV2.userId === order.customer_id
+            );
+          else
+            idx = responseAvatar2.data.avatars.findIndex(
+              (resAV2) => resAV2.userId === order.freelance_id
+            );
+          return { ...order, avatar2: responseAvatar2.data.avatars[idx].url };
+        }
+      });
+
+      if (windowSize >= 850 || page === "1" || !orders) {
+        setOrders(resultOrders);
+      } else {
+        setOrders((prev) => [...prev, ...resultOrders]);
+      }
+      const responseAvatar = await apiClient.get(
+        `/file/avatar?id=${authCtx.userInfo.id}`
+      );
+      setAvatar(responseAvatar.data.avatars[0].url);
       setMeta(response.data.meta);
     } catch (err) {
       console.log(err);
@@ -687,7 +719,7 @@ const MyOrderPage = () => {
                 <Button
                   primary
                   onClick={() => {
-                    orderCtx.clickCreateTemplate("order")
+                    orderCtx.clickCreateTemplate("order");
                     navigate("/create-order-template");
                   }}
                 >
@@ -724,6 +756,8 @@ const MyOrderPage = () => {
                 orders &&
                 orders.map((order) => (
                   <OrderCard
+                    avatar={avatar}
+                    avatar2={order.avatar2}
                     key={order.id}
                     header={order.title}
                     description={order.description}
