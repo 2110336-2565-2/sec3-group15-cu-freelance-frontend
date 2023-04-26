@@ -256,7 +256,7 @@ const loginForm = () => {
             id="username"
             label="ชื่อผู้ใช้"
             placeholder="ใส่ชื่อผู้ใช้"
-            errorText="ชื่อผู้ใช้ไม่ควรเว้นว่าง,ห้ามมีตัวอักษรพิเศษเเละความยาวอยู่ระหว่าง 5-25 ตัวอักษร"
+            errorText="ชื่อผู้ใช้ไม่ควรเว้นว่างหรือมีตัวอักษรพิเศษ และความยาวอยู่ระหว่าง 5-25 ตัวอักษร"
             validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_MAXLENGTH(25),VALIDATOR_MINLENGTH(5)]}
             onInput={inputHandler2}
             required

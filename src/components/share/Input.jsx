@@ -23,7 +23,7 @@ const styles = {
     tw` font-[20px] text-freelance-black-primary p-[1%] font-light font-ibm`,
   ],
   errorText: ({ isFirstClick, isValid }) => [
-    tw`my-[1px] font-light text-red-700 text-xs font-ibm`,
+    tw`my-[1px] font-light text-red-700 text-sm font-ibm`,
     (!isFirstClick || isValid) && tw`hidden`,
   ],
 };
