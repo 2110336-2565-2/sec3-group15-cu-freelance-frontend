@@ -165,6 +165,7 @@ const MyOrderPage = () => {
   const onResetPage = () => {
     searchParams.set("pages", 1);
     setSearchParams(searchParams);
+    setOrders(null);
     if (carouselRef.current) {
       if (carouselRef.current.swiper)
         carouselRef.current.swiper.slideTo(0, 1000);
@@ -369,6 +370,8 @@ const MyOrderPage = () => {
       else if (selectOrder === "request")
         responseOrders = response.data.requests;
       else responseOrders = response.data.orders;
+
+      console.log(responseOrders);
 
       if (userType === 1)
         avatarsId = responseOrders.map((order) => order.customer_id);
@@ -737,6 +740,7 @@ const MyOrderPage = () => {
           </SortContainer>
           {windowSize < 850 && (
             <OrderCarousel
+              avatar={avatar}
               orders={orders}
               isLoading={isLoadingOrder}
               handleInfiniteScroll={handleInfiniteScrollNextPage}

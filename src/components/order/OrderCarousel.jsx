@@ -6,10 +6,12 @@ import React from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
+import LoadingSpinner from "../share/LoadingSpinner";
 
 const OrderCarousel = forwardRef(
   (
     {
+      avatar,
       orders,
       isLoading,
       handleInfiniteScroll,
@@ -53,6 +55,8 @@ const OrderCarousel = forwardRef(
                       ? order.freelance_name
                       : null
                   }
+                  avatar={avatar}
+                  avatar2={order.avatar2}
                   due_date={order.due_date}
                   duration={order.duration}
                   price={order.price}
@@ -68,6 +72,7 @@ const OrderCarousel = forwardRef(
             ))}
           </Swiper>
         )}
+         {/* {isLoading&&<div><LoadingSpinner/></div>} */}
       </div>
     );
   }

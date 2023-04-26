@@ -26,8 +26,8 @@ const CreatePortForm1 = ({ inputHandler, initialValue }) => {
         placeholder="ใส่รายละเอียดพอร์ตโฟลิโอที่นี่..."
         errorText="โปรดกรอกรายละเอียด"
         onInput={inputHandler}
-        initialValue={initialValue.inputs.portfolioName.value}
-        initialValid={initialValue.inputs.portfolioName.isValid}
+        initialValue={initialValue.inputs.description.value}
+        initialValid={initialValue.inputs.description.isValid}
         validator={[VALIDATOR_REQUIRE()]}
         required
       />
