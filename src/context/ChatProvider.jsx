@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { useState } from "react";
 import { createContext } from "react";
 import { AuthContext } from "./AuthProvider";
-
+import WebSocket from "isomorphic-ws";
 export const ChatContext = createContext({
     ws: null,
     partner: null,
@@ -45,7 +45,7 @@ const ChatProvider = ({ children }) => {
                 else if (data.connect_success === true) {
                     console.log("Handshake is completed!");
                     const testMessage = {
-                        type: 4,
+                        type: 2,
                         target: "e814e268-dde4-4755-98be-6d704cb4b7f6",
                         message: "testMessage",
                     }
