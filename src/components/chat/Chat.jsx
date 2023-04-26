@@ -81,8 +81,13 @@ const Chat = () => {
     const keyDownHandler = () => {
         if (messageInput.inputs.input.value) {
             changeList({ sender: 1, message: messageInput.inputs.input.value });
-            chatCtx.ws.send(JSON.stringify({ type: 4, message: messageInput.inputs.input.value }));
+            const data = { type: 4, target: chatCtx.partner.id, message: messageInput.inputs.input.value };
+            console.log(data, chatCtx.ws);
+            chatCtx.ws.send(JSON.stringify(data));
         }
+    }
+    chatCtx.ws.onmessage = (event) => {
+        console.log(event.data);
     }
     useEffect(() => {
         if (messageList && messageList[messageList.length - 1].user == 0) {
