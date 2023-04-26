@@ -4,7 +4,9 @@ import CircleImage from '../share/CircleImage';
 import { useState } from 'react';
 import Input from '../share/Input';
 import { useForm } from '../../hooks/form-hook';
-const startMessageList = [{ user: 0, text: "สวัสดีจ้ะ" }, { user: 0, text: "ว่างไหม" }, { user: 1, text: "สวัสดีครับ" }, { user: 0, text: "พี่มีโปรเจกต์ทำเว็บสำหรับนิสิตจุฬา รายละเอียดคร่าวๆคือทำเว็บไซต์ freelance ให้เด็กจุฬา ให้ค่าเหนื่อยประมาณ 100000 น้องสนใจมั้ย" }, { user: 1, text: "น่าสนใจครับ ลองส่งorderมาให้ผมลองอ่านคร่าวๆดูก่อนได้ไหม เดี๋ยวผมจะยืนยันอีกที" }]
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthProvider';
+const startMessageList = [{ sender: 0, message: "สวัสดีจ้ะ" }, { sender: 0, message: "ว่างไหม" }, { sender: 1, message: "สวัสดีครับ" }, { sender: 0, message: "พี่มีโปรเจกต์ทำเว็บสำหรับนิสิตจุฬา รายละเอียดคร่าวๆคือทำเว็บไซต์ freelance ให้เด็กจุฬา ให้ค่าเหนื่อยประมาณ 100000 น้องสนใจมั้ย" }, { sender: 1, message: "น่าสนใจครับ ลองส่งorderมาให้ผมลองอ่านคร่าวๆดูก่อนได้ไหม เดี๋ยวผมจะยืนยันอีกที" }]
 
 const Container = styled.div(() => [
     tw`flex flex-col w-full dt:w-2/3`
@@ -42,6 +44,12 @@ const Text = styled.div(() => [
     tw`rounded-[20px] font-ibm bg-white text-black p-4 my-1 w-fit max-w-[45%]`
 ])
 const Chat = ({ talker }) => {
+    const authCtx = useContext(AuthContext);
+    if (authCtx.ws) {
+        authCtx.ws.addEventListener("onMessage", (event) => {
+            console.log(event.data);
+        })
+    }
     const [messageInput, inputHandler] = useForm({
         input: {
             value: "",
@@ -63,7 +71,7 @@ const Chat = ({ talker }) => {
     let [messageList, setMessageList] = useState(modifiedList(startMessageList));
     const changeList = (newMessage) => {
         const newList = [...messageList];
-        if (newMessage.user === 0) {
+        if (newMessage.sender === 0) {
             newList[newList.length - 1].show = false;
             newMessage.show = true;
         }
@@ -72,7 +80,7 @@ const Chat = ({ talker }) => {
     }
     const keyDownHandler = () => {
         if (messageInput.inputs.input.value)
-            changeList({ user: 1, text: messageInput.inputs.input.value });
+            changeList({ sender: 1, message: messageInput.inputs.input.value });
     }
     useEffect(() => {
         if (messageList && messageList[messageList.length - 1].user == 0) {
@@ -96,12 +104,12 @@ const Chat = ({ talker }) => {
                 <MessageContainer ref={messageRef}>
                     {messageList.map((message, i) => {
                         return (
-                            <Message key={i} right={message.user == 1} onClick={changeList.bind(null, { user: 0, text: "kuy" })}>
+                            <Message key={i} right={message.sender == 1} onClick={changeList.bind(null, { sender: 0, mess: "kuy" })}>
                                 {message.show && <ProfileContainer>
                                     <CircleImage />
                                 </ProfileContainer>}
                                 <Text>
-                                    {message.text}
+                                    {message.message}
                                 </Text>
                             </Message>
                         )

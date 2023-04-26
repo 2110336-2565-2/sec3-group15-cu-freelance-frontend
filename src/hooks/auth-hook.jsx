@@ -1,5 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { apiClient } from "../utils/axios";
+import { useWebSocket } from "react-use-websocket/dist/lib/use-websocket";
+import WebSocket from "isomorphic-ws";
 let logoutTimer;
 
 export const useAuth = () => {
@@ -8,10 +10,14 @@ export const useAuth = () => {
   const [tokenExpirationDate, setTokenExpirationDate] = useState();
   const [userInfo, setUserInfo] = useState({});
 
+
   const login = useCallback(async (acToken, reToken, expiresOn) => {
     setAcToken(acToken);
     setReToken(reToken);
     const tokenExpirationDate = expiresOn;
+    // const [socketUrl, setSocketUrl] = useState("wss://pbeta.cu-freelance.tech/v1/chat/ws");
+    // const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
+    // console.log(readyState);
     setTokenExpirationDate(tokenExpirationDate);
     localStorage.setItem(
       "userData",
