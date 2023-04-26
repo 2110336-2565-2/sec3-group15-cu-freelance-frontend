@@ -6,7 +6,7 @@ import {
   VALIDATOR_REQUIRE,
 } from "../share/Validate";
 const Container = styled.div(({ show }) => [
-  tw`place-self-start w-full gap-y-2 mb-2`,
+  tw`place-self-start w-full gap-y-2 mb-2 dt:min-h-[385px]`,
   !show && tw`hidden`,
 ]);
 const CreateOrder3 = ({

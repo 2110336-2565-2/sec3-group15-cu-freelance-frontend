@@ -103,7 +103,7 @@ const LoginForm = () => {
           id="username"
           label="ชื่อผู้ใช้"
           placeholder="ชื่อผู้ใช้ของคุณ"
-          errorText="ชื่อผู้ใช้ไม่ควรเว้นว่างหรือมีตัวอักษรพิเศษ"
+          errorText="ชื่อผู้ใช้ไม่ควรเว้นว่าง,ห้ามมีตัวอักษรพิเศษเเละความยาวอยู่ระหว่าง 5-25 ตัวอักษร"
           onInput={inputHandler}
           validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_MAXLENGTH(25),VALIDATOR_MINLENGTH(5)]}
         />

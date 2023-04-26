@@ -199,7 +199,7 @@ const loginForm = () => {
   return (
     <>
     <AnimatePresence>
-      {submitState==1&&<Toast type='fail' title='ผิดพลาด' description='username ถูกใช้แล้ว' icon={failIcon}/>}
+      {submitState==1&&<Toast type='fail' title='ผิดพลาด' description='ชื่อผู้ใช้หรืออีเมลล์ถูกใช้งานแล้ว' icon={failIcon}/>}
     </AnimatePresence>
     <div css={styles.container()}>
       <div css={styles.content()}>
@@ -256,7 +256,7 @@ const loginForm = () => {
             id="username"
             label="ชื่อผู้ใช้"
             placeholder="ใส่ชื่อผู้ใช้"
-            errorText="ชื่อผูใช้ไม่ควรเว้นว่าง หรือมีตัวอักษรพิเศษ"
+            errorText="ชื่อผู้ใช้ไม่ควรเว้นว่าง,ห้ามมีตัวอักษรพิเศษเเละความยาวอยู่ระหว่าง 5-25 ตัวอักษร"
             validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_MAXLENGTH(25),VALIDATOR_MINLENGTH(5)]}
             onInput={inputHandler2}
             required
@@ -290,7 +290,7 @@ const loginForm = () => {
           <Input
             type="text"
             id="displayname"
-            label="Display name"
+            label="ชื่อที่ใช้เเสดงในเว็บ"
             placeholder="ใส่ชื่อที่ใช้แสดงในเว็บ"
             errorText="ชื่อที่ใช้เเสดงไม่ควรมีตัวอักษรพิเศษ เเละมีความยาวอยู่ระหว่าง 4-10 ตัวอักษร"
             validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_MAXLENGTH(10),VALIDATOR_MINLENGTH(4)]}

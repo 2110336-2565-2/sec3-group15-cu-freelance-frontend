@@ -2,11 +2,11 @@ import tw, {styled} from "twin.macro";
 import Input from "../share/Input";
 import { VALIDATOR_REQUIRE } from "../share/Validate";
 const Container = styled.div(({show})=>[
-    tw`place-self-start w-full gap-y-2 mb-2`,
+    tw`place-self-start w-full gap-y-2 mb-2 dt:min-h-[385px]`,
     !show && tw`hidden`
 ]);
 const CreateOrder1 = ({inputHandler1, show=true,initialValue,initialValid=false})=>{
-    console.log(show)
+
     return (
         <Container show={show}>
             <Input 
@@ -31,7 +31,7 @@ const CreateOrder1 = ({inputHandler1, show=true,initialValue,initialValid=false}
             validator={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler1}
             required
-            rows={5}/>
+            rows={7}/>
         </Container>
     )
 }

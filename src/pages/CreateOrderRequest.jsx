@@ -4,9 +4,6 @@ import { useReducer, useState, useContext, useEffect } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useForm } from "../hooks/form-hook";
 import { AuthContext } from "../context/AuthProvider";
-import CreateOrder1 from "../components/order/CreateOrder1";
-import CreateOrder2 from "../components/order/CreateOrder2";
-import CreateOrder3 from "../components/order/CreateOrder3";
 import CreateOrder4 from "../components/order/CreateOrder4";
 import { authClient } from "../utils/auth";
 import { apiClient } from "../utils/axios";
@@ -14,6 +11,7 @@ import Button from "../components/share/Button";
 import OrderCard from "../components/share/OrderCard";
 import "./MyOrder.css";
 import EditOrder from "../components/order/EditOrder";
+import { OrderContext } from "../context/OrderProvider";
 function reducer(state, action) {
   if (action.type == "CHANGESTATE") {
     return {
@@ -59,11 +57,13 @@ const stepDesc = [
 ];
 const CreateOrderRequest = () => {
   const [state, dispatch] = useReducer(reducer, { value: 1 });
+  const orderCtx = useContext(OrderContext);
+  // console.log(orderCtx);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [progress, setProgress] = useState(1);
   const [loading, setLoading] = useState(false);
   const authCtx = useContext(AuthContext);
-  const location = useLocation();
+  // const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   //InfiniteScroll or Pagination
   const pageParams = searchParams.get("pages") || 1;
@@ -146,7 +146,7 @@ const CreateOrderRequest = () => {
       description: formState1.inputs.desc.value,
       duration: parseInt(formState2.inputs.duration.value),
       email: formState3.inputs.email.value,
-      freelance_id: location.state.id,
+      freelance_id: orderCtx.freelanceID,
       order_template_id: selectedOrder.id,
       price: parseInt(formState2.inputs.price.value),
       tel: formState3.inputs.phone.value,
@@ -273,7 +273,7 @@ const CreateOrderRequest = () => {
         <Step>
           {state.value == 4 ? "ตรวจสอบออเดอร์อีกครั้ง" : step[state.value - 1]}
         </Step>
-        <SendTo>ถึง: {location.state.displayName}</SendTo>
+        <SendTo>ถึง: {orderCtx.flDisplayName}</SendTo>
       </StepContainer>
       <StepDesc>{stepDesc[state.value - 1]}</StepDesc>
       {state.value == 1 && (
@@ -285,7 +285,7 @@ const CreateOrderRequest = () => {
               orders.map((order, idx) => (
                 <OrderCard
                   key={idx}
-                  selected={selectedOrder&&selectedOrder.id===order.id}
+                  selected={selectedOrder && selectedOrder.id === order.id}
                   header={order.title}
                   description={order.description}
                   duration={order.duration}
@@ -320,16 +320,18 @@ const CreateOrderRequest = () => {
           }
         </OrderContainer>
       )}
-      {/* <CreateOrder1 inputHandler1={inputHandler1} show={state.value==1}/>
-            <CreateOrder2 inputHandler2={inputHandler2} show={state.value==1}/>
-            <CreateOrder3 inputHandler3={inputHandler3} show={state.value==1}/> */}
-      {!isLoadingOne&&<EditOrder
-        inputHandler1={inputHandler1}
-        inputHandler2={inputHandler2}
-        inputHandler3={inputHandler3}
-        show={state.value == 2}
-        initialValue={selectedOrder}
-      />}
+      {/* <CreateOrder1 inputHandler1={inputHandler1} show={state.value == 1} />
+      <CreateOrder2 inputHandler2={inputHandler2} show={state.value == 1} />
+      <CreateOrder3 inputHandler3={inputHandler3} show={state.value == 1} /> */}
+      {!isLoadingOne && (
+        <EditOrder
+          inputHandler1={inputHandler1}
+          inputHandler2={inputHandler2}
+          inputHandler3={inputHandler3}
+          show={state.value == 2}
+          initialValue={selectedOrder}
+        />
+      )}
       <CreateOrder4
         topic={formState1.inputs.topic.value}
         desc={formState1.inputs.desc.value}

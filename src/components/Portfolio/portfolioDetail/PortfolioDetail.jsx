@@ -4,6 +4,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { authClient } from "../../../utils/auth";
 import { apiClient } from "../../../utils/axios";
 import { AuthContext } from "../../../context/AuthProvider";
+import { OrderContext } from "../../../context/OrderProvider";
 import ImageCarousel from "../ImageCarousel";
 import { delay } from "../../../utils/delay";
 import LoadingSpinner from "../../share/LoadingSpinner";
@@ -27,6 +28,7 @@ const ButtonContainer = tw.div`w-[90%] flex justify-between`;
 
 const PortfolioDetail = () => {
   const authCtx = useContext(AuthContext);
+  const orderCtx=useContext(OrderContext);
   const params = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -44,9 +46,10 @@ const PortfolioDetail = () => {
         let response;
         setIsLoading(true);
         // await delay(10000000);
-        if (location.pathname.slice(0, 13) === "/my-portfolio") {
+        if (location.pathname.slice(0, 13) === "/my-portfolio")
           response = await apiClient.get(`/portfolio/me/${portId}`);
-        } else response = await authClient.get(`/portfolio/${portId}`);
+        else response = await authClient.get(`/portfolio/${portId}`);
+        console.log(response.data);
         setPortfolio(response.data.portfolio);
         const freelanceId = response.data.portfolio.freelance.id;
         // console.log(response);
@@ -75,13 +78,17 @@ const PortfolioDetail = () => {
       freelance: null,
     };
 
-  const onClickSendHandler = (displayName, id) => {
-    navigate("/create-order-request", {
-      state: {
-        displayName: displayName,
-        id: id,
-      },
-    });
+  const onClickSendHandler = () => {
+    // navigate("/create-order-request", {
+    //   state: {
+    //     displayName: displayName,
+    //     id: id,
+    //   },
+    // });
+    const {display_name,id}=portfolio.freelance
+    orderCtx.setFLDisplayName(display_name)
+    orderCtx.setFreelanceID(id)
+    navigate('/create-order-request')
   };
 
   let show;
@@ -113,14 +120,10 @@ const PortfolioDetail = () => {
           </ProfileContainer>
           <ButtonContainer>
             <Button
-              width="60%"
+              width="60%"a
               primary
-              onClick={onClickSendHandler.bind(
-                null,
-                freelance.display_name,
-                freelance.id
-              )}
-              disable={authCtx.userInfo.user_type===1}
+              onClick={onClickSendHandler}
+              disable={authCtx.userInfo.user_type === 1}
             >
               <div tw="font-bold text-base">ส่งออเดอร์</div>
             </Button>
