@@ -11,6 +11,7 @@ import LoadingSpinner from "../../share/LoadingSpinner";
 import { mapOptions } from "../../../store/portfolioForm";
 import Button from "../../share/Button";
 import CircleImage from "../../share/CircleImage";
+import { ChatContext } from "../../../context/ChatProvider";
 
 const Container = tw.div`h-auto w-full flex flex-col items-center font-ibm max-w-[500px] gap-y-3`;
 const InfoContainer = tw.div`h-[70vh] w-full max-h-[70vh] overflow-y-auto flex flex-col items-center font-ibm gap-y-3`;
@@ -28,7 +29,7 @@ const ButtonContainer = tw.div`w-[90%] flex justify-between`;
 
 const PortfolioDetail = () => {
   const authCtx = useContext(AuthContext);
-  const orderCtx=useContext(OrderContext);
+  const orderCtx = useContext(OrderContext);
   const params = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -37,7 +38,7 @@ const PortfolioDetail = () => {
   const [portfolio, setPortfolio] = useState(null);
   const [profileImg, setProfileImg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  const chatCtx = useContext(ChatContext);
   // console.log(authCtx.userInfo)
 
   useEffect(() => {
@@ -85,12 +86,17 @@ const PortfolioDetail = () => {
     //     id: id,
     //   },
     // });
-    const {display_name,id}=portfolio.freelance
+    const { display_name, id } = portfolio.freelance
     orderCtx.setFLDisplayName(display_name)
     orderCtx.setFreelanceID(id)
     orderCtx.setPortID(portfolio.id)
     navigate('/create-order-request')
   };
+  const chatHandler = () => {
+    console.log(portfolio.freelance);
+    chatCtx.setPartner(portfolio.freelance);
+    navigate('/chat');
+  }
 
   let show;
   if (!isLoading && portfolio) {
@@ -121,14 +127,14 @@ const PortfolioDetail = () => {
           </ProfileContainer>
           <ButtonContainer>
             <Button
-              width="60%"a
+              width="60%" a
               primary
               onClick={onClickSendHandler}
               disable={authCtx.userInfo.user_type === 1}
             >
               <div tw="font-bold text-base">ส่งออเดอร์</div>
             </Button>
-            <Button width="30%" secondary onClick={() => {}}>
+            <Button width="30%" secondary onClick={chatHandler}>
               <div tw="font-bold text-base">เเชท</div>
             </Button>
           </ButtonContainer>

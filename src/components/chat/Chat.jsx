@@ -6,6 +6,7 @@ import Input from '../share/Input';
 import { useForm } from '../../hooks/form-hook';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthProvider';
+import { ChatContext } from '../../context/ChatProvider';
 const startMessageList = [{ sender: 0, message: "สวัสดีจ้ะ" }, { sender: 0, message: "ว่างไหม" }, { sender: 1, message: "สวัสดีครับ" }, { sender: 0, message: "พี่มีโปรเจกต์ทำเว็บสำหรับนิสิตจุฬา รายละเอียดคร่าวๆคือทำเว็บไซต์ freelance ให้เด็กจุฬา ให้ค่าเหนื่อยประมาณ 100000 น้องสนใจมั้ย" }, { sender: 1, message: "น่าสนใจครับ ลองส่งorderมาให้ผมลองอ่านคร่าวๆดูก่อนได้ไหม เดี๋ยวผมจะยืนยันอีกที" }]
 
 const Container = styled.div(() => [
@@ -43,19 +44,18 @@ const ProfileContainer = styled.div(() => [
 const Text = styled.div(() => [
     tw`rounded-[20px] font-ibm bg-white text-black p-4 my-1 w-fit max-w-[45%]`
 ])
-const Chat = ({ talker }) => {
+const Chat = () => {
     const authCtx = useContext(AuthContext);
-    if (authCtx.ws) {
-        authCtx.ws.addEventListener("onMessage", (event) => {
-            console.log(event.data);
-        })
-    }
+    const chatCtx = useContext(ChatContext);
     const [messageInput, inputHandler] = useForm({
         input: {
             value: "",
             isValid: true
         }
     })
+    // useEffect(() => {
+    //     console.log(chatCtx.message);
+    // }, [chatCtx.message])
     const modifiedList = (list) => {
         for (let i = 0; i < list.length; i++) {
             if (list[i].user == 0 && (i + 1 == list.length || list[i + 1].user == 1)) {
@@ -79,8 +79,10 @@ const Chat = ({ talker }) => {
         setMessageList(newList);
     }
     const keyDownHandler = () => {
-        if (messageInput.inputs.input.value)
+        if (messageInput.inputs.input.value) {
             changeList({ sender: 1, message: messageInput.inputs.input.value });
+            chatCtx.ws.send(JSON.stringify({ type: 4, message: messageInput.inputs.input.value }));
+        }
     }
     useEffect(() => {
         if (messageList && messageList[messageList.length - 1].user == 0) {
