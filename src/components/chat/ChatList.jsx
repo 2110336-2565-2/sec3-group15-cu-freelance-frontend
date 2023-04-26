@@ -1,9 +1,11 @@
 import tw, { styled } from 'twin.macro';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ChatCard from './ChatCard';
 import { useState } from 'react';
 import { useWindow } from '../../hooks/window-hook';
-const chatList = [{ name: "ธีรุตม์ สีเขียว", lastMsg: "สวัสดีครับ" }, { name: "รัชนาท ลาชโรจน์", lastMsg: "คาดว่างานจะเสร็จทันครับบลาบลาบลา" }, { name: "นัน วาณิชยชลกิล", lastMsg: "ตรวจงานก่อนยืนยันนะครับ" }]
+import { useContext } from 'react';
+import { ChatContext } from '../../context/ChatProvider';
+// const chatList = [{ name: "ธีรุตม์ สีเขียว", lastMsg: "สวัสดีครับ" }, { name: "รัชนาท ลาชโรจน์", lastMsg: "คาดว่างานจะเสร็จทันครับบลาบลาบลา" }, { name: "นัน วาณิชยชลกิล", lastMsg: "ตรวจงานก่อนยืนยันนะครับ" }]
 const Container = styled.div(() => [
   tw`flex flex-col w-full dt:w-1/3`
 ]);
@@ -18,10 +20,14 @@ const ListContainer = styled.div(() => [
 ])
 const ChatList = () => {
 
-  const [selectedChat, setSelectedChat] = useState(null);
-
-  const onClickHandler = (i) => {
-    setSelectedChat(i);
+  const [chatList, setChatList] = useState(null);
+  const chatCtx = useContext(ChatContext);
+  useEffect(() => {
+    console.log("eiei", chatCtx.partner);
+    if (chatCtx.partner) setChatList([chatCtx.partner]);
+  }, [])
+  const onClickHandler = (partner) => {
+    chatCtx.setPartner(partner);
   }
 
   const windowSize = useWindow();
@@ -32,9 +38,9 @@ const ChatList = () => {
         <Title>แชท</Title>
         <Hr />
         <ListContainer>
-          {chatList.map((chat, i) => {
+          {chatList && chatList.map((chat, i) => {
             return (
-              <ChatCard name={chat.name} lastMsg={chat.lastMsg} onClick={onClickHandler.bind(null, i)} key={i} selected={windowSize >= 850 && selectedChat == i} />
+              <ChatCard name={chat.display_name} onClick={onClickHandler.bind(null, chat)} key={i} selected={windowSize >= 850 && chatCtx.partner == chat} />
             )
           })}
         </ListContainer>
