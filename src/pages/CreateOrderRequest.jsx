@@ -24,7 +24,7 @@ function reducer(state, action) {
 const Container = tw.div`flex flex-col mt-[10vh] p-4 min-h-[85vh] gap-y-2 
 w-[90%] max-w-[500px] dt:w-[90%] dt:max-w-[1000px] 
 relative mx-auto`;
-const StepContainer = styled.div(() => [tw`flex flex-col`]);
+const StepContainer = styled.div(() => [tw`flex flex-col text-center my-4`]);
 const Title = styled.div(({ show }) => [
   tw`font-ibm font-bold text-mobile-h1 dt:text-2xl text-center my-4`,
   !show && tw`hidden`,
@@ -36,7 +36,7 @@ const Step = styled.div(({}) => [
   tw`font-ibm font-bold text-mobile-h1 dt:text-2xl text-freelance-black-primary mt-4`,
 ]);
 const StepDesc = styled.div(({}) => [
-  tw`font-ibm font-normal text-mobile-small dt:text-base text-freelance-black-secondary mr-4`,
+  tw`font-ibm font-normal text-mobile-body dt:text-base text-center text-freelance-black-secondary mr-4`,
 ]);
 const OrderContainer = tw.div`flex gap-x-5  w-full max-w-full overflow-auto pl-4 min-h-[40vh] dt:min-h-[30vh] items-center`;
 const LoadingDiv = tw.div`font-ibm`;
@@ -46,7 +46,7 @@ const Footer1 = styled.div(({}) => [
   // tw`flex flex-row w-full gap-x-4 justify-between dt:absolute bottom-8`
 ]);
 const Footer2 = styled.div(({}) => [
-  tw`flex flex-col items-center gap-y-4 dt:absolute bottom-8`,
+  tw`flex flex-col tbl:flex-row items-center gap-y-4 dt:absolute bottom-8`,
 ]);
 const Back2Edit = styled.button(({}) => [
   tw`text-center font-ibm decoration-solid font-medium text-mobile-small`,
@@ -354,14 +354,15 @@ const CreateOrderRequest = () => {
           </Button>
         </Footer1>
       ) : (
-        <Footer2>
-          <Button onClick={submitHandler} width="w-full" primary>
+        <Footer1>
+        <Button onClick={backHandler} width="50%" secondary>
+            <u>กลับไปแก้ไข</u>
+          </Button>
+          <Button onClick={submitHandler} width="50%" primary>
             ส่งออเดอร์
           </Button>
-          <Back2Edit onClick={backHandler}>
-            <u>กลับไปแก้ไข</u>
-          </Back2Edit>
-        </Footer2>
+         
+        </Footer1>
       )}
     </Container>
   );
