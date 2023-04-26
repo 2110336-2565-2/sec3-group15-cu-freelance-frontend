@@ -97,11 +97,8 @@ const CreatePortForm4 = ({
 			const portfolioId = response.data.portfolio.id;
 
       for(let img of image.value){
-        await upload(portfolioId, img).then(() => {
-          console.log("Kuy");
-        });
+        await upload(portfolioId, img)
       }
-			console.log("Done");
 
 			data = new FormData();
 			data.append("file", thumbnail.value[0]);
