@@ -2,12 +2,12 @@ import tw, { styled } from 'twin.macro';
 import React, { useEffect, useRef } from 'react';
 import CircleImage from '../share/CircleImage';
 import { useState } from 'react';
-import Input from '../share/Input';
 import { useForm } from '../../hooks/form-hook';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthProvider';
 import { ChatContext } from '../../context/ChatProvider';
-const startMessageList = [{ sender: 0, message: "สวัสดีจ้ะ" }, { sender: 0, message: "ว่างไหม" }, { sender: 1, message: "สวัสดีครับ" }, { sender: 0, message: "พี่มีโปรเจกต์ทำเว็บสำหรับนิสิตจุฬา รายละเอียดคร่าวๆคือทำเว็บไซต์ freelance ให้เด็กจุฬา ให้ค่าเหนื่อยประมาณ 100000 น้องสนใจมั้ย" }, { sender: 1, message: "น่าสนใจครับ ลองส่งorderมาให้ผมลองอ่านคร่าวๆดูก่อนได้ไหม เดี๋ยวผมจะยืนยันอีกที" }]
+import { apiClient } from '../../utils/axios';
+// const startMessageList = [{ sender: 0, message: "สวัสดีจ้ะ" }, { sender: 0, message: "ว่างไหม" }, { sender: 1, message: "สวัสดีครับ" }, { sender: 0, message: "พี่มีโปรเจกต์ทำเว็บสำหรับนิสิตจุฬา รายละเอียดคร่าวๆคือทำเว็บไซต์ freelance ให้เด็กจุฬา ให้ค่าเหนื่อยประมาณ 100000 น้องสนใจมั้ย" }, { sender: 1, message: "น่าสนใจครับ ลองส่งorderมาให้ผมลองอ่านคร่าวๆดูก่อนได้ไหม เดี๋ยวผมจะยืนยันอีกที" }]
 
 const Container = styled.div(() => [
     tw`flex flex-col w-full dt:w-2/3`
@@ -29,6 +29,9 @@ const Name = styled.div(() => [
     tw`font-ibm text-mobile-h1`
 ]);
 
+const Input = styled.input(() => [
+    tw`font-ibm my-3 pl-4 py-2 bg-gray-100`
+])
 
 const MessageContainer = styled.div(() => [
     tw`flex flex-col w-full bg-gray-100 h-[65vh] p-8 overflow-y-scroll`
@@ -47,12 +50,6 @@ const Text = styled.div(() => [
 const Chat = () => {
     const authCtx = useContext(AuthContext);
     const chatCtx = useContext(ChatContext);
-    const [messageInput, inputHandler] = useForm({
-        input: {
-            value: "",
-            isValid: true
-        }
-    })
     // useEffect(() => {
     //     console.log(chatCtx.message);
     // }, [chatCtx.message])
@@ -68,31 +65,57 @@ const Chat = () => {
         return list;
     }
     const messageRef = useRef()
-    let [messageList, setMessageList] = useState(modifiedList(startMessageList));
+    let [messageList, setMessageList] = useState([]);
     const changeList = (newMessage) => {
         const newList = [...messageList];
-        if (newMessage.sender === 0) {
+        if (chatCtx.partner && newMessage.sender === chatCtx.partner.id && newList.length > 0) {
             newList[newList.length - 1].show = false;
             newMessage.show = true;
         }
         newList.push(newMessage);
         setMessageList(newList);
     }
-    const keyDownHandler = () => {
-        if (messageInput.inputs.input.value) {
-            changeList({ sender: 1, message: messageInput.inputs.input.value });
-            const data = { type: 4, target: chatCtx.partner.id, message: messageInput.inputs.input.value };
+    const keyDownHandler = (e) => {
+        // e.preventDefault();
+        if (e.key == "Enter" && e.target.value) {
+            changeList({ sender: authCtx.userInfo.id, message: e.target.value });
+            const data = { type: 2, targets: [chatCtx.partner.id], message: e.target.value };
             console.log(data, chatCtx.ws);
+            chatCtx.setAllMessageList((prev) => [...prev, { sender: authCtx.userInfo.id, message: e.target.value }]);
             chatCtx.ws.send(JSON.stringify(data));
+            e.target.value = "";
         }
-    }
-    chatCtx.ws.onmessage = (event) => {
-        console.log(event.data);
     }
     useEffect(() => {
-        if (messageList && messageList[messageList.length - 1].user == 0) {
-            return;
+        chatCtx.allMessageList.forEach(message => {
+            // console.log(message, authCtx.userInfo.id);
+            if ((chatCtx.partner && message.sender === chatCtx.partner.id) || message.sender === authCtx.userInfo.id) {
+                console.log(message, authCtx.userInfo.id);
+                changeList(message);
+            }
+        })
+    }, [])
+    useEffect(() => {
+        if (chatCtx.socketMessage && chatCtx.partner && chatCtx.socketMessage.sender === chatCtx.partner.id) {
+            changeList(chatCtx.socketMessage);
         }
+        chatCtx.setSocketMessage(null);
+    }, [chatCtx.socketMessage])
+
+    // const fetchRecent = async () => {
+    //     try {
+    //         const res = apiClient.get("/chat/recent?page=1&limit=10");
+    //         console.log(res);
+    //     }
+    //     catch (err) {
+
+    //     }
+    // }
+    // useEffect(() => {
+    //     fetchRecent();
+    // }, [])
+
+    useEffect(() => {
         const scrollHeight = messageRef.current.scrollHeight;
         const height = messageRef.current.clientHeight;
         const maxScrollTop = scrollHeight - height;
@@ -111,7 +134,7 @@ const Chat = () => {
                 <MessageContainer ref={messageRef}>
                     {messageList.map((message, i) => {
                         return (
-                            <Message key={i} right={message.sender == 1} onClick={changeList.bind(null, { sender: 0, mess: "kuy" })}>
+                            <Message key={i} right={message.sender !== chatCtx.partner.id}>
                                 {message.show && <ProfileContainer>
                                     <CircleImage />
                                 </ProfileContainer>}
@@ -122,7 +145,7 @@ const Chat = () => {
                         )
                     })}
                 </MessageContainer>
-                <Input type="text" id="input" validator={[]} placeholder="ส่งข้อความ..." onInput={inputHandler} keyDownHandler={keyDownHandler} />
+                <Input placeholder="พิมพ์ข้อความของคุณที่นี่" onKeyDown={keyDownHandler} />
             </Container>
         </>
     );

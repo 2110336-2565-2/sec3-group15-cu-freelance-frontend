@@ -8,9 +8,11 @@ export const ChatContext = createContext({
     ws: null,
     partner: null,
     socketMessage: null,
+    allMessageList: [],
     setWs: () => { },
     setPartner: () => { },
     setSocketMessage: () => { },
+    setAllMessageList: () => { },
 });
 
 const ChatProvider = ({ children }) => {
@@ -18,6 +20,7 @@ const ChatProvider = ({ children }) => {
     const [partner, setPartner] = useState(null);
     const [connected, setConnected] = useState(false);
     const [socketMessage, setSocketMessage] = useState(null);
+    const [allMessageList, setAllMessageList] = useState([]);
     const authCtx = useContext(AuthContext);
     useEffect(() => {
         if (authCtx.acToken && !connected) {
@@ -39,19 +42,29 @@ const ChatProvider = ({ children }) => {
                 if (ev.code != 1000) setConnected(false);
             };
             initialWs.onmessage = async (event) => {
-                const data = JSON.parse(event.data);
-                console.log(data);
-                if (data.type === 4) setSocketMessage(data.message);
-                else if (data.connect_success === true) {
-                    console.log("Handshake is completed!");
-                    const testMessage = {
-                        type: 2,
-                        target: "e814e268-dde4-4755-98be-6d704cb4b7f6",
-                        message: "testMessage",
+                try {
+                    const data = JSON.parse(event.data);
+                    console.log(data);
+                    if (data.connect_success === true) {
+                        console.log("Handshake is completed!");
+                        setConnected(true);
                     }
-                    initialWs.send(JSON.stringify(testMessage));
-                    console.log("the message has been send");
-                    setConnected(true);
+                    else if (data.type == 6) {
+                        const pong = {
+                            type: 6,
+                            message: "pong",
+                        }
+                        initialWs.send(JSON.stringify(pong));
+                    }
+                    else if (data.type == 4) {
+                        setAllMessageList((prev) => [...prev, { sender: data.sender_id, message: data.message }]);
+                        // allMessageList.push({ sender: data.sender_id, message: data.message });
+                        setSocketMessage({ sender: data.sender_id, message: data.message });
+                    }
+                }
+                catch (err) {
+                    console.log(event);
+                    setSocketMessage(event.data);
                 }
             }
         }
@@ -60,9 +73,11 @@ const ChatProvider = ({ children }) => {
         ws,
         partner,
         socketMessage,
+        allMessageList,
         setWs,
         setPartner,
         setSocketMessage,
+        setAllMessageList,
     }}>
         {children}
     </ChatContext.Provider>
