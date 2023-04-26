@@ -30,11 +30,6 @@ const ChatProvider = ({ children }) => {
                     token: authCtx.acToken,
                 }
                 initialWs.send(JSON.stringify(loginMessage));
-                const testMessage = {
-                    type: 4,
-                    target: "e814e268-dde4-4755-98be-6d704cb4b7f6",
-                    message: "testMessage",
-                }
             }
             initialWs.onerror = (ev) => {
                 console.error("Got error", ev);
@@ -49,6 +44,11 @@ const ChatProvider = ({ children }) => {
                 if (data.type === 4) setSocketMessage(data.message);
                 else if (data.connect_success === true) {
                     console.log("Handshake is completed!");
+                    const testMessage = {
+                        type: 4,
+                        target: "e814e268-dde4-4755-98be-6d704cb4b7f6",
+                        message: "testMessage",
+                    }
                     initialWs.send(JSON.stringify(testMessage));
                     console.log("the message has been send");
                     setConnected(true);
