@@ -10,6 +10,7 @@ export const ChatContext = createContext({
     socketMessage: null,
     setWs: () => { },
     setPartner: () => { },
+    setSocketMessage: () => { },
 });
 
 const ChatProvider = ({ children }) => {
@@ -18,11 +19,11 @@ const ChatProvider = ({ children }) => {
     const [connected, setConnected] = useState(false);
     const [socketMessage, setSocketMessage] = useState(null);
     const authCtx = useContext(AuthContext);
-    let initialWs;
     useEffect(() => {
         if (authCtx.acToken && !connected) {
             console.log("trying to set ws...");
-            initialWs = new WebSocket("wss://pbeta.cu-freelance.tech/v1/chat/ws");
+            const initialWs = new WebSocket("wss://pbeta.cu-freelance.tech/v1/chat/ws");
+            setWs(initialWs);
             initialWs.onopen = async () => {
                 const loginMessage = {
                     type: 1,
@@ -30,34 +31,31 @@ const ChatProvider = ({ children }) => {
                 }
                 initialWs.send(JSON.stringify(loginMessage));
             }
-            initialWs.onmessage = async (event) => {
-                const data = JSON.parse(event.data);
-                console.log(data);
-                if (data.connect_success === true) {
-                    console.log("Handshake is completed!");
-                    setConnected(true);
-                }
-                else if (data.type === 4) setSocketMessage(data.message);
-            }
             initialWs.onerror = (ev) => {
                 console.error("Got error", ev);
             };
             initialWs.onclose = (ev) => {
                 console.debug(`WebSocket disconnected at code ${ev.code}`);
+                if (ev.code != 1000) setConnected(false);
             };
+            initialWs.onmessage = async (event) => {
+                const data = JSON.parse(event.data);
+                console.log(data);
+                if (data.type === 4) setSocketMessage(data.message);
+                else if (data.connect_success === true) {
+                    console.log("Handshake is completed!");
+                    setConnected(true);
+                }
+            }
         }
-    }, [authCtx.acToken])
-    useEffect(() => {
-        if (connected === true) {
-            console.log("ws is set!"), setWs(initialWs);
-        }
-    }, [connected])
+    }, [authCtx.acToken, connected]);
     return <ChatContext.Provider value={{
         ws,
         partner,
         socketMessage,
         setWs,
         setPartner,
+        setSocketMessage,
     }}>
         {children}
     </ChatContext.Provider>
