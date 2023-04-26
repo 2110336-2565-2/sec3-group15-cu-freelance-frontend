@@ -737,6 +737,7 @@ const MyOrderPage = () => {
           </SortContainer>
           {windowSize < 850 && (
             <OrderCarousel
+              avatar={avatar}
               orders={orders}
               isLoading={isLoadingOrder}
               handleInfiniteScroll={handleInfiniteScrollNextPage}

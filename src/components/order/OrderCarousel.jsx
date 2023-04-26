@@ -10,6 +10,7 @@ import "swiper/css/autoplay";
 const OrderCarousel = forwardRef(
   (
     {
+      avatar,
       orders,
       isLoading,
       handleInfiniteScroll,
@@ -53,6 +54,8 @@ const OrderCarousel = forwardRef(
                       ? order.freelance_name
                       : null
                   }
+                  avatar={avatar}
+                  avatar2={order.avatar2}
                   due_date={order.due_date}
                   duration={order.duration}
                   price={order.price}
