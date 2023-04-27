@@ -29,8 +29,8 @@ const Login = () => {
       <div tw="flex flex-col justify-center gap-16 items-center h-full min-h-[90vh]">
       <Title>เข้าสู่ระบบ</Title>
       <AuthChoiceContainer>
-        <AuthTypeCard text="ล็อคอินเป็นผู้รับจ้าง" avatar={customerAvatar} onClick={onLoginHandler}/>
-        <AuthTypeCard text="ล็อคอินเป็นฟรีแลนซ์" avatar={freelanceAvatar} onClick={onFreelanceLoginHandler}/>
+        <AuthTypeCard text="เข้าสู่ระบบเป็นผู้รับจ้าง" avatar={customerAvatar} onClick={onLoginHandler}/>
+        <AuthTypeCard text="เข้าสู่ระบบเป็นฟรีแลนซ์" avatar={freelanceAvatar} onClick={onFreelanceLoginHandler}/>
       </AuthChoiceContainer>
       <DummyDiv/>
       </div>

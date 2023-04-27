@@ -6,7 +6,7 @@ const Container = styled.div(({show})=>[
     !show && tw`hidden`
 ]);
 const CreateOrder1 = ({inputHandler1, show=true,initialValue,initialValid=false})=>{
-    console.log(show)
+
     return (
         <Container show={show}>
             <Input 
@@ -31,7 +31,7 @@ const CreateOrder1 = ({inputHandler1, show=true,initialValue,initialValid=false}
             validator={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler1}
             required
-            rows={5}/>
+            rows={7}/>
         </Container>
     )
 }

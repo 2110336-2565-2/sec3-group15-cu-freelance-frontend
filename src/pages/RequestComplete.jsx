@@ -29,12 +29,13 @@ const RequestComplete = ({
   red,
   hasIconDesc,
   isModal = false,
+  disable = false,
 }) => {
   //pass dict of title: string, desc: string, bt1desc:string, bt2: boolean (optional), bt2desc: string through navigate
   const location = useLocation();
   const navigate = useNavigate();
   const btOnclickHandler = (path) => {
-    navigate(path);
+    navigate(path,{replace:true});
   };
   return location.state ? (
     <Container from={location.state} isModal={isModal}>
@@ -70,15 +71,15 @@ const RequestComplete = ({
         hasIconDesc={hasIconDesc}
       />
       <Footer row>
-        <Button secondary onClick={lftOnclick}>
+        <Button secondary onClick={lftOnclick} disable={disable}>
           ยกเลิก
         </Button>
         {red ? (
-          <Button red onClick={rgtOnclick}>
+          <Button red onClick={rgtOnclick} disable={disable}>
             ยืนยัน
           </Button>
         ) : (
-          <Button primary onClick={rgtOnclick}>
+          <Button primary onClick={rgtOnclick} disable={disable}>
             ยืนยัน
           </Button>
         )}

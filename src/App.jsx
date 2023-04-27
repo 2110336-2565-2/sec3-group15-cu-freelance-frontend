@@ -24,70 +24,80 @@ import RequestCompletePage from "./pages/RequestComplete";
 import CreateOrderRequest from "./pages/CreateOrderRequest";
 import UserSettingEntrancePage from "./pages/UserSettingEntrance";
 import UserSettingEntranceDtPage from "./pages/UserSettingEntranceDt";
+import IssueReportPage from "./pages/IssueReport";
+import ChatEntrancePage from "./pages/ChatEntrance";
+import OrderProvider from "./context/OrderProvider";
+import ChatProvider from "./context/ChatProvider";
 function App() {
   const { acToken, reToken, login, logout, userInfo, setUserInfo } = useAuth();
   return (
-    <AuthContext.Provider
-      value={{ userInfo, acToken, reToken, login, logout, setUserInfo }}
-    >
-      <Routes>
-        <Route path="/" element={<LayoutWithNavbar acToken={acToken} />}>
-          <Route path="" element={<Navigate to="home" />} />
-          <Route path="home" element={<HomePage />} />
-          <Route path="portfolio/">
-            <Route path=":portId/">
-              <Route path="" element={<PortfolioPage />} />
-              <Route path="edit/" element={<EditPortfolioPage />} />
+    <OrderProvider>
+      <AuthContext.Provider
+        value={{ userInfo, acToken, reToken, login, logout, setUserInfo }}
+      >
+        <ChatProvider>
+          <Routes>
+            <Route path="/" element={<LayoutWithNavbar acToken={acToken} />}>
+              <Route path="" element={<Navigate to="home" />} />
+              <Route path="support" element={<IssueReportPage />} />
+              <Route path="home" element={<HomePage />} />
+              <Route path="portfolio/">
+                <Route path=":portId/">
+                  <Route path="" element={<PortfolioPage />} />
+                  <Route path="edit/" element={<EditPortfolioPage />} />
+                </Route>
+              </Route>
+              <Route path="my-portfolio/:portId/" element={<PortfolioPage />} />
+              <Route path="profile/">
+                <Route path=":userId/">
+                  <Route path="add-portfolio" element={<CreatePortfolioPage />} />
+                  <Route path="" element={<ProfilePage />} />
+                </Route>
+              </Route>
+              <Route path="/edit-profile" element={<EditProfilePage />}></Route>
+              <Route
+                path="/change-password"
+                element={<ChangePasswordPage />}
+              ></Route>
+              <Route
+                path="/create-order-template"
+                element={<CreateOrderTemplatePage />}
+              />
+              <Route
+                path="/request-complete"
+                element={<RequestCompletePage />}
+              ></Route>
+              <Route
+                path="/create-order-request"
+                element={<CreateOrderRequest />}
+              ></Route>
+              <Route path="success" element={<RegisterSuccessPage />} />
+              <Route
+                path="/user-setting-entrance"
+                element={<UserSettingEntrancePage />}
+              />
+              <Route
+                path="/user-setting-entrance-dt"
+                element={<UserSettingEntranceDtPage />}
+              />
+              <Route path="/chat" element={<ChatEntrancePage />} />
             </Route>
-          </Route>
-          <Route path="my-portfolio/:portId/" element={<PortfolioPage />} />
-          <Route path="profile/">
-            <Route path=":userId/">
-              <Route path="add-portfolio" element={<CreatePortfolioPage />} />
-              <Route path="" element={<ProfilePage />} />
+            <Route path="/login/">
+              <Route path="" element={<Login />} />
+              <Route path="customer" element={<LoginCustomer />} />
             </Route>
-          </Route>
-          <Route path="/edit-profile" element={<EditProfilePage />}></Route>
-          <Route
-            path="/change-password"
-            element={<ChangePasswordPage />}
-          ></Route>
-          <Route
-            path="/create-order-template"
-            element={<CreateOrderTemplatePage />}
-          ></Route>
-          <Route
-            path="/request-complete"
-            element={<RequestCompletePage />}
-          ></Route>
-          <Route
-            path="/create-order-request"
-            element={<CreateOrderRequest />}
-          ></Route>
-          <Route path="success" element={<RegisterSuccessPage />} />
-          <Route
-            path="/user-setting-entrance"
-            element={<UserSettingEntrancePage />}
-          />
-          <Route
-            path="/user-setting-entrance-dt"
-            element={<UserSettingEntranceDtPage />}
-          />
-        </Route>
-        <Route path="/login/">
-          <Route path="" element={<Login />} />
-          <Route path="customer" element={<LoginCustomer />} />
-        </Route>
-        <Route path="my-order/" element={<MyOrderPage />} />
-        <Route path="/register/" element={<RegisterPage />} />
-        <Route path="/fill-display-name" element={<FillDisplayNamePage />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/auth" element={<Auth />} />
-        {/* <Route path="/user-setting-entrance" element={<UserSettingEntrancePage/>}/> */}
-        <Route path="*" element={<Navigate to="home" />} />
-      </Routes>
-      <Footer />
-    </AuthContext.Provider>
+            <Route path="my-order/" element={<MyOrderPage />} />
+            <Route path="/register/" element={<RegisterPage />} />
+            <Route path="/fill-display-name" element={<FillDisplayNamePage />} />
+            <Route path="/search" element={<SearchPage />} />
+            <Route path="/auth" element={<Auth />} />
+            {/* <Route path="/user-setting-entrance" element={<UserSettingEntrancePage/>}/> */}
+            <Route path="*" element={<Navigate to="home" />} />
+          </Routes>
+          <Footer isLogin={!!acToken} />
+        </ChatProvider>
+      </AuthContext.Provider>
+    </OrderProvider>
   );
 }
 

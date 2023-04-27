@@ -1,8 +1,10 @@
 import Input from "../components/share/Input";
 import tw from "twin.macro";
 import {
+  VALIDATOR_MAXLENGTH,
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
+  VALIDATOR_SPECIALCHAR,
 } from "../components/share/Validate";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "../hooks/form-hook";
@@ -79,11 +81,11 @@ const FillDisplayNamePage = () => {
           <Input
             type="text"
             id="displayName"
-            label="Display Name"
-            placeholder="Enter display name"
-            errorText="Your display name should not be blank"
+            label="ชื่อที่ใช้เเสดงในเว็บ"
+            placeholder="โปรดกรอกชื่อที่ใช้เเสดงในเว็บ"
+            errorText="ชื่อที่ใช้เเสดงไม่ควรมีตัวอักษรพิเศษ เเละมีความยาวอยู่ระหว่าง 4-10 ตัวอักษร"
             onInput={inputHandler}
-            validator={[VALIDATOR_REQUIRE()]}
+            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_MINLENGTH(4),VALIDATOR_MAXLENGTH(10)]}
           />
           {/* <button
             css={styles.button()}

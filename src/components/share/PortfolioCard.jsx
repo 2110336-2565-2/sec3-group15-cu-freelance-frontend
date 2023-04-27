@@ -133,20 +133,23 @@ const PortFolioCard = ({
           header={DeleteIcon}
           onCancel={onCancelHandler}
           text={
-            "Do you really want to delete this portfolio? This process cannot be undone."
+            <>
+              ยืนยันการลบพอร์ตโฟลิโอ
+              <br /> การกระทำนี้จะไม่สามารถย้อนกลับได้
+            </>
           }
           show={showModal}
           footer={
             <>
               <Button cancel disable={isLoading} onClick={onCancelHandler}>
-                Cancel
+                ยกเลิก
               </Button>
               <Button
                 deleted
                 disable={isLoading}
                 onClick={onClickDeleteHandler}
               >
-                Delete
+                ลบ
               </Button>
             </>
           }

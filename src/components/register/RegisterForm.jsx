@@ -14,8 +14,10 @@ import {
   VALIDATOR_MATCH,
   VALIDATOR_MAXLENGTH,
   VALIDATOR_MINLENGTH,
+  VALIDATOR_NOT_CONTAIN_NUMBER,
   VALIDATOR_PHONE,
   VALIDATOR_REQUIRE,
+  VALIDATOR_SPECIALCHAR,
 } from "../share/Validate.jsx";
 import { Link } from "react-router-dom";
 import { useForm } from "../../hooks/form-hook";
@@ -197,7 +199,7 @@ const loginForm = () => {
   return (
     <>
     <AnimatePresence>
-      {submitState==1&&<Toast type='fail' title='ผิดพลาด' description='username ถูกใช้แล้ว' icon={failIcon}/>}
+      {submitState==1&&<Toast type='fail' title='ผิดพลาด' description='ชื่อผู้ใช้หรืออีเมลล์ถูกใช้งานแล้ว' icon={failIcon}/>}
     </AnimatePresence>
     <div css={styles.container()}>
       <div css={styles.content()}>
@@ -218,8 +220,8 @@ const loginForm = () => {
             id="firstname"
             label="ชื่อจริง"
             placeholder="ใส่ชื่อจริงของคุณ"
-            errorText="ชื่อจริงไม่สามารถเว้นว่างได้!"
-            validator={[VALIDATOR_REQUIRE()]}
+            errorText="ชื่อจริงไม่ควรเว้นว่าง หรือมีตัวอักษรพิเศษ"
+            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_NOT_CONTAIN_NUMBER(),VALIDATOR_MAXLENGTH(30)]}
             onInput={inputHandler1}
             required
           />
@@ -230,8 +232,8 @@ const loginForm = () => {
             id="lastname"
             label="นามสกุล"
             placeholder="ใส่นามสกุลของคุณ"
-            errorText="นามสกุลไม่สามารถเว้นว่างได้!"
-            validator={[VALIDATOR_REQUIRE()]}
+            errorText="นามสกุลไม่ควรเว้นว่าง หรือมีตัวอักษรพิเศษ"
+            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_NOT_CONTAIN_NUMBER(),VALIDATOR_MAXLENGTH(30)]}
             onInput={inputHandler1}
             required
           />
@@ -252,10 +254,10 @@ const loginForm = () => {
           <Input
             type="text"
             id="username"
-            label="Username"
-            placeholder="ใส่ username"
-            errorText="username ไม่สามารถเว้นว่างได้!"
-            validator={[VALIDATOR_REQUIRE()]}
+            label="ชื่อผู้ใช้"
+            placeholder="ใส่ชื่อผู้ใช้"
+            errorText="ชื่อผู้ใช้ไม่ควรเว้นว่างหรือมีตัวอักษรพิเศษ และความยาวอยู่ระหว่าง 5-25 ตัวอักษร"
+            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_MAXLENGTH(25),VALIDATOR_MINLENGTH(5)]}
             onInput={inputHandler2}
             required
           />
@@ -267,7 +269,7 @@ const loginForm = () => {
             label="รหัสผ่าน"
             placeholder="ใส่รหัสผ่าน"
             errorText="รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัว!"
-            validator={[VALIDATOR_MINLENGTH(8)]}
+            validator={[VALIDATOR_MINLENGTH(8),VALIDATOR_MAXLENGTH(20)]}
             onInput={inputHandler2}
             required
           />
@@ -288,10 +290,10 @@ const loginForm = () => {
           <Input
             type="text"
             id="displayname"
-            label="Display name"
+            label="ชื่อที่ใช้เเสดงในเว็บ"
             placeholder="ใส่ชื่อที่ใช้แสดงในเว็บ"
-            errorText="ชื่อที่ใช้แสดงในเว็บไม่สามารถเว้นว่าง!"
-            validator={[VALIDATOR_REQUIRE()]}
+            errorText="ชื่อที่ใช้เเสดงไม่ควรมีตัวอักษรพิเศษ เเละมีความยาวอยู่ระหว่าง 4-10 ตัวอักษร"
+            validator={[VALIDATOR_REQUIRE(),VALIDATOR_SPECIALCHAR(),VALIDATOR_MAXLENGTH(10),VALIDATOR_MINLENGTH(4)]}
             onInput={inputHandler3}
             required
           />
@@ -303,7 +305,7 @@ const loginForm = () => {
             label="อีเมล"
             placeholder="example@example.com"
             errorText="อีเมลไม่สามารถเว้นว่าง! | ตัวอย่างอีเมล: example@example.com"
-            validator={[VALIDATOR_REQUIRE(), VALIDATOR_EMAIL()]}
+            validator={[VALIDATOR_REQUIRE(), VALIDATOR_EMAIL(),VALIDATOR_MAXLENGTH(30)]}
             onInput={inputHandler3}
             required
           />

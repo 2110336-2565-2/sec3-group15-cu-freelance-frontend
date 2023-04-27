@@ -42,6 +42,7 @@ const FilterModal = (props) => {
   const FilterRef = useRef(null);
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
+    document.documentElement.style.scrollBehavior = "smooth";
   }, []);
   return (
     <CSSTransition

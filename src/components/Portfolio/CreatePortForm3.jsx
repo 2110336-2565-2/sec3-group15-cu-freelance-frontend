@@ -9,6 +9,7 @@ import { headerTwoPort } from "../../store/portfolioForm";
 const ContainUploadedFile = tw.div`flex flex-col max-h-[20vh] overflow-auto w-full gap-y-2`;
 const ModalContent = tw.div`flex flex-col items-center justify-center w-full h-[80%]`;
 const ButtonModal = tw.div`h-[7%] w-full flex justify-between px-[5%]`;
+const FileUploadContainer = tw.div`h-[250px] w-full flex flex-col items-center`;
 const ModalImage = tw.img`object-scale-down`;
 const HeaderTwo = styled.button(({ userType, select }) => [
   tw`text-center cursor-pointer text-freelance-black-secondary w-1/2 mb-5`,
@@ -122,25 +123,28 @@ const CreatePortForm3 = ({ inputHandler, formState }) => {
         <PortfolioModal
           show={isShow}
           onClose={handleCloseModal}
-          header="เเก้ไขพอร์ตฟอลิโอ"
+          header="เเก้ไขพอร์ตโฟลิโอ"
           content={modalContent}
         />
       )}
       {q === 1 && (
         <>
           {fileThumbnail.length === 0 && (
-            <FileUpload
-              accept="image/*"
-              onInput={inputHandler}
-              id="thumbnail"
-              errorText="โปรดอัพโหลดรูปภาพปก 1 รูป"
-              text="เลือกรูปภาพหน้าปกที่จะอัพโหลด"
-              file={fileThumbnail}
-              setFile={setFileThumbnail}
-              isValid={isValidThumbnail}
-              setIsValid={setIsValidThumbnail}
-              text2={""}
-            />
+            <FileUploadContainer>
+              {" "}
+              <FileUpload
+                accept="image/jpg,image/jpeg,image/png"
+                onInput={inputHandler}
+                id="thumbnail"
+                errorText="โปรดอัพโหลดรูปภาพปก 1 รูป"
+                text="เลือกรูปภาพหน้าปกที่จะอัพโหลด"
+                file={fileThumbnail}
+                setFile={setFileThumbnail}
+                isValid={isValidThumbnail}
+                setIsValid={setIsValidThumbnail}
+                text2={""}
+              />
+            </FileUploadContainer>
           )}
           {fileThumbnail.length !== 0 && (
             <Filename
@@ -153,19 +157,23 @@ const CreatePortForm3 = ({ inputHandler, formState }) => {
       )}
       {q === 2 && (
         <>
-          <FileUpload
-            accept="image/*"
-            onInput={inputHandler}
-            id="image"
-            errorText="โปรดอัพโหลดรูปภาพอย่างน้อย 1 รูป"
-            text="เลือกรูปภาพที่จะอัพโหลด"
-            file={file}
-            setFile={setFile}
-            isValid={isValid}
-            setIsValid={setIsValid}
-            text2={"(ไม่รวมปก)"}
-            multiple={true}
-          />
+          <FileUploadContainer>
+            {" "}
+            <FileUpload
+              accept="image/jpg,image/jpeg,image/png"
+              onInput={inputHandler}
+              id="image"
+              errorText="โปรดอัพโหลดรูปภาพอย่างน้อย 1 รูป"
+              text="เลือกรูปภาพที่จะอัพโหลด"
+              file={file}
+              setFile={setFile}
+              isValid={isValid}
+              setIsValid={setIsValid}
+              text2={"(ไม่รวมปก)"}
+              multiple={true}
+            />
+          </FileUploadContainer>
+
           <ContainUploadedFile>
             {file.map((image, idx) => (
               <Filename

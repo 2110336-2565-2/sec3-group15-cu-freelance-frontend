@@ -2,11 +2,10 @@ import tw from "twin.macro";
 import React, { useState, useEffect } from "react";
 import { authClient } from "../../../utils/auth";
 import PortFolioCard from "../../share/PortfolioCard";
-import PortfolioImg from "../../../assets/PortfolioImage.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Mousewheel } from "swiper";
-import backButton from "../../../assets/NewHomePage/page2/backButton.svg";
-import nextButton from "../../../assets/NewHomePage/page2/nextButton.svg";
+import BackButton from '../../../assets/NewHomePage/page2/BackButton.svg';
+import NextButton from '../../../assets/NewHomePage/page2/NextButton.svg';
 import LoadingSpinner from "../../share/LoadingSpinner";
 
 import "swiper/css";
@@ -84,7 +83,7 @@ const PortfolioCardContainer = ({ select }) => {
       {portfolios && (
         <Container tw="w-full">
           <img
-            src={backButton}
+            src={BackButton}
             alt="backButton"
             className="prev-button"
             tw=" hidden tbl:inline w-[5%] min-w-[50px] cursor-pointer"
@@ -104,7 +103,7 @@ const PortfolioCardContainer = ({ select }) => {
               prevEl: ".prev-button",
               nextEl: ".next-button",
             }}
-            // autoplay={{ delay: 2000, disableOnInteraction: false }}
+            autoplay={{ delay: 2000, disableOnInteraction: false }}
             slidesPerView="auto"
             modules={[Navigation, Autoplay, Mousewheel]}
           >
@@ -129,7 +128,7 @@ const PortfolioCardContainer = ({ select }) => {
             ))}
           </Swiper>
           <img
-            src={nextButton}
+            src={NextButton}
             alt="nextButton"
             className="next-button"
             tw="hidden tbl:inline w-[5%] min-w-[50px] cursor-pointer"

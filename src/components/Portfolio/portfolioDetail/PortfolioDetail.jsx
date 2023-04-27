@@ -4,12 +4,14 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { authClient } from "../../../utils/auth";
 import { apiClient } from "../../../utils/axios";
 import { AuthContext } from "../../../context/AuthProvider";
+import { OrderContext } from "../../../context/OrderProvider";
 import ImageCarousel from "../ImageCarousel";
 import { delay } from "../../../utils/delay";
 import LoadingSpinner from "../../share/LoadingSpinner";
 import { mapOptions } from "../../../store/portfolioForm";
 import Button from "../../share/Button";
 import CircleImage from "../../share/CircleImage";
+import { ChatContext } from "../../../context/ChatProvider";
 
 const Container = tw.div`h-auto w-full flex flex-col items-center font-ibm max-w-[500px] gap-y-3`;
 const InfoContainer = tw.div`h-[70vh] w-full max-h-[70vh] overflow-y-auto flex flex-col items-center font-ibm gap-y-3`;
@@ -27,6 +29,7 @@ const ButtonContainer = tw.div`w-[90%] flex justify-between`;
 
 const PortfolioDetail = () => {
   const authCtx = useContext(AuthContext);
+  const orderCtx = useContext(OrderContext);
   const params = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -35,6 +38,8 @@ const PortfolioDetail = () => {
   const [portfolio, setPortfolio] = useState(null);
   const [profileImg, setProfileImg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const chatCtx = useContext(ChatContext);
+  // console.log(authCtx.userInfo)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,14 +47,15 @@ const PortfolioDetail = () => {
         let response;
         setIsLoading(true);
         // await delay(10000000);
-        if (location.pathname.slice(0, 13) === "/my-portfolio") {
+        if (location.pathname.slice(0, 13) === "/my-portfolio")
           response = await apiClient.get(`/portfolio/me/${portId}`);
-        } else response = await authClient.get(`/portfolio/${portId}`);
+        else response = await authClient.get(`/portfolio/${portId}`);
+        console.log(response.data);
         setPortfolio(response.data.portfolio);
         const freelanceId = response.data.portfolio.freelance.id;
         // console.log(response);
         response = await authClient.get(`/file/portfolio/${portId}`);
-        // console.log(response);
+        console.log(response);
         setImages(response.data.urls);
         response = await authClient.get(`/file/avatar?id=${freelanceId}`);
         // console.log(response.data.avatars[0]);
@@ -73,14 +79,24 @@ const PortfolioDetail = () => {
       freelance: null,
     };
 
-  const onClickSendHandler = (displayName, id) => {
-    navigate("/create-order-request", {
-      state: {
-        displayName: displayName,
-        id: id,
-      },
-    });
+  const onClickSendHandler = () => {
+    // navigate("/create-order-request", {
+    //   state: {
+    //     displayName: displayName,
+    //     id: id,
+    //   },
+    // });
+    const { display_name, id } = portfolio.freelance
+    orderCtx.setFLDisplayName(display_name)
+    orderCtx.setFreelanceID(id)
+    orderCtx.setPortID(portfolio.id)
+    navigate('/create-order-request')
   };
+  const chatHandler = () => {
+    console.log(portfolio.freelance);
+    chatCtx.setPartner(portfolio.freelance);
+    navigate('/chat');
+  }
 
   let show;
   if (!isLoading && portfolio) {
@@ -111,17 +127,14 @@ const PortfolioDetail = () => {
           </ProfileContainer>
           <ButtonContainer>
             <Button
-              width="60%"
+              width="60%" a
               primary
-              onClick={onClickSendHandler.bind(
-                null,
-                freelance.display_name,
-                freelance.id
-              )}
+              onClick={onClickSendHandler}
+              disable={authCtx.userInfo.user_type === 1}
             >
               <div tw="font-bold text-base">ส่งออเดอร์</div>
             </Button>
-            <Button width="30%" secondary onClick={() => {}}>
+            <Button width="30%" secondary onClick={chatHandler}>
               <div tw="font-bold text-base">เเชท</div>
             </Button>
           </ButtonContainer>

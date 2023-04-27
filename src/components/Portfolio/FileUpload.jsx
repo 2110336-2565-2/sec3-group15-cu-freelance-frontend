@@ -9,7 +9,7 @@ const styles = {
   ],
 };
 
-const Container = tw.div`w-full h-2/3 border-dashed border-2 border-freelance-pink rounded-[20px] flex justify-center items-center mb-2`;
+const Container = tw.div`w-full h-full border-dashed border-2 border-freelance-pink rounded-[20px] flex justify-center items-center mb-2`;
 const UploadButton = tw.div`w-fit h-fit flex flex-col items-center justify-between cursor-pointer`;
 const UploadPic = tw.img``;
 const UploadText = tw.text`font-bold text-freelance-black-primary`;

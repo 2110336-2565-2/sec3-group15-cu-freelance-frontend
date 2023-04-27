@@ -6,10 +6,12 @@ import React from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
+import LoadingSpinner from "../share/LoadingSpinner";
 
 const OrderCarousel = forwardRef(
   (
     {
+      avatar,
       orders,
       isLoading,
       handleInfiniteScroll,
@@ -17,6 +19,7 @@ const OrderCarousel = forwardRef(
       userType,
       openConfirmModal,
       onClickCardHandler,
+      onClickSendWork,
     },
     ref
   ) => {
@@ -42,6 +45,7 @@ const OrderCarousel = forwardRef(
             {orders.map((order) => (
               <SwiperSlide key={order.id} style={{ width: "260px" }}>
                 <OrderCard
+                  onClickSendWork={onClickSendWork.bind(null, order)}
                   header={order.title}
                   description={order.description}
                   customer={order.customer_name}
@@ -51,6 +55,8 @@ const OrderCarousel = forwardRef(
                       ? order.freelance_name
                       : null
                   }
+                  avatar={avatar}
+                  avatar2={order.avatar2}
                   due_date={order.due_date}
                   duration={order.duration}
                   price={order.price}
@@ -66,6 +72,7 @@ const OrderCarousel = forwardRef(
             ))}
           </Swiper>
         )}
+         {/* {isLoading&&<div><LoadingSpinner/></div>} */}
       </div>
     );
   }

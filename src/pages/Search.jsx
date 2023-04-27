@@ -25,10 +25,10 @@ import CategoryButtonContainer from "../components/searchPage/CategoryButtonCont
 import { AnimatePresence } from "framer-motion";
 import Suggestion from "../components/share/Suggestion";
 const Page = tw.div`w-full`;
-const BG = tw.div`flex-col w-full h-auto flex dt:flex-row justify-between min-h-[95vh] pt-[5vh] dt:pt-[10vh] max-w-[1200px] mx-auto`;
+const BG = tw.div`flex-col w-full dt:w-[90%] mx-auto gap-4 h-auto flex dt:flex-row justify-center min-h-[95vh] pt-[5vh] dt:pt-[10vh] max-w-[1200px]`;
 const Header = tw.div`pl-2 dt:pl-0 font-ibm text-mobile-h1 dt:text-desktop-h1 font-bold my-4`;
 const Header2 = tw.div`pl-2 dt:pl-0 text-mobile-h2 dt:text-desktop-h2 font-ibm font-normal my-4 text-[#707070]`;
-const FilterContainer = tw.div`h-[90%] overflow-auto overflow-x-hidden dt:sticky  dt:top-[15vh] dt:h-auto dt:w-[20%] dt:mx-auto font-ibm flex flex-col items-end`;
+const FilterContainer = tw.div`pt-4 h-[90%] overflow-auto overflow-x-hidden dt:sticky  dt:top-[15vh] dt:h-auto dt:w-[20%] dt:mx-auto font-ibm flex flex-col items-end`;
 const PortfolioCardContainer = tw.div`w-full flex justify-center dt:justify-start flex-wrap gap-y-[2vh] mb-5 mt-2 min-h-[65vh] gap-x-[2%]`;
 const Filterbar = tw.div`min-h-[42px] flex flex-wrap gap-2 items-center text-mobile-h2 font-ibm font-medium text-freelance-black-secondary`;
 const InputSearchContainer = tw.div`px-2 dt:px-0 h-[40px] w-[100%] mx-auto my-4`;
@@ -260,7 +260,12 @@ const SearchPage = () => {
         response = await authClient.get(
           `/portfolio/search?` + new URLSearchParams(params).toString()
         );
-        console.log(response.data);
+
+        if (!response.data.pagination.items) {
+          setPortfolios([]);
+          setIsLoading(false);
+          return;
+        }
         let ports;
         let portIds = "";
         if (page === "1" || windowSize >= 850 || !portfolios) {
@@ -280,7 +285,7 @@ const SearchPage = () => {
         const res_img = await authClient.get(
           `/file/portfolio/thumbnail?` + new URLSearchParams(params).toString()
         );
-        console.log(res_img);
+
         const thumbnails = [...res_img.data.thumbnails];
         for (let i = 0; i < ports.length; i++) {
           data.push({
@@ -292,7 +297,7 @@ const SearchPage = () => {
             ].url,
           });
         }
-        console.log(data);
+
         setPortfolios(data);
         setMeta(response.data.pagination.meta);
       } catch (err) {
@@ -300,6 +305,8 @@ const SearchPage = () => {
       }
       setIsLoading(false);
     };
+    if (windowSize >= 850)
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     fetchData();
   }, [
     keyword,
@@ -451,12 +458,13 @@ const SearchPage = () => {
         <BG>
           {windowSize >= 850 && FilterContent}
           <div tw="w-full dt:w-[75%]  h-auto dt:min-h-[70vh] mx-auto">
-            {windowSize < 850 && <Header>พอร์ตโฟลิโอทั้งหมด</Header>}
-            {windowSize < 850 && (
+            <div tw="text-center py-2">
+              <Header>พอร์ตโฟลิโอทั้งหมด</Header>
               <Header2>
                 ดูพอร์ตโฟลิโอจากทุกฟรีแลนซ์ หรือเลือกตัวกรองที่ต้องการได้เลย!
               </Header2>
-            )}
+            </div>
+
             {windowSize >= 850 && (
               <Filterbar>
                 เเสดงผลลัพธ์เฉพาะ
@@ -543,8 +551,12 @@ const SearchPage = () => {
             )}
             {windowSize >= 850 && (
               <PortfolioCardContainer>
-                {isLoading && !portfolios && <LoadingSpinner />}
-                {portfolios &&
+                {isLoading && <LoadingSpinner />}
+                {!isLoading && portfolios && portfolios.length === 0 && (
+                  <div>No result</div>
+                )}
+                {!isLoading &&
+                  portfolios &&
                   portfolios.map((portfolio) => {
                     return (
                       <PortFolioCard

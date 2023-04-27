@@ -5,8 +5,9 @@ import DeleteIcon from "../../assets/DeleteProIcon.svg";
 import MyOrderAvIcon from "../../assets/MyOrderAvIcon.svg";
 import Button from "../share/Button";
 import StatusBar from "../orderCard/StatusBar";
+import CircleImage from "../share/CircleImage";
 
-const BG = tw.div`font-ibm flex flex-col gap-y-5 h-[82vh] dt:h-[70vh] max-h-[82vh] overflow-auto`;
+const BG = tw.div`font-ibm flex flex-col gap-y-5 h-[82vh] dt:h-[80%] max-h-[82vh] overflow-auto`;
 
 const TitleLine = styled.div(({ between }) => [
   tw`flex items-center font-bold border-b-2 border-b-freelance-pink p-1 w-full`,
@@ -27,10 +28,11 @@ const PersonalInfo = tw.div`inline text-mobile-h2 font-semibold text-freelance-p
 const FC = tw.div`flex text-mobile-body gap-x-2 items-center`;
 const TypeFC = tw.div`font-normal`;
 const NameFC = tw.div`font-bold`;
-const ButtonLine = tw.div`flex justify-between`;
+const ButtonLine = tw.div`flex justify-around mx-auto w-[90%]`;
+const AvatarContainer = tw.div`w-[40px] h-[40px]`;
 
 const OrderDetail = (props) => {
-  let typeFC = props.userType === 2 ? "ฟรีเเลนซ์:" : "ผู้ว่าจ้าง:";
+  let typeFC = props.userType === 2 ? "ผู้รับจ้าง:" : "ผู้ว่าจ้าง:";
   const {
     customer_name,
     freelance_name,
@@ -45,12 +47,11 @@ const OrderDetail = (props) => {
   } = props.order;
 
   let color;
-  if (status === "complete" || status === "accept") color = "green";
+  if (status === "completed" || status === "accepted") color = "green";
   if (status === "in progress") color = "orange";
-  if (status === "reject" || status === "failed") color = "red";
+  if (status === "rejected" || status === "failed") color = "red";
   if (status === "pending") color = "gray";
-  if (status === "close") color = "blue";
-  console.log(props.orderType, props.order.status);
+  if (status === "closed") color = "blue";
 
   return (
     <>
@@ -109,24 +110,29 @@ const OrderDetail = (props) => {
         </OrderInfo>
         {props.orderType !== "template" && (
           <FC>
-            <img src={MyOrderAvIcon} />
+            <AvatarContainer>
+              <CircleImage
+                image={
+                  props.order.avatar2
+                }
+              />
+            </AvatarContainer>
             <TypeFC>{typeFC}</TypeFC>
             <NameFC>
-              {typeFC === "ฟรีเเลนซ์" ? freelance_name : customer_name}
+              {props.userType===2 ? props.order.freelance_name : props.order.customer_name}
             </NameFC>
           </FC>
         )}
       </BG>
-      {props.userType === 1 && (
+      {(props.userType === 1 ||
+        (props.userType === 2 && props.orderType === "order")) && (
         <ButtonLine>
           <Button
             width="40%"
             secondary
             onClick={props.clickLeft}
             disable={
-              (props.orderType === "request" &&
-                props.order.status === "close") ||
-              props.order.status === "failed"
+              props.orderType === "request" && props.order.status === "close"
             }
           >
             {props.leftBtn}

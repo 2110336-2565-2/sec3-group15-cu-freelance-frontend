@@ -6,9 +6,10 @@ import CalendarIcon from "../../assets/CalendarIcon.svg";
 import StatusBar from "../orderCard/StatusBar";
 import Button from "./Button";
 import { AuthContext } from "../../context/AuthProvider";
+import CircleImage from "./CircleImage";
 
 const Card = styled.div(({ focus }) => [
-  tw`flex flex-col  h-fit rounded-[20px] min-w-[245px] w-[30%]  shadow relative cursor-pointer p-5 gap-y-3`,
+  tw`flex flex-col  h-fit rounded-[20px] min-w-[245px] w-[30%]  shadow relative cursor-pointer p-5 gap-y-3 font-ibm`,
   focus && tw`outline outline-2 outline-freelance-pink`,
 ]);
 const Header1 = tw.div`flex justify-between items-center text-mobile-h1 font-bold text-freelance-black-primary`;
@@ -17,18 +18,19 @@ const UserInfo = tw.div`flex gap-x-2 items-center text-mobile-small font-normal 
 const Lastline = tw.div`flex justify-between text-mobile-small items-center`;
 const Buttonline = tw.div`flex justify-between items-center`;
 const Duration = tw.div`flex  gap-x-2 w-fit items-center`;
+const AvatarContainer = tw.div`w-[40px] h-[40px]`;
 const Price = tw.div``;
 
 const OrderCard = (props) => {
   const authCtx = useContext(AuthContext);
   let color;
   if (props.hasStatus) {
-    if (props.status === "complete" || props.status === "accept")
+    if (props.status === "completed" || props.status === "accepted")
       color = "green";
     if (props.status === "in progress") color = "orange";
     if (props.status === "reject" || props.status === "failed") color = "red";
     if (props.status === "pending") color = "gray";
-    if (props.status === "close") color = "blue";
+    if (props.status === "closed") color = "blue";
   }
   let buttonLine = null;
   let onClickLeft, onClickRight;
@@ -37,7 +39,7 @@ const OrderCard = (props) => {
     if (props.orderType === "order") {
       left = "ส่งงาน";
       right = "ยกเลิก";
-      onClickLeft = props.openConfirmModal.bind(null, "send", props.order);
+      onClickLeft = props.onClickSendWork;
       onClickRight = props.openConfirmModal.bind(null, "cancel", props.order);
     }
     if (props.orderType === "request") {
@@ -53,8 +55,9 @@ const OrderCard = (props) => {
           primary
           onClick={onClickLeft}
           disable={
-            (props.orderType === "request" && props.status === "close") ||
-            props.status === "failed"
+            (props.orderType === "request" && props.status === "closed") ||
+            props.status === "failed" ||
+            props.status === "completed"
           }
         >
           {left}
@@ -64,8 +67,9 @@ const OrderCard = (props) => {
           secondary
           onClick={onClickRight}
           disable={
-            (props.orderType === "request" && props.status === "close") ||
-            props.status === "failed"
+            (props.orderType === "request" && props.status === "closed") ||
+            props.status === "failed" ||
+            props.status === "completed"
           }
         >
           {right}
@@ -87,20 +91,24 @@ const OrderCard = (props) => {
         </div>
         {props.hasStatus && (
           <StatusBar color={color}>
-            {props.status === "close" ? "closed" : props.status}
+            {props.status}
           </StatusBar>
         )}
       </Header1>
       <Body>{props.description}</Body>
       <UserInfo>
-        <img src={profile} tw="w-[20%]" />
+        <AvatarContainer>
+          <CircleImage image={authCtx.userInfo.user_type===2?props.avatar:props.avatar2} />
+        </AvatarContainer>
         {`ผู้ว่าจ้าง: ${
           props.customer ? props.customer : authCtx.userInfo.display_name
         }`}
       </UserInfo>
       {props.freelance && (
         <UserInfo>
-          <img src={profile} tw="w-[20%]" />
+          <AvatarContainer>
+            <CircleImage image={authCtx.userInfo.user_type===2?props.avatar2:props.avatar} />
+          </AvatarContainer>
           {"ผู้รับจ้าง: " + props.freelance}
         </UserInfo>
       )}

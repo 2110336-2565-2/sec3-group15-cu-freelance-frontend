@@ -97,3 +97,19 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
+
+.form-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.form-container::-webkit-scrollbar-track {
+  background: #f1f1f100;
+}
+
+.form-container::-webkit-scrollbar-thumb {
+  background: #888888;
+}
+
+.form-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

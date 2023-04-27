@@ -1,6 +1,6 @@
 import tw, { styled } from "twin.macro";
 import ProgressBar from "../components/register/ProgressBar";
-import { useReducer, useState, useContext } from "react";
+import React, { useReducer, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "../hooks/form-hook";
 import { AuthContext } from "../context/AuthProvider";
@@ -11,6 +11,8 @@ import CreateOrder4 from "../components/order/CreateOrder4";
 import { authClient } from "../utils/auth";
 import { apiClient } from "../utils/axios";
 import Button from "../components/share/Button";
+import LoadingSpinner from "../components/share/LoadingSpinner";
+import { OrderContext } from "../context/OrderProvider";
 function reducer(state, action) {
   if (action.type == "CHANGESTATE") {
     return {
@@ -19,8 +21,11 @@ function reducer(state, action) {
   }
 }
 const Container = tw.div`flex flex-col mt-[10vh] p-4 min-h-[85vh] items-center gap-y-2 
-w-[90%] max-w-[500px] dt:w-[90%] dt:max-w-[1000px] 
+w-[90%] max-w-[500px] dt:w-[90%] dt:max-w-[700px]
 relative mx-auto`;
+
+const LoadingContainer = tw.div`fixed flex justify-center items-center w-full h-full top-0 left-0 bg-black/50 z-[80]`;
+
 const Title = styled.div(({ show }) => [
   tw`font-ibm font-bold text-mobile-h1 dt:text-desktop-h1 text-center my-4`,
   !show && tw`hidden`,
@@ -54,6 +59,9 @@ const CreateOrderTemplate = () => {
   const [progress, setProgress] = useState(1);
   const [loading, setLoading] = useState(false);
   const authCtx = useContext(AuthContext);
+  const orderCtx=useContext(OrderContext)
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const onChangeStateHandler = (value) => {
     dispatch({ type: "CHANGESTATE", value: value });
@@ -70,6 +78,7 @@ const CreateOrderTemplate = () => {
     setProgress(state.value - 1);
   };
   const submitHandler = async () => {
+    setIsLoading(true);
     let data = JSON.stringify({
       customer_id: authCtx.userInfo.id,
       description: formState1.inputs.desc.value,
@@ -79,26 +88,28 @@ const CreateOrderTemplate = () => {
       tel: formState3.inputs.phone.value,
       title: formState1.inputs.topic.value,
     });
-    console.log(data);
+    // console.log(data);
     let response = await apiClient.post("/order/template", data, {
       headers: { "Content-Type": "application/json" },
     });
     console.log(response.data);
-    const bt1OnclickHandler = () => {
-      navigate("/search");
-    };
-    const bt2OnClickHandler = () => {
-      navigate("/home");
-    };
+    setIsLoading(false);
+    // const bt1OnclickHandler = () => {
+    //   navigate("/search");
+    // };
+    // const bt2OnClickHandler = () => {
+    //   navigate("/home");
+    // };
+    console.log(orderCtx);
     navigate("/request-complete", {
       state: {
         title: "การสร้างออเดอร์สำเร็จ",
         desc: "ยินดีด้วย ออเดอร์ของคุณถูกสร้าง เลือกฟรีแลนซ์ที่ถูกใจแล้วกดส่งได้เลย!",
-        bt1Text: "เลือกฟรีแลนซ์",
-        bt2Text: "กลับหน้าหลัก",
+        bt1Text: orderCtx.backToText,
+        bt2Text: "กลับสู่หน้าออเดอร์ของฉัน",
         bt2: "true",
-        path1: "/search",
-        path2: "/home",
+        path1: orderCtx.backTo,
+        path2: "/my-order?q=template&pages=1",
       },
       //bt1OnclickHandler
     });
@@ -150,64 +161,69 @@ const CreateOrderTemplate = () => {
     ((state.value === 2) & !formState2.isValid) |
     ((state.value === 3) & !formState3.isValid);
   return (
-    <Container>
-      <Title show={state.value != 4}>สร้างแบบร่างแบบใหม่</Title>
-      <ProgressBar
-        onClick={onChangeStateHandler}
-        state={state.value}
-        progress={progress}
-        formValid={{
-          form1: formState1.isValid,
-          form2: formState2.isValid,
-          form3: formState3.isValid,
-        }}
-        text1={step[0]}
-        text2={step[1]}
-        text3={step[2]}
-        text4={step[3]}
-        step={4}
-      />
-      <Step>
-        {state.value == 4 ? "ตรวจสอบออเดอร์อีกครั้ง" : step[state.value - 1]}
-      </Step>
-      <StepDesc>{stepDesc[state.value - 1]}</StepDesc>
-      <CreateOrder1 inputHandler1={inputHandler1} show={state.value == 1} />
-      <CreateOrder2 inputHandler2={inputHandler2} show={state.value == 2} />
-      <CreateOrder3 inputHandler3={inputHandler3} show={state.value == 3} />
-      <CreateOrder4
-        topic={formState1.inputs.topic.value}
-        desc={formState1.inputs.desc.value}
-        price={formState2.inputs.price.value}
-        duration={formState2.inputs.duration.value}
-        email={formState3.inputs.email.value}
-        phone={formState3.inputs.phone.value}
-        show={state.value == 4}
-      />
-      {state.value != 4 ? (
-        <Footer1>
-          <Button onClick={backHandler} width="50%" secondary>
-            ย้อนกลับ
-          </Button>
-          <Button
-            disable={disableButton}
-            onClick={continueHandler}
-            width="50%"
-            primary
-          >
-            ถัดไป
-          </Button>
-        </Footer1>
-      ) : (
-        <Footer2>
-          <Button onClick={submitHandler} width="w-full" primary>
-            ยืนยันการสร้าง
-          </Button>
-          <Back2Edit onClick={backHandler}>
-            <u>กลับไปแก้ไข</u>
-          </Back2Edit>
-        </Footer2>
-      )}
-    </Container>
+    <>
+      {isLoading&&<LoadingContainer>
+        <LoadingSpinner white={true}/>
+      </LoadingContainer>}
+      <Container>
+        <Title show={state.value != 4}>สร้างแบบร่างแบบใหม่</Title>
+        <ProgressBar
+          onClick={onChangeStateHandler}
+          state={state.value}
+          progress={progress}
+          formValid={{
+            form1: formState1.isValid,
+            form2: formState2.isValid,
+            form3: formState3.isValid,
+          }}
+          text1={step[0]}
+          text2={step[1]}
+          text3={step[2]}
+          text4={step[3]}
+          step={4}
+        />
+        <Step>
+          {state.value == 4 ? "ตรวจสอบออเดอร์อีกครั้ง" : step[state.value - 1]}
+        </Step>
+        <StepDesc>{stepDesc[state.value - 1]}</StepDesc>
+        <CreateOrder1 inputHandler1={inputHandler1} show={state.value == 1} />
+        <CreateOrder2 inputHandler2={inputHandler2} show={state.value == 2} />
+        <CreateOrder3 inputHandler3={inputHandler3} show={state.value == 3} />
+        <CreateOrder4
+          topic={formState1.inputs.topic.value}
+          desc={formState1.inputs.desc.value}
+          price={formState2.inputs.price.value}
+          duration={formState2.inputs.duration.value}
+          email={formState3.inputs.email.value}
+          phone={formState3.inputs.phone.value}
+          show={state.value == 4}
+        />
+        {state.value != 4 ? (
+          <Footer1>
+            <Button onClick={backHandler} width="50%" secondary>
+              ย้อนกลับ
+            </Button>
+            <Button
+              disable={disableButton}
+              onClick={continueHandler}
+              width="50%"
+              primary
+            >
+              ถัดไป
+            </Button>
+          </Footer1>
+        ) : (
+          <Footer2>
+            <Button onClick={submitHandler} width="w-full" primary>
+              ยืนยันการสร้าง
+            </Button>
+            <Back2Edit onClick={backHandler}>
+              <u>กลับไปแก้ไข</u>
+            </Back2Edit>
+          </Footer2>
+        )}
+      </Container>
+    </>
   );
 };
 export default CreateOrderTemplate;

@@ -131,8 +131,9 @@ const EditPortfolioform = () => {
         key: previewImages[selectIdx].split(".net/")[1],
       });
       console.log(data);
-      const res = await apiClient.delete(`/file/portfolio/${id}`, data, {
-        headers: { "content-type": "application/json" },
+      const res = await apiClient.delete(`/file/portfolio/${id}`, {
+        data: data,
+        headers: { "Content-Type": "application/json" },
       });
       console.log(res);
       setPreviewImages(previewImages.filter((image, idx) => idx !== selectIdx));
@@ -231,7 +232,7 @@ const EditPortfolioform = () => {
         header={isLoadingDelete ? "กำลังลบรูปภาพ" : "ยืนยันการลบรูปภาพ"}
         desc={
           isLoadingDelete
-            ? "เรากำลังลบรูปภาพของคุณออกจากพอร์ตฟอลิโอนี้"
+            ? "เรากำลังลบรูปภาพของคุณออกจากพอร์ตโฟลิโอนี้"
             : "หากลบรูปภาพแล้วจะไม่สามารถย้อนกลับได้"
         }
         footer={
@@ -257,13 +258,13 @@ const EditPortfolioform = () => {
         show={isShowSubmit}
         header={
           isLoadingSubmit
-            ? "กำลังสร้างพอร์ตฟอลิโอ"
-            : "ยืนยันการสร้างพอร์ตฟอลิโอ"
+            ? "กำลังเเก้ไขพอร์ตโฟลิโอ"
+            : "ยืนยันการเเก้ไขพอร์ตโฟลิโอ"
         }
         desc={
           isLoadingSubmit
-            ? "เรากำลังสร้างฟอร์ตฟอลิโอของคุณ"
-            : "หากคุณยืนยันการสร้างพอร์ตฟอลิโอแล้ว ถ้าไม่ได้ปิดการมองเห็น ผู้ว่าจ้างจะสามารถเห็นพอร์ตฟอลิโอได้"
+            ? "เรากำลังเเก้ไขพอร์ตโฟลิโอของคุณ"
+            : "หากคุณยืนยันการเเก้ไขพอร์ตโฟลิโอแล้ว ถ้าไม่ได้ปิดการมองเห็น ผู้ว่าจ้างจะสามารถเห็นพอร์ตโฟลิโอได้"
         }
         footer={
           isLoadingSubmit ? null : (
@@ -281,7 +282,7 @@ const EditPortfolioform = () => {
       <LoadingModal
         show={isLoadingAdd}
         header={"กำลังเพิ่มรูปภาพ"}
-        desc={"เรากำลังเพิ่มรูปภาพของคุณเข้าไปในพอร์ตฟอลิโอนี้"}
+        desc={"เรากำลังเพิ่มรูปภาพของคุณเข้าไปในพอร์ตโฟลิโอนี้"}
       />
       {isLoading && (
         <div tw="w-full h-[30px]">
@@ -290,15 +291,15 @@ const EditPortfolioform = () => {
       )}
       {!isLoading && portfolio && (
         <Container>
-          <Header>เเก้ไขพอร์ตฟอลิโอ</Header>
+          <Header>เเก้ไขพอร์ตโฟลิโอ</Header>
           <InputContainer>
             {" "}
             <Input
               type="text"
               id="portfolioName"
-              label="หัวข้อพอร์ตฟอลิโอ"
-              placeholder="ใส่หัวข้องพอร์ตฟอลิโอที่นี่..."
-              errorText="โปรดกรอกหัวข้อพอร์ตฟอลิโอ"
+              label="หัวข้อพอร์ตโฟลิโอ"
+              placeholder="ใส่หัวข้องพอร์ตโฟลิโอที่นี่..."
+              errorText="โปรดกรอกหัวข้อพอร์ตโฟลิโอ"
               onInput={inputHandler}
               initialValue={portfolio.name}
               initialValid={true}
@@ -310,7 +311,7 @@ const EditPortfolioform = () => {
                 type="textarea"
                 id="description"
                 label="รายละเอียดพอร์ตโฟลิโอ"
-                placeholder="ใส่รายละเอียดพอร์ตฟอลิโอที่นี่..."
+                placeholder="ใส่รายละเอียดพอร์ตโฟลิโอที่นี่..."
                 errorText="โปรดกรอกรายละเอียด"
                 onInput={inputHandler}
                 initialValue={portfolio.description}
@@ -369,7 +370,7 @@ const EditPortfolioform = () => {
             )}
             {!isValidImg && (
               <div tw="my-[1px] font-light text-red-700 text-xs font-ibm">
-                ต้องมีอย่างน้อย 1 รูปในพอร์ตฟอลิโอ{" "}
+                ต้องมีอย่างน้อย 1 รูปในพอร์ตโฟลิโอ{" "}
               </div>
             )}
             <div tw="w-full flex justify-around mt-2 mb-[5vh]">
@@ -390,7 +391,7 @@ const EditPortfolioform = () => {
                 onClick={handleClickDelete}
                 tw="w-[40%] text-white rounded-[20px] bg-[#EB4335] h-[30px]"
               >
-                ลบรูปนี้
+                ลบรูปภาพนี้
               </button>
             </div>
           </div>
@@ -401,7 +402,7 @@ const EditPortfolioform = () => {
               checked={isPublic === false}
               onChange={handleClickIsPublic}
             />
-            <label htmlFor="ch">ปิดการมองเห็นพอร์ตฟอลิโอ</label>
+            <label htmlFor="ch">ปิดการมองเห็นพอร์ตโฟลิโอ</label>
           </div>
           <ButtonContainer>
             <Button

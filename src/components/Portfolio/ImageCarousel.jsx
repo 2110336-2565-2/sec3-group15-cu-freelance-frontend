@@ -17,7 +17,7 @@ const ImageCarousel = ({ images, onSwiperImg = () => {} }) => {
         // console.log(swiper.activeIndex);
         onSwiperImg(swiper.activeIndex);
       }}
-      pagination={{ clickable: true }}
+      //pagination={{ clickable: true }}
       // loop={true}
       grabCursor={true}
       //   autoplay={{ delay: 2000, disableOnInteraction: false }}

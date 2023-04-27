@@ -4,10 +4,12 @@ import { validate } from "./Validate.jsx";
 import { useEffect } from "react";
 
 const styles = {
-  container: () => [
+  container: ({isTextArea,rows}) => [
     tw`box-border flex flex-col w-full font-inter min-h-[84px]`,
+    isTextArea&&rows!==7&&tw`min-h-[300px]`,
+    isTextArea&&rows===7&&tw`min-h-[230px]`
   ],
-  label: () => [tw`mb-2   dt:font-[16px] align-top font-ibm`],
+  label: () => [tw`mb-2   dt:text-[16px] align-top font-ibm`],
   input: () => [
     tw`focus:outline-0 focus:border-[#D62B70] box-border rounded-[10px] border-[1px] font-light text-base text-[F4B86A] px-4 py-1 font-ibm`,
   ],
@@ -21,7 +23,7 @@ const styles = {
     tw` font-[20px] text-freelance-black-primary p-[1%] font-light font-ibm`,
   ],
   errorText: ({ isFirstClick, isValid }) => [
-    tw`my-[1px] font-light text-red-700 text-xs font-ibm`,
+    tw`my-[1px] font-light text-red-700 text-sm font-ibm`,
     (!isFirstClick || isValid) && tw`hidden`,
   ],
 };
@@ -55,6 +57,7 @@ const Input = ({
   step,
   required,
   rows = 10,
+  keyDownHandler,
 }) => {
   const [state, dispatch] = useReducer(reducer, {
     value: initialValue || "",
@@ -62,6 +65,12 @@ const Input = ({
     isFirstClick: false,
   });
   const { value, isValid } = state;
+
+  const onKeyDown = (event) => {
+    if (event.key == "Enter") {
+      keyDownHandler();
+    }
+  }
 
   useEffect(() => {
     onInput(id, value, isValid);
@@ -142,14 +151,15 @@ const Input = ({
         }}
         min={min}
         step={step}
+        onKeyDown={onKeyDown}
       ></input>
     );
 
   return (
-    <div css={styles.container()}>
+    <div css={styles.container({isTextArea:type==="textarea",rows})}>
       <label css={styles.label()} htmlFor={id}>
         {label}
-        {required && <span tw="text-red-700 ">*</span>}
+        {required && <span className="text-red-700 ">*</span>}
       </label>
       {input}
       <div
@@ -160,7 +170,7 @@ const Input = ({
       >
         {errorText}
       </div>
-    </div>
+    </div >
   );
 };
 

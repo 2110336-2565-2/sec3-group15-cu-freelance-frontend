@@ -24,6 +24,8 @@ import PriceFilter from "../components/searchPage/PriceFilter";
 import DurationFilter from "../components/searchPage/DurationFilter";
 import FilterButton from "../components/searchPage/FilterButton";
 
+import { useForm } from "../hooks/form-hook";
+
 import { apiClient } from "../utils/axios";
 
 import {
@@ -38,6 +40,7 @@ import ConfirmModalTemplate from "../components/share/ConfirmModalTemplate";
 import LoadingSpinner from "../components/share/LoadingSpinner";
 import OrderCarousel from "../components/order/OrderCarousel";
 import Button from "../components/share/Button";
+import { OrderContext } from "../context/OrderProvider";
 
 const BG = tw.div`inline dt:flex w-full dt:w-[90%] max-w-[1200px] mx-auto`;
 const Header = tw.div`text-mobile-h1 dt:text-desktop-h1 font-bold my-4`;
@@ -63,15 +66,26 @@ const MyOrderPage = () => {
   const windowSize = useWindow();
   const carouselRef = useRef(null);
   const authCtx = useContext(AuthContext);
+  const orderCtx = useContext(OrderContext);
   const userType = authCtx.userInfo.user_type;
   // console.log(authCtx.userInfo.user_type);
   const navigate = useNavigate();
-
+  const [avatar, setAvatar] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const [formState, inputHandler] = useForm(
+    {
+      files: {
+        value: [],
+        isValid: false,
+      },
+    },
+    false
+  );
 
   //InfiniteScroll or Pagination
   const pageRef = React.createRef();
-  const page = searchParams.get("pages") || 1;
+  const page = searchParams.get("pages") || "1";
 
   //header-type
   const selectOrder = searchParams.get("q");
@@ -151,6 +165,7 @@ const MyOrderPage = () => {
   const onResetPage = () => {
     searchParams.set("pages", 1);
     setSearchParams(searchParams);
+    setOrders(null);
     if (carouselRef.current) {
       if (carouselRef.current.swiper)
         carouselRef.current.swiper.slideTo(0, 1000);
@@ -314,7 +329,6 @@ const MyOrderPage = () => {
     keyword,
     status
   ) => {
-    console.log(page);
     let ht = "/" + headerType;
     if (ht === "/order") ht = "";
     setIsLoadingOrder(true);
@@ -348,20 +362,54 @@ const MyOrderPage = () => {
       response = await apiClient.get(
         `/order${ht}?` + new URLSearchParams(params).toString()
       );
-      // console.log(response.data);
-      if (windowSize >= 850 || page === "1" || !orders) {
-        if (selectOrder === "template")
-          setOrders(response.data.order_templates);
-        else if (selectOrder === "request") setOrders(response.data.requests);
-        else setOrders(response.data.orders);
-      } else {
-        if (selectOrder === "template")
-          setOrders((prev) => [...prev, ...response.data.order_templates]);
-        else if (selectOrder === "request")
-          setOrders((prev) => [...prev, ...response.data.requests]);
-        else setOrders((prev) => [...prev, ...response.data.orders]);
-      }
+      let responseOrders,
+        avatarsId = null,
+        resultOrders = [];
+      if (selectOrder === "template")
+        responseOrders = response.data.order_templates;
+      else if (selectOrder === "request")
+        responseOrders = response.data.requests;
+      else responseOrders = response.data.orders;
 
+      console.log(responseOrders);
+
+      if (userType === 1)
+        avatarsId = responseOrders.map((order) => order.customer_id);
+      else if (userType === 2 && selectOrder !== "template")
+        avatarsId = responseOrders.map((order) => order.freelance_id);
+
+      console.log(avatarsId);
+
+      const responseAvatar2 = await apiClient.get(
+        `/file/avatar?id=${avatarsId}`
+      );
+      console.log(responseAvatar2.data);
+
+      resultOrders = responseOrders.map((order) => {
+        if (!avatarsId) return order;
+        else {
+          let idx;
+          if (userType === 1)
+            idx = responseAvatar2.data.avatars.findIndex(
+              (resAV2) => resAV2.userId === order.customer_id
+            );
+          else
+            idx = responseAvatar2.data.avatars.findIndex(
+              (resAV2) => resAV2.userId === order.freelance_id
+            );
+          return { ...order, avatar2: responseAvatar2.data.avatars[idx].url };
+        }
+      });
+
+      if (windowSize >= 850 || page === "1" || !orders) {
+        setOrders(resultOrders);
+      } else {
+        setOrders((prev) => [...prev, ...resultOrders]);
+      }
+      const responseAvatar = await apiClient.get(
+        `/file/avatar?id=${authCtx.userInfo.id}`
+      );
+      setAvatar(responseAvatar.data.avatars[0].url);
       setMeta(response.data.meta);
     } catch (err) {
       console.log(err);
@@ -507,10 +555,24 @@ const MyOrderPage = () => {
   const [showOrderModal, setShowOrderModal] = useState(false);
   const onCloseOrderModal = () => {
     setShowOrderModal(false);
+    if (selectOrder === "order" && userType === 1)
+      inputHandler("files", [], false);
   };
   const onClickCardHandler = (order) => {
     setShowOrderModal(true);
     setOrderModalPage(1);
+    setSelectedOrder(order);
+  };
+
+  const handleClickSendWork = (order) => {
+    setShowOrderModal(true);
+    setOrderModalPage(4);
+    setSelectedOrder(order);
+  };
+
+  const handleClickReceiveWork = (order) => {
+    setShowOrderModal(true);
+    setOrderModalPage(5);
     setSelectedOrder(order);
   };
 
@@ -541,6 +603,8 @@ const MyOrderPage = () => {
   return (
     <>
       <ConfirmModalTemplate
+        formState={formState}
+        inputHandler={inputHandler}
         show={showConfirmModal}
         setShowOrderModal={setShowOrderModal}
         setShowConfirmModal={setShowConfirmModal}
@@ -565,6 +629,10 @@ const MyOrderPage = () => {
       />
 
       <OrderModalTemplate
+        formState={formState}
+        inputHandler={inputHandler}
+        onClickSendWork={handleClickSendWork.bind(null, selectedOrder)}
+        onClickReceiveWork={handleClickReceiveWork.bind(null, selectedOrder)}
         onClose={onCloseOrderModal}
         show={showOrderModal}
         orderType={selectOrder}
@@ -654,6 +722,7 @@ const MyOrderPage = () => {
                 <Button
                   primary
                   onClick={() => {
+                    orderCtx.clickCreateTemplate("order");
                     navigate("/create-order-template");
                   }}
                 >
@@ -671,6 +740,7 @@ const MyOrderPage = () => {
           </SortContainer>
           {windowSize < 850 && (
             <OrderCarousel
+              avatar={avatar}
               orders={orders}
               isLoading={isLoadingOrder}
               handleInfiniteScroll={handleInfiniteScrollNextPage}
@@ -679,6 +749,7 @@ const MyOrderPage = () => {
               openConfirmModal={openConfirmModal}
               onClickCardHandler={onClickCardHandler}
               ref={carouselRef}
+              onClickSendWork={handleClickSendWork}
             />
           )}
           {windowSize >= 850 && (
@@ -689,6 +760,8 @@ const MyOrderPage = () => {
                 orders &&
                 orders.map((order) => (
                   <OrderCard
+                    avatar={avatar}
+                    avatar2={order.avatar2}
                     key={order.id}
                     header={order.title}
                     description={order.description}
@@ -707,6 +780,7 @@ const MyOrderPage = () => {
                     orderType={selectOrder}
                     userType={userType}
                     onClick={onClickCardHandler.bind(null, order)}
+                    onClickSendWork={handleClickSendWork.bind(null, order)}
                     order={order}
                     openConfirmModal={openConfirmModal}
                   />
