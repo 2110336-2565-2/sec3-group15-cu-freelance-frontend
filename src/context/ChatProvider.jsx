@@ -39,6 +39,7 @@ const ChatProvider = ({ children }) => {
             };
             initialWs.onclose = (ev) => {
                 console.debug(`WebSocket disconnected at code ${ev.code}`);
+                // initialWs.close();
                 if (ev.code != 1000) setConnected(false);
             };
             initialWs.onmessage = async (event) => {
@@ -48,13 +49,6 @@ const ChatProvider = ({ children }) => {
                     if (data.connect_success === true) {
                         console.log("Handshake is completed!");
                         setConnected(true);
-                    }
-                    else if (data.type == 6) {
-                        const pong = {
-                            type: 6,
-                            message: "pong",
-                        }
-                        initialWs.send(JSON.stringify(pong));
                     }
                     else if (data.type == 4) {
                         setAllMessageList((prev) => [...prev, { sender: data.sender_id, message: data.message }]);

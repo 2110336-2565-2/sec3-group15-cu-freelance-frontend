@@ -121,6 +121,7 @@ const Chat = () => {
         const maxScrollTop = scrollHeight - height;
         messageRef.current.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
     }, [messageList])
+    console.log(chatCtx.partner);
     return (
         <>
             <Container>
@@ -128,15 +129,15 @@ const Chat = () => {
                     <CircleImageContainer>
                         <CircleImage />
                     </CircleImageContainer>
-                    <Name>demo</Name>
+                    <Name>{chatCtx.partner ? chatCtx.partner.display_name : null}</Name>
                 </Information>
                 <Hr />
                 <MessageContainer ref={messageRef}>
                     {messageList.map((message, i) => {
                         return (
-                            <Message key={i} right={message.sender !== chatCtx.partner.id}>
+                            <Message key={i} right={message.sender === authCtx.userInfo.id}>
                                 {message.show && <ProfileContainer>
-                                    <CircleImage />
+                                    <CircleImage image={chatCtx.partner ? chatCtx.partner.avatar : null} />
                                 </ProfileContainer>}
                                 <Text>
                                     {message.message}

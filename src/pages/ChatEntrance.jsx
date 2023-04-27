@@ -19,7 +19,7 @@ const ChatEntrancePage = () => {
     <>
       <Container>
         <ChatList />
-        {windowSize >= 850 && chatCtx.partner && <Chat />}
+        {windowSize >= 850 && <Chat />}
       </Container>
     </>
   );

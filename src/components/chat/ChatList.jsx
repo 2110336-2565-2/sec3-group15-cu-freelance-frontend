@@ -24,27 +24,30 @@ const ChatList = () => {
   const authCtx = useContext(AuthContext);
   const [chatList, setChatList] = useState([]);
   const chatCtx = useContext(ChatContext);
+  const startList = [];
   useEffect(() => {
-    // console.log("eiei", chatCtx.partner);
+    console.log("eiei", chatCtx.partner);
     if (chatCtx.partner) setChatList([chatCtx.partner]);
     chatCtx.allMessageList.forEach(async (message) => {
       if (authCtx.userInfo.user_type === 1 && message.sender != authCtx.userInfo.id) { //user is freelance
         console.log(message);
         const res = await apiClient.get(`/user/customer/${message.sender}`);
-        console.log(res);
-        if (!chatList.includes(res.data)) {
-          setChatList((prev) => [res.data, ...prev]);
-        }
+        const res2 = await apiClient.get(`/file/avatar?id=${message.sender}`);
+        console.log(res2);
+        if (!startList.includes(res.data)) startList.push(res.data);
       }
       else if (authCtx.userInfo.user_type === 2 && message.sender != authCtx.userInfo.id) { //user is customer
         const res = await apiClient.get(`/user/freelance/${message.sender}`);
-        console.log(res);
-        if (!chatList.includes(res.data)) {
-          setChatList((prev) => [res.data, ...prev]);
+        const res2 = await apiClient.get(`/file/avatar?id=${message.sender}`);
+        console.log(res2);
+        if (!startList.includes(res.data)) {
+          startList.push(res.data);
         }
       }
+      setChatList(startList);
     });
   }, [])
+  console.log(chatCtx.allMessageList);
   const onClickHandler = (partner) => {
     chatCtx.setPartner(partner);
   }
