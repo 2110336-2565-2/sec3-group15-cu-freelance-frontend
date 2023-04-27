@@ -11,7 +11,7 @@ import LoadingSpinner from "../../share/LoadingSpinner";
 import { mapOptions } from "../../../store/portfolioForm";
 import Button from "../../share/Button";
 import CircleImage from "../../share/CircleImage";
-import { ChatContext } from "../../../context/ChatProvider";
+// import { ChatContext } from "../../../context/ChatProvider";
 
 const Container = tw.div`h-auto w-full flex flex-col items-center font-ibm max-w-[500px] gap-y-3`;
 const InfoContainer = tw.div`h-[70vh] w-full max-h-[70vh] overflow-y-auto flex flex-col items-center font-ibm gap-y-3`;
@@ -38,7 +38,7 @@ const PortfolioDetail = () => {
   const [portfolio, setPortfolio] = useState(null);
   const [profileImg, setProfileImg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const chatCtx = useContext(ChatContext);
+  // const chatCtx = useContext(ChatContext);
   // console.log(authCtx.userInfo)
 
   useEffect(() => {

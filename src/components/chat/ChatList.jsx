@@ -4,7 +4,7 @@ import ChatCard from './ChatCard';
 import { useState } from 'react';
 import { useWindow } from '../../hooks/window-hook';
 import { useContext } from 'react';
-import { ChatContext } from '../../context/ChatProvider';
+// import { ChatContext } from '../../context/ChatProvider';
 import { AuthContext } from '../../context/AuthProvider';
 import { apiClient } from '../../utils/axios';
 // const chatList = [{ name: "ธีรุตม์ สีเขียว", lastMsg: "สวัสดีครับ" }, { name: "รัชนาท ลาชโรจน์", lastMsg: "คาดว่างานจะเสร็จทันครับบลาบลาบลา" }, { name: "นัน วาณิชยชลกิล", lastMsg: "ตรวจงานก่อนยืนยันนะครับ" }]
@@ -23,7 +23,7 @@ const ListContainer = styled.div(() => [
 const ChatList = () => {
   const authCtx = useContext(AuthContext);
   const [chatList, setChatList] = useState([]);
-  const chatCtx = useContext(ChatContext);
+  // const chatCtx = useContext(ChatContext);
   const startList = [];
   useEffect(() => {
     console.log("eiei", chatCtx.partner);

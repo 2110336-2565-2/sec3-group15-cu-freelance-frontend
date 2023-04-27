@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useForm } from '../../hooks/form-hook';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthProvider';
-import { ChatContext } from '../../context/ChatProvider';
+// import { ChatContext } from '../../context/ChatProvider';
 import { apiClient } from '../../utils/axios';
 // const startMessageList = [{ sender: 0, message: "สวัสดีจ้ะ" }, { sender: 0, message: "ว่างไหม" }, { sender: 1, message: "สวัสดีครับ" }, { sender: 0, message: "พี่มีโปรเจกต์ทำเว็บสำหรับนิสิตจุฬา รายละเอียดคร่าวๆคือทำเว็บไซต์ freelance ให้เด็กจุฬา ให้ค่าเหนื่อยประมาณ 100000 น้องสนใจมั้ย" }, { sender: 1, message: "น่าสนใจครับ ลองส่งorderมาให้ผมลองอ่านคร่าวๆดูก่อนได้ไหม เดี๋ยวผมจะยืนยันอีกที" }]
 
@@ -49,7 +49,7 @@ const Text = styled.div(() => [
 ])
 const Chat = () => {
     const authCtx = useContext(AuthContext);
-    const chatCtx = useContext(ChatContext);
+    // const chatCtx = useContext(ChatContext);
     // useEffect(() => {
     //     console.log(chatCtx.message);
     // }, [chatCtx.message])
