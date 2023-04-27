@@ -27,7 +27,7 @@ import UserSettingEntranceDtPage from "./pages/UserSettingEntranceDt";
 import IssueReportPage from "./pages/IssueReport";
 import ChatEntrancePage from "./pages/ChatEntrance";
 import OrderProvider from "./context/OrderProvider";
-import ChatProvider from "./context/ChatProvider";
+// import ChatProvider from "./context/ChatProvider";
 function App() {
   const { acToken, reToken, login, logout, userInfo, setUserInfo } = useAuth();
   return (
@@ -35,7 +35,6 @@ function App() {
       <AuthContext.Provider
         value={{ userInfo, acToken, reToken, login, logout, setUserInfo }}
       >
-        <ChatProvider>
           <Routes>
             <Route path="/" element={<LayoutWithNavbar acToken={acToken} />}>
               <Route path="" element={<Navigate to="home" />} />
@@ -95,7 +94,6 @@ function App() {
             <Route path="*" element={<Navigate to="home" />} />
           </Routes>
           <Footer isLogin={!!acToken} />
-        </ChatProvider>
       </AuthContext.Provider>
     </OrderProvider>
   );
